@@ -13,8 +13,9 @@ export default {
     };
   },
   mounted() {
+    const host = `${import.meta.env.VITE_JSONSERVER_DB}`;
     this.axios
-      .get("https://coffee-meets-bagel-jsonserverdb.onrender.com/products")
+      .get(`${host}/products`)
       .then((response) => {
         console.log("資料取得成功");
         console.log(response.data);

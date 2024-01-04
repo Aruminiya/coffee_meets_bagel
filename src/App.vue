@@ -1,4 +1,11 @@
-<script></script>
+<script>
+export default {
+  mounted() {
+    //顯示當前環境變數 (可以刪掉 不太重要)
+    console.log(import.meta.env.VITE_CURRENT_ENVIRONMENT);
+  },
+};
+</script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
