@@ -21,6 +21,11 @@
             >關於我們</router-link
           >
         </div>
+        <div class="navbar-nav">
+          <router-link to="/order" class="nav-link" aria-current="page" href="#"
+            >線上點餐</router-link
+          >
+        </div>
       </div>
     </div>
   </nav>
