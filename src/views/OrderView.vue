@@ -13,9 +13,10 @@ export default {
     };
   },
   mounted() {
-    const host = `${import.meta.env.VITE_JSONSERVER_DB}`;
+    const host = import.meta.env.VITE_HEXAPI;
+    const path = import.meta.env.VITE_USER_PATH;
     this.axios
-      .get(`${host}/products`)
+      .get(`${host}/v2/api/${path}/products/all`)
       .then((response) => {
         console.log("資料取得成功");
         console.log(response.data);
