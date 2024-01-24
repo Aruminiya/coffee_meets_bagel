@@ -1,8 +1,9 @@
 <script>
-import OrderCheckProgress from "../components/OrderCheckProgress.vue";
+import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
+import CartItemComponent from "../components/CartItemComponent.vue";
 
 export default {
-  components: { OrderCheckProgress },
+  components: { OrderCheckProgressComponent, CartItemComponent },
   data() {
     return {
       carts: {},
@@ -29,7 +30,7 @@ export default {
 
 <template>
   <main>
-    <OrderCheckProgress :step="1" />
+    <OrderCheckProgressComponent :step="1" />
     <section class="container">
       <div class="row">
         <div class="col-lg-6 col-12 p-5">
@@ -74,6 +75,7 @@ export default {
               </div>
             </div>
             <!-- {{ carts }} -->
+            <CartItemComponent />
           </div>
         </div>
         <div class="col-lg-6 col-12 p-5">
