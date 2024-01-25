@@ -2,34 +2,33 @@
 import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
 import CartItemComponent from "../components/CartItemComponent.vue";
 
+// pinia
+import { mapState, mapActions } from "pinia";
+import cartStore from "../stores/CartStore.js";
+
 export default {
   components: { OrderCheckProgressComponent, CartItemComponent },
   data() {
     return {
-      carts: {},
       updateProduct: {},
     };
   },
+  computed: {
+    ...mapState(cartStore, ["carts"]),
+  },
+  methods: {
+    ...mapActions(cartStore, ["getCarts"]),
+  },
   mounted() {
-    const host = import.meta.env.VITE_HEXAPI;
-    const path = import.meta.env.VITE_USER_PATH;
-
-    this.axios
-      .get(`${host}/v2/api/${path}/cart`)
-      .then((res) => {
-        const { carts } = res.data.data;
-        this.carts = carts;
-        console.log(this.carts);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    // 先取得購物車資訊
+    this.getCarts();
   },
 };
 </script>
 
 <template>
   <main>
+    <!-- 進度條元件 step 是 props 傳入當前第幾步驟 -->
     <OrderCheckProgressComponent :step="1" />
     <section class="container">
       <div class="row">
@@ -42,9 +41,9 @@ export default {
               :key="item.id"
               @click="this.updateProduct = item"
             >
+              <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
               <CartItemComponent :item="item" />
             </div>
-            <!-- {{ carts }} -->
           </div>
         </div>
         <div class="col-lg-6 col-12 p-5">
@@ -52,7 +51,6 @@ export default {
             <h3>填寫訂購資訊</h3>
             <form>
               <div class="orderFrom p-5 rounded shadow-sm">
-                <!-- 電子信箱 -->
                 <label for="email">電子信箱:</label>
                 <input
                   class="form-control"
@@ -61,8 +59,6 @@ export default {
                   name="email"
                   required
                 /><br />
-
-                <!-- 姓名 -->
                 <label for="name">姓名:</label>
                 <input
                   class="form-control"
@@ -71,8 +67,6 @@ export default {
                   name="name"
                   required
                 /><br />
-
-                <!-- 電話 -->
                 <label for="phone">電話:</label>
                 <input
                   class="form-control"
@@ -81,8 +75,6 @@ export default {
                   name="phone"
                   required
                 /><br />
-
-                <!-- 住址 -->
                 <label for="address">住址:</label>
                 <input
                   class="form-control"
@@ -91,8 +83,6 @@ export default {
                   name="address"
                   required
                 /><br />
-
-                <!-- 備註 -->
                 <label for="comments">備註:</label>
                 <textarea
                   class="form-control"
@@ -104,7 +94,6 @@ export default {
                 ></textarea>
               </div>
               <br />
-              <!-- 提交按鈕 -->
               <button type="button" class="btn btn-dark w-100">
                 <h5 class="m-1">送出資訊</h5>
               </button>
