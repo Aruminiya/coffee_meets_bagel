@@ -1,7 +1,11 @@
 <script>
 export default {
+  props: { isModal: { type: Boolean } },
+  emits: ["isOpened", "isClosed"],
   methods: {
     openModal() {
+      console.log("Modal 打開");
+      this.$emit("isOpened");
       const myProductModal = this.$refs.myProductModal;
       const productModalContent = this.$refs.productModalContent;
 
@@ -12,6 +16,8 @@ export default {
       }, 10);
     },
     closeModal() {
+      console.log("Modal 關閉");
+      this.$emit("isClosed");
       const myProductModal = this.$refs.myProductModal;
       const productModalContent = this.$refs.productModalContent;
 
@@ -21,6 +27,16 @@ export default {
         myProductModal.style.display = "none";
         productModalContent.style.transform = "translateY(100vh)";
       }, 300);
+    },
+  },
+  watch: {
+    isModal(newVal, oldVal) {
+      console.log(newVal, oldVal);
+      if (newVal === true) {
+        this.openModal();
+      } else if (newVal === false) {
+        this.closeModal();
+      }
     },
   },
 };

@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       updateProduct: {},
+      isModal: false,
     };
   },
   computed: {
@@ -23,6 +24,10 @@ export default {
   },
   methods: {
     ...mapActions(cartStore, ["getCarts"]),
+    showProductDetail(item) {
+      this.updateProduct = item;
+      this.isModal = true;
+    },
   },
   mounted() {
     // 先取得購物車資訊
@@ -44,7 +49,7 @@ export default {
               class="cartProductInfo position-relative"
               v-for="item in carts"
               :key="item.id"
-              @click="this.updateProduct = item"
+              @click="showProductDetail(item)"
             >
               <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
               <CartItemComponent :item="item" />
@@ -107,8 +112,13 @@ export default {
         </div>
       </div>
     </section>
+    <button @click="isModal = !isModal">開關測試</button>
     <!--自製產品 Modal-->
-    <ModalComponent>
+    <ModalComponent
+      :isModal="isModal"
+      @isClosed="isModal = false"
+      @isOpened="isModal = true"
+    >
       <h1>產品資訊</h1>
       {{ updateProduct }}
     </ModalComponent>
