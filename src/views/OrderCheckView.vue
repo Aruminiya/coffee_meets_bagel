@@ -18,6 +18,27 @@ export default {
   },
   methods: {
     ...mapActions(cartStore, ["getCarts"]),
+    openModal() {
+      const myProductModal = this.$refs.myProductModal;
+      const productModalContent = this.$refs.productModalContent;
+
+      myProductModal.style.display = "flex";
+      setTimeout(function () {
+        myProductModal.style.opacity = "1";
+        productModalContent.style.transform = "translateY(0)";
+      }, 10);
+    },
+    closeModal() {
+      const myProductModal = this.$refs.myProductModal;
+      const productModalContent = this.$refs.productModalContent;
+
+      myProductModal.style.opacity = "0";
+
+      setTimeout(function () {
+        myProductModal.style.display = "none";
+        productModalContent.style.transform = "translateY(100vh)";
+      }, 300);
+    },
   },
   mounted() {
     // 先取得購物車資訊
@@ -102,11 +123,25 @@ export default {
         </div>
       </div>
     </section>
-    <!--自製產品 Madel-->
-    <section>
-      <h1>產品資訊</h1>
-      {{ updateProduct }}
-    </section>
+    <!--自製產品 Modal-->
+    <button @click="openModal()">Modal</button>
+    <div
+      id="myProductModal"
+      ref="myProductModal"
+      class="productModal"
+      @click="closeModal()"
+      style="display: none; opacity: 0"
+    >
+      <div
+        class="productModal-content"
+        ref="productModalContent"
+        style="transform: translateY(100vh)"
+      >
+        <span class="close-btn" @click="closeModal()">&times;</span>
+        <h1>產品資訊</h1>
+        {{ updateProduct || "TEST" }}
+      </div>
+    </div>
   </main>
 </template>
 
@@ -117,5 +152,33 @@ export default {
 .imgContainer {
   width: 120px;
   height: 120px;
+}
+
+.productModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden; /* 隐藏溢出部分，防止页面滚动 */
+}
+.productModal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  transform: translateY(100%); /* 初始位置在底部 */
+  transition: transform 0.5s ease-in-out;
+}
+.close-btn {
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 </style>
