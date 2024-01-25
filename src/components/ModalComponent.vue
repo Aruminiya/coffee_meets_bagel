@@ -1,7 +1,14 @@
 <script>
 export default {
+  props: {
+    isModal: { type: Boolean },
+    animationShow: { type: String, default: "bottom_to_center" },
+  },
+  emits: ["isOpened", "isClosed"],
   methods: {
     openModal() {
+      //   console.log("Modal 打開");
+      this.$emit("isOpened");
       const myProductModal = this.$refs.myProductModal;
       const productModalContent = this.$refs.productModalContent;
 
@@ -12,6 +19,8 @@ export default {
       }, 10);
     },
     closeModal() {
+      //   console.log("Modal 關閉");
+      this.$emit("isClosed");
       const myProductModal = this.$refs.myProductModal;
       const productModalContent = this.$refs.productModalContent;
 
@@ -23,11 +32,21 @@ export default {
       }, 300);
     },
   },
+  watch: {
+    isModal(newVal, oldVal) {
+      //   console.log(newVal, oldVal);
+      if (newVal === true) {
+        this.openModal();
+      } else if (newVal === false) {
+        this.closeModal();
+      }
+    },
+  },
 };
 </script>
 
 <template>
-  <button @click="openModal()">Modal</button>
+  <!-- <button @click="openModal()">Modal</button> -->
   <div
     id="myProductModal"
     ref="myProductModal"
@@ -48,6 +67,7 @@ export default {
 
 <style lang="scss" scoped>
 .productModal {
+  z-index: 10;
   display: none;
   position: fixed;
   top: 0;

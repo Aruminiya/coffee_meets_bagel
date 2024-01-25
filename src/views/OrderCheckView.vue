@@ -14,9 +14,7 @@ export default {
     ModalComponent,
   },
   data() {
-    return {
-      updateProduct: {},
-    };
+    return {};
   },
   computed: {
     ...mapState(cartStore, ["carts"]),
@@ -44,7 +42,6 @@ export default {
               class="cartProductInfo position-relative"
               v-for="item in carts"
               :key="item.id"
-              @click="this.updateProduct = item"
             >
               <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
               <CartItemComponent :item="item" />
@@ -108,10 +105,6 @@ export default {
       </div>
     </section>
     <!--自製產品 Modal-->
-    <ModalComponent>
-      <h1>產品資訊</h1>
-      {{ updateProduct }}
-    </ModalComponent>
   </main>
 </template>
 
