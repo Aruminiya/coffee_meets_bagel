@@ -18,17 +18,17 @@ export default {
 </script>
 
 <template>
-  <div
-    class="cartProductInfo position-relative"
-    @click="showProductModalDetail()"
-  >
+  <div class="cartProductInfo position-relative">
     <button
       type="button"
       class="deleteBtn position-absolute end-0 badge rounded-pill text-bg-dark"
     >
       -
     </button>
-    <div class="d-flex rounded shadow-sm p-3 my-3">
+    <div
+      class="d-flex rounded shadow-sm p-3 my-3"
+      @click="showProductModalDetail()"
+    >
       <div class="imgContainer me-2">
         <img
           class="w-100 h-100 object-fit-cover rounded"
@@ -58,8 +58,8 @@ export default {
     @isClosed="isModal = false"
     @isOpened="isModal = true"
   >
-    <h1>產品資訊</h1>
-    {{ item }}
+    <h1 class="test">產品資訊</h1>
+    <!-- {{ item }} -->
   </ModalComponent>
 </template>
 
@@ -70,5 +70,8 @@ export default {
 .imgContainer {
   width: 120px;
   height: 120px;
+}
+.test {
+  height: 100vh;
 }
 </style>

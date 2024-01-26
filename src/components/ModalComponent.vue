@@ -2,7 +2,7 @@
 export default {
   props: {
     isModal: { type: Boolean },
-    animationShow: { type: String, default: "bottom_to_center" },
+    animationShow: { type: String, default: "fadeIn_to_fadeOut" },
   },
   emits: ["isOpened", "isClosed"],
   methods: {
@@ -12,11 +12,67 @@ export default {
       const myProductModal = this.$refs.myProductModal;
       const productModalContent = this.$refs.productModalContent;
 
-      myProductModal.style.display = "flex";
-      setTimeout(function () {
-        myProductModal.style.opacity = "1";
+      // 根據當前的動畫模式展現該動畫效果
+      console.log(this.animationShow);
+
+      if (this.animationShow === "fadeIn_to_fadeOut") {
         productModalContent.style.transform = "translateY(0)";
-      }, 10);
+        productModalContent.style.transform = "translateX(0)";
+        myProductModal.style.opacity = "0";
+        myProductModal.style.display = "flex";
+        myProductModal.style.justifyContent = "center";
+        myProductModal.style.alignItems = "center";
+
+        setTimeout(function () {
+          myProductModal.style.opacity = "1";
+        }, 10);
+      } else if (this.animationShow === "bottom_to_center") {
+        productModalContent.style.transform = "translateY(100vh)";
+        myProductModal.style.opacity = "0";
+        myProductModal.style.display = "flex";
+        myProductModal.style.justifyContent = "center";
+        myProductModal.style.alignItems = "center";
+
+        setTimeout(function () {
+          myProductModal.style.opacity = "1";
+          productModalContent.style.transform = "translateY(0)";
+        }, 10);
+      } else if (this.animationShow === "top_to_center") {
+        productModalContent.style.transform = "translateY(-100vh)";
+        myProductModal.style.opacity = "0";
+        myProductModal.style.display = "flex";
+        myProductModal.style.justifyContent = "center";
+        myProductModal.style.alignItems = "center";
+
+        setTimeout(function () {
+          myProductModal.style.opacity = "1";
+          productModalContent.style.transform = "translateY(0)";
+        }, 10);
+      } else if (this.animationShow === "right_to_center") {
+        productModalContent.style.transform = "translateX(100vh)";
+        myProductModal.style.opacity = "0";
+        myProductModal.style.display = "flex";
+        myProductModal.style.justifyContent = "center";
+        myProductModal.style.alignItems = "center";
+
+        setTimeout(function () {
+          myProductModal.style.opacity = "1";
+          productModalContent.style.transform = "translateX(0)";
+        }, 10);
+      } else if (this.animationShow === "left_to_center") {
+        productModalContent.style.transform = "translateX(-100vh)";
+        myProductModal.style.opacity = "0";
+        myProductModal.style.display = "flex";
+        myProductModal.style.justifyContent = "center";
+        myProductModal.style.alignItems = "center";
+
+        setTimeout(function () {
+          myProductModal.style.opacity = "1";
+          productModalContent.style.transform = "translateX(0)";
+        }, 10);
+      } else {
+        console.warn("無效的動畫指令");
+      }
     },
     closeModal() {
       //   console.log("Modal 關閉");
@@ -24,12 +80,41 @@ export default {
       const myProductModal = this.$refs.myProductModal;
       const productModalContent = this.$refs.productModalContent;
 
-      myProductModal.style.opacity = "0";
+      // 根據當前的動畫模式展現該動畫效果
+      console.log(this.animationShow);
 
-      setTimeout(function () {
-        myProductModal.style.display = "none";
-        productModalContent.style.transform = "translateY(100vh)";
-      }, 300);
+      if (this.animationShow === "fadeIn_to_fadeOut") {
+        myProductModal.style.opacity = "0";
+        setTimeout(function () {
+          myProductModal.style.display = "none";
+        }, 300);
+      } else if (this.animationShow === "bottom_to_center") {
+        myProductModal.style.opacity = "0";
+        setTimeout(function () {
+          myProductModal.style.display = "none";
+          productModalContent.style.transform = "translateY(100vh)";
+        }, 300);
+      } else if (this.animationShow === "top_to_center") {
+        myProductModal.style.opacity = "0";
+        setTimeout(function () {
+          myProductModal.style.display = "none";
+          productModalContent.style.transform = "translateY(-100vh)";
+        }, 300);
+      } else if (this.animationShow === "right_to_center") {
+        myProductModal.style.opacity = "0";
+        setTimeout(function () {
+          myProductModal.style.display = "none";
+          productModalContent.style.transform = "translateX(100vh)";
+        }, 300);
+      } else if (this.animationShow === "left_to_center") {
+        myProductModal.style.opacity = "0";
+        setTimeout(function () {
+          myProductModal.style.display = "none";
+          productModalContent.style.transform = "translateX(-100vh)";
+        }, 300);
+      } else {
+        console.warn("無效的動畫指令");
+      }
     },
   },
   watch: {
@@ -38,7 +123,7 @@ export default {
       if (newVal === true) {
         this.openModal();
       } else if (newVal === false) {
-        this.closeModal();
+        // this.closeModal();
       }
     },
   },
@@ -51,15 +136,11 @@ export default {
     id="myProductModal"
     ref="myProductModal"
     class="productModal"
-    @click="closeModal()"
-    style="display: none; opacity: 0"
+    @click.stop="closeModal()"
   >
-    <div
-      class="productModal-content"
-      ref="productModalContent"
-      style="transform: translateY(100vh)"
-    >
-      <span class="close-btn" @click="closeModal()">&times;</span>
+    <!-- 要注意 productModal-content 需阻止冒泡事件 -->
+    <div class="productModal-content" ref="productModalContent" @click.stop>
+      <span class="close-btn">&times;</span>
       <slot></slot>
     </div>
   </div>
