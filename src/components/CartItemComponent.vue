@@ -55,11 +55,14 @@ export default {
 
   <ModalComponent
     :isModal="isModal"
+    animationShow="bottom_to_center"
     @isClosed="isModal = false"
     @isOpened="isModal = true"
-  >
-    <h1 class="test">產品資訊</h1>
-    <!-- {{ item }} -->
+    ><div class="checkProductInfo">
+      <h1>產品資訊</h1>
+
+      {{ item }}
+    </div>
   </ModalComponent>
 </template>
 
@@ -71,7 +74,7 @@ export default {
   width: 120px;
   height: 120px;
 }
-.test {
-  height: 100vh;
+.checkProductInfo {
+  width: 500px;
 }
 </style>
