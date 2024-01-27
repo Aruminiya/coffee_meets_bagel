@@ -1,7 +1,26 @@
 <script>
 import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
 import CartItemComponent from "../components/CartItemComponent.vue";
-import ModalComponent from "@/components/ModalComponent.vue";
+import ModalComponent from "../components/ModalComponent.vue";
+
+// 把需要的語系 驗證 驗證規則引入
+
+import * as VeeValidate from "vee-validate";
+import * as VeeValidateI18n from "@vee-validate/i18n";
+import * as VeeValidateRules from "@vee-validate/rules";
+
+// 表單驗證規則全部引入使用
+Object.keys(VeeValidateRules).forEach((rule) => {
+  VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+});
+
+// 讀取外部的資源
+VeeValidateI18n.loadLocaleFromURL("../assets/zh_TW.json");
+// // Activate the locale
+// VeeValidate.configure({
+//   generateMessage: VeeValidateI18n.localize('zh_TW'),
+//   validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
+// });
 
 // pinia
 import { mapState, mapActions } from "pinia";
