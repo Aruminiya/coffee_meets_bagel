@@ -1,6 +1,8 @@
 <script>
 export default {
-  props: { step: { type: Number, default: 1 } },
+  props: {
+    step: { type: Number, default: 1 },
+  },
   computed: {
     nowStep() {
       return this.step === 1
