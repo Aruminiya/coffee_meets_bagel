@@ -24,6 +24,11 @@ VeeValidate.configure({
 });
 
 export default {
+  components: {
+    VForm: VeeValidate.Form,
+    VField: VeeValidate.Field,
+    ErrorMessage: VeeValidate.ErrorMessage,
+  },
   data() {
     return {
       user: {
@@ -58,10 +63,10 @@ export default {
       class="form-control"
       :class="{ 'is-invalid': errors['email'] }"
       placeholder="請輸入 Email"
-      rules="required"
+      rules="email|required"
       v-model="user.email"
     ></v-field>
-    <error-message name="name" class="invalid-feedback"></error-message>
+    <error-message name="email" class="invalid-feedback"></error-message>
 
     <v-field
       id="name"
@@ -73,7 +78,7 @@ export default {
       rules="required"
       v-model="user.name"
     ></v-field>
-    <error-message name="password" class="invalid-feedback"></error-message>
+    <error-message name="name" class="invalid-feedback"></error-message>
 
     <v-field
       id="phone"

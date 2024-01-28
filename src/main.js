@@ -13,13 +13,7 @@ import VueAxios from "vue-axios";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
-import * as VeeValidate from "vee-validate";
-
 const app = createApp(App);
-
-app.component("VForm", VeeValidate.Form);
-app.component("VField", VeeValidate.Field);
-app.component("ErrorMessage", VeeValidate.ErrorMessage);
 
 app.use(createPinia());
 app.use(VueAxios, axios);
