@@ -2,10 +2,6 @@
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 
 export default {
-  props: {
-    isModal: { type: Boolean },
-  },
-  emits: ["isOpened", "isClosed"],
   data() {
     return {
       productModal: null,
