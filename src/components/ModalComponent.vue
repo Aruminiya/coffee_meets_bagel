@@ -20,13 +20,10 @@ export default {
     },
   },
   mounted() {
-    // console.log(this.productModal);
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: true, // 按下ESC是否可以關閉
     });
-
-    // console.log(this.productModal);
   },
 };
 </script>
