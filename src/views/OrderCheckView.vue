@@ -1,26 +1,8 @@
 <script>
 import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
 import CartItemComponent from "../components/CartItemComponent.vue";
+import OrderCheckFormComponent from "../components/OrderCheckFormComponent.vue";
 import ModalComponent from "../components/ModalComponent.vue";
-
-// 把需要的語系 驗證 驗證規則引入
-
-import * as VeeValidate from "vee-validate";
-import * as VeeValidateI18n from "@vee-validate/i18n";
-import * as VeeValidateRules from "@vee-validate/rules";
-
-// 表單驗證規則全部引入使用
-Object.keys(VeeValidateRules).forEach((rule) => {
-  VeeValidate.defineRule(rule, VeeValidateRules[rule]);
-});
-
-// 讀取外部的資源
-VeeValidateI18n.loadLocaleFromURL("../assets/zh_TW.json");
-// // Activate the locale
-// VeeValidate.configure({
-//   generateMessage: VeeValidateI18n.localize('zh_TW'),
-//   validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
-// });
 
 // pinia
 import { mapState, mapActions } from "pinia";
@@ -30,6 +12,7 @@ export default {
   components: {
     OrderCheckProgressComponent,
     CartItemComponent,
+    OrderCheckFormComponent,
     ModalComponent,
   },
   data() {
@@ -85,55 +68,7 @@ export default {
         <div class="col-lg-6 col-12 p-5">
           <div>
             <h3>填寫訂購資訊</h3>
-            <form>
-              <div class="orderFrom p-5 rounded shadow-sm">
-                <label for="email">電子信箱:</label>
-                <input
-                  class="form-control"
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                /><br />
-                <label for="name">姓名:</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                /><br />
-                <label for="phone">電話:</label>
-                <input
-                  class="form-control"
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                /><br />
-                <label for="address">住址:</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="address"
-                  name="address"
-                  required
-                /><br />
-                <label for="comments">備註:</label>
-                <textarea
-                  class="form-control"
-                  id="comments"
-                  name="comments"
-                  rows="4"
-                  cols="50"
-                  style="resize: none"
-                ></textarea>
-              </div>
-              <br />
-              <button type="button" class="btn btn-dark w-100">
-                <h5 class="m-1">送出資訊</h5>
-              </button>
-            </form>
+            <OrderCheckFormComponent />
           </div>
         </div>
       </div>
