@@ -28,12 +28,22 @@ export default {
     return {
       user: {
         email: "",
-        password: "",
+        name: "",
+        phone: "",
+        address: "",
       },
     };
   },
   methods: {
-    onSubmit() {},
+    onSubmit(value) {
+      console.log(value);
+    },
+
+    // 電話驗證規則
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/;
+      return phoneNumber.test(value) ? true : "需要正確的電話號碼";
+    },
   },
 };
 </script>
@@ -48,24 +58,53 @@ export default {
       class="form-control"
       :class="{ 'is-invalid': errors['email'] }"
       placeholder="請輸入 Email"
-      rules="email|required"
+      rules="required"
       v-model="user.email"
     ></v-field>
-    <error-message name="email" class="invalid-feedback"></error-message>
+    <error-message name="name" class="invalid-feedback"></error-message>
 
     <v-field
-      id="password"
-      name="password"
-      type="password"
+      id="name"
+      name="name"
+      type="text"
       class="form-control"
-      :class="{ 'is-invalid': errors['password'] }"
-      placeholder="請輸入密碼"
-      rules="min:8|required"
-      v-model="user.password"
+      :class="{ 'is-invalid': errors['name'] }"
+      placeholder="請輸入姓名"
+      rules="required"
+      v-model="user.name"
     ></v-field>
     <error-message name="password" class="invalid-feedback"></error-message>
+
+    <v-field
+      id="phone"
+      name="phone"
+      type="text"
+      class="form-control"
+      :class="{ 'is-invalid': errors['phone'] }"
+      placeholder="請輸入電話"
+      :rules="isPhone"
+      v-model="user.phone"
+    ></v-field>
+    <error-message name="phone" class="invalid-feedback"></error-message>
+
+    <v-field
+      id="address"
+      name="address"
+      type="text"
+      class="form-control"
+      :class="{ 'is-invalid': errors['address'] }"
+      placeholder="請輸入地址"
+      rules="required"
+      v-model="user.address"
+    ></v-field>
+    <error-message name="address" class="invalid-feedback"></error-message>
+
+    <button class="btn btn-primary" type="submit" @click="onSubmit">
+      Submit
+    </button>
   </v-form>
 
+  {{ user }}
   <!-- <form>
     <div class="orderFrom p-5 rounded shadow-sm">
       <label for="email">電子信箱:</label>
