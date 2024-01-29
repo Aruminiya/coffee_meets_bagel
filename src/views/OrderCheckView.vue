@@ -18,19 +18,14 @@ export default {
   data() {
     return {
       item: {},
+      couponCode: "",
     };
   },
   computed: {
-    ...mapState(cartStore, ["carts", "isCartsLoading"]),
-    getTotal() {
-      return this.carts.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.total,
-        0
-      );
-    },
+    ...mapState(cartStore, ["data", "isCartsLoading", "useCouponPrice"]),
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts"]),
+    ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
     cartItemClicked(item) {
       this.item = item;
       console.log(item);
@@ -58,7 +53,7 @@ export default {
             <div
               v-else
               class="cartProductInfo position-relative"
-              v-for="item in carts"
+              v-for="item in data.carts"
               :key="item.id"
             >
               <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
@@ -68,9 +63,32 @@ export default {
                 @deleteItemClicked="deleteCarts(item)"
               />
             </div>
-            <h5 v-if="this.carts.length !== 0">
-              合計：<span>NT${{ getTotal }}</span>
-            </h5>
+            <div v-if="this.data.carts">
+              <h5>
+                合計：<span
+                  >NT${{ this.data.total }} {{ this.data.final_total }}</span
+                >
+              </h5>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="請輸入優惠券代碼"
+                  aria-label="請輸入優惠券代碼"
+                  aria-describedby="button-addon2"
+                  ref="couponCodeInput"
+                  v-model="couponCode"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  id="button-addon2"
+                  @click="useCoupon(couponCode)"
+                >
+                  Button
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <!-- 訂購表單 -->

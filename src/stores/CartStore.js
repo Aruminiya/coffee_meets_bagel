@@ -8,11 +8,13 @@ export default defineStore("CartStore", {
   //data, methods, computed
   //state, actions, getters
   state: () => ({
-    carts: [],
+    data: {},
+    useCouponPrice: null,
     isCartsLoading: true,
   }),
   getters: {},
   actions: {
+    // 得到購物車資訊
     getCarts() {
       const host = import.meta.env.VITE_HEXAPI;
       const path = import.meta.env.VITE_USER_PATH;
@@ -20,29 +22,30 @@ export default defineStore("CartStore", {
       axios
         .get(`${host}/v2/api/${path}/cart`)
         .then((res) => {
-          const { carts } = res.data.data;
-          this.carts = carts;
+          const { data } = res.data;
+          console.log(data);
+          this.data = data;
           this.isCartsLoading = false;
         })
         .catch((err) => {
           console.error(err);
         });
     },
+    // 商品加入購物車
     addCarts(item) {
       const host = import.meta.env.VITE_HEXAPI;
       const path = import.meta.env.VITE_USER_PATH;
 
       axios
-        .get(`${host}/v2/api/${path}/cart`)
+        .post(`${host}/v2/api/${path}/cart`, item)
         .then((res) => {
-          const { carts } = res.data.data;
-          this.carts = carts;
-          this.isCartsLoading = false;
+          this.getCarts();
         })
         .catch((err) => {
           console.error(err);
         });
     },
+    // 商品刪除購物車
     deleteCarts(item) {
       const cartid = item.id;
 
@@ -65,7 +68,6 @@ export default defineStore("CartStore", {
           axios
             .delete(`${host}/v2/api/${path}/cart/${cartid}`)
             .then((res) => {
-              console.log(res);
               this.getCarts();
             })
             .catch((err) => {
@@ -78,6 +80,24 @@ export default defineStore("CartStore", {
             });
         }
       });
+    },
+    // 使用優惠券
+    useCoupon(code) {
+      const host = import.meta.env.VITE_HEXAPI;
+      const path = import.meta.env.VITE_USER_PATH;
+
+      axios
+        .post(`${host}/v2/api/${path}/coupon`, {
+          data: {
+            code,
+          },
+        })
+        .then((res) => {
+          this.getCarts();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
 });
