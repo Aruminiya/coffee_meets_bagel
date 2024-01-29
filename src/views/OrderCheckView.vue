@@ -23,12 +23,10 @@ export default {
   computed: {
     ...mapState(cartStore, ["carts", "isCartsLoading"]),
     getTotal() {
-      if (this.carts.length !== 0) {
-        return this.carts.reduce(
-          (accumulator, currentValue) => accumulator + currentValue.total,
-          0
-        );
-      }
+      return this.carts.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.total,
+        0
+      );
     },
   },
   methods: {
