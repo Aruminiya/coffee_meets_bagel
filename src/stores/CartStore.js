@@ -23,7 +23,6 @@ export default defineStore("CartStore", {
         .get(`${host}/v2/api/${path}/cart`)
         .then((res) => {
           const { data } = res.data;
-          console.log(data);
           this.data = data;
           this.isCartsLoading = false;
         })
