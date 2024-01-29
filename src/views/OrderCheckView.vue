@@ -23,10 +23,12 @@ export default {
   computed: {
     ...mapState(cartStore, ["carts", "isCartsLoading"]),
     getTotal() {
-      return this.carts.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.total,
-        0
-      );
+      if (this.carts.length !== 0) {
+        return this.carts.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.total,
+          0
+        );
+      }
     },
   },
   methods: {
@@ -68,7 +70,7 @@ export default {
                 @deleteItemClicked="deleteCarts(item)"
               />
             </div>
-            <h5>
+            <h5 v-if="this.carts.length !== 0">
               合計：<span>NT${{ getTotal }}</span>
             </h5>
           </div>

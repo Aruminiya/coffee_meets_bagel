@@ -8,7 +8,7 @@ export default defineStore("CartStore", {
   //data, methods, computed
   //state, actions, getters
   state: () => ({
-    carts: {},
+    carts: [],
     isCartsLoading: true,
   }),
   getters: {},
