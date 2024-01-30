@@ -23,6 +23,12 @@ const router = createRouter({
       path: "/orderCheckView",
       name: "orderCheckView",
       component: () => import("../views/OrderCheckView.vue"),
+      children: [
+        {
+          path: "step1",
+          component: () => import("../components/OderCheckStep_01.vue"),
+        },
+      ],
     },
   ],
 });
