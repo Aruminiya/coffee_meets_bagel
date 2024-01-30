@@ -22,13 +22,19 @@ export default {
     };
   },
   computed: {
-    ...mapState(cartStore, ["data", "isCartsLoading", "useCouponPrice"]),
+    ...mapState(cartStore, [
+      "data",
+      "couponData",
+      "isCartsLoading",
+      "useCouponPrice",
+    ]),
   },
   methods: {
     ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
     cartItemClicked(item) {
+      // 點擊的商品資料給 this.item
       this.item = item;
-      console.log(item);
+      // 然後 modalComponent 打開 可以讀到 this.item
       this.$refs.modalComponent.modalShow();
     },
   },
@@ -65,14 +71,28 @@ export default {
             </div>
             <div v-if="this.data.carts">
               <h5>
-                合計：<span
-                  >NT${{ this.data.total }} {{ this.data.final_total }}</span
+                合計：
+                <span
+                  :class="{
+                    'text-decoration-line-through':
+                      data.total !== data.final_total,
+                  }"
                 >
+                  NT${{ data.total }}
+                </span>
+                &nbsp;
+                <span v-if="data.total !== data.final_total">
+                  NT${{ data.final_total }}
+                </span>
               </h5>
+              <p v-if="couponData.data?.success === true">
+                {{ couponData.data?.message }}
+              </p>
               <div class="input-group mb-3">
                 <input
                   type="text"
                   class="form-control"
+                  :class="{ 'is-invalid': couponData.data?.success === false }"
                   placeholder="請輸入優惠券代碼"
                   aria-label="請輸入優惠券代碼"
                   aria-describedby="button-addon2"
@@ -84,10 +104,19 @@ export default {
                   type="button"
                   id="button-addon2"
                   @click="useCoupon(couponCode)"
+                  :disabled="false"
                 >
                   Button
                 </button>
               </div>
+
+              <!-- 因為 couponData.data.message 一開始沒東西 所以要加 ?. -->
+              <p
+                v-if="couponData.data?.success === false"
+                :class="{ 'text-danger': couponData.data?.success === false }"
+              >
+                {{ couponData.data?.message }}
+              </p>
             </div>
           </div>
         </div>

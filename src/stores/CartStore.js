@@ -11,6 +11,7 @@ export default defineStore("CartStore", {
     data: {},
     useCouponPrice: null,
     isCartsLoading: true,
+    couponData: {},
   }),
   getters: {},
   actions: {
@@ -92,6 +93,7 @@ export default defineStore("CartStore", {
           },
         })
         .then((res) => {
+          this.couponData = res;
           this.getCarts();
         })
         .catch((err) => {

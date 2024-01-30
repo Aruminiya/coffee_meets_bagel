@@ -7,7 +7,6 @@ import * as VeeValidateRules from "@vee-validate/rules";
 
 // 中文語系 JSON
 import zh_TW from "../assets/zh_TW.json";
-console.log(VeeValidateRules);
 // 表單驗證規則全部引入使用
 Object.keys(VeeValidateRules).forEach((rule) => {
   VeeValidate.defineRule(rule, VeeValidateRules[rule]);
