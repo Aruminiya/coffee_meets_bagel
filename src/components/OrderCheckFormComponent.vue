@@ -40,7 +40,12 @@ export default {
   },
   methods: {
     onSubmit(value) {
-      console.log(value);
+      const { isTrusted } = value;
+      console.log(isTrusted);
+      if (isTrusted !== true) {
+        localStorage.setItem("personInfo", JSON.stringify(value));
+        this.$router.push("/orderCheckView/step2");
+      }
     },
 
     // 電話驗證規則
