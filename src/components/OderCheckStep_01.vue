@@ -81,9 +81,7 @@ export default {
                 NT${{ data.final_total }}
               </span>
             </h5>
-            <p v-if="couponData.data?.success === true">
-              {{ couponData.data?.message }}
-            </p>
+            <p v-if="data.total !== data.final_total">您已使用優惠折扣</p>
             <div class="input-group mb-3">
               <input
                 type="text"
@@ -100,9 +98,9 @@ export default {
                 type="button"
                 id="button-addon2"
                 @click="useCoupon(couponCode)"
-                :disabled="false"
+                :disabled="data.total !== data.final_total"
               >
-                Button
+                送出優惠
               </button>
             </div>
 
