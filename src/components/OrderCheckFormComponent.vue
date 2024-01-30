@@ -40,7 +40,12 @@ export default {
   },
   methods: {
     onSubmit(value) {
-      console.log(value);
+      const { isTrusted } = value;
+      console.log(isTrusted);
+      if (isTrusted !== true) {
+        localStorage.setItem("personInfo", JSON.stringify(value));
+        this.$router.push("/orderCheckView/step2");
+      }
     },
 
     // 電話驗證規則
@@ -53,13 +58,13 @@ export default {
 </script>
 
 <template>
-  <v-form v-slot="{ errors }" @submit="onSubmit">
+  <v-form v-slot="{ errors }" @submit="onSubmit" class="p-2">
     {{ errors }}
     <v-field
       id="email"
       name="email"
       type="email"
-      class="form-control"
+      class="form-control my-2"
       :class="{ 'is-invalid': errors['email'] }"
       placeholder="請輸入 Email"
       rules="email|required"
@@ -71,7 +76,7 @@ export default {
       id="name"
       name="name"
       type="text"
-      class="form-control"
+      class="form-control my-2"
       :class="{ 'is-invalid': errors['name'] }"
       placeholder="請輸入姓名"
       rules="required"
@@ -83,7 +88,7 @@ export default {
       id="phone"
       name="phone"
       type="text"
-      class="form-control"
+      class="form-control my-2"
       :class="{ 'is-invalid': errors['phone'] }"
       placeholder="請輸入電話"
       :rules="isPhone"
@@ -95,7 +100,7 @@ export default {
       id="address"
       name="address"
       type="text"
-      class="form-control"
+      class="form-control my-2"
       :class="{ 'is-invalid': errors['address'] }"
       placeholder="請輸入地址"
       rules="required"
@@ -103,8 +108,8 @@ export default {
     ></v-field>
     <error-message name="address" class="invalid-feedback"></error-message>
 
-    <button class="btn btn-primary" type="submit" @click="onSubmit">
-      Submit
+    <button class="btn btn-primary w-100" type="submit" @click="onSubmit">
+      送出資訊
     </button>
   </v-form>
 
