@@ -35,6 +35,7 @@ export default {
         name: "",
         phone: "",
         address: "",
+        remark: "",
       },
     };
   },
@@ -108,59 +109,32 @@ export default {
     ></v-field>
     <error-message name="address" class="invalid-feedback"></error-message>
 
+    <v-field
+      v-slot="{ field }"
+      id="remark"
+      name="remark"
+      type="text"
+      :class="{ 'is-invalid': errors['remark'] }"
+      v-model="user.remark"
+    >
+      <textarea
+        v-bind="field"
+        class="form-control my-2"
+        :class="{ 'is-invalid': errors['remark'] }"
+        placeholder="請輸入備註"
+        name="remark"
+        cols="0"
+        rows="5"
+        v-model="user.remark"
+      ></textarea>
+    </v-field>
+    <error-message name="remark" class="invalid-feedback"></error-message>
+
     <button class="btn btn-primary w-100" type="submit" @click="onSubmit">
       送出資訊
     </button>
   </v-form>
 
   {{ user }}
-  <!-- <form>
-    <div class="orderFrom p-5 rounded shadow-sm">
-      <label for="email">電子信箱:</label>
-      <input
-        class="form-control"
-        type="email"
-        id="email"
-        name="email"
-        required
-      /><br />
-      <label for="name">姓名:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="name"
-        name="name"
-        required
-      /><br />
-      <label for="phone">電話:</label>
-      <input
-        class="form-control"
-        type="tel"
-        id="phone"
-        name="phone"
-        required
-      /><br />
-      <label for="address">住址:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="address"
-        name="address"
-        required
-      /><br />
-      <label for="comments">備註:</label>
-      <textarea
-        class="form-control"
-        id="comments"
-        name="comments"
-        rows="4"
-        cols="50"
-        style="resize: none"
-      ></textarea>
-    </div>
-    <br />
-    <button type="button" class="btn btn-dark w-100">
-      <h5 class="m-1">送出資訊</h5>
-    </button>
-  </form> -->
 </template>
+<style lang="scss" scoped></style>

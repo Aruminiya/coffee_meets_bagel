@@ -2,25 +2,37 @@
 export default {
   props: {
     item: { type: Object, require: true },
-    showDeleteItemBtn: { type: Boolean, default: true },
+    editMode: { type: Boolean, default: true },
   },
   emits: ["cartItemClicked", "deleteItemClicked"],
+  methods: {
+    deleteItemClickedEmit() {
+      if (this.editMode) {
+        this.$emit("deleteItemClicked");
+      }
+    },
+    cartItemClickedEmit() {
+      if (this.editMode) {
+        this.$emit("cartItemClicked");
+      }
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="cartProductInfo position-relative">
+  <div class="position-relative">
     <button
-      v-if="showDeleteItemBtn"
+      v-if="editMode"
       type="button"
       class="deleteBtn position-absolute end-0 badge rounded-pill text-bg-dark"
-      @click="$emit('deleteItemClicked')"
+      @click="deleteItemClickedEmit()"
     >
       -
     </button>
     <div
       class="d-flex rounded shadow-sm p-3 my-3"
-      @click="$emit('cartItemClicked')"
+      @click="cartItemClickedEmit()"
     >
       <div class="imgContainer me-2">
         <img
@@ -46,9 +58,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.cartProductInfo {
-  cursor: pointer;
-}
 .imgContainer {
   width: 120px;
   height: 120px;
