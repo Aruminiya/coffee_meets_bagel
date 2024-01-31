@@ -97,18 +97,19 @@ export default {
         </div>
       </div>
       <!-- 訂購表單 -->
+
       <div class="col-lg-6 col-12 p-5">
         <div>
           <h3>訂購資訊</h3>
-          <p>Email <br />{{ personInfo.email }}</p>
-          <p>姓名 <br />{{ personInfo.name }}</p>
-          <p>電話 <br />{{ personInfo.phone }}</p>
-          <p>住址<br />{{ personInfo.address }}</p>
+          <p>Email <br />{{ personInfo.data?.user?.email }}</p>
+          <p>姓名 <br />{{ personInfo.data?.user?.name }}</p>
+          <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
+          <p>住址<br />{{ personInfo.data?.user?.address }}</p>
           <p>
-            備註<br /><span class="text-br">{{ personInfo.remark }}</span>
+            備註<br /><span class="text-br">{{
+              personInfo.data?.message
+            }}</span>
           </p>
-
-          {{ personInfo }}
         </div>
         <button class="btn btn-primary w-100" @click="checkout()">
           送出訂單

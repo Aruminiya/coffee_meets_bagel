@@ -33,20 +33,29 @@ export default {
       user: {
         email: "",
         name: "",
-        phone: "",
+        tel: "",
         address: "",
-        remark: "",
+        message: "",
       },
     };
   },
   methods: {
-    onSubmit(value) {
-      const { isTrusted } = value;
-      console.log(isTrusted);
-      if (isTrusted !== true) {
-        localStorage.setItem("personInfo", JSON.stringify(value));
-        this.$router.push("/orderCheckView/step2");
-      }
+    onSubmit(event) {
+      const { address, email, name, tel, message } = event;
+      const personInfo = {
+        data: {
+          user: {
+            name,
+            email,
+            tel,
+            address,
+          },
+          message,
+        },
+      };
+      console.log(personInfo);
+      localStorage.setItem("personInfo", JSON.stringify(personInfo));
+      this.$router.push("/orderCheckView/step2");
     },
 
     // 電話驗證規則
@@ -59,7 +68,7 @@ export default {
 </script>
 
 <template>
-  <v-form v-slot="{ errors }" @submit="onSubmit" class="p-2">
+  <v-form v-slot="{ errors }" @submit="onSubmit($event)" class="p-2">
     {{ errors }}
     <v-field
       id="email"
@@ -86,16 +95,16 @@ export default {
     <error-message name="name" class="invalid-feedback"></error-message>
 
     <v-field
-      id="phone"
-      name="phone"
+      id="tel"
+      name="tel"
       type="text"
       class="form-control my-2"
-      :class="{ 'is-invalid': errors['phone'] }"
+      :class="{ 'is-invalid': errors['tel'] }"
       placeholder="請輸入電話"
       :rules="isPhone"
-      v-model="user.phone"
+      v-model="user.tel"
     ></v-field>
-    <error-message name="phone" class="invalid-feedback"></error-message>
+    <error-message name="tel" class="invalid-feedback"></error-message>
 
     <v-field
       id="address"
@@ -111,28 +120,26 @@ export default {
 
     <v-field
       v-slot="{ field }"
-      id="remark"
-      name="remark"
+      id="message"
+      name="message"
       type="text"
-      :class="{ 'is-invalid': errors['remark'] }"
-      v-model="user.remark"
+      :class="{ 'is-invalid': errors['message'] }"
+      v-model="user.message"
     >
       <textarea
         v-bind="field"
         class="form-control my-2"
-        :class="{ 'is-invalid': errors['remark'] }"
+        :class="{ 'is-invalid': errors['message'] }"
         placeholder="請輸入備註"
-        name="remark"
+        name="message"
         cols="0"
         rows="5"
-        v-model="user.remark"
+        v-model="user.message"
       ></textarea>
     </v-field>
-    <error-message name="remark" class="invalid-feedback"></error-message>
-
-    <button class="btn btn-primary w-100" type="submit" @click="onSubmit">
-      送出資訊
-    </button>
+    <error-message name="message" class="invalid-feedback"></error-message>
+    <!-- click.stop 要阻止點擊事件被傳入 -->
+    <button class="btn btn-primary w-100" type="submit">送出資訊</button>
   </v-form>
 
   {{ user }}
