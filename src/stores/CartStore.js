@@ -20,7 +20,6 @@ export default defineStore("CartStore", {
     getCarts() {
       const host = import.meta.env.VITE_HEXAPI;
       const path = import.meta.env.VITE_USER_PATH;
-
       axios
         .get(`${host}/v2/api/${path}/cart`)
         .then((res) => {
