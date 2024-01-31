@@ -23,6 +23,7 @@ export default {
       "couponData",
       "isCartsLoading",
       "useCouponPrice",
+      "OrderEstablished",
     ]),
   },
   methods: {
@@ -38,6 +39,13 @@ export default {
     this.getCarts();
     //取得上一步驟在 localStorage 存放的使用者資料
     this.personInfo = JSON.parse(localStorage.getItem("personInfo"));
+  },
+  watch: {
+    OrderEstablished(newVal, oldVal) {
+      if (newVal) {
+        this.$router.push("/orderCheckView/step3");
+      }
+    },
   },
 };
 </script>
@@ -111,9 +119,10 @@ export default {
             }}</span>
           </p>
         </div>
-        <button class="btn btn-primary w-100" @click="checkout()">
+        <button class="btn btn-primary w-100" @click="checkout(personInfo)">
           送出訂單
         </button>
+        {{ OrderEstablished }}
       </div>
     </div>
   </section>

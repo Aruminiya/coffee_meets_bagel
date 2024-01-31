@@ -12,6 +12,7 @@ export default defineStore("CartStore", {
     useCouponPrice: null,
     isCartsLoading: true,
     couponData: {},
+    OrderEstablished: false,
   }),
   getters: {},
   actions: {
@@ -101,8 +102,22 @@ export default defineStore("CartStore", {
         });
     },
     //結帳
-    checkout(userInfo) {
-      console.log("送出訂單");
+    checkout(personInfo) {
+      console.log("送出訂單", personInfo);
+
+      const host = import.meta.env.VITE_HEXAPI;
+      const path = import.meta.env.VITE_USER_PATH;
+
+      axios
+        .post(`${host}/v2/api/${path}/order`, personInfo)
+        .then((res) => {
+          localStorage.setItem("orderEstablished", JSON.stringify(res));
+          // 確認送出訂單
+          this.OrderEstablished = true;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
 });
