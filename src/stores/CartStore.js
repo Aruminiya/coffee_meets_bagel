@@ -100,5 +100,9 @@ export default defineStore("CartStore", {
           console.error(err);
         });
     },
+    //結帳
+    checkout(userInfo) {
+      console.log("送出訂單");
+    },
   },
 });

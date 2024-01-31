@@ -26,7 +26,12 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
+    ...mapActions(cartStore, [
+      "getCarts",
+      "deleteCarts",
+      "useCoupon",
+      "checkout",
+    ]),
   },
   mounted() {
     // 先取得購物車資訊
@@ -105,6 +110,9 @@ export default {
 
           {{ personInfo }}
         </div>
+        <button class="btn btn-primary w-100" @click="checkout()">
+          送出訂單
+        </button>
       </div>
     </div>
   </section>
