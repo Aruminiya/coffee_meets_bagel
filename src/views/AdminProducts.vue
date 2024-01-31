@@ -35,7 +35,6 @@ export default {
           // console.log("資料取得成功");
           // console.log(response.data);
           // 存入所有產品
-
           this.allProducts = Object.values(response.data.products);
           // 取得分類
           this.getCategories();
@@ -253,7 +252,7 @@ export default {
             </li>
 
             <li
-              v-for="(page, key) in pagination?.total_pages"
+              v-for="(page, key) in pagination.total_pages"
               :key="key + 999"
               class="page-item"
             >
