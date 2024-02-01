@@ -87,7 +87,7 @@ export default {
             </h5>
             <p v-if="data.total !== data.final_total">您已使用優惠折扣</p>
             <button
-              class="btn btn-primary"
+              class="btn btn-primary w-100"
               @click="this.$router.push('/orderCheckView/step1')"
             >
               回上一頁
@@ -123,7 +123,6 @@ export default {
         >
           送出訂單
         </button>
-        {{ orderEstablished }}
       </div>
     </div>
   </section>
