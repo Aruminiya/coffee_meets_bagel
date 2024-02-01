@@ -5,6 +5,7 @@ import CartItemComponent from "../components/CartItemComponent.vue";
 // pinia
 import { mapState, mapActions } from "pinia";
 import cartStore from "../stores/CartStore.js";
+import orderStore from "../stores/OrderStore.js";
 
 export default {
   components: {
@@ -23,18 +24,15 @@ export default {
       "couponData",
       "isCartsLoading",
       "useCouponPrice",
-      "OrderEstablished",
     ]),
+    ...mapState(orderStore, ["OrderEstablished"]),
   },
   methods: {
-    ...mapActions(cartStore, [
-      "getCarts",
-      "deleteCarts",
-      "useCoupon",
-      "checkout",
-    ]),
+    ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
+    ...mapActions(orderStore, ["orderCheckout"]),
   },
   mounted() {
+    console.log(this.OrderEstablished);
     // 先取得購物車資訊
     this.getCarts();
     //取得上一步驟在 localStorage 存放的使用者資料
@@ -119,7 +117,10 @@ export default {
             }}</span>
           </p>
         </div>
-        <button class="btn btn-primary w-100" @click="checkout(personInfo)">
+        <button
+          class="btn btn-primary w-100"
+          @click="orderCheckout(personInfo)"
+        >
           送出訂單
         </button>
         {{ OrderEstablished }}

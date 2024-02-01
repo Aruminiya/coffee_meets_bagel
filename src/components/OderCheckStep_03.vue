@@ -23,7 +23,7 @@ export default {
       "couponData",
       "isCartsLoading",
       "useCouponPrice",
-      "OrderEstablished",
+      ,
     ]),
   },
   methods: {
@@ -35,10 +35,8 @@ export default {
     ]),
   },
   mounted() {
-    // 先取得購物車資訊
-    this.getCarts();
     //取得上一步驟在 localStorage 存放的使用者資料
-    this.orderInfo = JSON.parse(localStorage.getItem("orderEstablished"));
+    this.orderInfo = JSON.parse(localStorage.getItem("checkout"));
   },
 };
 </script>

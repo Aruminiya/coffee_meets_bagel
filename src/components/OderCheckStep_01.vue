@@ -86,7 +86,7 @@ export default {
               <input
                 type="text"
                 class="form-control"
-                :class="{ 'is-invalid': couponData.data?.success === false }"
+                :class="{ 'is-invalid': couponData.response?.data?.message }"
                 placeholder="請輸入優惠券代碼"
                 aria-label="請輸入優惠券代碼"
                 aria-describedby="button-addon2"
@@ -105,11 +105,8 @@ export default {
             </div>
 
             <!-- 因為 couponData.data.message 一開始沒東西 所以要加 ?. -->
-            <p
-              v-if="couponData.data?.success === false"
-              :class="{ 'text-danger': couponData.data?.success === false }"
-            >
-              {{ couponData.data?.message }}
+            <p :class="{ 'text-danger': couponData.response?.data?.message }">
+              {{ couponData.response?.data?.message }}
             </p>
           </div>
         </div>
