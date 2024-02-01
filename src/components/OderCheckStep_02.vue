@@ -25,21 +25,21 @@ export default {
       "isCartsLoading",
       "useCouponPrice",
     ]),
-    ...mapState(orderStore, ["OrderEstablished"]),
+    ...mapState(orderStore, ["orderEstablished"]),
   },
   methods: {
     ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
     ...mapActions(orderStore, ["orderCheckout"]),
   },
   mounted() {
-    console.log(this.OrderEstablished);
+    console.log(this.orderEstablished);
     // 先取得購物車資訊
     this.getCarts();
     //取得上一步驟在 localStorage 存放的使用者資料
     this.personInfo = JSON.parse(localStorage.getItem("personInfo"));
   },
   watch: {
-    OrderEstablished(newVal, oldVal) {
+    orderEstablished(newVal, oldVal) {
       if (newVal) {
         this.$router.push("/orderCheckView/step3");
       }
@@ -123,7 +123,7 @@ export default {
         >
           送出訂單
         </button>
-        {{ OrderEstablished }}
+        {{ orderEstablished }}
       </div>
     </div>
   </section>
