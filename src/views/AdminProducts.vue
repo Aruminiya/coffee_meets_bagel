@@ -127,7 +127,7 @@ export default {
     this.axios.defaults.headers.common.Authorization = token;
     // 確認登入狀態
     this.checkAdmin();
-    // this.testLogin()
+    // this.testLogin();
   },
 };
 </script>

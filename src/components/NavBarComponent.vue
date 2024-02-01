@@ -26,9 +26,23 @@
             >線上點餐</router-link
           >
         </div>
+        <!-- 不知道要放哪邊, 先借放 + 1 -->
+        <div class="navbar-nav">
+          <router-link
+            to="/adminHome"
+            class="nav-link"
+            aria-current="page"
+            href="#"
+            >後台首頁(我也借放o口O)</router-link
+          >
+        </div>
         <!-- 不知道要放哪邊, 先借放 -->
         <div class="navbar-nav">
-          <router-link to="/adminProducts" class="nav-link" aria-current="page" href="#"
+          <router-link
+            to="/adminProducts"
+            class="nav-link"
+            aria-current="page"
+            href="#"
             >後台訂單(暫存)</router-link
           >
         </div>
