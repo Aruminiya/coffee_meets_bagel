@@ -32,6 +32,10 @@ const router = createRouter({
           path: "step2",
           component: () => import("../components/OderCheckStep_02.vue"),
         },
+        {
+          path: "step3",
+          component: () => import("../components/OderCheckStep_03.vue"),
+        },
       ],
     },
     {

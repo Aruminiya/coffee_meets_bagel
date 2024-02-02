@@ -33,19 +33,29 @@ export default {
       user: {
         email: "",
         name: "",
-        phone: "",
+        tel: "",
         address: "",
+        message: "",
       },
     };
   },
   methods: {
-    onSubmit(value) {
-      const { isTrusted } = value;
-      console.log(isTrusted);
-      if (isTrusted !== true) {
-        localStorage.setItem("personInfo", JSON.stringify(value));
-        this.$router.push("/orderCheckView/step2");
-      }
+    onSubmit(event) {
+      const { address, email, name, tel, message } = event;
+      const personInfo = {
+        data: {
+          user: {
+            name,
+            email,
+            tel,
+            address,
+          },
+          message,
+        },
+      };
+      console.log(personInfo);
+      localStorage.setItem("personInfo", JSON.stringify(personInfo));
+      this.$router.push("/orderCheckView/step2");
     },
 
     // 電話驗證規則
@@ -58,7 +68,7 @@ export default {
 </script>
 
 <template>
-  <v-form v-slot="{ errors }" @submit="onSubmit" class="p-2">
+  <v-form v-slot="{ errors }" @submit="onSubmit($event)" class="p-2">
     {{ errors }}
     <v-field
       id="email"
@@ -85,16 +95,16 @@ export default {
     <error-message name="name" class="invalid-feedback"></error-message>
 
     <v-field
-      id="phone"
-      name="phone"
+      id="tel"
+      name="tel"
       type="text"
       class="form-control my-2"
-      :class="{ 'is-invalid': errors['phone'] }"
+      :class="{ 'is-invalid': errors['tel'] }"
       placeholder="請輸入電話"
       :rules="isPhone"
-      v-model="user.phone"
+      v-model="user.tel"
     ></v-field>
-    <error-message name="phone" class="invalid-feedback"></error-message>
+    <error-message name="tel" class="invalid-feedback"></error-message>
 
     <v-field
       id="address"
@@ -108,59 +118,30 @@ export default {
     ></v-field>
     <error-message name="address" class="invalid-feedback"></error-message>
 
-    <button class="btn btn-primary w-100" type="submit" @click="onSubmit">
-      送出資訊
-    </button>
+    <v-field
+      v-slot="{ field }"
+      id="message"
+      name="message"
+      type="text"
+      :class="{ 'is-invalid': errors['message'] }"
+      v-model="user.message"
+    >
+      <textarea
+        v-bind="field"
+        class="form-control my-2"
+        :class="{ 'is-invalid': errors['message'] }"
+        placeholder="請輸入備註"
+        name="message"
+        cols="0"
+        rows="5"
+        v-model="user.message"
+      ></textarea>
+    </v-field>
+    <error-message name="message" class="invalid-feedback"></error-message>
+    <!-- click.stop 要阻止點擊事件被傳入 -->
+    <button class="btn btn-primary w-100" type="submit">送出資訊</button>
   </v-form>
 
   {{ user }}
-  <!-- <form>
-    <div class="orderFrom p-5 rounded shadow-sm">
-      <label for="email">電子信箱:</label>
-      <input
-        class="form-control"
-        type="email"
-        id="email"
-        name="email"
-        required
-      /><br />
-      <label for="name">姓名:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="name"
-        name="name"
-        required
-      /><br />
-      <label for="phone">電話:</label>
-      <input
-        class="form-control"
-        type="tel"
-        id="phone"
-        name="phone"
-        required
-      /><br />
-      <label for="address">住址:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="address"
-        name="address"
-        required
-      /><br />
-      <label for="comments">備註:</label>
-      <textarea
-        class="form-control"
-        id="comments"
-        name="comments"
-        rows="4"
-        cols="50"
-        style="resize: none"
-      ></textarea>
-    </div>
-    <br />
-    <button type="button" class="btn btn-dark w-100">
-      <h5 class="m-1">送出資訊</h5>
-    </button>
-  </form> -->
 </template>
+<style lang="scss" scoped></style>
