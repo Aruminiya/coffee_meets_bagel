@@ -133,7 +133,6 @@ export default {
 <style lang="scss" scoped>
 .cartProductInfo {
   cursor: pointer;
-  color: $TestBlue;
 }
 .imgContainer {
   width: 120px;
