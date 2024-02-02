@@ -61,17 +61,18 @@ export default {
     },
     // 變更分類時取得分類資料 (卡關)
     getProductsByCategory(category) {
-      // console.log(category);
+      console.log(category);
       if (category === '檢視全部') {
         this.getProducts();
       } else {
         // const encodedCategory = encodeURIComponent(category);
         // console.log(encodedCategory);
                                           //  /admin/products?category=
-        this.axios.get(`${host}/v2/api/${path}/admin/products?page=1&category=${category}`)
+        this.axios.get(`${host}/v2/api/${path}/admin/products?category=${category}`)
+        // this.axios.get(`https://vue3-course-api.hexschool.io/v2/api/florafirstapi/admin/products?category=${category}`)
           .then((response) => {
             console.log(response.data);
-            console.log(category);
+            // console.log(category);
             // console.log(this.products);
             this.products = response.data.products;
             // console.log(this.products);
@@ -246,7 +247,7 @@ export default {
 }
 
 .product__list {
-  height: 720px;
+  max-height: 720px;
   overflow: auto;
 }
 </style>
