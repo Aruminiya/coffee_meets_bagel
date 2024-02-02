@@ -79,7 +79,7 @@ export default {
           )
           .then((response) => {
             console.log(response.data);
-            console.log(category);
+            // console.log(category);
             // console.log(this.products);
             this.products = response.data.products;
             // console.log(this.products);
@@ -292,7 +292,7 @@ export default {
 }
 
 .product__list {
-  height: 720px;
+  max-height: 720px;
   overflow: auto;
 }
 </style>
