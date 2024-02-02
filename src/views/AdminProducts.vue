@@ -152,9 +152,15 @@ export default {
     <!-- 後台側邊欄位, 之後拆元件 -->
     <div class="sidebar">
       {{ text }}
+      <div class="sidebar__bg"></div>
+    </div>
+    <div class="main">
+      <div class="main__bg">
+      </div>
     </div>
     <div class="container">
       <div class="row">
+
         <!-- 搜尋欄, 之後拆 -->
         <div class="col-3 py-3 my-3">
           <div class="input-group">
@@ -180,6 +186,7 @@ export default {
             新增商品
           </button>
         </div>
+
       </div>
       <div class="border rounded p-3 pb-0 product__list mb-4">
         <!-- 依設計稿調整至顯示三欄 -->
@@ -235,6 +242,7 @@ export default {
           </div>
         </div>
       </div>
+
       <!-- 分頁, 之後也要拆, 若是分類結果只有一頁不顯示分頁資訊 -->
       <div v-if="pagination.total_pages !== 1" class="d-flex justify-content-center">
         <nav aria-label="navigation">
@@ -242,32 +250,48 @@ export default {
             <li class="page-item" :class="{'disabled': !pagination.has_pre}">
               <a class="page-link" @click.prevent="previousPage()" href="#">前一頁</a>
             </li>
-
             <li v-for="(page, key) in pagination.total_pages" :key="key + 999" 
               :class="{'active': pagination.current_page === page}" class="page-item">
               <a class="page-link" @click.prevent="goThisPage(page)" href="#">{{ key + 1 }}</a>
             </li>
-
-            <!-- <li class="page-item " aria-current="page">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-
             <li class="page-item" :class="{'disabled': !pagination.has_next}">
               <a class="page-link" @click.prevent="nextPage()" href="#">下一頁</a>
             </li>
           </ul>
         </nav>
       </div>
+
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .sidebar {
+  position: relative;
   width: 300px;
-  height: 100vh;
-  background: #d9d9d9;
+  height: 90vh;
+  // 漸層背景
+  &__bg {
+    background:radial-gradient(circle closest-corner at left, #E69C7D, white);
+    position: absolute;
+    width: 500px;
+    height: 90vh;
+    z-index: -1;
+  }
+}
+
+.main {
+  position: absolute;
+  width: 70%;
+  right: 0%;
+  z-index: -1;
+  &__bg {
+    background:radial-gradient(ellipse at bottom right,
+    #E69C7D 0%, white 60%);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+  }
 }
 
 ::placeholder {
@@ -275,13 +299,13 @@ export default {
 }
 
 .img-fluid {
-  width: 420px;
-  height: 200px;
+  width: 400px;
+  height: 180px;
   object-fit: cover; // 或是 contain 但圖會顯小
 }
 
 .product__list {
-  max-height: 768px;
+  max-height: 726px;
   overflow: auto;
 }
 </style>
