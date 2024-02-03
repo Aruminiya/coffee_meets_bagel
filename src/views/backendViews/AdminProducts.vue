@@ -10,6 +10,7 @@ export default {
       products: [],
       pagination: {},
       categories: [],
+      search: '',
     };
   },
   methods: {
@@ -27,19 +28,26 @@ export default {
           console.log(err);
         });
     },
+    searchProduct() {
+      const result = this.allProducts.filter(product => {
+        // 比對標題內容與產品描述對應搜尋關鍵字
+        return [product.title, product.content, product.description].toString().match(this.search)
+      })
+      this.products = result;
+      // 搜尋結果暫時先不處理分頁
+      this.pagination.total_pages = 1;
+      // 清空搜尋欄字串
+      this.search = ''
+    },
     // 先取得所有商品, 以及所有分類
     getAllProducts() {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
-          // console.log("資料取得成功");
-          // console.log(response.data);
           // 存入所有產品
           this.allProducts = Object.values(response.data.products);
           // 取得分類
           this.getCategories();
-          // console.log(this.categories, 111);
-          // console.log([...this.categories], 222);
           // 取完所有資料再取要渲染的資料
           this.getProducts();
         })
@@ -53,8 +61,7 @@ export default {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
-          // console.log("資料取得成功");
-          // console.log(response.data);
+          console.log(response.data);
           this.products = response.data.products;
           this.pagination = response.data.pagination;
           // console.log(this.pagination);
@@ -64,25 +71,16 @@ export default {
           console.error(error);
         });
     },
-    // 變更分類時取得分類資料 (卡關)
+    // 變更分類時取得分類資料 
     getProductsByCategory(category) {
-      // console.log(category);
       if (category === "檢視全部") {
         this.getProducts();
       } else {
-        // const encodedCategory = encodeURIComponent(category);
-        // console.log(encodedCategory);
-        //  /admin/products?category=
-        this.axios
-          .get(
-            `${host}/v2/api/${path}/admin/products?page=1&category=${category}`
-          )
+        this.axios.get(`${host}/v2/api/${path}/admin/products?page=1&category=${category}`)
           .then((response) => {
             console.log(response.data);
-            // console.log(category);
-            // console.log(this.products);
             this.products = response.data.products;
-            // console.log(this.products);
+            this.pagination = response.data.pagination;
           })
           .catch((error) => {
             console.log("資料取得失敗");
@@ -110,12 +108,26 @@ export default {
           console.error(error);
         });
     },
+    // 取得所有商品後取得所有分類
     getCategories() {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
       );
-      // console.log(this.categories, 111);
     },
+    // 上一頁
+    previousPage() {
+      this.pagination.current_page--;
+      this.getProducts(this.pagination.current_page);
+    },
+    // 下一頁
+    nextPage() {
+      this.pagination.current_page++;
+      this.getProducts(this.pagination.current_page);
+    },
+    goThisPage(page) {
+      // console.log(page);
+      this.getProducts(page);
+    }
   },
   mounted() {
     // 從cookie取出登入時存入的token
@@ -133,48 +145,39 @@ export default {
 </script>
 
 <template>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-  />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <div class="d-flex">
     <!-- 後台側邊欄位, 之後拆元件 -->
     <div class="sidebar">
       {{ text }}
+      <div class="sidebar__bg"></div>
+    </div>
+    <!-- 純背景, 這也拆元件? -->
+    <div class="main">
+      <div class="main__bg">
+      </div>
     </div>
     <div class="container">
       <div class="row">
+
         <!-- 搜尋欄, 之後拆 -->
         <div class="col-3 py-3 my-3">
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="請輸入搜尋資料"
-            />
-            <button
-              type="button"
-              class="btn btn-outline-success d-flex align-items-center"
-            >
+            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
+            <button type="button" @click="searchProduct()" class="btn btn-outline-success d-flex align-items-center">
               <span class="material-symbols-outlined"> search </span>
             </button>
           </div>
         </div>
         <div class="col-3 py-3 my-3">
-          <select
-            class="form-select form-select"
-            aria-label=".form-select-sm example"
-            @change="getProductsByCategory($event.target.value)"
-          >
+          <select class="form-select form-select" aria-label=".form-select-sm example"
+            @change="getProductsByCategory($event.target.value)">
             <!-- 設計稿以販售狀態分類, 先改類別 -->
             <option selected>依商品類別檢視</option>
             <option value="檢視全部">檢視全部</option>
-            <option
-              v-for="category in categories"
-              :key="category"
-              :value="category"
-            >
+            <option v-for="category in categories" :key="category" :value="category">
               {{ category }}
             </option>
           </select>
@@ -184,17 +187,14 @@ export default {
             新增商品
           </button>
         </div>
+
       </div>
-      <div class="border rounded p-3 product__list mb-4">
+      <div class="border rounded p-3 pb-0 product__list mb-4">
         <!-- 依設計稿調整至顯示三欄 -->
         <div v-for="product in products" :key="product.id" class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4 p-3">
-              <img
-                :src="product.imageUrl"
-                class="img-fluid rounded-start"
-                alt="#"
-              />
+              <img :src="product.imageUrl" class="img-fluid rounded-start" alt="#" />
             </div>
             <div class="col-md-6">
               <div class="card-body">
@@ -243,42 +243,56 @@ export default {
           </div>
         </div>
       </div>
-      <!-- 分頁, 之後也要拆 -->
-      <div class="d-flex justify-content-center">
+
+      <!-- 分頁, 之後也要拆, 若是分類結果只有一頁不顯示分頁資訊 -->
+      <div v-if="pagination.total_pages !== 1" class="d-flex justify-content-center">
         <nav aria-label="navigation">
           <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link">前一頁</a>
+            <li class="page-item" :class="{'disabled': !pagination.has_pre}">
+              <a class="page-link" @click.prevent="previousPage()" href="#">前一頁</a>
             </li>
-
-            <li
-              v-for="(page, key) in pagination.total_pages"
-              :key="key + 999"
-              class="page-item"
-            >
-              <a class="page-link" href="#">{{ key + 1 }}</a>
+            <li v-for="(page, key) in pagination.total_pages" :key="key + 999" 
+              :class="{'active': pagination.current_page === page}" class="page-item">
+              <a class="page-link" @click.prevent="goThisPage(page)" href="#">{{ key + 1 }}</a>
             </li>
-
-            <!-- <li class="page-item " aria-current="page">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-
-            <li class="page-item">
-              <a class="page-link" href="#">下一頁</a>
+            <li class="page-item" :class="{'disabled': !pagination.has_next}">
+              <a class="page-link" @click.prevent="nextPage()" href="#">下一頁</a>
             </li>
           </ul>
         </nav>
       </div>
+
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .sidebar {
+  position: relative;
   width: 300px;
-  height: 100vh;
-  background: #d9d9d9;
+  height: 90vh;
+  // 漸層背景
+  &__bg {
+    background:radial-gradient(circle closest-corner at left, #E69C7D, white);
+    position: absolute;
+    width: 500px;
+    height: 90vh;
+    z-index: -1;
+  }
+}
+
+.main {
+  position: absolute;
+  width: 70%;
+  right: 0%;
+  z-index: -1;
+  &__bg {
+    background:radial-gradient(ellipse at bottom right,
+    #E69C7D 0%, white 60%);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+  }
 }
 
 ::placeholder {
@@ -286,13 +300,13 @@ export default {
 }
 
 .img-fluid {
-  width: 420px;
-  height: 200px;
+  width: 400px;
+  height: 180px;
   object-fit: cover; // 或是 contain 但圖會顯小
 }
 
 .product__list {
-  max-height: 720px;
+  max-height: 726px;
   overflow: auto;
 }
 </style>
