@@ -33,16 +33,6 @@
             ><p class="m-0">線上點餐</p></router-link
           >
         </div>
-        <!-- 不知道要放哪邊, 先借放 -->
-        <div class="navbar-nav">
-          <router-link
-            to="/admin/adminProducts"
-            class="nav-link"
-            aria-current="page"
-            href="#"
-            ><p class="m-0">後台訂單(暫存)</p></router-link
-          >
-        </div>
       </div>
     </div>
   </nav>

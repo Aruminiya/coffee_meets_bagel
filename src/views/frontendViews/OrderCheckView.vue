@@ -1,9 +1,11 @@
 <script>
+import NavBarComponent from "../../components/NavBarComponent.vue";
 import OrderCheckProgressComponent from "../../components/OrderCheckProgressComponent.vue";
 import OderCheckStep_01 from "../../components/OderCheckStep_01.vue";
 
 export default {
   components: {
+    NavBarComponent,
     OrderCheckProgressComponent,
     OderCheckStep_01,
   },
@@ -30,6 +32,7 @@ export default {
 </script>
 
 <template>
+  <NavBarComponent />
   <main>
     <!-- 進度條元件 step 是 props 傳入當前第幾步驟 -->
     <OrderCheckProgressComponent :step="showOrderCheckProgressComponent" />
