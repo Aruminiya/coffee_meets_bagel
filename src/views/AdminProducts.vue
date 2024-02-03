@@ -154,6 +154,7 @@ export default {
       {{ text }}
       <div class="sidebar__bg"></div>
     </div>
+    <!-- 純背景, 這也拆元件? -->
     <div class="main">
       <div class="main__bg">
       </div>
