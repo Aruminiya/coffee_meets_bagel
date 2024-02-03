@@ -12,7 +12,7 @@ export default {
 
 <template>
   <NavBarComponent />
-  <h1>這是根組件 App.vue</h1>
+  <!-- <h1>這是根組件 App.vue</h1> -->
   <RouterView />
   <router-link to="/orderCheckView/step1" class="nav-link"
     >訂單查看頁面 (暫時放在這邊)</router-link

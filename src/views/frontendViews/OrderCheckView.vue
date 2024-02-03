@@ -1,6 +1,6 @@
 <script>
-import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
-import OderCheckStep_01 from "../components/OderCheckStep_01.vue";
+import OrderCheckProgressComponent from "../../components/OrderCheckProgressComponent.vue";
+import OderCheckStep_01 from "../../components/OderCheckStep_01.vue";
 
 export default {
   components: {

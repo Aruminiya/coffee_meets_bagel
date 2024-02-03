@@ -1,6 +1,6 @@
 <script>
-import Test_components_01 from "../components/Test_components_01.vue";
-import Test_components_02 from "../components/Test_components_02.vue";
+import Test_components_01 from "../../components/Test_components_01.vue";
+import Test_components_02 from "../../components/Test_components_02.vue";
 export default {
   components: {
     Test_components_01,
