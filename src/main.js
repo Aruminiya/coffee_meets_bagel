@@ -9,7 +9,8 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 // 內部資源
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/boostrapCustom.scss";
+// import "../src/assets/_variables.scss";
 // import "./assets/main.scss";
 
 import App from "./App.vue";
