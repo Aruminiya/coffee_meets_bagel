@@ -1,17 +1,20 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-// import "./assets/main.scss";
-
+//外部套件
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-
-import App from "./App.vue";
-import router from "./router";
 
 import axios from "axios";
 import VueAxios from "vue-axios";
 
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+
+// 內部資源
+import "./assets/boostrapCustom.scss";
+// import "../src/assets/_variables.scss";
+// import "./assets/main.scss";
+
+import App from "./App.vue";
+import router from "./router";
 
 const app = createApp(App);
 

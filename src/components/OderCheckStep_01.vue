@@ -7,6 +7,7 @@ import ModalComponent from "../components/ModalComponent.vue";
 // pinia
 import { mapState, mapActions } from "pinia";
 import cartStore from "../stores/CartStore.js";
+import couponStore from "../stores/CouponStore.js";
 
 export default {
   components: {
@@ -22,15 +23,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(cartStore, [
-      "data",
-      "couponData",
-      "isCartsLoading",
-      "useCouponPrice",
-    ]),
+    ...mapState(cartStore, ["data", "isCartsLoading"]),
+    ...mapState(couponStore, ["couponData"]),
   },
   methods: {
     ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
+    ...mapActions(couponStore, ["useCoupon"]),
     cartItemClicked(item) {
       // 點擊的商品資料給 this.item
       this.item = item;
@@ -133,7 +131,6 @@ export default {
 <style lang="scss" scoped>
 .cartProductInfo {
   cursor: pointer;
-  color: $TestBlue;
 }
 .imgContainer {
   width: 120px;

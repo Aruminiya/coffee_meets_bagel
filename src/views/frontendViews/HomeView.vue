@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import Test_components_01 from "../components/Test_components_01.vue";
+import Test_components_01 from "../../components/Test_components_01.vue";
 
 export default {
   components: {

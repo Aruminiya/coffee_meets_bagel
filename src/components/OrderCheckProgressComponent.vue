@@ -77,7 +77,7 @@ export default {
 @import "../assets/main.scss";
 
 .doneStep {
-  background: $TestBlue;
-  border-color: $TestBlue;
+  background: $colorChart-Primary-300;
+  border-color: $colorChart-Primary-300;
 }
 </style>
