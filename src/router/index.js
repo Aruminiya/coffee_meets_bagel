@@ -48,7 +48,7 @@ const router = createRouter({
     },
     {
       //後台根組件路由
-      path: "/",
+      path: "/admin",
       name: "backendRoot",
       component: () => import("../views/BackendRootView.vue"),
       children: [
