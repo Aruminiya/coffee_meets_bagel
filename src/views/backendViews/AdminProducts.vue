@@ -2,6 +2,14 @@
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
+// import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
+
+
+import modal from '../../components/ModalComponent.vue';
+import pagination from '../../components/PaginationComponent.vue';
+
+// let showPicModal = null;
+
 export default {
   data() {
     return {
@@ -11,7 +19,13 @@ export default {
       pagination: {},
       categories: [],
       search: '',
+      // productModal: {},
+      // product: {}
     };
+  },
+  components: {
+    pagination,
+    modal
   },
   methods: {
     checkAdmin() {
@@ -127,7 +141,19 @@ export default {
     goThisPage(page) {
       // console.log(page);
       this.getProducts(page);
-    }
+    },
+
+
+    modalShow(product) {
+      // this.product = product;
+      this.$refs.modal.modalShow(product)
+    },
+    modalHide() {
+      this.productModal.hide();
+    },
+
+
+
   },
   mounted() {
     // 從cookie取出登入時存入的token
@@ -140,9 +166,14 @@ export default {
     // 確認登入狀態
     this.checkAdmin();
     // this.testLogin()
+
+
+    // this.$refs.modal.modalShow()
+    // console.log(this.$refs.modal.modalShow());
   },
 };
 </script>
+
 
 <template>
   <link rel="stylesheet"
@@ -194,7 +225,10 @@ export default {
         <div v-for="product in products" :key="product.id" class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4 p-3">
-              <img :src="product.imageUrl" class="img-fluid rounded-start" alt="#" />
+              <!-- 點圖放大 -->
+              <a href="#" @click.prevent="modalShow(product)">
+                <img :src="product.imageUrl" class="img-fluid rounded-start" alt="#" />
+              </a>
             </div>
             <div class="col-md-6">
               <div class="card-body">
@@ -241,29 +275,19 @@ export default {
               </div>
             </div>
           </div>
+
+          
         </div>
       </div>
-
-      <!-- 分頁, 之後也要拆, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <div v-if="pagination.total_pages !== 1" class="d-flex justify-content-center">
-        <nav aria-label="navigation">
-          <ul class="pagination">
-            <li class="page-item" :class="{'disabled': !pagination.has_pre}">
-              <a class="page-link" @click.prevent="previousPage()" href="#">前一頁</a>
-            </li>
-            <li v-for="(page, key) in pagination.total_pages" :key="key + 999" 
-              :class="{'active': pagination.current_page === page}" class="page-item">
-              <a class="page-link" @click.prevent="goThisPage(page)" href="#">{{ key + 1 }}</a>
-            </li>
-            <li class="page-item" :class="{'disabled': !pagination.has_next}">
-              <a class="page-link" @click.prevent="nextPage()" href="#">下一頁</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
+      
+      <!-- modal< 點選圖片放大顯示 -->
+      <modal ref="modal"></modal>
+      <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
+      <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
+      
     </div>
   </div>
+  
 </template>
 
 <style scoped lang="scss">
