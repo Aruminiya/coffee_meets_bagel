@@ -73,8 +73,8 @@ input {
   }
 }
 .btn02 {
-  background-color: $colorChart-Primary-100;
-  border-color: $colorChart-Primary-100;
+  background-color: $colorChart-Primary-100 !important;
+  border-color: $colorChart-Primary-100 !important;
 }
 .is-invalid {
   border-color: $colorChart-Primary-200 !important; /* 替換為你想要的邊框顏色 */
