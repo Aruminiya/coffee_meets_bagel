@@ -41,14 +41,14 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      const { address, email, name, tel, message } = event;
+      const { Email, 姓名, 電話, 地址, message } = event;
       const personInfo = {
         data: {
           user: {
-            name,
-            email,
-            tel,
-            address,
+            name: 姓名,
+            email: Email,
+            tel: 電話,
+            address: 地址,
           },
           message,
         },
@@ -68,80 +68,104 @@ export default {
 </script>
 
 <template>
-  <v-form v-slot="{ errors }" @submit="onSubmit($event)" class="p-2">
-    {{ errors }}
-    <v-field
-      id="email"
-      name="email"
-      type="email"
-      class="form-control my-2"
-      :class="{ 'is-invalid': errors['email'] }"
-      placeholder="請輸入 Email"
-      rules="email|required"
-      v-model="user.email"
-    ></v-field>
-    <error-message name="email" class="invalid-feedback"></error-message>
-
-    <v-field
-      id="name"
-      name="name"
-      type="text"
-      class="form-control my-2"
-      :class="{ 'is-invalid': errors['name'] }"
-      placeholder="請輸入姓名"
-      rules="required"
-      v-model="user.name"
-    ></v-field>
-    <error-message name="name" class="invalid-feedback"></error-message>
-
-    <v-field
-      id="tel"
-      name="tel"
-      type="text"
-      class="form-control my-2"
-      :class="{ 'is-invalid': errors['tel'] }"
-      placeholder="請輸入電話"
-      :rules="isPhone"
-      v-model="user.tel"
-    ></v-field>
-    <error-message name="tel" class="invalid-feedback"></error-message>
-
-    <v-field
-      id="address"
-      name="address"
-      type="text"
-      class="form-control my-2"
-      :class="{ 'is-invalid': errors['address'] }"
-      placeholder="請輸入地址"
-      rules="required"
-      v-model="user.address"
-    ></v-field>
-    <error-message name="address" class="invalid-feedback"></error-message>
-
-    <v-field
-      v-slot="{ field }"
-      id="message"
-      name="message"
-      type="text"
-      :class="{ 'is-invalid': errors['message'] }"
-      v-model="user.message"
-    >
-      <textarea
-        v-bind="field"
+  <section class="shadow-sm p-4">
+    <v-form v-slot="{ errors }" @submit="onSubmit($event)" class="p-2">
+      <!-- {{ errors }} -->
+      <label for="Email">*Email</label>
+      <v-field
+        id="email"
+        name="Email"
+        type="email"
         class="form-control my-2"
-        :class="{ 'is-invalid': errors['message'] }"
-        placeholder="請輸入備註"
-        name="message"
-        cols="0"
-        rows="5"
-        v-model="user.message"
-      ></textarea>
-    </v-field>
-    <error-message name="message" class="invalid-feedback"></error-message>
-    <!-- click.stop 要阻止點擊事件被傳入 -->
-    <button class="btn btn-primary w-100" type="submit">送出資訊</button>
-  </v-form>
+        :class="{ 'is-invalid': errors['Email'] }"
+        placeholder="請輸入 Email"
+        rules="email|required"
+        v-model="user.email"
+      ></v-field>
+      <error-message name="Email" class="invalid-feedback"></error-message>
 
-  {{ user }}
+      <label for="name">*姓名</label>
+      <v-field
+        id="name"
+        name="姓名"
+        type="text"
+        class="form-control my-2"
+        :class="{ 'is-invalid': errors['姓名'] }"
+        placeholder="請輸入姓名"
+        rules="required"
+        v-model="user.name"
+      ></v-field>
+      <error-message name="姓名" class="invalid-feedback"></error-message>
+
+      <label for="tel">*電話</label>
+      <v-field
+        id="tel"
+        name="電話"
+        type="text"
+        class="form-control my-2"
+        :class="{ 'is-invalid': errors['電話'] }"
+        placeholder="請輸入電話"
+        :rules="isPhone"
+        v-model="user.tel"
+      ></v-field>
+      <error-message name="電話" class="invalid-feedback"></error-message>
+
+      <label for="address">*地址</label>
+      <v-field
+        id="address"
+        name="地址"
+        type="text"
+        class="form-control my-2"
+        :class="{ 'is-invalid': errors['地址'] }"
+        placeholder="請輸入地址"
+        rules="required"
+        v-model="user.address"
+      ></v-field>
+      <error-message name="地址" class="invalid-feedback"></error-message>
+
+      <v-field
+        v-slot="{ field }"
+        id="message"
+        name="message"
+        type="text"
+        :class="{ 'is-invalid': errors['message'] }"
+        v-model="user.message"
+      >
+        <label for="message">備註</label>
+        <textarea
+          v-bind="field"
+          class="form-control my-2"
+          :class="{ 'is-invalid': errors['message'] }"
+          placeholder="請輸入備註"
+          name="message"
+          cols="0"
+          rows="5"
+          v-model="user.message"
+        ></textarea>
+      </v-field>
+      <error-message name="message" class="invalid-feedback"></error-message>
+      <!-- click.stop 要阻止點擊事件被傳入 -->
+      <button class="btn btn-primary w-100" type="submit">送出資訊</button>
+    </v-form>
+  </section>
+
+  <!-- {{ user }} -->
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+section {
+  background-color: $colorChart-Gray-100;
+  border-radius: 8px;
+}
+
+textarea {
+  color: $colorChart-Accessory-200;
+  border: solid 1px $colorChart-Accessory-200;
+  background-color: transparent;
+  resize: none;
+  &:focus {
+    border-color: $colorChart-Accessory-200; /* 替換為你想要的邊框顏色 */
+    box-shadow: 0 0 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+    background-color: transparent;
+  }
+}
+</style>

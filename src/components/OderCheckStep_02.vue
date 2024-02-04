@@ -105,18 +105,21 @@ export default {
       <!-- 訂購表單 -->
 
       <div class="col-lg-6 col-12 p-5">
+        <h3>訂購資訊</h3>
         <div>
-          <h3>訂購資訊</h3>
-          <p>Email <br />{{ personInfo.data?.user?.email }}</p>
-          <p>姓名 <br />{{ personInfo.data?.user?.name }}</p>
-          <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
-          <p>住址<br />{{ personInfo.data?.user?.address }}</p>
-          <p>
-            備註<br /><span class="text-br">{{
-              personInfo.data?.message
-            }}</span>
-          </p>
+          <div class="orderInfo shadow-sm p-5">
+            <p>Email <br />{{ personInfo.data?.user?.email }}</p>
+            <p>姓名 <br />{{ personInfo.data?.user?.name }}</p>
+            <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
+            <p>住址<br />{{ personInfo.data?.user?.address }}</p>
+            <p>
+              備註<br /><span class="text-br">{{
+                personInfo.data?.message
+              }}</span>
+            </p>
+          </div>
         </div>
+        <br />
         <button
           class="btn btn-primary w-100"
           @click="orderCheckout(personInfo)"
@@ -129,6 +132,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.orderInfo {
+  background-color: $colorChart-Gray-100;
+  border-radius: 8px;
+}
 // 讓 /n 文字換行
 .text-br {
   white-space: pre-line;

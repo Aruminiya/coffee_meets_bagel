@@ -24,10 +24,10 @@ export default {
   },
   computed: {
     ...mapState(cartStore, ["data", "isCartsLoading"]),
-    ...mapState(couponStore, ["couponData"]),
+    ...mapState(couponStore, ["couponData", "couponUsed"]),
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
+    ...mapActions(cartStore, ["getCarts", "deleteCarts"]),
     ...mapActions(couponStore, ["useCoupon"]),
     cartItemClicked(item) {
       // 點擊的商品資料給 this.item
@@ -96,16 +96,17 @@ export default {
                 type="button"
                 id="button-addon2"
                 @click="useCoupon(couponCode)"
-                :disabled="data.total !== data.final_total"
+                :disabled="couponUsed"
               >
                 送出優惠
               </button>
             </div>
-
             <!-- 因為 couponData.data.message 一開始沒東西 所以要加 ?. -->
             <p :class="{ 'text-danger': couponData.response?.data?.message }">
               {{ couponData.response?.data?.message }}
             </p>
+
+            <button class="btn btn-primary btn02 w-100">我想再加點</button>
           </div>
         </div>
       </div>
@@ -129,11 +130,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-input {
-  color: $colorChart-Accessory-200;
-  border: solid 1px $colorChart-Accessory-200;
-  background-color: transparent;
-}
 .cartProductInfo {
   cursor: pointer;
 }

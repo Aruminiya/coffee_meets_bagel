@@ -75,9 +75,14 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/main.scss";
-
+.progress {
+  background-color: $colorChart-Gray-300;
+  .progress-bar {
+    background-color: $colorChart-Primary-200;
+  }
+}
 .doneStep {
-  background: $colorChart-Primary-300;
+  background-color: $colorChart-Primary-300;
   border-color: $colorChart-Primary-300;
 }
 </style>

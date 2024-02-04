@@ -50,7 +50,39 @@ h6,
 p {
   color: $colorChart-Accessory-200;
 }
-
+input {
+  color: $colorChart-Accessory-200 !important;
+  border: solid 1px $colorChart-Accessory-200 !important;
+  background-color: transparent !important;
+  &:focus {
+    border-color: $colorChart-Accessory-200 !important; /* 替換為你想要的邊框顏色 */
+    box-shadow: 0 0 0px $colorChart-Primary-200 !important; /* 替換為你想要的陰影效果 */
+    background-color: transparent !important;
+  }
+}
+.btn {
+  background-color: $colorChart-Logo-Red !important;
+  border-color: $colorChart-Logo-Red !important;
+  &:hover {
+    background-color: darken($colorChart-Logo-Red, 10%) !important;
+    border-color: darken($colorChart-Logo-Red, 10%) !important;
+  }
+  &:active {
+    background-color: darken($colorChart-Logo-Red, 10%) !important;
+    border-color: darken($colorChart-Logo-Red, 10%) !important;
+  }
+}
+.btn02 {
+  background-color: $colorChart-Primary-100;
+  border-color: $colorChart-Primary-100;
+}
+.is-invalid {
+  border-color: $colorChart-Primary-200 !important; /* 替換為你想要的邊框顏色 */
+  box-shadow: 10 10 0px $colorChart-Primary-200 !important; /* 替換為你想要的陰影效果 */
+  &:focus {
+    border-color: $colorChart-Primary-200 !important;
+  }
+}
 body {
   height: 100vh;
   background-image: url("../../../public/BG_03.png");
