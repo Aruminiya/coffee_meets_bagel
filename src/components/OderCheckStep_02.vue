@@ -106,18 +106,23 @@ export default {
 
       <div class="col-lg-6 col-12 p-5">
         <h3>訂購資訊</h3>
-        <div>
-          <div class="orderInfo shadow-sm p-5">
-            <p>Email <br />{{ personInfo.data?.user?.email }}</p>
-            <p>姓名 <br />{{ personInfo.data?.user?.name }}</p>
-            <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
-            <p>住址<br />{{ personInfo.data?.user?.address }}</p>
-            <p>
-              備註<br /><span class="text-br">{{
-                personInfo.data?.message
-              }}</span>
-            </p>
-          </div>
+        <div class="orderInfo shadow-sm p-5 position-relative">
+          <p>Email <br />{{ personInfo.data?.user?.email }}</p>
+          <p>姓名 <br />{{ personInfo.data?.user?.name }}</p>
+          <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
+          <p>住址<br />{{ personInfo.data?.user?.address }}</p>
+          <p>
+            備註<br /><span class="text-br">{{
+              personInfo.data?.message
+            }}</span>
+          </p>
+          <img
+            class="logoIcon position-absolute end-0 bottom-0 mx-4 my-3"
+            src="../../public/coffee_meets_bagel_LogoIcon.svg"
+            alt="coffee_meets_bagel_LogoIcon"
+            width="75"
+            height="59"
+          />
         </div>
         <br />
         <button
