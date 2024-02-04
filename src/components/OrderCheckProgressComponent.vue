@@ -24,7 +24,7 @@ export default {
       <div class="col-12">
         <div class="position-relative m-4">
           <div
-            class="progress"
+            class="progress mt-5"
             role="progressbar"
             aria-label="Progress"
             aria-valuenow="50"

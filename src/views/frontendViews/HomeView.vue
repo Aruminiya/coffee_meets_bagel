@@ -80,7 +80,7 @@ export default {
   </main>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .swiper {
   width: 600px;
   height: 300px;

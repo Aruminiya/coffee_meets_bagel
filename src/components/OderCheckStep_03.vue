@@ -75,9 +75,20 @@ export default {
           />
         </div>
         <br />
-        <div class="orderInfo shadow-sm p-3 position-relative">
-          <h5>謝謝您！您的訂單已經成立！ <br />請至櫃檯付款並領取您的餐點</h5>
-          <p>訂單號碼 {{ orderInfo.order?.id }}</p>
+        <div
+          class="orderInfo d-flex flex-column flex-md-row justify-content-center align-items-center shadow-sm p-3 position-relative"
+        >
+          <img
+            class="me-3"
+            src="../../public/checkSuccessIcon.gif"
+            alt="checkSuccessIcon"
+            width="100"
+            height="100"
+          />
+          <div>
+            <h5>謝謝您！您的訂單已經成立！ <br />請至櫃檯付款並領取您的餐點</h5>
+            <p>訂單號碼 {{ orderInfo.order?.id }}</p>
+          </div>
         </div>
         <br />
         <router-link to="/"
@@ -97,6 +108,48 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: $colorChart-Accessory-200;
+}
+input {
+  color: $colorChart-Accessory-200;
+  border: solid 1px $colorChart-Accessory-200;
+  background-color: transparent;
+  &:focus {
+    border-color: $colorChart-Accessory-200; /* 替換為你想要的邊框顏色 */
+    box-shadow: 0 0 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+    background-color: transparent;
+  }
+}
+.btn {
+  background-color: $colorChart-Logo-Red;
+  border-color: $colorChart-Logo-Red;
+  &:hover {
+    background-color: darken($colorChart-Logo-Red, 10%);
+    border-color: darken($colorChart-Logo-Red, 10%);
+  }
+  &:active {
+    background-color: darken($colorChart-Logo-Red, 10%);
+    border-color: darken($colorChart-Logo-Red, 10%);
+  }
+}
+.btn02 {
+  background-color: $colorChart-Primary-100;
+  border-color: $colorChart-Primary-100;
+}
+.is-invalid {
+  border-color: $colorChart-Primary-200; /* 替換為你想要的邊框顏色 */
+  box-shadow: 10 10 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+  &:focus {
+    border-color: $colorChart-Primary-200;
+  }
+}
 .orderInfo {
   background-color: $colorChart-Gray-100;
   border-radius: 8px;
