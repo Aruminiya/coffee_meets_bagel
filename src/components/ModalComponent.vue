@@ -5,10 +5,13 @@ export default {
   data() {
     return {
       productModal: null,
+      product: {},
+      // imageUrl: 'imageUrl'
     };
   },
   methods: {
-    modalShow() {
+    modalShow(product) {
+      this.product = product
       this.productModal.show();
     },
     modalHide() {
@@ -30,7 +33,7 @@ export default {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            <slot name="modal-title">Modal Title</slot>
+            <slot name="modal-title">{{product.title}}</slot>
           </h5>
           <button
             type="button"
@@ -39,8 +42,10 @@ export default {
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <slot name="modal-body">Modal Body</slot>
+        <div class="modal-body text-center">
+          <slot name="modal-body">
+            <img class="modal__img "  :src="product.imageUrl" alt="#">
+          </slot>
         </div>
         <div class="modal-footer">
           <slot name="modal-footer">Modal Footer</slot>
@@ -49,4 +54,10 @@ export default {
     </div>
   </div>
 </template>
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+.modal__img{
+  max-width: 100%;
+  object-fit: contain;
+}
+</style>
