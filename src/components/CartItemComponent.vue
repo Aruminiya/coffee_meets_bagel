@@ -21,14 +21,14 @@ export default {
 </script>
 
 <template>
-  <div class="position-relative">
+  <div class="cartItem position-relative">
     <button
       v-if="editMode"
       type="button"
-      class="deleteBtn position-absolute end-0 badge rounded-pill text-bg-dark"
+      class="deleteBtn position-absolute end-0 m-1 badge rounded-pill"
       @click="deleteItemClickedEmit()"
     >
-      -
+      <i class="deleteIcon bi bi-x-lg"></i>
     </button>
     <div
       class="d-flex rounded shadow-sm p-3 my-3"
@@ -45,7 +45,7 @@ export default {
       <div class="contentContainer position-relative">
         <span
           ><h4 class="d-inline-block">{{ item.product.title }} &nbsp;</h4>
-          <h6 class="badge rounded-pill text-bg-primary">
+          <h6 class="badge rounded-pill">
             {{ item.product.category }}
           </h6></span
         >
@@ -58,11 +58,39 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.badge {
+  background-color: $colorChart-Accessory-200;
+}
+button {
+  border: none;
+}
+.deleteBtn {
+  background-color: $colorChart-Primary-200;
+  border-color: $colorChart-Primary-200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  width: 22px;
+  height: 22px;
+  &:hover {
+    background-color: darken($colorChart-Primary-200, 10%);
+    scale: 1.1;
+  }
+}
 .imgContainer {
   width: 120px;
   height: 120px;
 }
 .checkProductInfo {
   width: 500px;
+}
+.cartItem {
+  background-color: $colorChart-Gray-100;
+  border-radius: 8px;
+  transition: 0.2s;
+  &:hover {
+    scale: 1.03;
+  }
 }
 </style>

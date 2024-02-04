@@ -129,6 +129,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+input {
+  color: $colorChart-Accessory-200;
+  border: solid 1px $colorChart-Accessory-200;
+  background-color: transparent;
+}
 .cartProductInfo {
   cursor: pointer;
 }

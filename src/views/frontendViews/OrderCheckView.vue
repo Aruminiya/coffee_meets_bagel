@@ -33,17 +33,26 @@ export default {
 
 <template>
   <NavBarComponent />
-  <main>
+  <main class="OrderCheckView">
     <!-- 進度條元件 step 是 props 傳入當前第幾步驟 -->
     <OrderCheckProgressComponent :step="showOrderCheckProgressComponent" />
     <router-view></router-view>
   </main>
 </template>
 
-<style lang="scss" scoped>
-main {
-  position: relative;
+<style lang="scss">
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: $colorChart-Accessory-200;
+}
+
+body {
   height: 100vh;
-  background-color: $colorChart-bg-color;
+  background-image: url("../../../public/BG_03.png");
 }
 </style>
