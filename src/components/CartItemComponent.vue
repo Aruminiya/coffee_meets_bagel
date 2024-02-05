@@ -44,12 +44,12 @@ export default {
       <br />
       <div class="contentContainer position-relative">
         <span
-          ><h4 class="d-inline-block">{{ item.product.title }} &nbsp;</h4>
-          <h6 class="badge rounded-pill">
+          ><h6 class="d-inline-block">{{ item.product.title }} &nbsp;</h6>
+          <p class="badge rounded-pill">
             {{ item.product.category }}
-          </h6></span
+          </p></span
         >
-        <h6>{{ item.product.content }}</h6>
+        <p>{{ item.product.content }}</p>
         <p>選擇數量： {{ item.qty }}</p>
       </div>
       <h5 class="position-absolute bottom-0 end-0 m-2">NT$ {{ item.total }}</h5>
@@ -58,11 +58,24 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: $colorChart-Accessory-200;
+  margin: 2px;
+}
 .badge {
   background-color: $colorChart-Accessory-200;
 }
 button {
   border: none;
+}
+.badge {
+  color: $colorChart-Gray-100;
 }
 .deleteBtn {
   background-color: $colorChart-Primary-200;
