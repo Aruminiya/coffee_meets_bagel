@@ -35,8 +35,8 @@ export default {
   <HomePageNavBarComponent />
   <main>
     <div class="container-fluid">
-      <div class="row block_01">
-        <div class="nav col-12 p-0">
+      <div class="row">
+        <div class="block_01 col-12 p-0">
           <div
             class="d-flex flex-column justify-content-end justify-content-md-center banner"
           >
@@ -51,9 +51,9 @@ export default {
           </div>
         </div>
       </div>
-      <div class="row block_02">
+      <div class="row">
         <div
-          class="col-12 col-md-5 p-0 d-flex flex-column justify-content-center align-items-center position-relative"
+          class="block_02 col-12 col-md-5 p-0 d-flex flex-column justify-content-center align-items-center position-relative"
         >
           <br />
           <div class="title d-flex align-items-center position-absolute">
@@ -111,9 +111,8 @@ export default {
           </div>
         </div>
       </div>
-      <div class="row block_03">
-        <div class="col-12">
-          123
+      <div class="row">
+        <div class="block_03 col-12 p-0">
           <swiper
             :spaceBetween="30"
             :centeredSlides="true"
@@ -129,31 +128,13 @@ export default {
             class="mySwiper"
           >
             <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=1" alt="隨機圖片1"
+              ><img src="../../../public/swiperImg_01.png" alt="swiperImg_01"
             /></swiper-slide>
             <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=2" alt="隨機圖片2"
+              ><img src="../../../public/swiperImg_02.png" alt="swiperImg_02"
             /></swiper-slide>
             <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=3" alt="隨機圖片3"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=4" alt="隨機圖片4"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=5" alt="隨機圖片5"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=6" alt="隨機圖片6"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=7" alt="隨機圖片7"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=8" alt="隨機圖片8"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://picsum.photos/800/500?seed=9" alt="隨機圖片9"
+              ><img src="../../../public/swiperImg_03.png" alt="swiperImg_03"
             /></swiper-slide>
           </swiper>
         </div>
@@ -301,8 +282,8 @@ export default {
 }
 
 .swiper {
-  width: 600px;
-  height: 300px;
+  width: 100%;
+  height: 960px;
 }
 
 .swiper-slide {
