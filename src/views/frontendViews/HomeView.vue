@@ -114,7 +114,7 @@ export default {
       <div class="row">
         <div class="block_03 col-12 p-0">
           <swiper
-            :spaceBetween="30"
+            :spaceBetween="0"
             :centeredSlides="true"
             :autoplay="{
               delay: 2500,
@@ -128,14 +128,50 @@ export default {
             class="mySwiper"
           >
             <swiper-slide
-              ><img src="../../../public/swiperImg_01.png" alt="swiperImg_01"
-            /></swiper-slide>
+              ><div
+                class="swiperImg_01 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+              >
+                <div class="swiperText py-4 px-3 position-relative">
+                  <img
+                    class="symbol position-absolute"
+                    src="../../../public/symbol.svg"
+                    alt="symbol"
+                  />
+                  <h1>我們用心選豆，你用心品味</h1>
+                  <h1>每一杯都是匠心獨運的味道</h1>
+                </div>
+              </div>
+            </swiper-slide>
             <swiper-slide
-              ><img src="../../../public/swiperImg_02.png" alt="swiperImg_02"
-            /></swiper-slide>
+              ><div
+                class="swiperImg_02 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+              >
+                <div class="swiperText py-4 px-3 position-relative">
+                  <img
+                    class="symbol position-absolute"
+                    src="../../../public/symbol.svg"
+                    alt="symbol"
+                  />
+                  <h1>我們用心選豆，你用心品味</h1>
+                  <h1>每一杯都是匠心獨運的味道</h1>
+                </div>
+              </div></swiper-slide
+            >
             <swiper-slide
-              ><img src="../../../public/swiperImg_03.png" alt="swiperImg_03"
-            /></swiper-slide>
+              ><div
+                class="swiperImg_03 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+              >
+                <div class="swiperText py-4 px-3 position-relative">
+                  <img
+                    class="symbol position-absolute"
+                    src="../../../public/symbol.svg"
+                    alt="symbol"
+                  />
+                  <h1>我們用心選豆，你用心品味</h1>
+                  <h1>每一杯都是匠心獨運的味道</h1>
+                </div>
+              </div></swiper-slide
+            >
           </swiper>
         </div>
       </div>
@@ -143,7 +179,7 @@ export default {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .banner {
   width: 100%; /* 假設容器寬度為 300 像素 */
   aspect-ratio: 1920 / 896; /* 假設你的圖片高度與寬度的比例為 4:3 */
@@ -302,5 +338,56 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  background-image: url("../../../public/lastPageBtn.svg");
+  background-size: contain; /* 調整背景圖片大小以填充容器 */
+  background-position: center; /* 調整背景圖片位置至中 */
+  background-repeat: no-repeat; /* 避免背景圖片重複 */
+  &::after {
+    content: " ";
+  }
+}
+.swiper-button-next {
+  width: 40px;
+  height: 40px;
+  background-image: url("../../../public/nextPageBtn.svg");
+  background-size: contain; /* 調整背景圖片大小以填充容器 */
+  background-position: center; /* 調整背景圖片位置至中 */
+  background-repeat: no-repeat; /* 避免背景圖片重複 */
+  &::after {
+    content: " ";
+  }
+}
+
+.swiper-pagination-bullets {
+  display: none;
+}
+
+.swiperImg_01 {
+  background-image: url("../../../public/swiperImg_01.png");
+}
+.swiperImg_02 {
+  background-image: url("../../../public/swiperImg_02.png");
+}
+.swiperImg_03 {
+  background-image: url("../../../public/swiperImg_03.png");
+}
+.swiperText {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  color: $colorChart-Accessory-200;
+  .symbol {
+    width: 81px;
+    height: 57px;
+    top: -30px;
+    left: -40px;
+  }
+  h1 {
+    font-weight: 700;
+  }
 }
 </style>
