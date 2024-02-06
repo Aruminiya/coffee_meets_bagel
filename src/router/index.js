@@ -44,6 +44,12 @@ const router = createRouter({
             },
           ],
         },
+        {
+          //產品列表路由
+          path: "productList",
+          name: "productList",
+          component: () => import("../views/frontendViews/ProductList.vue"),
+        },
       ],
     },
     {
