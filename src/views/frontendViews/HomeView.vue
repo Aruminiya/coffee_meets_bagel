@@ -137,8 +137,14 @@ export default {
                     src="../../../public/symbol.svg"
                     alt="symbol"
                   />
-                  <h1>我們用心選豆，你用心品味</h1>
-                  <h1>每一杯都是匠心獨運的味道</h1>
+                  <div class="d-none d-sm-block">
+                    <h1>品味匠心 獨享醇香</h1>
+                    <h1>選豆用心 品味獨運</h1>
+                  </div>
+                  <div class="d-block d-sm-none">
+                    <h3>品味匠心 獨享醇香</h3>
+                    <h3>選豆用心 品味獨運</h3>
+                  </div>
                 </div>
               </div>
             </swiper-slide>
@@ -152,8 +158,14 @@ export default {
                     src="../../../public/symbol.svg"
                     alt="symbol"
                   />
-                  <h1>我們用心選豆，你用心品味</h1>
-                  <h1>每一杯都是匠心獨運的味道</h1>
+                  <div class="d-none d-sm-block">
+                    <h1>經典滋味 每杯獨特</h1>
+                    <h1>心選豆香 獨享匠心</h1>
+                  </div>
+                  <div class="d-block d-sm-none">
+                    <h3>經典滋味 每杯獨特</h3>
+                    <h3>心選豆香 獨享匠心</h3>
+                  </div>
                 </div>
               </div></swiper-slide
             >
@@ -167,8 +179,14 @@ export default {
                     src="../../../public/symbol.svg"
                     alt="symbol"
                   />
-                  <h1>我們用心選豆，你用心品味</h1>
-                  <h1>每一杯都是匠心獨運的味道</h1>
+                  <div class="d-none d-sm-block">
+                    <h1>專注豆香 感受獨特</h1>
+                    <h1>滋味匠心 每杯精選</h1>
+                  </div>
+                  <div class="d-block d-sm-none">
+                    <h3>專注豆香 感受獨特</h3>
+                    <h3>滋味匠心 每杯精選</h3>
+                  </div>
                 </div>
               </div></swiper-slide
             >
@@ -386,7 +404,8 @@ export default {
     top: -30px;
     left: -40px;
   }
-  h1 {
+  h1,
+  h3 {
     font-weight: 700;
   }
 }
