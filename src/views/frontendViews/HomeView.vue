@@ -78,29 +78,35 @@ export default {
             <div
               class="RecommendationImg Img_01 d-flex justify-content-center align-items-center"
             >
-              <img
-                class="img-fluid"
-                src="../../../public/RecommendationImg_01.png"
-                alt=""
-              />
+              <div
+                class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
+              >
+                <h2 class="m-2">今日的特選咖啡</h2>
+                <p class="m-0">彷彿是陽光和微風的交織，溫暖中帶點清新。</p>
+                <p class="m-0">讓這杯獨特的風味，陪伴你的美好一天。</p>
+              </div>
             </div>
             <div
               class="RecommendationImg Img_02 d-flex justify-content-center align-items-center"
             >
-              <img
-                class="img-fluid"
-                src="../../../public/RecommendationImg_02.png"
-                alt=""
-              />
+              <div
+                class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
+              >
+                <h2 class="m-2">挑戰你的味蕾</h2>
+                <p class="m-0">今日的推薦咖啡散發出濃郁的巧克力風味，</p>
+                <p class="m-0">讓你感受咖啡的甜蜜誘惑。</p>
+              </div>
             </div>
             <div
               class="RecommendationImg Img_03 d-flex justify-content-center align-items-center"
             >
-              <img
-                class="img-fluid"
-                src="../../../public/RecommendationImg_03.png"
-                alt=""
-              />
+              <div
+                class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
+              >
+                <h2 class="m-2">新鮮水果拿鐵</h2>
+                <p class="m-0">清爽的果香與濃郁咖啡的結合，</p>
+                <p class="m-0">讓你感受到夏日的微涼和愉悅。</p>
+              </div>
             </div>
           </div>
         </div>
@@ -269,8 +275,28 @@ export default {
   }
 }
 .RecommendationImg {
-  .Img_01 {
+  height: 100%;
+  &.Img_01 {
     background-image: url("../../../public/RecommendationImg_01.png");
+    background-size: cover; /* 調整背景圖片大小以填充容器 */
+    background-position: center; /* 調整背景圖片位置至中 */
+    background-repeat: no-repeat; /* 避免背景圖片重複 */
+  }
+  &.Img_02 {
+    background-image: url("../../../public/RecommendationImg_02.png");
+    background-size: cover; /* 調整背景圖片大小以填充容器 */
+    background-position: center; /* 調整背景圖片位置至中 */
+    background-repeat: no-repeat; /* 避免背景圖片重複 */
+  }
+  &.Img_03 {
+    background-image: url("../../../public/RecommendationImg_03.png");
+    background-size: cover; /* 調整背景圖片大小以填充容器 */
+    background-position: center; /* 調整背景圖片位置至中 */
+    background-repeat: no-repeat; /* 避免背景圖片重複 */
+  }
+  .text {
+    letter-spacing: 1px;
+    color: $colorChart-Gray-100;
   }
 }
 
