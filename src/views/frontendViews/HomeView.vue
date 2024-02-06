@@ -11,14 +11,12 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import Test_components_01 from "../../components/Test_components_01.vue";
 import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
-    Test_components_01,
     HomePageNavBarComponent,
   },
   data() {
@@ -55,81 +53,106 @@ export default {
       </div>
       <div class="row block_02">
         <div
-          class="col-5 p-0 d-flex flex-column justify-content-center align-items-center position-relative"
+          class="col-12 col-md-5 p-0 d-flex flex-column justify-content-center align-items-center position-relative"
         >
           <br />
           <div class="title d-flex align-items-center position-absolute">
             <hr class="wordDash" />
-            <h1 class="m-0">本日推薦</h1>
+            <div>
+              <h1 class="m-0 d-none d-lg-block">本日推薦</h1>
+              <h3 class="m-0 d-md-block d-lg-none">本日推薦</h3>
+            </div>
+
             <hr class="wordDash" />
           </div>
-          <div class="p-5">
+          <div class="px-0 pt-5 p-sm-3">
             <img
               class="img-fluid"
               src="../../../public/TodayRecommendation.gif"
-              alt=""
+              alt="TodayRecommendation"
             />
           </div>
         </div>
-        <div class="col-7 p-0">
-          <div class="d-flex flex-column justify-content-between h-100">
-            <div class="h-100 d-flex justify-content-center align-items-center">
-              區塊1
+        <div class="col-12 col-md-7 p-0">
+          <div class="h-100 d-flex flex-column justify-content-between">
+            <div
+              class="RecommendationImg Img_01 d-flex justify-content-center align-items-center"
+            >
+              <img
+                class="img-fluid"
+                src="../../../public/RecommendationImg_01.png"
+                alt=""
+              />
             </div>
-            <div class="h-100 d-flex justify-content-center align-items-center">
-              區塊2
+            <div
+              class="RecommendationImg Img_02 d-flex justify-content-center align-items-center"
+            >
+              <img
+                class="img-fluid"
+                src="../../../public/RecommendationImg_02.png"
+                alt=""
+              />
             </div>
-            <div class="h-100 d-flex justify-content-center align-items-center">
-              區塊3
+            <div
+              class="RecommendationImg Img_03 d-flex justify-content-center align-items-center"
+            >
+              <img
+                class="img-fluid"
+                src="../../../public/RecommendationImg_03.png"
+                alt=""
+              />
             </div>
           </div>
         </div>
       </div>
+      <div class="row block_03">
+        <div class="col-12">
+          123
+          <swiper
+            :spaceBetween="30"
+            :centeredSlides="true"
+            :autoplay="{
+              delay: 2500,
+              disableOnInteraction: false,
+            }"
+            :pagination="{
+              clickable: true,
+            }"
+            :navigation="true"
+            :modules="modules"
+            class="mySwiper"
+          >
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=1" alt="隨機圖片1"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=2" alt="隨機圖片2"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=3" alt="隨機圖片3"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=4" alt="隨機圖片4"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=5" alt="隨機圖片5"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=6" alt="隨機圖片6"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=7" alt="隨機圖片7"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=8" alt="隨機圖片8"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://picsum.photos/800/500?seed=9" alt="隨機圖片9"
+            /></swiper-slide>
+          </swiper>
+        </div>
+      </div>
     </div>
-    <h1>{{ test }}</h1>
-    <Test_components_01 />
-    <swiper
-      :spaceBetween="30"
-      :centeredSlides="true"
-      :autoplay="{
-        delay: 2500,
-        disableOnInteraction: false,
-      }"
-      :pagination="{
-        clickable: true,
-      }"
-      :navigation="true"
-      :modules="modules"
-      class="mySwiper"
-    >
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=1" alt="隨機圖片1"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=2" alt="隨機圖片2"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=3" alt="隨機圖片3"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=4" alt="隨機圖片4"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=5" alt="隨機圖片5"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=6" alt="隨機圖片6"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=7" alt="隨機圖片7"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=8" alt="隨機圖片8"
-      /></swiper-slide>
-      <swiper-slide
-        ><img src="https://picsum.photos/800/500?seed=9" alt="隨機圖片9"
-      /></swiper-slide>
-    </swiper>
   </main>
 </template>
 
@@ -243,6 +266,11 @@ export default {
       opacity: 1;
       width: 60px;
     }
+  }
+}
+.RecommendationImg {
+  .Img_01 {
+    background-image: url("../../../public/RecommendationImg_01.png");
   }
 }
 
