@@ -12,12 +12,14 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import Test_components_01 from "../../components/Test_components_01.vue";
+import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     Test_components_01,
+    HomePageNavBarComponent,
   },
   data() {
     return {
@@ -32,10 +34,11 @@ export default {
 </script>
 
 <template>
+  <HomePageNavBarComponent />
   <main>
     <div class="container-fluid">
       <div class="row block_01">
-        <div class="col-12 p-0">
+        <div class="nav col-12 p-0">
           <div
             class="d-flex flex-column justify-content-end justify-content-md-center banner"
           >
