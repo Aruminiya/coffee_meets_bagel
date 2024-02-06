@@ -36,11 +36,16 @@ export default {
     <div class="container-fluid">
       <div class="row block_01">
         <div class="col-12 p-0">
-          <div class="d-flex flex-column justify-content-center banner">
-            <div class="bannerWord">
+          <div
+            class="d-flex flex-column justify-content-end justify-content-md-center banner"
+          >
+            <div class="bannerWord position-relative">
               <h1 class="title">Coffee meets Bagel</h1>
               <h2 class="subtitle">品味烘焙藝術的奇妙交融</h2>
               <h2 class="subtitle">共譜美好早晨的詩篇</h2>
+              <button class="bannerBtn btn btn-primary">
+                免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -131,20 +136,98 @@ export default {
   aspect-ratio: 1920 / 896; /* 假設你的圖片高度與寬度的比例為 4:3 */
   background-image: url("../../../public/Banner.png");
   background-size: cover; /* 調整背景圖片大小以填充容器 */
-  background-position: center; /* 調整背景圖片位置至中 */
+  background-position: right; /* 調整背景圖片位置至中 */
   background-repeat: no-repeat; /* 避免背景圖片重複 */
   left: 180px;
-
-  .title {
-    font-size: 54px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    color: $colorChart-Accessory-200;
+  .bannerBtn {
+    padding: 1rem 3rem;
+    border-color: $colorChart-Primary-200;
+    background-color: $colorChart-Primary-200;
+    &:hover {
+      border-color: darken($colorChart-Primary-200, 10%);
+      background-color: darken($colorChart-Primary-200, 10%);
+    }
   }
-  .subtitle {
-    font-size: 48px;
+  .bannerWord {
+    left: 180px;
+    .title {
+      font-size: 54px;
+      font-family: "Poppins", sans-serif;
+      font-weight: 800;
+      color: $colorChart-Accessory-200;
+    }
+    .subtitle {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: $colorChart-Gray-500;
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    .bannerWord {
+      left: 150px;
+      .title {
+        font-size: 42px;
+        letter-spacing: 2px;
+      }
+      .subtitle {
+        font-size: 37px;
+      }
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .bannerWord {
+      left: 100px;
+    }
+  }
+  @media screen and (max-width: 992px) {
+    aspect-ratio: 1920 / 1080;
+    .bannerWord {
+      left: 100px;
+      .title {
+        font-size: 36px;
+      }
+      .subtitle {
+        font-size: 32px;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    background-image: url("../../../public/BannerPhone.png");
+    aspect-ratio: 768 / 1000;
+
+    .bannerWord {
+      left: 30px;
+      bottom: 100px;
+      .title {
+        font-size: 36px;
+      }
+      .subtitle {
+        font-size: 32px;
+      }
+    }
+  }
+  @media screen and (max-width: 456px) {
+    .bannerWord {
+      left: 10px;
+      bottom: 50px;
+      .title {
+        font-size: 24px;
+        letter-spacing: 0px;
+      }
+      .subtitle {
+        font-size: 24px;
+        letter-spacing: 0px;
+      }
+      .bannerBtn {
+        font-size: 16px;
+        padding: 0.5rem 1.5rem;
+      }
+    }
   }
 }
+
 .block_02 {
   background-color: $colorChart-bg-color;
   max-height: 1080px;
