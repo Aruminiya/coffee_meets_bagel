@@ -44,14 +44,26 @@ export default {
               <h1 class="title">Coffee meets Bagel</h1>
               <h2 class="subtitle">品味烘焙藝術的奇妙交融</h2>
               <h2 class="subtitle">共譜美好早晨的詩篇</h2>
+<<<<<<< HEAD
               <router-link to="/productList"> 
               <button class="bannerBtn btn btn-primary">
               <a href='ProductListView.vue' style='text-decoration:none' class='text-light'>
               免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
               </a>
               </button>
+=======
+              <router-link to="/productList">
+                <button class="bannerBtn btn btn-primary">
+                  <a
+                    href="productList.vue"
+                    style="text-decoration: none"
+                    class="text-light"
+                  >
+                    免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
+                  </a>
+                </button>
+>>>>>>> ac8f152757f50bc2dcc96c2abece3cbe96062874
               </router-link>
-              
             </div>
           </div>
         </div>
