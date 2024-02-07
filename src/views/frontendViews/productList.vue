@@ -4,7 +4,7 @@
 /> -->
 <script>
 import axios from "axios";
-import VueAxios from "vue-axios";
+// import VueAxios from "vue-axios";
 
 export default {
   data() {
