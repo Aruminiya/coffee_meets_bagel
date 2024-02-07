@@ -105,8 +105,8 @@ export default {
       <!-- 訂購表單 -->
 
       <div class="col-lg-6 col-12 p-5">
-        <div>
-          <h3>訂購資訊</h3>
+        <h3>訂購資訊</h3>
+        <div class="orderInfo shadow-sm p-5 position-relative">
           <p>Email <br />{{ personInfo.data?.user?.email }}</p>
           <p>姓名 <br />{{ personInfo.data?.user?.name }}</p>
           <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
@@ -116,7 +116,15 @@ export default {
               personInfo.data?.message
             }}</span>
           </p>
+          <img
+            class="logoIcon position-absolute end-0 bottom-0 mx-4 my-3"
+            src="../../public/coffee_meets_bagel_LogoIcon.svg"
+            alt="coffee_meets_bagel_LogoIcon"
+            width="75"
+            height="59"
+          />
         </div>
+        <br />
         <button
           class="btn btn-primary w-100"
           @click="orderCheckout(personInfo)"
@@ -129,6 +137,52 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: $colorChart-Accessory-200;
+}
+input {
+  color: $colorChart-Accessory-200;
+  border: solid 1px $colorChart-Accessory-200;
+  background-color: transparent;
+  &:focus {
+    border-color: $colorChart-Accessory-200; /* 替換為你想要的邊框顏色 */
+    box-shadow: 0 0 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+    background-color: transparent;
+  }
+}
+.btn {
+  background-color: $colorChart-Logo-Red;
+  border-color: $colorChart-Logo-Red;
+  &:hover {
+    background-color: darken($colorChart-Logo-Red, 10%);
+    border-color: darken($colorChart-Logo-Red, 10%);
+  }
+  &:active {
+    background-color: darken($colorChart-Logo-Red, 10%);
+    border-color: darken($colorChart-Logo-Red, 10%);
+  }
+}
+.btn02 {
+  background-color: $colorChart-Primary-100;
+  border-color: $colorChart-Primary-100;
+}
+.is-invalid {
+  border-color: $colorChart-Primary-200; /* 替換為你想要的邊框顏色 */
+  box-shadow: 10 10 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+  &:focus {
+    border-color: $colorChart-Primary-200;
+  }
+}
+.orderInfo {
+  background-color: $colorChart-Gray-100;
+  border-radius: 8px;
+}
 // 讓 /n 文字換行
 .text-br {
   white-space: pre-line;

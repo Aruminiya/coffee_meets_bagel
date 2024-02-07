@@ -80,25 +80,5 @@ export default defineStore("CartStore", {
         }
       });
     },
-    // 使用優惠券
-    useCoupon(code) {
-      const host = import.meta.env.VITE_HEXAPI;
-      const path = import.meta.env.VITE_USER_PATH;
-
-      axios
-        .post(`${host}/v2/api/${path}/coupon`, {
-          data: {
-            code,
-          },
-        })
-        .then((res) => {
-          this.couponData = res;
-          this.getCarts();
-        })
-        .catch((err) => {
-          this.couponData = err;
-          console.error(err);
-        });
-    },
   },
 });

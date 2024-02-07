@@ -24,7 +24,7 @@ export default {
       <div class="col-12">
         <div class="position-relative m-4">
           <div
-            class="progress"
+            class="progress mt-5"
             role="progressbar"
             aria-label="Progress"
             aria-valuenow="50"
@@ -75,9 +75,14 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/main.scss";
-
+.progress {
+  background-color: $colorChart-Gray-300;
+  .progress-bar {
+    background-color: $colorChart-Primary-200;
+  }
+}
 .doneStep {
-  background: $TestBlue;
-  border-color: $TestBlue;
+  background-color: $colorChart-Primary-300;
+  border-color: $colorChart-Primary-300;
 }
 </style>
