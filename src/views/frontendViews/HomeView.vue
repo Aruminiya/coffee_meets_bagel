@@ -201,6 +201,26 @@ export default {
           </swiper>
         </div>
       </div>
+      <div class="row">
+        <div class="block_04 col-12 p-0">
+          <div class="chunk01 d-flex">
+            <div class="chunk01-1">區塊01-1</div>
+            <div class="chunk01-2">區塊01-2</div>
+          </div>
+          <div class="chunk02 d-flex">
+            <!-- 區塊02-1 -->
+            <div class="chunk02-1 d-flex flex-column">
+              <div class="chunk02-1-chunk01">區塊02-1-區塊01</div>
+              <div class="chunk02-1-chunk02 d-flex">
+                <!--區塊02-1-區塊02-->
+                <div class="chunk02-1-chunk02-1">區塊02-1-區塊02-1</div>
+                <div class="chunk02-1-chunk02-2">區塊02-1-區塊02-2</div>
+              </div>
+            </div>
+            <div class="chunk02-2">區塊02-2</div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
@@ -340,6 +360,53 @@ export default {
   .text {
     letter-spacing: 1px;
     color: $colorChart-Gray-100;
+  }
+}
+
+.block_04 {
+  .chunk01 {
+    .chunk01-1 {
+      height: 360px;
+      flex: 1;
+      background-color: #ff6262;
+    }
+    .chunk01-2 {
+      height: 360px;
+      flex: 2;
+      background-color: #5bad17;
+    }
+  }
+  .chunk02 {
+    .chunk02-1 {
+      height: 720px;
+      flex: 2;
+      background-color: #62ffea;
+      .chunk02-1-chunk01 {
+        height: 360px;
+        flex: 1;
+        background-color: #ff62be;
+      }
+      .chunk02-1-chunk02 {
+        height: 360px;
+        flex: 1;
+        background-color: #62cdff;
+        .chunk02-1-chunk02-1 {
+          height: 360px;
+          flex: 1;
+          background-color: #ddff62;
+        }
+        .chunk02-1-chunk02-2 {
+          height: 360px;
+          flex: 1;
+          background-color: #7f62ff;
+        }
+      }
+    }
+    .chunk02-2 {
+      height: 720px;
+      flex: 1;
+      background-color: #5817ad;
+    }
   }
 }
 
