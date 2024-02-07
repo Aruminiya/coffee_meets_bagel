@@ -57,11 +57,12 @@ export default {
             :key="item.id"
           >
             <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
-            <CartItemComponent
+            <!-- <CartItemComponent
               :item="item"
               @cartItemClicked="cartItemClicked(item)"
               @deleteItemClicked="deleteCarts(item)"
-            />
+            /> -->
+            <CartItemComponent :item="item" />
           </div>
           <div v-if="this.data.carts">
             <h5>

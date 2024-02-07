@@ -4,7 +4,13 @@ export default {
     item: { type: Object, require: true },
     editMode: { type: Boolean, default: true },
   },
+
   emits: ["cartItemClicked", "deleteItemClicked"],
+  data() {
+    return {
+      tempItem: { ...this.item },
+    };
+  },
   methods: {
     deleteItemClickedEmit() {
       if (this.editMode) {
@@ -21,6 +27,9 @@ export default {
 </script>
 
 <template>
+  <!-- <h6>{{ item }}</h6>
+  <p>{{ tempItem }}</p> -->
+
   <div class="cartItem position-relative">
     <button
       v-if="editMode"
@@ -37,22 +46,33 @@ export default {
       <div class="imgContainer me-2">
         <img
           class="w-100 h-100 object-fit-cover rounded"
-          :src="item.product.imageUrl"
-          :alt="item.title"
+          :src="tempItem.product.imageUrl"
+          :alt="tempItem.title"
         />
       </div>
       <br />
       <div class="contentContainer position-relative">
         <span
-          ><h6 class="d-inline-block">{{ item.product.title }} &nbsp;</h6>
+          ><h6 class="d-inline-block">{{ tempItem.product.title }} &nbsp;</h6>
           <p class="badge rounded-pill">
-            {{ item.product.category }}
+            {{ tempItem.product.category }}
           </p></span
         >
-        <p>{{ item.product.content }}</p>
-        <p>選擇數量： {{ item.qty }}</p>
+        <p>{{ tempItem.product.content }}</p>
+
+        <p v-if="editMode">
+          選擇數量：<button @click="tempItem.qty--">-</button>
+          <input type="text" v-model="tempItem.qty" /><button
+            @click="tempItem.qty++"
+          >
+            +
+          </button>
+        </p>
+        <p v-else>選擇數量：{{ tempItem.qty }}</p>
       </div>
-      <h5 class="position-absolute bottom-0 end-0 m-2">NT$ {{ item.total }}</h5>
+      <h5 class="position-absolute bottom-0 end-0 m-2">
+        NT$ {{ tempItem.total }}
+      </h5>
     </div>
   </div>
 </template>
