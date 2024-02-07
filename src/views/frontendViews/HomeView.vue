@@ -46,7 +46,7 @@ export default {
               <h2 class="subtitle">共譜美好早晨的詩篇</h2>
               <router-link to="/productList"> 
               <button class="bannerBtn btn btn-primary">
-              <a href='productList.vue' style='text-decoration:none' class='text-light'>
+              <a href='ProductListView.vue' style='text-decoration:none' class='text-light'>
               免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
               </a>
               </button>
