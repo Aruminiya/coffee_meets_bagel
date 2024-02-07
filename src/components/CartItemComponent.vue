@@ -27,8 +27,8 @@ export default {
 </script>
 
 <template>
-  <h6>{{ item }}</h6>
-  <p>{{ tempItem }}</p>
+  <!-- <h6>{{ item }}</h6>
+  <p>{{ tempItem }}</p> -->
 
   <div class="cartItem position-relative">
     <button
