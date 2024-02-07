@@ -27,8 +27,8 @@ export default {
 </script>
 
 <template>
-  <!-- <h6>{{ item }}</h6>
-  <p>{{ tempItem }}</p> -->
+  <h6>{{ item }}</h6>
+  <p>{{ tempItem }}</p>
 
   <div class="cartItem position-relative">
     <button
@@ -40,7 +40,7 @@ export default {
       <i class="deleteIcon bi bi-x-lg"></i>
     </button>
     <div
-      class="d-flex rounded shadow-sm p-3 my-3"
+      class="imgSection d-flex flex-sm-row rounded shadow-sm p-3 my-3"
       @click="cartItemClickedEmit()"
     >
       <div class="imgContainer me-2">
@@ -60,7 +60,7 @@ export default {
         >
         <p>{{ tempItem.product.content }}</p>
 
-        <p v-if="editMode">
+        <p v-if="editMode" class="tempItemQty">
           選擇數量：<button @click="tempItem.qty--">-</button>
           <input type="text" v-model="tempItem.qty" /><button
             @click="tempItem.qty++"
@@ -70,9 +70,9 @@ export default {
         </p>
         <p v-else>選擇數量：{{ tempItem.qty }}</p>
       </div>
-      <h5 class="position-absolute bottom-0 end-0 m-2">
+      <h6 class="position-absolute bottom-0 end-0 m-2">
         NT$ {{ tempItem.total }}
-      </h5>
+      </h6>
     </div>
   </div>
 </template>
@@ -111,9 +111,35 @@ button {
     scale: 1.1;
   }
 }
-.imgContainer {
-  width: 120px;
-  height: 120px;
+
+.tempItemQty {
+  input {
+    // border: solid 1px $colorChart-Accessory-200;
+    border: none;
+    background: transparent;
+    max-width: 2rem;
+    text-align: center;
+  }
+
+  button {
+    width: 1.5rem;
+    color: $colorChart-Gray-100;
+    background-color: $colorChart-Primary-200;
+    border: solid 1px $colorChart-Primary-200;
+    border-radius: 3px;
+  }
+}
+.imgSection {
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
+  .imgContainer {
+    width: 120px;
+    height: 120px;
+    @media screen and (max-width: 480px) {
+      width: 100%;
+    }
+  }
 }
 .checkProductInfo {
   width: 500px;

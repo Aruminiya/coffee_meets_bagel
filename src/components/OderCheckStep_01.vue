@@ -62,7 +62,10 @@ export default {
               @cartItemClicked="cartItemClicked(item)"
               @deleteItemClicked="deleteCarts(item)"
             /> -->
-            <CartItemComponent :item="item" />
+            <CartItemComponent
+              :item="item"
+              @deleteItemClicked="deleteCarts(item)"
+            />
           </div>
           <div v-if="this.data.carts">
             <h5>
