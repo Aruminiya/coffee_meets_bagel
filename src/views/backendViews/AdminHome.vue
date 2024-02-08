@@ -197,50 +197,50 @@ export default {
 
 <template>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
   <div class="container my-5">
     <div class="row">
       <div class="col-md-6">
         <!-- 所有訂單 -->
-        <div class="bg-mild shadow rounded text-white p-4 mb-4">
-          <div class="d-flex justify-content-between align-items-center border-bottom border-dark border-3 pb-2 mb-3">
-            <h2 class="fs-52 text-dark">所有訂單</h2>
-            <button type="button" class="btn btn-primary">
+        <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
+          <div class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3">
+            <h2 class="fs-52 text-colorChart-Accessory-200 lh-1">所有訂單</h2>
+            <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
               more
             </button>
           </div>
-          <div class="card mb-3 border border-0 cursor-pointer" v-for="order in renderOrders" :key="order.id">
+          <div class="card mb-3 border-0 cursor-pointer" v-for="order in renderOrders" :key="order.id">
             <div class="row g-0">
-              <div class="col-md-8 bg-light shadow bg-opacity-75 rounded-start">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p class="card-text fs-3 mb-0">訂單編號</p>
+              <div class="col-lg-8 colorChart-bg-color card-detail-border-radius">
+                <div class="card-body py-6">
+                  <div class="row mb-2">
+                    <div class="col-6 col-lg-5">
+                      <p class="card-text fs-2 lh-1 mb-0 ps-2">訂單編號</p>
                     </div>
-                    <div class="col-md-6">
-                      <p class="card-text fs-3 mb-0">{{ order.create_at }}</p>
+                    <div class="col-6 col-lg-7">
+                      <p class="card-text fs-2 lh-1 mb-0">{{ order.create_at }}</p>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
-                      <p class="card-text fs-3 mb-0">金額</p>
+                    <div class="col-6 col-lg-5">
+                      <p class="card-text fs-2 lh-1 mb-0 ps-2">金額</p>
                     </div>
-                    <div class="col-md-6">
-                      <p class="card-text fs-3 mb-0">$ {{ order.total }}</p>
+                    <div class="col-6 col-lg-7">
+                      <p class="card-text fs-2 lh-1 mb-0">$ {{ order.total }}</p>
                     </div>
                   </div>
                 </div>
               </div>
               <template v-if="!order.is_paid">
                 <div
-                  class="col-md-4 bg-danger bg-opacity-75 rounded-end d-flex justify-content-center align-items-center">
+                  class="col-lg-4 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
                   <p class="fs-2 text-white m-0">未付款</p>
                 </div>
               </template>
               <template v-else>
                 <div
-                  class="col-md-4 bg-success bg-opacity-75 rounded-end d-flex justify-content-center align-items-center">
+                  class="col-lg-4 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
                   <p class="fs-2 text-white m-0">已付款</p>
                 </div>
               </template>
@@ -248,18 +248,18 @@ export default {
           </div>
         </div>
         <!-- 折價券 -->
-        <div class="bg-mild shadow rounded text-white p-4 mb-4">
+        <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fs-1 text-dark">折價券資訊</h2>
-            <button type="button" class="btn btn-primary">
+            <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">折價券資訊</h2>
+            <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
               more
             </button>
           </div>
           <table class="discountTable table table-light table-striped table-hover table-borderless">
             <tbody>
               <tr class="cursor-pointer" v-for="coupon in coupons" :key="coupon.id">
-                <td class="fs-3 ps-2">{{ coupon.code }}</td>
-                <td class="fs-3 text-end pe-2">{{ coupon.percent }}% OFF</td>
+                <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
+                <td class="fs-2 lh-1 text-end p-6">{{ coupon.percent }}% OFF</td>
               </tr>
             </tbody>
           </table>
@@ -267,45 +267,45 @@ export default {
       </div>
       <div class="col-md-6">
         <!-- 今日營業額 -->
-        <div class="bg-mild shadow rounded text-bold p-5 mb-4">
-          <div class="row">
+        <div class="colorChart-Gray-10 shadow rounded text-bold p-9 mb-4">
+          <div class="row align-items-center">
             <div class="col-md-5">
               <div class="d-flex justify-content-center align-items-center">
-                <a href="#" class="link-dark link-opacity-50-hover">
+                <a href="#" class="text-colorChart-Secondary-200">
                   <span class="cash-icon material-symbols-outlined">
-                    universal_currency_alt
+                    paid
                   </span>
                 </a>
               </div>
             </div>
             <div class="col-md-7">
               <div class="d-flex flex-column align-items-center align-items-md-start">
-                <p class="fs-1 fw-bold">$ {{ orderTodayTotal }}</p>
-                <h2 class="fs-1 fw-bolder">今日營業額</h2>
+                <p class="fs-52 lh-1 text-colorChart-Gray-500 fw-bold">$ {{ orderTodayTotal }}</p>
+                <h2 class="fs-1 lh-1 text-colorChart-Gray-500 fw-medium">今日營業額</h2>
               </div>
             </div>
           </div>
         </div>
-        <div class="bg-mild shadow rounded text-bold p-4 mb-4">
+        <div class="colorChart-Gray-10 shadow rounded text-bold px-4 py-5">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fs-1 text-dark">今日銷量榜</h2>
-            <button type="button" class="btn btn-primary">
+            <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">今日銷量榜</h2>
+            <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
               more
             </button>
           </div>
           <table class="revenueTable table table-light table-striped table-hover table-borderless fs-2">
             <thead>
               <tr>
-                <th class="top-left-border-radius ps-3 py-3" scope="col">排名</th>
-                <th class="py-3" scope="col">品項</th>
-                <th class="top-right-border-radius py-3" scope="col">銷售額</th>
+                <th class="fw-medium top-left-border-radius ps-3 py-4" scope="col">排名</th>
+                <th class="fw-medium py-4" scope="col">品項</th>
+                <th class="fw-medium top-right-border-radius py-4" scope="col">銷售額</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in productRank" :key="item.title" class="cursor-pointer">
-                <td width="100" class="ps-3 py-3">{{ index + 1 }}</td>
-                <td width="200" class="py-3">{{ item.title }}</td>
-                <td width="100" class="py-3">$ {{ item.total }}</td>
+                <td width="100" class="ps-3 py-4">{{ index + 1 }}</td>
+                <td width="200" class="py-4">{{ item.title }}</td>
+                <td width="100" class="py-4">$ {{ item.total }}</td>
               </tr>
             </tbody>
           </table>
@@ -316,7 +316,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
-body {
+.lh-1 {
   line-height: 1;
 }
 
@@ -324,17 +324,78 @@ body {
   font-size: 52px;
 }
 
-.card:hover {
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+// 四大區塊背景
+.colorChart-Gray-100 {
+  background: $colorChart-Gray-100;
+}
+
+// more 按鈕
+.btn-primary-2 {
+  background-color: $colorChart-Primary-200;
+
+  &:hover {
+    transition: 0.4s;
+    background-color: $colorChart-Secondary-200;
+    opacity: 0.8;
+  }
+}
+
+.text-colorChart-Accessory-200 {
+  color: $colorChart-Accessory-200
+}
+
+// 所有訂單卡片效果
+.card {
+  &:hover {
+    transition: 0.3s;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .colorChart-bg-color {
+    background: $colorChart-bg-color;
+  }
+
+  .card-detail-border-radius {
+    @media (min-width: 992px) {
+      border-radius: 10px 0 0 10px;
+    }
+
+    border-radius: 10px 10px 0 0;
+  }
+
+  .card-paid-border-radius {
+    @media (min-width: 992px) {
+      border-radius: 0 10px 10px 0;
+    }
+
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+// 今日營業額 icon
+.text-colorChart-Secondary-200 {
+  color: $colorChart-Secondary-200;
+
+  &:hover {
+    transition: 0.3s;
+    opacity: 0.75;
+  }
+
+  .cash-icon {
+    font-size: 100px;
+  }
+}
+
+// 今日營業額文字
+.text-colorChart-Gray-500 {
+  color: $colorChart-Gray-500
 }
 
 .cursor-pointer {
   cursor: pointer;
 }
 
-.cash-icon {
-  font-size: 120px;
-}
+
 
 .top-left-border-radius {
   border-radius: 5px 0 0 0;
