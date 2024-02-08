@@ -1,7 +1,3 @@
-<!-- <link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/> -->
 <script>
 import axios from "axios";
 // import VueAxios from "vue-axios";
@@ -31,6 +27,10 @@ export default {
 </script>
 
 <template>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+  />
   <div class="container">
     <nav class="row pt-5">
       <div
