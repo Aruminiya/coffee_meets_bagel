@@ -205,7 +205,7 @@ export default {
         <!-- 所有訂單 -->
         <div class="bg-mild shadow rounded text-white p-4 mb-4">
           <div class="d-flex justify-content-between align-items-center border-bottom border-dark border-3 pb-2 mb-3">
-            <h2 class="fs-1 text-dark">所有訂單</h2>
+            <h2 class="fs-52 text-dark">所有訂單</h2>
             <button type="button" class="btn btn-primary">
               more
             </button>
@@ -316,6 +316,14 @@ export default {
 </template>
 
 <style scoped lang="scss">
+body {
+  line-height: 1;
+}
+
+.fs-52 {
+  font-size: 52px;
+}
+
 .card:hover {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
