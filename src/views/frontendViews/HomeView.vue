@@ -196,22 +196,40 @@ export default {
         </div>
       </div>
       <div class="row">
-        <div class="block_04 col-12 p-0">
+        <div class="block_04 col-12 p-0 d-none d-md-block">
           <div class="chunk01 d-flex">
-            <div class="chunk01-1">區塊01-1</div>
-            <div class="chunk01-2">區塊01-2</div>
+            <div class="chunk01-1 p-3">
+              <div class="imgContainer rounded h-100"><!--區塊01-1--></div>
+            </div>
+            <div class="chunk01-2 p-3">
+              <div class="imgContainer rounded h-100"><!--區塊01-2--></div>
+            </div>
           </div>
           <div class="chunk02 d-flex">
             <!-- 區塊02-1 -->
             <div class="chunk02-1 d-flex flex-column">
-              <div class="chunk02-1-chunk01">區塊02-1-區塊01</div>
+              <div class="chunk02-1-chunk01 p-3">
+                <div class="imgContainer rounded h-100">
+                  <!--區塊02-1-區塊01-->
+                </div>
+              </div>
               <div class="chunk02-1-chunk02 d-flex">
                 <!--區塊02-1-區塊02-->
-                <div class="chunk02-1-chunk02-1">區塊02-1-區塊02-1</div>
-                <div class="chunk02-1-chunk02-2">區塊02-1-區塊02-2</div>
+                <div class="chunk02-1-chunk02-1 p-3">
+                  <div class="imgContainer rounded h-100">
+                    <!--區塊02-1-區塊02-1-->
+                  </div>
+                </div>
+                <div class="chunk02-1-chunk02-2 p-3">
+                  <div class="imgContainer rounded h-100">
+                    <!--區塊02-1-區塊02-2-->
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="chunk02-2">區塊02-2</div>
+            <div class="chunk02-2 p-3">
+              <div class="imgContainer rounded h-100">區塊02-2</div>
+            </div>
           </div>
         </div>
       </div>
@@ -363,11 +381,23 @@ export default {
       height: 360px;
       flex: 1;
       background-color: #ff6262;
+      .imgContainer {
+        background-image: url("../../../public/ChunkImg_01.png");
+        background-size: cover; /* 調整背景圖片大小以填充容器 */
+        background-position: center; /* 調整背景圖片位置至中 */
+        background-repeat: no-repeat; /* 避免背景圖片重複 */
+      }
     }
     .chunk01-2 {
       height: 360px;
       flex: 2;
       background-color: #5bad17;
+      .imgContainer {
+        background-image: url("../../../public/ChunkImg_02.png");
+        background-size: cover; /* 調整背景圖片大小以填充容器 */
+        background-position: center; /* 調整背景圖片位置至中 */
+        background-repeat: no-repeat; /* 避免背景圖片重複 */
+      }
     }
   }
   .chunk02 {
@@ -379,6 +409,12 @@ export default {
         height: 360px;
         flex: 1;
         background-color: #ff62be;
+        .imgContainer {
+          background-image: url("../../../public/ChunkImg_03.png");
+          background-size: cover; /* 調整背景圖片大小以填充容器 */
+          background-position: center; /* 調整背景圖片位置至中 */
+          background-repeat: no-repeat; /* 避免背景圖片重複 */
+        }
       }
       .chunk02-1-chunk02 {
         height: 360px;
@@ -388,11 +424,23 @@ export default {
           height: 360px;
           flex: 1;
           background-color: #ddff62;
+          .imgContainer {
+            background-image: url("../../../public/ChunkImg_05.png");
+            background-size: cover; /* 調整背景圖片大小以填充容器 */
+            background-position: center; /* 調整背景圖片位置至中 */
+            background-repeat: no-repeat; /* 避免背景圖片重複 */
+          }
         }
         .chunk02-1-chunk02-2 {
           height: 360px;
           flex: 1;
           background-color: #7f62ff;
+          .imgContainer {
+            background-image: url("../../../public/ChunkImg_06.png");
+            background-size: cover; /* 調整背景圖片大小以填充容器 */
+            background-position: center; /* 調整背景圖片位置至中 */
+            background-repeat: no-repeat; /* 避免背景圖片重複 */
+          }
         }
       }
     }
@@ -400,6 +448,12 @@ export default {
       height: 720px;
       flex: 1;
       background-color: #5817ad;
+      .imgContainer {
+        background-image: url("../../../public/ChunkImg_04.png");
+        background-size: cover; /* 調整背景圖片大小以填充容器 */
+        background-position: center; /* 調整背景圖片位置至中 */
+        background-repeat: no-repeat; /* 避免背景圖片重複 */
+      }
     }
   }
 }
