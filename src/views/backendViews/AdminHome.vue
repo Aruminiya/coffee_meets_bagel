@@ -2,7 +2,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
-  <!-- logo 觸發 offcanvas 效果，不能放BackendOffcanvasNav 裡面 -->
+  <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav 裡面 -->
   <nav class="navbar fixed-top">
     <h1>
       <a class="navbar-brand border logo m-0 p-0" role="button" @click="openOffCanvasNav">CoffeeMeetsBagel</a>
@@ -152,6 +152,7 @@ export default {
     BackendOffcanvasNav
   },
   methods: {
+    // 打開側邊欄位
     openOffCanvasNav () {
       this.$refs.backendNav.openNav();
     },
@@ -336,7 +337,7 @@ export default {
 </script>
 
 <style lang="scss">
-//logo
+// logo
 .logo {
   display: block;
   width: 256px;
