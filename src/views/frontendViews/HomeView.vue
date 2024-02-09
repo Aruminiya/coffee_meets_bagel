@@ -327,6 +327,87 @@ export default {
           </div>
         </div>
       </div>
+      <div class="block_05_BG row">
+        <div
+          class="block_05 col-12 p-0 d-flex flex-column justify-content-center align-items-center position-relative"
+        >
+          <div class="title d-flex align-items-center m-5">
+            <hr class="wordDash" />
+            <div>
+              <h1 class="m-0 d-none d-lg-block">系列餐品</h1>
+              <h3 class="m-0 d-md-block d-lg-none">系列餐品</h3>
+            </div>
+
+            <hr class="wordDash" />
+          </div>
+        </div>
+        <div class="block_05 col-12">
+          <swiper
+            ref="{swiperRef}"
+            :slidesPerView="3"
+            :centeredSlides="true"
+            :spaceBetween="30"
+            :pagination="{
+              type: 'fraction',
+            }"
+            initialSlide="1"
+            :navigation="true"
+            :modules="modules"
+            class="mySwiper"
+          >
+            <swiper-slide>
+              <div class="mealsImg d-flex flex-column rounded p-3">
+                <img
+                  class="rounded"
+                  src="../../../public/Meals_01.png"
+                  alt="Meals_01"
+                />
+                <h4 class="m-2">蛋糕</h4>
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="mealsImg d-flex flex-column rounded p-3">
+                <img
+                  class="rounded"
+                  src="../../../public/Meals_02.png"
+                  alt="Meals_02"
+                />
+                <h4 class="m-2">輕食</h4>
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="mealsImg d-flex flex-column rounded p-3">
+                <img
+                  class="rounded"
+                  src="../../../public/Meals_03.png"
+                  alt="Meals_03"
+                />
+                <h4 class="m-2">飲品</h4>
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="mealsImg d-flex flex-column rounded p-3">
+                <img
+                  class="rounded"
+                  src="../../../public/Meals_04.png"
+                  alt="Meals_04"
+                />
+                <h4 class="m-2">餅乾</h4>
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="mealsImg d-flex flex-column rounded p-3">
+                <img
+                  class="rounded"
+                  src="../../../public/Meals_05.png"
+                  alt="Meals_05"
+                />
+                <h4 class="m-2">鬆餅</h4>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
+      </div>
     </div>
   </main>
 </template>
@@ -450,6 +531,7 @@ export default {
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
+    transition: background-size 0.2s ease-in-out; /* 添加動畫效果 */
   }
   &.Img_02 {
     background-image: url("../../../public/RecommendationImg_02.png");
@@ -470,9 +552,10 @@ export default {
 }
 
 .block_04 {
+  background-color: $colorChart-bg-color;
   .chunk01 {
     .chunk01-1 {
-      height: 360px;
+      // height: 360px;
       flex: 1;
       // background-color: #ff6262;
       .imgContainer {
@@ -618,6 +701,7 @@ export default {
   }
 }
 .block_phone_04 {
+  background-color: $colorChart-bg-color;
   .chunk01 {
     height: 600px;
     .chunk01-1 {
@@ -756,10 +840,45 @@ export default {
     }
   }
 }
+.block_05_BG {
+  background-image: url("../../../public/BG_02.png");
+  background-size: cover;
+  background-position: center;
+}
+.block_05 {
+  // height: 100vh;
+  color: $colorChart-Accessory-200;
+  .title {
+    top: 3rem;
+    .wordDash {
+      border: solid 1px $colorChart-Accessory-200;
+      border-radius: 0.5rem;
+      opacity: 1;
+      width: 60px;
+    }
+  }
+  .swiper {
+    width: 100%;
+    height: 90vh;
+  }
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: transparent;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .mealsImg {
+      background-color: $colorChart-Gray-100;
+    }
+  }
+}
 
 .swiper {
   width: 100%;
-  height: 960px;
+  height: 100vh;
 }
 
 .swiper-slide {
