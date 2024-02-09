@@ -10,7 +10,7 @@ import pagination from "../../components/PaginationComponent.vue";
 // let showPicModal = null;
 
 export default {
-  data() {
+  data () {
     return {
       text: "純測試",
       allProducts: [],
@@ -27,7 +27,7 @@ export default {
     modal,
   },
   methods: {
-    checkAdmin() {
+    checkAdmin () {
       this.axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
@@ -41,7 +41,7 @@ export default {
           console.log(err);
         });
     },
-    searchProduct() {
+    searchProduct () {
       const result = this.allProducts.filter((product) => {
         // 比對標題內容與產品描述對應搜尋關鍵字
         return [product.title, product.content, product.description]
@@ -55,7 +55,7 @@ export default {
       this.search = "";
     },
     // 先取得所有商品, 以及所有分類
-    getAllProducts() {
+    getAllProducts () {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
@@ -72,7 +72,7 @@ export default {
         });
     },
     // 預設取得第一頁資料
-    getProducts(page = 1) {
+    getProducts (page = 1) {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
@@ -87,7 +87,7 @@ export default {
         });
     },
     // 變更分類時取得分類資料
-    getProductsByCategory(category) {
+    getProductsByCategory (category) {
       if (category === "檢視全部") {
         this.getProducts();
       } else {
@@ -107,7 +107,7 @@ export default {
       }
     },
     // 測試用, 如果需要token再從這邊抓
-    testLogin() {
+    testLogin () {
       const user = {
         username: "tingyu1112@gmail.com",
         password: "cmbSideProject",
@@ -127,35 +127,35 @@ export default {
         });
     },
     // 取得所有商品後取得所有分類
-    getCategories() {
+    getCategories () {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
       );
     },
     // 上一頁
-    previousPage() {
+    previousPage () {
       this.pagination.current_page--;
       this.getProducts(this.pagination.current_page);
     },
     // 下一頁
-    nextPage() {
+    nextPage () {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
-    goThisPage(page) {
+    goThisPage (page) {
       // console.log(page);
       this.getProducts(page);
     },
 
-    modalShow(product) {
+    modalShow (product) {
       // this.product = product;
       this.$refs.modal.modalShow(product);
     },
-    modalHide() {
+    modalHide () {
       this.productModal.hide();
     },
   },
-  mounted() {
+  mounted () {
     // 從cookie取出登入時存入的token
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
@@ -174,10 +174,8 @@ export default {
 </script>
 
 <template>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-  />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <div class="d-flex">
     <!-- 後台側邊欄位, 之後拆元件 -->
@@ -194,35 +192,19 @@ export default {
         <!-- 搜尋欄, 之後拆 -->
         <div class="col-3 py-3 my-3">
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="請輸入搜尋資料"
-              v-model="search"
-            />
-            <button
-              type="button"
-              @click="searchProduct()"
-              class="btn btn-outline-success d-flex align-items-center"
-            >
+            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
+            <button type="button" @click="searchProduct()" class="btn btn-outline-success d-flex align-items-center">
               <span class="material-symbols-outlined"> search </span>
             </button>
           </div>
         </div>
         <div class="col-3 py-3 my-3">
-          <select
-            class="form-select form-select"
-            aria-label=".form-select-sm example"
-            @change="getProductsByCategory($event.target.value)"
-          >
+          <select class="form-select form-select" aria-label=".form-select-sm example"
+            @change="getProductsByCategory($event.target.value)">
             <!-- 設計稿以販售狀態分類, 先改類別 -->
             <option selected>依商品類別檢視</option>
             <option value="檢視全部">檢視全部</option>
-            <option
-              v-for="category in categories"
-              :key="category"
-              :value="category"
-            >
+            <option v-for="category in categories" :key="category" :value="category">
               {{ category }}
             </option>
           </select>
@@ -240,11 +222,7 @@ export default {
             <div class="col-md-4 p-3">
               <!-- 點圖放大 -->
               <a href="#" @click.prevent="modalShow(product)">
-                <img
-                  :src="product.imageUrl"
-                  class="img-fluid rounded-start"
-                  alt="#"
-                />
+                <img :src="product.imageUrl" class="img-fluid rounded-start" alt="#" />
               </a>
             </div>
             <div class="col-md-6">
@@ -298,10 +276,7 @@ export default {
       <!-- modal< 點選圖片放大顯示 -->
       <modal ref="modal"></modal>
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <pagination
-        :pagination="pagination"
-        @emit-pages="getProducts"
-      ></pagination>
+      <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
     </div>
   </div>
 </template>
@@ -311,6 +286,7 @@ export default {
   position: relative;
   width: 300px;
   height: 90vh;
+
   // 漸層背景
   &__bg {
     background: radial-gradient(circle closest-corner at left, #e69c7d, white);
@@ -326,6 +302,7 @@ export default {
   width: 70%;
   right: 0%;
   z-index: -1;
+
   &__bg {
     background: radial-gradient(ellipse at bottom right, #e69c7d 0%, white 60%);
     position: absolute;
