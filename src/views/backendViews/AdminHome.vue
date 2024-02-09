@@ -1,4 +1,135 @@
+<template>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+
+  <!-- logo 觸發 offcanvas 效果，不能放BackendOffcanvasNav 裡面 -->
+  <nav class="navbar fixed-top">
+    <h1>
+      <a class="navbar-brand border logo m-0 p-0" role="button" @click="openOffCanvasNav">CoffeeMeetsBagel</a>
+    </h1>
+  </nav>
+  <BackendOffcanvasNav ref="backendNav" />
+  <!-- 主要區塊 -->
+  <main>
+    <div class="container mt-20 mb-5">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- 所有訂單 -->
+          <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3">
+              <h2 class="fs-52 text-colorChart-Accessory-200 lh-1">所有訂單</h2>
+              <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
+                more
+              </button>
+            </div>
+            <div class="card mb-3 border-0 cursor-pointer" v-for="order in renderOrders" :key="order.id">
+              <div class="row g-0">
+                <div class="col-lg-8 colorChart-bg-color card-detail-border-radius">
+                  <div class="card-body py-6">
+                    <div class="row mb-2">
+                      <div class="col-6 col-lg-5">
+                        <p class="card-text fs-2 lh-1 mb-0 ps-2">訂單編號</p>
+                      </div>
+                      <div class="col-6 col-lg-7">
+                        <p class="card-text fs-2 lh-1 mb-0">{{ order.create_at }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-lg-5">
+                        <p class="card-text fs-2 lh-1 mb-0 ps-2">金額</p>
+                      </div>
+                      <div class="col-6 col-lg-7">
+                        <p class="card-text fs-2 lh-1 mb-0">$ {{ order.total }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <template v-if="!order.is_paid">
+                  <div
+                    class="col-lg-4 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
+                    <p class="fs-2 text-white m-0">未付款</p>
+                  </div>
+                </template>
+                <template v-else>
+                  <div
+                    class="col-lg-4 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
+                    <p class="fs-2 text-white m-0">已付款</p>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+          <!-- 折價券 -->
+          <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">折價券資訊</h2>
+              <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
+                more
+              </button>
+            </div>
+            <table class="discountTable table table-light table-striped table-hover table-borderless">
+              <tbody>
+                <tr class="cursor-pointer" v-for="coupon in coupons" :key="coupon.id">
+                  <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
+                  <td class="fs-2 lh-1 text-end p-6">{{ coupon.percent }}% OFF</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- 今日營業額 -->
+          <div class="colorChart-Gray-10 shadow rounded text-bold p-9 mb-4">
+            <div class="row align-items-center">
+              <div class="col-md-5">
+                <div class="d-flex justify-content-center align-items-center">
+                  <a href="#" class="text-colorChart-Secondary-200">
+                    <span class="cash-icon material-symbols-outlined">
+                      paid
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="d-flex flex-column align-items-center align-items-md-start">
+                  <p class="fs-52 lh-1 text-colorChart-Gray-500 fw-bold">$ {{ orderTodayTotal }}</p>
+                  <h2 class="fs-1 lh-1 text-colorChart-Gray-500 fw-medium">今日營業額</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="colorChart-Gray-10 shadow rounded text-bold px-4 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">今日銷量榜</h2>
+              <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
+                more
+              </button>
+            </div>
+            <table class="revenueTable table table-light table-striped table-hover table-borderless fs-2">
+              <thead>
+                <tr>
+                  <th class="fw-medium top-left-border-radius ps-3 py-4" scope="col">排名</th>
+                  <th class="fw-medium py-4" scope="col">品項</th>
+                  <th class="fw-medium top-right-border-radius py-4" scope="col">銷售額</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in productRank" :key="item.title" class="cursor-pointer">
+                  <td width="100" class="ps-3 py-4">{{ index + 1 }}</td>
+                  <td width="200" class="py-4">{{ item.title }}</td>
+                  <td width="100" class="py-4">$ {{ item.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</template>
+
 <script>
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue';
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
@@ -17,7 +148,13 @@ export default {
       coupons: [],
     };
   },
+  components: {
+    BackendOffcanvasNav
+  },
   methods: {
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav();
+    },
     login () {
       this.axios
         .post(`${host}/v2/admin/signin`, this.user)
@@ -49,7 +186,7 @@ export default {
     getOrders () {
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         this.orders = res.data.orders;
-        console.log(this.orders);
+        // console.log(this.orders);
       });
     },
     // 後台取得所有折價券
@@ -198,157 +335,19 @@ export default {
 };
 </script>
 
-<template>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+<style lang="scss">
+//logo
+.logo {
+  display: block;
+  width: 256px;
+  height: 64px;
+  background-image: url('../../../public/coffee_meets_bagel_Logo.svg');
+  background-repeat: no-repeat;
+  text-indent: 101%;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
-  <nav class="position-relative border">
-    <h1>
-      <a class="border position-absolute top-0 start-0" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-        aria-controls="offcanvasExample"><img src="../../../public/coffee_meets_bagel_Logo.svg" alt="" height="100"></a>
-    </h1>
-  </nav>
-  <div class="container my-5">
-    <div class="row">
-      <div class="col-md-6">
-        <!-- 所有訂單 -->
-        <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
-          <div class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3">
-            <h2 class="fs-52 text-colorChart-Accessory-200 lh-1">所有訂單</h2>
-            <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
-              more
-            </button>
-          </div>
-          <div class="card mb-3 border-0 cursor-pointer" v-for="order in renderOrders" :key="order.id">
-            <div class="row g-0">
-              <div class="col-lg-8 colorChart-bg-color card-detail-border-radius">
-                <div class="card-body py-6">
-                  <div class="row mb-2">
-                    <div class="col-6 col-lg-5">
-                      <p class="card-text fs-2 lh-1 mb-0 ps-2">訂單編號</p>
-                    </div>
-                    <div class="col-6 col-lg-7">
-                      <p class="card-text fs-2 lh-1 mb-0">{{ order.create_at }}</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 col-lg-5">
-                      <p class="card-text fs-2 lh-1 mb-0 ps-2">金額</p>
-                    </div>
-                    <div class="col-6 col-lg-7">
-                      <p class="card-text fs-2 lh-1 mb-0">$ {{ order.total }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <template v-if="!order.is_paid">
-                <div
-                  class="col-lg-4 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
-                  <p class="fs-2 text-white m-0">未付款</p>
-                </div>
-              </template>
-              <template v-else>
-                <div
-                  class="col-lg-4 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
-                  <p class="fs-2 text-white m-0">已付款</p>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <!-- 折價券 -->
-        <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">折價券資訊</h2>
-            <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
-              more
-            </button>
-          </div>
-          <table class="discountTable table table-light table-striped table-hover table-borderless">
-            <tbody>
-              <tr class="cursor-pointer" v-for="coupon in coupons" :key="coupon.id">
-                <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
-                <td class="fs-2 lh-1 text-end p-6">{{ coupon.percent }}% OFF</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <!-- 今日營業額 -->
-        <div class="colorChart-Gray-10 shadow rounded text-bold p-9 mb-4">
-          <div class="row align-items-center">
-            <div class="col-md-5">
-              <div class="d-flex justify-content-center align-items-center">
-                <a href="#" class="text-colorChart-Secondary-200">
-                  <span class="cash-icon material-symbols-outlined">
-                    paid
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-7">
-              <div class="d-flex flex-column align-items-center align-items-md-start">
-                <p class="fs-52 lh-1 text-colorChart-Gray-500 fw-bold">$ {{ orderTodayTotal }}</p>
-                <h2 class="fs-1 lh-1 text-colorChart-Gray-500 fw-medium">今日營業額</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="colorChart-Gray-10 shadow rounded text-bold px-4 py-5">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">今日銷量榜</h2>
-            <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
-              more
-            </button>
-          </div>
-          <table class="revenueTable table table-light table-striped table-hover table-borderless fs-2">
-            <thead>
-              <tr>
-                <th class="fw-medium top-left-border-radius ps-3 py-4" scope="col">排名</th>
-                <th class="fw-medium py-4" scope="col">品項</th>
-                <th class="fw-medium top-right-border-radius py-4" scope="col">銷售額</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in productRank" :key="item.title" class="cursor-pointer">
-                <td width="100" class="ps-3 py-4">{{ index + 1 }}</td>
-                <td width="200" class="py-4">{{ item.title }}</td>
-                <td width="100" class="py-4">$ {{ item.total }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- offcanvas -->
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div>
-        Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
-        etc.
-      </div>
-      <div class="dropdown mt-3">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- offcanvas -->
-</template>
-
-<style scoped lang="scss">
 .lh-1 {
   line-height: 1;
 }
@@ -427,8 +426,6 @@ export default {
 .cursor-pointer {
   cursor: pointer;
 }
-
-
 
 .top-left-border-radius {
   border-radius: 5px 0 0 0;
