@@ -14,7 +14,7 @@
           <router-link to="/admin">後台首頁</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/adminProducts">訂單管理</router-link>
+          <router-link to="/admin/adminProducts">訂單管理</router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">商品管理</a>
