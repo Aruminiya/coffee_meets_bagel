@@ -84,7 +84,7 @@ export default {
 
         <p v-if="editMode" class="tempItemQty">
           選擇數量：<button @click="editItemClickedEmit('-')">-</button>
-          <input type="text" v-model="tempItem.qty" /><button
+          <input type="text" v-model.lazy="tempItem.qty" /><button
             @click="editItemClickedEmit('+')"
           >
             +
