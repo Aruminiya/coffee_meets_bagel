@@ -6,7 +6,6 @@ export default {
     return {
       productModal: null,
       product: {},
-      // imageUrl: 'imageUrl'
     };
   },
   methods: {
@@ -33,7 +32,7 @@ export default {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            <slot name="modal-title">{{product.title}}</slot>
+            <slot name="modal-title"></slot>
           </h5>
           <button
             type="button"
@@ -43,21 +42,13 @@ export default {
           ></button>
         </div>
         <div class="modal-body text-center">
-          <slot name="modal-body">
-            <img class="modal__img "  :src="product.imageUrl" alt="#">
-          </slot>
+          <slot name="modal-body"></slot>
         </div>
         <div class="modal-footer">
-          <slot name="modal-footer">Modal Footer</slot>
+          <slot name="modal-footer"></slot>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.modal__img{
-  max-width: 100%;
-  object-fit: contain;
-}
-</style>

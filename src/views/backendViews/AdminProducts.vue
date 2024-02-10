@@ -4,30 +4,32 @@ const path = import.meta.env.VITE_USER_PATH;
 
 // import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 
-import modal from "../../components/ModalComponent.vue";
-import pagination from "../../components/PaginationComponent.vue";
+
+import modal from '../../components/ModalComponent.vue';
+import pagination from '../../components/PaginationComponent.vue';
 
 // let showPicModal = null;
 
 export default {
-  data () {
+  data() {
     return {
       text: "純測試",
       allProducts: [],
       products: [],
       pagination: {},
       categories: [],
-      search: "",
+      search: '',
+      product: {}
       // productModal: {},
-      // product: {}
+      // imageUrl: ''
     };
   },
   components: {
     pagination,
-    modal,
+    modal
   },
   methods: {
-    checkAdmin () {
+    checkAdmin() {
       this.axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
@@ -41,21 +43,19 @@ export default {
           console.log(err);
         });
     },
-    searchProduct () {
-      const result = this.allProducts.filter((product) => {
+    searchProduct() {
+      const result = this.allProducts.filter(product => {
         // 比對標題內容與產品描述對應搜尋關鍵字
-        return [product.title, product.content, product.description]
-          .toString()
-          .match(this.search);
-      });
+        return [product.title, product.content, product.description].toString().match(this.search)
+      })
       this.products = result;
       // 搜尋結果暫時先不處理分頁
       this.pagination.total_pages = 1;
       // 清空搜尋欄字串
-      this.search = "";
+      this.search = ''
     },
     // 先取得所有商品, 以及所有分類
-    getAllProducts () {
+    getAllProducts() {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
@@ -72,7 +72,7 @@ export default {
         });
     },
     // 預設取得第一頁資料
-    getProducts (page = 1) {
+    getProducts(page = 1) {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
@@ -86,15 +86,12 @@ export default {
           console.error(error);
         });
     },
-    // 變更分類時取得分類資料
-    getProductsByCategory (category) {
+    // 變更分類時取得分類資料 
+    getProductsByCategory(category) {
       if (category === "檢視全部") {
         this.getProducts();
       } else {
-        this.axios
-          .get(
-            `${host}/v2/api/${path}/admin/products?page=1&category=${category}`
-          )
+        this.axios.get(`${host}/v2/api/${path}/admin/products?page=1&category=${category}`)
           .then((response) => {
             console.log(response.data);
             this.products = response.data.products;
@@ -107,7 +104,7 @@ export default {
       }
     },
     // 測試用, 如果需要token再從這邊抓
-    testLogin () {
+    testLogin() {
       const user = {
         username: "tingyu1112@gmail.com",
         password: "cmbSideProject",
@@ -127,35 +124,46 @@ export default {
         });
     },
     // 取得所有商品後取得所有分類
-    getCategories () {
+    getCategories() {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
       );
     },
     // 上一頁
-    previousPage () {
+    previousPage() {
       this.pagination.current_page--;
       this.getProducts(this.pagination.current_page);
     },
     // 下一頁
-    nextPage () {
+    nextPage() {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
-    goThisPage (page) {
+    goThisPage(page) {
       // console.log(page);
       this.getProducts(page);
     },
 
-    modalShow (product) {
+
+    modalShow(product) {
       // this.product = product;
-      this.$refs.modal.modalShow(product);
+      this.$refs.modal.modalShow(product)
     },
-    modalHide () {
+    modalHide() {
       this.productModal.hide();
     },
+    getThisProduct(product) {
+      this.product = product;
+    },
+
+    log() {
+      console.log(this);
+    }
+
+
+
   },
-  mounted () {
+  mounted() {
     // 從cookie取出登入時存入的token
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
@@ -165,7 +173,8 @@ export default {
     this.axios.defaults.headers.common.Authorization = token;
     // 確認登入狀態
     this.checkAdmin();
-    this.testLogin();
+    // this.testLogin()
+
 
     // this.$refs.modal.modalShow()
     // console.log(this.$refs.modal.modalShow());
@@ -173,22 +182,20 @@ export default {
 };
 </script>
 
+
 <template>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <div class="d-flex">
     <!-- 後台側邊欄位, 之後拆元件 -->
-    <div class="sidebar">
+    <div>
       {{ text }}
-      <div class="sidebar__bg"></div>
     </div>
-    <!-- 純背景, 這也拆元件? -->
-    <div class="main">
-      <div class="main__bg"></div>
-    </div>
+    
     <div class="container">
       <div class="row">
+
         <!-- 搜尋欄, 之後拆 -->
         <div class="col-3 py-3 my-3">
           <div class="input-group">
@@ -214,6 +221,7 @@ export default {
             新增商品
           </button>
         </div>
+
       </div>
       <div class="border rounded p-3 pb-0 product__list mb-4">
         <!-- 依設計稿調整至顯示三欄 -->
@@ -221,7 +229,7 @@ export default {
           <div class="row g-0">
             <div class="col-md-4 p-3">
               <!-- 點圖放大 -->
-              <a href="#" @click.prevent="modalShow(product)">
+              <a href="#" @click.prevent="modalShow(product), getThisProduct(product)" >
                 <img :src="product.imageUrl" class="img-fluid rounded-start" alt="#" />
               </a>
             </div>
@@ -270,41 +278,38 @@ export default {
               </div>
             </div>
           </div>
+
+          
         </div>
       </div>
-
+      
       <!-- modal< 點選圖片放大顯示 -->
-      <modal ref="modal"></modal>
+      <modal ref="modal">
+        <template v-slot:modal-title>
+          <h5 class="mb-0">{{ product.title }}</h5>
+        </template>
+        <template v-slot:modal-body>
+          <img class="modal__img" :src="product.imageUrl" alt="#">
+        </template>
+      </modal>
+      
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
       <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
+      
     </div>
   </div>
+  
 </template>
 
 <style scoped lang="scss">
-.sidebar {
-  position: relative;
-  width: 300px;
-  height: 90vh;
-
-  // 漸層背景
-  &__bg {
-    background: radial-gradient(circle closest-corner at left, #e69c7d, white);
-    position: absolute;
-    width: 500px;
-    height: 90vh;
-    z-index: -1;
-  }
-}
-
 .main {
   position: absolute;
   width: 70%;
   right: 0%;
   z-index: -1;
-
   &__bg {
-    background: radial-gradient(ellipse at bottom right, #e69c7d 0%, white 60%);
+    background:radial-gradient(ellipse at bottom right,
+    #E69C7D 0%, white 60%);
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -324,5 +329,10 @@ export default {
 .product__list {
   max-height: 726px;
   overflow: auto;
+}
+
+.modal__img{
+  max-width: 100%;
+  object-fit: contain;
 }
 </style>
