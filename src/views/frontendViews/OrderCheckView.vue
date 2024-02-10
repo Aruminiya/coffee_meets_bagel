@@ -33,11 +33,16 @@ export default {
 
 <template>
   <NavBarComponent />
-  <main>
+  <main class="OrderCheckView">
     <!-- 進度條元件 step 是 props 傳入當前第幾步驟 -->
     <OrderCheckProgressComponent :step="showOrderCheckProgressComponent" />
     <router-view></router-view>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+  min-height: 100vh;
+  background-image: url("../../../public/BG_03.png");
+}
+</style>

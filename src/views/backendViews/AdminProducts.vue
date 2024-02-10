@@ -4,31 +4,30 @@ const path = import.meta.env.VITE_USER_PATH;
 
 // import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 
-
-import modal from '../../components/ModalComponent.vue';
-import pagination from '../../components/PaginationComponent.vue';
+import modal from "../../components/ModalComponent.vue";
+import pagination from "../../components/PaginationComponent.vue";
 
 // let showPicModal = null;
 
 export default {
-  data() {
+  data () {
     return {
       text: "純測試",
       allProducts: [],
       products: [],
       pagination: {},
       categories: [],
-      search: '',
+      search: "",
       // productModal: {},
       // product: {}
     };
   },
   components: {
     pagination,
-    modal
+    modal,
   },
   methods: {
-    checkAdmin() {
+    checkAdmin () {
       this.axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
@@ -42,19 +41,21 @@ export default {
           console.log(err);
         });
     },
-    searchProduct() {
-      const result = this.allProducts.filter(product => {
+    searchProduct () {
+      const result = this.allProducts.filter((product) => {
         // 比對標題內容與產品描述對應搜尋關鍵字
-        return [product.title, product.content, product.description].toString().match(this.search)
-      })
+        return [product.title, product.content, product.description]
+          .toString()
+          .match(this.search);
+      });
       this.products = result;
       // 搜尋結果暫時先不處理分頁
       this.pagination.total_pages = 1;
       // 清空搜尋欄字串
-      this.search = ''
+      this.search = "";
     },
     // 先取得所有商品, 以及所有分類
-    getAllProducts() {
+    getAllProducts () {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
@@ -71,7 +72,7 @@ export default {
         });
     },
     // 預設取得第一頁資料
-    getProducts(page = 1) {
+    getProducts (page = 1) {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
@@ -85,12 +86,15 @@ export default {
           console.error(error);
         });
     },
-    // 變更分類時取得分類資料 
-    getProductsByCategory(category) {
+    // 變更分類時取得分類資料
+    getProductsByCategory (category) {
       if (category === "檢視全部") {
         this.getProducts();
       } else {
-        this.axios.get(`${host}/v2/api/${path}/admin/products?page=1&category=${category}`)
+        this.axios
+          .get(
+            `${host}/v2/api/${path}/admin/products?page=1&category=${category}`
+          )
           .then((response) => {
             console.log(response.data);
             this.products = response.data.products;
@@ -103,7 +107,7 @@ export default {
       }
     },
     // 測試用, 如果需要token再從這邊抓
-    testLogin() {
+    testLogin () {
       const user = {
         username: "tingyu1112@gmail.com",
         password: "cmbSideProject",
@@ -123,39 +127,35 @@ export default {
         });
     },
     // 取得所有商品後取得所有分類
-    getCategories() {
+    getCategories () {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
       );
     },
     // 上一頁
-    previousPage() {
+    previousPage () {
       this.pagination.current_page--;
       this.getProducts(this.pagination.current_page);
     },
     // 下一頁
-    nextPage() {
+    nextPage () {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
-    goThisPage(page) {
+    goThisPage (page) {
       // console.log(page);
       this.getProducts(page);
     },
 
-
-    modalShow(product) {
+    modalShow (product) {
       // this.product = product;
-      this.$refs.modal.modalShow(product)
+      this.$refs.modal.modalShow(product);
     },
-    modalHide() {
+    modalHide () {
       this.productModal.hide();
     },
-
-
-
   },
-  mounted() {
+  mounted () {
     // 從cookie取出登入時存入的token
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
@@ -165,15 +165,13 @@ export default {
     this.axios.defaults.headers.common.Authorization = token;
     // 確認登入狀態
     this.checkAdmin();
-    // this.testLogin()
-
+    this.testLogin();
 
     // this.$refs.modal.modalShow()
     // console.log(this.$refs.modal.modalShow());
   },
 };
 </script>
-
 
 <template>
   <link rel="stylesheet"
@@ -187,12 +185,10 @@ export default {
     </div>
     <!-- 純背景, 這也拆元件? -->
     <div class="main">
-      <div class="main__bg">
-      </div>
+      <div class="main__bg"></div>
     </div>
     <div class="container">
       <div class="row">
-
         <!-- 搜尋欄, 之後拆 -->
         <div class="col-3 py-3 my-3">
           <div class="input-group">
@@ -218,7 +214,6 @@ export default {
             新增商品
           </button>
         </div>
-
       </div>
       <div class="border rounded p-3 pb-0 product__list mb-4">
         <!-- 依設計稿調整至顯示三欄 -->
@@ -275,19 +270,15 @@ export default {
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
-      
+
       <!-- modal< 點選圖片放大顯示 -->
       <modal ref="modal"></modal>
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
       <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
-      
     </div>
   </div>
-  
 </template>
 
 <style scoped lang="scss">
@@ -295,9 +286,10 @@ export default {
   position: relative;
   width: 300px;
   height: 90vh;
+
   // 漸層背景
   &__bg {
-    background:radial-gradient(circle closest-corner at left, #E69C7D, white);
+    background: radial-gradient(circle closest-corner at left, #e69c7d, white);
     position: absolute;
     width: 500px;
     height: 90vh;
@@ -310,9 +302,9 @@ export default {
   width: 70%;
   right: 0%;
   z-index: -1;
+
   &__bg {
-    background:radial-gradient(ellipse at bottom right,
-    #E69C7D 0%, white 60%);
+    background: radial-gradient(ellipse at bottom right, #e69c7d 0%, white 60%);
     position: absolute;
     width: 100%;
     height: 100vh;

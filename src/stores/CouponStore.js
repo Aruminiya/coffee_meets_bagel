@@ -10,6 +10,7 @@ export default defineStore("CouponStore", {
   //state, actions, getters
   state: () => ({
     couponData: {},
+    couponUsed: false,
   }),
   getters: {},
   actions: {
@@ -17,7 +18,7 @@ export default defineStore("CouponStore", {
     useCoupon(code) {
       const host = import.meta.env.VITE_HEXAPI;
       const path = import.meta.env.VITE_USER_PATH;
-
+      this.couponUsed = true;
       // 調用 CartStore 中的 getCarts 方法
       const { getCarts } = cartStore();
 
@@ -29,11 +30,13 @@ export default defineStore("CouponStore", {
         })
         .then((res) => {
           this.couponData = res;
+          this.couponUsed = true;
           // 使用 CartStore
           getCarts();
         })
         .catch((err) => {
           this.couponData = err;
+          this.couponUsed = false;
           console.error(err);
         });
     },

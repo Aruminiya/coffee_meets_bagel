@@ -24,10 +24,10 @@ export default {
   },
   computed: {
     ...mapState(cartStore, ["data", "isCartsLoading"]),
-    ...mapState(couponStore, ["couponData"]),
+    ...mapState(couponStore, ["couponData", "couponUsed"]),
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
+    ...mapActions(cartStore, ["getCarts", "deleteCarts"]),
     ...mapActions(couponStore, ["useCoupon"]),
     cartItemClicked(item) {
       // 點擊的商品資料給 this.item
@@ -57,9 +57,13 @@ export default {
             :key="item.id"
           >
             <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
-            <CartItemComponent
+            <!-- <CartItemComponent
               :item="item"
               @cartItemClicked="cartItemClicked(item)"
+              @deleteItemClicked="deleteCarts(item)"
+            /> -->
+            <CartItemComponent
+              :item="item"
               @deleteItemClicked="deleteCarts(item)"
             />
           </div>
@@ -96,16 +100,17 @@ export default {
                 type="button"
                 id="button-addon2"
                 @click="useCoupon(couponCode)"
-                :disabled="data.total !== data.final_total"
+                :disabled="couponUsed"
               >
                 送出優惠
               </button>
             </div>
-
             <!-- 因為 couponData.data.message 一開始沒東西 所以要加 ?. -->
             <p :class="{ 'text-danger': couponData.response?.data?.message }">
               {{ couponData.response?.data?.message }}
             </p>
+
+            <button class="btn btn-primary btn02 w-100">我想再加點</button>
           </div>
         </div>
       </div>
@@ -129,6 +134,48 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: $colorChart-Accessory-200;
+}
+input {
+  color: $colorChart-Accessory-200;
+  border: solid 1px $colorChart-Accessory-200;
+  background-color: transparent;
+  &:focus {
+    border-color: $colorChart-Accessory-200; /* 替換為你想要的邊框顏色 */
+    box-shadow: 0 0 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+    background-color: transparent;
+  }
+}
+.btn {
+  background-color: $colorChart-Logo-Red;
+  border-color: $colorChart-Logo-Red;
+  &:hover {
+    background-color: darken($colorChart-Logo-Red, 10%);
+    border-color: darken($colorChart-Logo-Red, 10%);
+  }
+  &:active {
+    background-color: darken($colorChart-Logo-Red, 10%);
+    border-color: darken($colorChart-Logo-Red, 10%);
+  }
+}
+.btn02 {
+  background-color: $colorChart-Primary-100;
+  border-color: $colorChart-Primary-100;
+}
+.is-invalid {
+  border-color: $colorChart-Primary-200; /* 替換為你想要的邊框顏色 */
+  box-shadow: 10 10 0px $colorChart-Primary-200; /* 替換為你想要的陰影效果 */
+  &:focus {
+    border-color: $colorChart-Primary-200;
+  }
+}
 .cartProductInfo {
   cursor: pointer;
 }
