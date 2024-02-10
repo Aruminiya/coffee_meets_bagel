@@ -27,7 +27,7 @@ export default {
     ...mapState(couponStore, ["couponData", "couponUsed"]),
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts"]),
+    ...mapActions(cartStore, ["getCarts", "editCarts", "deleteCarts"]),
     ...mapActions(couponStore, ["useCoupon"]),
     cartItemClicked(item) {
       // 點擊的商品資料給 this.item
@@ -65,6 +65,7 @@ export default {
             <CartItemComponent
               :item="item"
               @deleteItemClicked="deleteCarts(item)"
+              @editItemClickedEmit="editCarts($event)"
             />
           </div>
           <div v-if="this.data.carts">

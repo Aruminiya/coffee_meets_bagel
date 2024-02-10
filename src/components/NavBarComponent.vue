@@ -9,6 +9,7 @@ export default {
   components: {
     CartItemComponent,
   },
+  props: { isEditMode: { type: Boolean, default: true } },
   data() {
     return {
       item: {},
@@ -20,11 +21,15 @@ export default {
     ...mapState(cartStore, ["data", "isCartsLoading"]),
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts"]),
+    ...mapActions(cartStore, ["getCarts", "editCarts", "deleteCarts"]),
   },
   mounted() {
     // 先取得購物車資訊
     this.getCarts();
+    console.log("mounted啟動");
+    // if (this.$route.fullPath === "/orderCheckView/step2") {
+    //   this.isEditMode = false;
+    // }
   },
 };
 </script>
@@ -127,7 +132,9 @@ export default {
             /> -->
         <CartItemComponent
           :item="item"
+          :editMode="isEditMode"
           @deleteItemClicked="deleteCarts(item)"
+          @editItemClickedEmit="editCarts($event)"
         />
       </div></section
   ></transition>

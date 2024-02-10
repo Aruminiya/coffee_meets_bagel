@@ -44,9 +44,38 @@ export default defineStore("CartStore", {
           console.error(err);
         });
     },
+    //編輯購物車商品
+    editCarts(item) {
+      const cartId = item.id;
+
+      this.isCartsLoading = true;
+      const editData = {
+        data: {
+          product_id: item.id,
+          qty: item.qty,
+        },
+      };
+
+      const host = import.meta.env.VITE_HEXAPI;
+      const path = import.meta.env.VITE_USER_PATH;
+
+      axios
+        .put(`${host}/v2/api/${path}/cart/${cartId}`, editData)
+        .then((res) => {
+          this.getCarts();
+        })
+        .catch((err) => {
+          console.error(err);
+          Swal.fire({
+            title: `編輯商品失敗`,
+            icon: "error",
+            confirmButtonText: "確定",
+          });
+        });
+    },
     // 商品刪除購物車
     deleteCarts(item) {
-      const cartid = item.id;
+      const cartId = item.id;
 
       Swal.fire({
         title: `確定要刪除 ${item.product.title} 嗎?`,
@@ -65,14 +94,14 @@ export default defineStore("CartStore", {
           const path = import.meta.env.VITE_USER_PATH;
 
           axios
-            .delete(`${host}/v2/api/${path}/cart/${cartid}`)
+            .delete(`${host}/v2/api/${path}/cart/${cartId}`)
             .then((res) => {
               this.getCarts();
             })
             .catch((err) => {
               console.error(err);
               Swal.fire({
-                title: `刪除商品失敗嗎?`,
+                title: `刪除商品失敗`,
                 icon: "error",
                 confirmButtonText: "確定",
               });

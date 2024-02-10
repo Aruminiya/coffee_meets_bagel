@@ -32,7 +32,7 @@ export default {
     ...mapActions(orderStore, ["orderCheckout"]),
   },
   mounted() {
-    console.log(this.orderEstablished);
+    // console.log(this.orderEstablished);
     // 先取得購物車資訊
     this.getCarts();
     //取得上一步驟在 localStorage 存放的使用者資料
