@@ -23,7 +23,17 @@ export default {
     return {
       test: "歡迎來到首頁",
       modules: [Autoplay, Pagination, Navigation],
+      // 這邊是給 SwiperSlide 的 slidesPerView 判斷用的
+      windowInnerWidth: window.innerWidth,
     };
+  },
+  computed: {
+    slidesPerViewData() {
+      return this.windowInnerWidth >= 768 ? 3 : 1;
+    },
+    initialSlideData() {
+      return this.windowInnerWidth >= 768 ? 1 : 0;
+    },
   },
   mounted() {
     console.log(this.test);
@@ -344,13 +354,13 @@ export default {
         <div class="block_05 col-12">
           <swiper
             ref="{swiperRef}"
-            :slidesPerView="3"
+            :slidesPerView="slidesPerViewData"
             :centeredSlides="true"
             :spaceBetween="30"
             :pagination="{
               type: 'fraction',
             }"
-            initialSlide="1"
+            :initialSlide="initialSlideData"
             :navigation="true"
             :modules="modules"
             class="mySwiper"
