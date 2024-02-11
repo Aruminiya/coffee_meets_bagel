@@ -5,10 +5,11 @@ export default {
     editMode: { type: Boolean, default: true },
   },
 
-  emits: ["cartItemClicked", "deleteItemClicked"],
+  emits: ["cartItemClicked", "deleteItemClicked", "editItemClickedEmit"],
   data() {
     return {
       tempItem: { ...this.item },
+      isEditMode: true,
     };
   },
   methods: {
@@ -21,6 +22,27 @@ export default {
       if (this.editMode) {
         this.$emit("cartItemClicked");
       }
+    },
+    editItemClickedEmit(calculate) {
+      if (this.editMode) {
+        if (calculate === "+") {
+          this.tempItem.qty++;
+          // console.log(this.tempItem);
+          this.$emit("editItemClickedEmit", this.tempItem);
+        } else if (calculate === "-") {
+          this.tempItem.qty--;
+          // console.log(this.tempItem);
+          this.$emit("editItemClickedEmit", this.tempItem);
+        } else {
+          console.warn("無效的計算");
+        }
+      }
+    },
+  },
+  watch: {
+    editMode(newVal) {
+      console.log(newVal);
+      this.isEditMode = newVal;
     },
   },
 };
@@ -61,9 +83,9 @@ export default {
         <p>{{ tempItem.product.content }}</p>
 
         <p v-if="editMode" class="tempItemQty">
-          選擇數量：<button @click="tempItem.qty--">-</button>
+          選擇數量：<button @click="editItemClickedEmit('-')">-</button>
           <input type="text" v-model="tempItem.qty" /><button
-            @click="tempItem.qty++"
+            @click="editItemClickedEmit('+')"
           >
             +
           </button>

@@ -58,14 +58,19 @@ const router = createRouter({
       component: () => import("../views/BackendRootView.vue"),
       children: [
         {
-          path: "/admin",
+          path: "admin",
           name: "adminHome",
           component: () => import("../views/backendViews/AdminHome.vue"),
         },
         {
-          path: "/adminProducts",
+          path: "adminProducts",
           name: "adminProducts",
-          component: () => import("../views/backendViews/AdminProducts.vue"),
+          component: () => import("../views/backendViews/AdminProductsView.vue"),
+        },
+        {
+          path: "adminProducts/:id",
+          name: "adminProductsById",
+          component: () => import("../views/backendViews/AdminDynamicProductView.vue"),
         },
       ],
     },
