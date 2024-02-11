@@ -10,9 +10,12 @@ export default {
     return {
       tempItem: { ...this.item },
       isEditMode: true,
+      timer: null, // 将 timer 变量定义在 data 中
     };
   },
   methods: {
+    // 防手抖 debounce
+
     deleteItemClickedEmit() {
       if (this.editMode) {
         this.$emit("deleteItemClicked");
@@ -27,12 +30,20 @@ export default {
       if (this.editMode) {
         if (calculate === "+") {
           this.tempItem.qty++;
-          // console.log(this.tempItem);
-          this.$emit("editItemClickedEmit", this.tempItem);
+          // 這邊是 debounce 的運用
+          clearTimeout(this.timer);
+          this.timer = setTimeout(() => {
+            // console.log(this.tempItem);
+            this.$emit("editItemClickedEmit", this.tempItem);
+          }, 500);
         } else if (calculate === "-" && this.tempItem.qty > 1) {
           this.tempItem.qty--;
-          // console.log(this.tempItem);
-          this.$emit("editItemClickedEmit", this.tempItem);
+          // 這邊是 debounce 的運用
+          clearTimeout(this.timer);
+          this.timer = setTimeout(() => {
+            // console.log(this.tempItem);
+            this.$emit("editItemClickedEmit", this.tempItem);
+          }, 500);
         } else if (calculate === "blur") {
           parseInt(this.tempItem.qty);
           if (this.tempItem.qty > 0) {
