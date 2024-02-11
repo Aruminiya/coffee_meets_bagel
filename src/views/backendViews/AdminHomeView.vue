@@ -2,13 +2,10 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
-  <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav 裡面 -->
-  <nav class="navbar fixed-top">
-    <h1>
-      <a class="navbar-brand border logo m-0 p-0" role="button" @click="openOffCanvasNav">CoffeeMeetsBagel</a>
-    </h1>
-  </nav>
-  <BackendOffcanvasNav ref="backendNav" />
+  <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav component 裡面 -->
+  <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
+  <!-- 側邊選單 -->
+  <adminNav ref="backendNav" />
   <!-- 主要區塊 -->
   <main>
     <div class="container mt-20 mb-5">
@@ -129,7 +126,9 @@
 </template>
 
 <script>
-import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue';
+import adminLogo from '../../components/BackendLogoComponent.vue';
+import adminNav from '../../components/BackendOffcanvasNav.vue';
+
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
@@ -149,7 +148,8 @@ export default {
     };
   },
   components: {
-    BackendOffcanvasNav
+    adminLogo,
+    adminNav
   },
   methods: {
     // 打開側邊欄位

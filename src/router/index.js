@@ -58,9 +58,9 @@ const router = createRouter({
       component: () => import("../views/BackendRootView.vue"),
       children: [
         {
-          path: "admin",
+          path: "",
           name: "adminHome",
-          component: () => import("../views/backendViews/AdminHome.vue"),
+          component: () => import("../views/backendViews/AdminHomeView.vue"),
         },
         {
           path: "adminProducts",
@@ -71,6 +71,10 @@ const router = createRouter({
           path: "adminProducts/:id",
           name: "adminProductsById",
           component: () => import("../views/backendViews/AdminDynamicProductView.vue"),
+        },{
+          path: "adminDiscount",
+          name: "adminDiscount",
+          component: () => import("../views/backendViews/AdminDiscountView.vue"),
         },
       ],
     },

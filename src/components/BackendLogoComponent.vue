@@ -1,15 +1,15 @@
 <template>
   <nav class="navbar fixed-top">
     <h1>
-      <a class="navbar-brand border logo m-0 p-0" role="button" 
-      @click="openOffCanvasNav">CoffeeMeetsBagel</a>
+      <a class="navbar-brand border logo m-0 p-0" role="button" @click="openOffCanvasNav">CoffeeMeetsBagel</a>
     </h1>
   </nav>
 </template>
 
 <script>
-export default{
-  props:['openOffCanvasNav']
+export default {
+  // props 當作 emit
+  props: ['openOffCanvasNav']
 }
 </script>
 

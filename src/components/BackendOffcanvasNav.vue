@@ -14,55 +14,61 @@
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
         <li class="nav-item">
           <router-link to="/admin" class="nav-link text-decoration-none">
-            <div class="d-flex align-items-center fs-2"><span class="material-symbols-outlined">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
                 grid_view
               </span>
-              <h3 class="lh-1 m-0">後台首頁</h3>
-            </div>
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/adminProducts" class="nav-link text-decoration-none">
-            <div class="d-flex align-items-center fs-2"><span class="material-symbols-outlined">
-                assignment_turned_in
-              </span>
-              <h3 class="lh-1 m-0">訂單管理</h3>
+              <h3 class="fw-bold lh-1 m-0">後台首頁</h3>
             </div>
           </router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link text-decoration-none" href="#">
-            <div class="d-flex align-items-center fs-2"><span class="material-symbols-outlined">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
                 local_cafe
               </span>
-              <h3 class="lh-1 m-0">商品管理</h3>
+              <h3 class="fw-bold lh-1 m-0">訂單管理</h3>
             </div>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-decoration-none" href="#">
-            <div class="d-flex align-items-center fs-2"><span class="material-symbols-outlined">
+          <router-link to="/admin/adminProducts" class="nav-link text-decoration-none">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
+                assignment_turned_in
+              </span>
+              <h3 class="fw-bold lh-1 m-0">商品管理</h3>
+            </div>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
                 sell
               </span>
-              <h3 class="lh-1 m-0">折扣管理</h3>
+              <h3 class="fw-bold lh-1 m-0">折扣管理</h3>
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link text-decoration-none" href="#">
-            <div class="d-flex align-items-center fs-2"><span class="material-symbols-outlined">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
                 equalizer
               </span>
-              <h3 class="lh-1 m-0">營收分析</h3>
+              <h3 class="fw-bold lh-1 m-0">營收分析</h3>
             </div>
           </a>
         </li>
         <li class="nav-item">
           <router-link to="/" class="text-decoration-none">
-            <div class="d-flex align-items-center fs-2"><span class="material-symbols-outlined">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14">
+              <span class="material-symbols-outlined me-2">
                 reply
               </span>
-              <h3 class="lh-1 m-0">前往前台</h3>
+              <h3 class="fw-bold lh-1 m-0">前往前台</h3>
             </div>
           </router-link>
         </li>
@@ -101,5 +107,9 @@ export default {
 <style lang="scss">
 .lh-1 {
   line-height: 1;
+}
+
+.text-colorChart-Accessory-200 {
+  color: $colorChart-Accessory-200;
 }
 </style>
