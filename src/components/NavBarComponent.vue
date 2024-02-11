@@ -118,46 +118,45 @@ export default {
   <!-- 購物車自製 Modal -->
   <section></section>
   <transition name="cartModal">
-    <section
-      v-show="isShow"
-      class="cartModalContainer position-fixed d-flex flex-column p-3"
-    >
-      <div class="block_01 position-relative">
-        <button
-          class="position-absolute end-0 btn btn-primary"
-          @click="isShow = false"
-        >
-          <i class="deleteIcon bi bi-x-lg"></i>
-        </button>
-        <h4 class="text-center">購物車</h4>
-        <hr />
-      </div>
+    <section v-show="isShow" class="cartModalContainer position-fixed p-3">
+      <div class="d-flex flex-column h-100">
+        <div class="block_01 position-relative">
+          <button
+            class="position-absolute end-0 btn btn-primary"
+            @click="isShow = false"
+          >
+            <i class="deleteIcon bi bi-x-lg"></i>
+          </button>
+          <h4 class="text-center">購物車</h4>
+          <hr />
+        </div>
 
-      <div class="block_02 cartProductInfoAll px-2">
-        <h4 v-if="isCartsLoading">Loading...</h4>
+        <div class="block_02 cartProductInfoAll px-2">
+          <h4 v-if="isCartsLoading">Loading...</h4>
 
-        <div
-          v-else
-          class="cartProductInfo position-relative"
-          v-for="item in data.carts"
-          :key="item.id"
-        >
-          <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
-          <!-- <CartItemComponent
+          <div
+            v-else
+            class="cartProductInfo position-relative"
+            v-for="item in data.carts"
+            :key="item.id"
+          >
+            <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
+            <!-- <CartItemComponent
               :item="item"
               @cartItemClicked="cartItemClicked(item)"
               @deleteItemClicked="deleteCarts(item)"
             /> -->
-          <CartItemComponent
-            :item="item"
-            :editMode="isEditMode"
-            @deleteItemClicked="deleteCarts(item)"
-            @editItemClickedEmit="editCarts($event)"
-          />
+            <CartItemComponent
+              :item="item"
+              :editMode="isEditMode"
+              @deleteItemClicked="deleteCarts(item)"
+              @editItemClickedEmit="editCarts($event)"
+            />
+          </div>
         </div>
-      </div>
-      <div class="block_03 my-2">
-        <button class="btn btn-primary w-100">去結帳</button>
+        <div class="block_03 my-2">
+          <button class="btn btn-primary w-100">去結帳</button>
+        </div>
       </div>
     </section>
   </transition>
@@ -196,7 +195,6 @@ p {
   background-color: $colorChart-bg-color;
   right: 0;
   top: 0;
-  transform: translateX(100%);
   @media screen and (max-width: 500px) {
     width: 100vw;
   }
