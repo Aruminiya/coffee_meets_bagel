@@ -29,10 +29,19 @@ export default {
           this.tempItem.qty++;
           // console.log(this.tempItem);
           this.$emit("editItemClickedEmit", this.tempItem);
-        } else if (calculate === "-") {
+        } else if (calculate === "-" && this.tempItem.qty > 1) {
           this.tempItem.qty--;
           // console.log(this.tempItem);
           this.$emit("editItemClickedEmit", this.tempItem);
+        } else if (calculate === "blur") {
+          parseInt(this.tempItem.qty);
+          if (this.tempItem.qty > 0) {
+            if (this.tempItem.qty !== this.item.qty) {
+              this.$emit("editItemClickedEmit", this.tempItem);
+            }
+          } else {
+            this.tempItem.qty = this.item.qty;
+          }
         } else {
           console.warn("無效的計算");
         }
@@ -84,11 +93,11 @@ export default {
 
         <p v-if="editMode" class="tempItemQty">
           選擇數量：<button @click="editItemClickedEmit('-')">-</button>
-          <input type="text" v-model.lazy="tempItem.qty" /><button
-            @click="editItemClickedEmit('+')"
-          >
-            +
-          </button>
+          <input
+            type="number"
+            v-model.lazy="tempItem.qty"
+            @blur="editItemClickedEmit('blur')"
+          /><button @click="editItemClickedEmit('+')">+</button>
         </p>
         <p v-else>選擇數量：{{ tempItem.qty }}</p>
       </div>
@@ -132,6 +141,19 @@ button {
     background-color: darken($colorChart-Primary-200, 10%);
     scale: 1.1;
   }
+}
+
+// 隱藏數字輸入框的箭頭
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .tempItemQty {
