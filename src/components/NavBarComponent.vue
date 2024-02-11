@@ -47,7 +47,15 @@ export default {
 
       <div class="d-flex justify-content-center align-items-center">
         <div class="navbar-toggler cartIconNav">
-          <div class="cartIconContainer" @click="isShow = true">
+          <div
+            class="cartIconContainer position-relative"
+            @click="isShow = true"
+          >
+            <p
+              class="cartQty badge rounded-pill text-bg-danger position-absolute end-0"
+            >
+              {{ data.carts?.length }}
+            </p>
             <img
               class="cartIcon"
               src="../../public/cartIcon.svg"
@@ -91,7 +99,12 @@ export default {
         </div>
       </div>
       <div class="navbar cartIconNav mx-5 d-none d-lg-block">
-        <div class="cartIconContainer" @click="isShow = true">
+        <div class="cartIconContainer position-relative" @click="isShow = true">
+          <p
+            class="cartQty badge rounded-pill text-bg-danger position-absolute end-0"
+          >
+            {{ data.carts?.length }}
+          </p>
           <img
             class="cartIcon"
             src="../../public/cartIcon.svg"
@@ -105,8 +118,11 @@ export default {
   <!-- 購物車自製 Modal -->
   <section></section>
   <transition name="cartModal">
-    <section v-show="isShow" class="cartModalContainer position-fixed p-3">
-      <div class="position-relative">
+    <section
+      v-show="isShow"
+      class="cartModalContainer position-fixed d-flex flex-column p-3"
+    >
+      <div class="block_01 position-relative">
         <button
           class="position-absolute end-0 btn btn-primary"
           @click="isShow = false"
@@ -114,30 +130,37 @@ export default {
           <i class="deleteIcon bi bi-x-lg"></i>
         </button>
         <h4 class="text-center">購物車</h4>
+        <hr />
       </div>
 
-      <hr />
-      <h4 v-if="isCartsLoading">Loading...</h4>
-      <div
-        v-else
-        class="cartProductInfo position-relative"
-        v-for="item in data.carts"
-        :key="item.id"
-      >
-        <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
-        <!-- <CartItemComponent
+      <div class="block_02 cartProductInfoAll px-2">
+        <h4 v-if="isCartsLoading">Loading...</h4>
+
+        <div
+          v-else
+          class="cartProductInfo position-relative"
+          v-for="item in data.carts"
+          :key="item.id"
+        >
+          <!-- 購物車商品卡片元件 item 是 props 傳入商品物件 -->
+          <!-- <CartItemComponent
               :item="item"
               @cartItemClicked="cartItemClicked(item)"
               @deleteItemClicked="deleteCarts(item)"
             /> -->
-        <CartItemComponent
-          :item="item"
-          :editMode="isEditMode"
-          @deleteItemClicked="deleteCarts(item)"
-          @editItemClickedEmit="editCarts($event)"
-        />
-      </div></section
-  ></transition>
+          <CartItemComponent
+            :item="item"
+            :editMode="isEditMode"
+            @deleteItemClicked="deleteCarts(item)"
+            @editItemClickedEmit="editCarts($event)"
+          />
+        </div>
+      </div>
+      <div class="block_03 my-2">
+        <button class="btn btn-primary w-100">去結帳</button>
+      </div>
+    </section>
+  </transition>
 </template>
 
 <style lang="scss" scoped>
@@ -157,7 +180,14 @@ export default {
 p {
   color: $colorChart-Accessory-200;
 }
+.cartQty {
+  font-size: 10px;
+  transform: translate(8px, -3px);
+}
 
+.cartProductInfoAll {
+  overflow: scroll;
+}
 .cartModalContainer {
   z-index: 10;
   color: $colorChart-Accessory-200;
@@ -166,6 +196,7 @@ p {
   background-color: $colorChart-bg-color;
   right: 0;
   top: 0;
+  transform: translateX(100%);
   @media screen and (max-width: 500px) {
     width: 100vw;
   }
@@ -180,10 +211,10 @@ p {
   transform: translateX(100%);
 }
 .cartModal-enter-to {
-  transform: translateX(0);
+  transform: translateX(0%);
 }
 .cartModal-leave-from {
-  transform: translateX(0);
+  transform: translateX(0%);
 }
 .cartModal-leave-to {
   transform: translateX(100%);
