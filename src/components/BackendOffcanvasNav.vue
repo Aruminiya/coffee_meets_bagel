@@ -23,7 +23,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-decoration-none" href="#">
+          <a class="nav-link text-decoration-none">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 local_cafe
