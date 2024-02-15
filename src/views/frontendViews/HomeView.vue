@@ -12,12 +12,14 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
+import FooterComponent from "../../components/FooterComponent.vue";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     HomePageNavBarComponent,
+    FooterComponent,
   },
   data() {
     return {
@@ -420,6 +422,7 @@ export default {
       </div>
     </div>
   </main>
+  <FooterComponent />
 </template>
 
 <style lang="scss">

@@ -1,8 +1,9 @@
 <script>
 import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
+import FooterComponent from "../../components/FooterComponent.vue";
 
 export default {
-  components: { HomePageNavBarComponent },
+  components: { HomePageNavBarComponent, FooterComponent },
 };
 </script>
 
@@ -61,6 +62,7 @@ export default {
       </div>
     </section>
   </main>
+  <FooterComponent />
 </template>
 
 <style lang="scss" scoped>
