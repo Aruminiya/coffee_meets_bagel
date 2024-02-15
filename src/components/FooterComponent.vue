@@ -5,13 +5,15 @@
     <div
       class="footerContainer d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center p-1 p-md-5"
     >
-      <div class="logoContainer my-3">
-        <img
-          class="img-fluid"
-          src="../../public/coffee_meets_bagel_Logo_Footer.svg"
-          alt="coffee_meets_bagel_Logo_Footer"
-        />
-      </div>
+      <router-link to="/"
+        ><div class="logoContainer my-3">
+          <img
+            class="img-fluid"
+            src="../../public/coffee_meets_bagel_Logo_Footer.svg"
+            alt="coffee_meets_bagel_Logo_Footer"
+          /></div
+      ></router-link>
+
       <div class="textContainer">
         <div class="text px-3">
           <p class="m-0">106 台北市大安區信義路三段 75 號 1 號 2 樓</p>
