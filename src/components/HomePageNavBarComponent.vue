@@ -10,17 +10,17 @@
         /></router-link>
       </div>
       <div class="linkBtn d-flex flex-column position-absolute">
-        <router-link to="/orderCheckView/step1"
+        <router-link to="/productList"
           ><img
             class="my-1"
             src="../../public/OrderIcon.svg"
             alt="OrderIcon" /></router-link
-        ><router-link to="/orderCheckView/step2"
+        ><router-link to="/fqa"
           ><img
             class="my-1"
             src="../../public/Q&AIcon.svg"
             alt="Q&AIcon" /></router-link
-        ><router-link to="/orderCheckView/step3"
+        ><router-link to="/about"
           ><img class="my-1" src="../../public/AbousIcon.svg" alt="AbousIcon"
         /></router-link>
       </div>
