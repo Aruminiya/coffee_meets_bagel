@@ -21,6 +21,11 @@ const router = createRouter({
           component: () => import("../views/frontendViews/AboutView.vue"),
         },
         {
+          path: "fqa",
+          name: "fqa",
+          component: () => import("../views/frontendViews/FqaView.vue"),
+        },
+        {
           path: "order",
           name: "order",
           component: () => import("../views/frontendViews/OrderView.vue"),
@@ -65,16 +70,20 @@ const router = createRouter({
         {
           path: "adminProducts",
           name: "adminProducts",
-          component: () => import("../views/backendViews/AdminProductsView.vue"),
+          component: () =>
+            import("../views/backendViews/AdminProductsView.vue"),
         },
         {
           path: "adminProducts/:id",
           name: "adminProductsById",
-          component: () => import("../views/backendViews/AdminDynamicProductView.vue"),
-        },{
+          component: () =>
+            import("../views/backendViews/AdminDynamicProductView.vue"),
+        },
+        {
           path: "adminDiscount",
           name: "adminDiscount",
-          component: () => import("../views/backendViews/AdminDiscountView.vue"),
+          component: () =>
+            import("../views/backendViews/AdminDiscountView.vue"),
         },
       ],
     },

@@ -938,12 +938,18 @@ export default {
 
 .swiperImg_01 {
   background-image: url("../../../public/swiperImg_01.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperImg_02 {
   background-image: url("../../../public/swiperImg_02.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperImg_03 {
   background-image: url("../../../public/swiperImg_03.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperText {
   background-color: rgba(255, 255, 255, 0.5);
