@@ -89,7 +89,7 @@ export default {
         </div>
         <div class="navbar-nav">
           <router-link
-            to="/order"
+            to="/productList"
             class="nav-link"
             aria-current="page"
             href="#"
