@@ -26,11 +26,6 @@ const router = createRouter({
           component: () => import("../views/frontendViews/FqaView.vue"),
         },
         {
-          path: "order",
-          name: "order",
-          component: () => import("../views/frontendViews/OrderView.vue"),
-        },
-        {
           path: "orderCheckView",
           name: "orderCheckView",
           component: () => import("../views/frontendViews/OrderCheckView.vue"),
