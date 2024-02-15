@@ -31,10 +31,18 @@ export default {
   },
   computed: {
     slidesPerViewData() {
-      return this.windowInnerWidth >= 768 ? 3 : 1;
+      return this.windowInnerWidth >= 1200
+        ? 5
+        : this.windowInnerWidth >= 768
+        ? 3
+        : 1;
     },
     initialSlideData() {
-      return this.windowInnerWidth >= 768 ? 1 : 0;
+      return this.windowInnerWidth >= 1200
+        ? 2
+        : this.windowInnerWidth >= 768
+        ? 1
+        : 0;
     },
   },
   mounted() {
@@ -346,8 +354,8 @@ export default {
           <div class="title d-flex align-items-center m-5">
             <hr class="wordDash" />
             <div>
-              <h1 class="m-0 d-none d-lg-block">系列餐品</h1>
-              <h3 class="m-0 d-md-block d-lg-none">系列餐品</h3>
+              <h1 class="titleWord m-0 d-none d-lg-block">系列餐品</h1>
+              <h3 class="titleWord m-0 d-md-block d-lg-none">系列餐品</h3>
             </div>
 
             <hr class="wordDash" />
@@ -869,10 +877,13 @@ export default {
       opacity: 1;
       width: 60px;
     }
+    .titleWord {
+      font-weight: 700;
+    }
   }
   .swiper {
     width: 100%;
-    height: 90vh;
+    height: 70vh;
   }
   .swiper-slide {
     text-align: center;
@@ -885,6 +896,9 @@ export default {
     align-items: center;
     .mealsImg {
       background-color: $colorChart-Gray-100;
+      h4 {
+        font-weight: 700;
+      }
     }
   }
 }
