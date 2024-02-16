@@ -1,11 +1,14 @@
-<<<<<<< HEAD
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <script>
 
 import axios from 'axios';
 import VueAxios from 'vue-axios'
+import NavBarComponent from '../../components/NavBarComponent.vue'
 
 export default{
+    components:{
+        NavBarComponent
+    },
     data(){
         return{
             message:'產品列表test',
@@ -35,7 +38,9 @@ export default{
 </script>
 
 <template>
+<NavBarComponent></NavBarComponent>
 <div class='container' >
+    
     <nav class='row pt-5'>
         <div class='d-flex justify-content-between flex-column-reverse flex-lg-row'>
         <ul class='d-flex col-lg-5 justify-content-between ps-0 mb-0'>
@@ -55,7 +60,8 @@ export default{
         <div class='col-lg-3 d-flex align-items-center justify-content-between'>
             <h1 class='text-primary'>全部</h1> 
             <h4 class='d-flex align-items-center text-primary'>
-                <span class="material-symbols-outlined d-block">favorite</span>
+                <!-- <span class="material-symbols-outlined" style='font-size:32px'>coffee</span> -->
+                <i class="fa-solid fa-crown me-1"></i>
                 店長推薦
             </h4>
         </div>
@@ -80,7 +86,8 @@ export default{
                             </div> -->
                             <p style=' font-size:12px'>{{item.description}}</p>
                         </div>
-                        <button class='text-center w-100 border-0' style='background-color:#4f2413'><p class='mb-0 text-light'>加入購物車</p></button>
+                        <button class='text-center w-100 '><p class='mb-0 '>加入購物車</p></button>
+
                     </div>
                 </div>
             </li>
@@ -91,111 +98,67 @@ export default{
 
 <style lang='scss'>
 
-.productCard{
-    .addToCartBtn{
-        border: 1px solid transparent;
-        .addToCartText{
+.addToCartBtn {
+    position: relative;
+    z-index:1;
+    height:60px;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+       // background-color: #Dedbda;
+        background-color:rgba(222,219,218,0.8);
+        transform: scaleY(0);
+        transition: transform 0.3s ease-in-out;
+        z-index: -1;
+    }
+    button{
         display:none
+
+    }
+    
+}
+
+
+
+
+.productCard{
+    position:relative;
+
+    .addToCartText{
+        display:none;
         };
-    };
     &:hover{
-        .addToCartBtn{
-            
-            }
+        button{
+        display:block;
+         background-color:#4f2413;
+        color:	#FFFFFF;
+        border: 2px solid transparent;
+        }
         .addToCartText{
-            display:block
+            display:block;
             }
         .cardContent{
             display:none
-        }
         };
+        .addToCartBtn::before{
+        margin-top:-50px;
+        transform: scaleY(1);
+        transform-origin:bottom center;
+
+        }
+    }
+    
 }
 
 
 
 
 
+
+
 </style>
-=======
-<!-- <link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/> -->
-<script>
-import axios from "axios";
-// import VueAxios from "vue-axios";
-
-export default {
-  data() {
-    return {
-      message: "產品列表",
-      api: {
-        url: "https://vue3-course-api.hexschool.io/v2",
-        api_path: "florafirstapi",
-      },
-      productList: [],
-    };
-  },
-  methods: {},
-  mounted() {
-    axios
-      .get(`${this.api.url}/api/${this.api.api_path}/products/all`)
-      .then((res) => {
-        //this.changeIsLoadingStatus();
-        this.productsList = res.data.products;
-        console.log(this.productsList);
-      });
-  },
-};
-</script>
-
-<template>
-  <div class="container">
-    <nav class="row pt-5">
-      <div
-        class="d-flex justify-content-between flex-column-reverse flex-lg-row"
-      >
-        <ul class="d-flex col-lg-5 justify-content-between">
-          <li style="list-style: none; height: 43px">
-            <button type="button" class="btn btn-primary rounded-pill">
-              全 部
-            </button>
-          </li>
-          <li style="list-style: none; height: 43px">
-            <button type="button" class="btn btn-primary rounded-pill">
-              推 薦
-            </button>
-          </li>
-          <li style="list-style: none; height: 43px">
-            <button type="button" class="btn btn-primary rounded-pill">
-              飲 品
-            </button>
-          </li>
-          <li style="list-style: none; height: 43px">
-            <button type="button" class="btn btn-primary rounded-pill">
-              蛋 糕
-            </button>
-          </li>
-          <li style="list-style: none; height: 43px">
-            <button type="button" class="btn btn-primary rounded-pill">
-              餅 乾
-            </button>
-          </li>
-        </ul>
-        <div
-          class="col-lg-4 border border-primary rounded-pill d-flex align-item-center"
-          style="height: 50px"
-        >
-          <span
-            class="material-symbols-outlined ms-3 d-block"
-            style="font-size: 40px"
-            >search</span
-          >
-          <input placeholder="  搜尋商品" style="border: none; height: 45px" />
-        </div>
-      </div>
-    </nav>
-    <h5>精選飲品</h5>
-  </div>
-</template>
->>>>>>> ac8f152757f50bc2dcc96c2abece3cbe96062874
