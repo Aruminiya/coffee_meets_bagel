@@ -49,7 +49,17 @@ export default {
       <div class="col-lg-6 col-12 p-5">
         <div>
           <h3>確認購物車內容</h3>
-          <h4 v-if="isCartsLoading">Loading...</h4>
+          <div
+            v-if="isCartsLoading"
+            class="loading d-flex justify-content-center align-items-center h-100"
+          >
+            <img
+              src="../../public/LoadingIcon.gif"
+              alt="LoadingIcon"
+              width="100"
+              height="100"
+            />
+          </div>
           <div
             v-else
             class="cartProductInfo position-relative"

@@ -106,6 +106,7 @@ export default {
       <div class="navbar cartIconNav mx-5 d-none d-lg-block">
         <div class="cartIconContainer position-relative" @click="isShow = true">
           <p
+            v-if="data.carts?.length"
             class="cartQty badge rounded-pill text-bg-danger position-absolute end-0"
           >
             {{ data.carts?.length }}
@@ -136,8 +137,18 @@ export default {
           <hr />
         </div>
 
-        <div class="block_02 cartProductInfoAll px-2">
-          <h4 v-if="isCartsLoading">Loading...</h4>
+        <div v-if="data.carts?.length" class="block_02 cartProductInfoAll px-2">
+          <div
+            v-if="isCartsLoading"
+            class="loading d-flex justify-content-center align-items-center h-100"
+          >
+            <img
+              src="../../public/LoadingIcon.gif"
+              alt="LoadingIcon"
+              width="100"
+              height="100"
+            />
+          </div>
 
           <div
             v-else
@@ -160,8 +171,16 @@ export default {
           </div>
         </div>
         <div class="block_03 my-2">
-          <router-link to="/orderCheckView/step1"
-            ><button class="btn btn-primary w-100">去結帳</button></router-link
+          <h4 v-if="data.carts?.length === 0" class="cartTextEmpty text-center">
+            購物車內尚無商品
+          </h4>
+          <router-link v-if="data.carts?.length" to="/orderCheckView/step1"
+            ><button
+              v-if="isCartsLoading === false"
+              class="btn btn-primary w-100"
+            >
+              去結帳
+            </button></router-link
           >
         </div>
       </div>
@@ -200,6 +219,9 @@ p {
   transform: translate(8px, -3px);
 }
 
+.cartTextEmpty {
+  color: $colorChart-Gray-400;
+}
 .cartProductInfoAll {
   overflow: scroll;
 }
