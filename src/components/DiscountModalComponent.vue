@@ -22,7 +22,7 @@
             </div>
             <div class="mb-11">
               <label for="discountDueDate" class="form-label mb-3">到期日</label>
-              <input type="date" class="form-control lh-1 fs-4" id="discountDueDate">
+              <input type="date" class="form-control lh-1 fs-4" id="discountDueDate" @click="defineDate">
             </div>
             <div class="d-flex justify-content-between">
               <button type="button" class="btn btn-success lh-1 fs-2 px-4 py-2">確定新增</button>
@@ -52,6 +52,24 @@ export default {
     closeModal () {
       this.discountModal.hide();
     },
+    // 讓選取日期不能小於當日
+    defineDate () {
+      const dateInput = document.querySelector('#discountDueDate');
+
+      // 获取今天的日期
+      const today = new Date().toISOString().split('T')[0];
+
+      // 设置最小日期为今天
+      dateInput.min = today;
+
+      // 获取用户选择的日期
+      const selectedDate = new Date(this.value);
+      // 如果用户选择的日期早于今天，则将日期重置为今天
+      if (selectedDate < new Date(today)) {
+        this.value = today;
+      }
+
+    }
   },
   mounted () {
     // 在內層元件建立 BS5 Modal 實體
