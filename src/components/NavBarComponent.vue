@@ -116,7 +116,7 @@ export default {
   </nav>
 
   <!-- 購物車自製 Modal -->
-  <section></section>
+
   <transition name="cartModal">
     <section v-show="isShow" class="cartModalContainer position-fixed p-3">
       <div class="d-flex flex-column h-100">
@@ -162,6 +162,14 @@ export default {
       </div>
     </section>
   </transition>
+
+  <transition name="cartModalBg"
+    ><div
+      v-show="isShow"
+      class="cartModalFullBg position-fixed"
+      @click="isShow = false"
+    ></div>
+  </transition>
 </template>
 
 <style lang="scss" scoped>
@@ -175,6 +183,7 @@ export default {
   }
 }
 .navbar {
+  z-index: 8;
   background-color: $colorChart-Accessory-100;
 }
 
@@ -218,5 +227,32 @@ p {
 }
 .cartModal-leave-to {
   transform: translateX(100%);
+}
+
+.cartModalFullBg {
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+// 這是 Vue 提供的動畫系統
+.cartModalBg-enter-active,
+.cartModalBg-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.cartModalBg-enter-from {
+  opacity: 0;
+}
+.cartModalBg-enter-to {
+  opacity: 1;
+}
+.cartModalBg-leave-from {
+  opacity: 1;
+}
+.cartModalBg-leave-to {
+  opacity: 0;
 }
 </style>
