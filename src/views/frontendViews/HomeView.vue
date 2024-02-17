@@ -68,10 +68,6 @@ export default {
                 <button class="bannerBtn btn btn-primary">
                   免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
                 </button>
-<<<<<<< HEAD
-
-=======
->>>>>>> a030f73b72ba91bb110d2a93d35e1a45bdcc377f
               </router-link>
             </div>
           </div>
