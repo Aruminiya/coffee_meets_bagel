@@ -28,7 +28,7 @@
       <!-- 所有折扣、新增折價券 -->
       <div class="d-flex align-items-center mb-4">
         <h2 class="fs-48 fw-bold text-colorChart-Accessory-200 lh-1 mb-0 me-9">所有折扣</h2>
-        <button class="btn btn-colorChart-Primary-200 fs-4">新增折價券</button>
+        <button class="btn btn-colorChart-Primary-200 fs-4" @click="openDiscountModal">新增折價券</button>
       </div>
 
       <div class="border rounded shadow p-4 table-responsive">
@@ -51,7 +51,7 @@
               </td>
               <td class="py-11 pe-7">
                 <div class="d-flex justify-content-center">
-                  <span class="material-symbols-outlined fs-1 me-6">
+                  <span class="material-symbols-outlined fs-1 me-6" @click="openDiscountModal">
                     edit_square
                   </span>
                   <span class="material-symbols-outlined fs-1">
@@ -65,11 +65,13 @@
       </div>
     </div>
   </main>
+  <DiscountModalComponent ref="discountModal" />
 </template>
 
 <script>
 import adminLogo from '../../components/BackendLogoComponent.vue';
 import adminNav from '../../components/BackendOffcanvasNav.vue';
+import DiscountModalComponent from '@/components/DiscountModalComponent.vue';
 
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
@@ -83,12 +85,17 @@ export default {
   },
   components: {
     adminLogo,
-    adminNav
+    adminNav,
+    DiscountModalComponent
   },
   methods: {
     // 打開側邊欄位
     openOffCanvasNav () {
       this.$refs.backendNav.openNav();
+    },
+    // 打開折扣編輯 modal
+    openDiscountModal () {
+      this.$refs.discountModal.openModal();
     },
     getCoupons () {
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then(res => {
@@ -116,10 +123,6 @@ export default {
 </script>
 
 <style lang="scss">
-.lh-1 {
-  line-height: 1;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }
