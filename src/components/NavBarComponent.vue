@@ -155,7 +155,9 @@ export default {
           </div>
         </div>
         <div class="block_03 my-2">
-          <button class="btn btn-primary w-100">去結帳</button>
+          <router-link to="/orderCheckView/step1"
+            ><button class="btn btn-primary w-100">去結帳</button></router-link
+          >
         </div>
       </div>
     </section>
