@@ -71,7 +71,7 @@ export default {
   <section class="shadow-sm p-4">
     <v-form v-slot="{ errors }" @submit="onSubmit($event)" class="p-2">
       <!-- {{ errors }} -->
-      <label for="Email">*Email</label>
+      <label for="Email" class="mt-2">*Email</label>
       <v-field
         id="email"
         name="Email"
@@ -84,7 +84,7 @@ export default {
       ></v-field>
       <error-message name="Email" class="invalid-feedback"></error-message>
 
-      <label for="name">*姓名</label>
+      <label for="name" class="mt-2">*姓名</label>
       <v-field
         id="name"
         name="姓名"
@@ -97,7 +97,7 @@ export default {
       ></v-field>
       <error-message name="姓名" class="invalid-feedback"></error-message>
 
-      <label for="tel">*電話</label>
+      <label for="tel" class="mt-2">*電話</label>
       <v-field
         id="tel"
         name="電話"
@@ -110,7 +110,7 @@ export default {
       ></v-field>
       <error-message name="電話" class="invalid-feedback"></error-message>
 
-      <label for="address">*地址</label>
+      <label for="address" class="mt-2">*地址</label>
       <v-field
         id="address"
         name="地址"
@@ -131,7 +131,7 @@ export default {
         :class="{ 'is-invalid': errors['message'] }"
         v-model="user.message"
       >
-        <label for="message">備註</label>
+        <label for="message" class="mt-2">備註</label>
         <textarea
           v-bind="field"
           class="form-control my-2"
