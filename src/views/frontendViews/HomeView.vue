@@ -104,8 +104,12 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">今日的特選咖啡</h2>
-                <p class="m-0">彷彿是陽光和微風的交織，溫暖中帶點清新。</p>
-                <p class="m-0">讓這杯獨特的風味，陪伴你的美好一天。</p>
+                <p class="m-0 font-weight-400">
+                  彷彿是陽光和微風的交織，溫暖中帶點清新。
+                </p>
+                <p class="m-0 font-weight-400">
+                  讓這杯獨特的風味，陪伴你的美好一天。
+                </p>
               </div>
             </div>
             <div
@@ -115,8 +119,10 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">挑戰你的味蕾</h2>
-                <p class="m-0">今日的推薦咖啡散發出濃郁的巧克力風味，</p>
-                <p class="m-0">讓你感受咖啡的甜蜜誘惑。</p>
+                <p class="m-0 font-weight-400">
+                  今日的推薦咖啡散發出濃郁的巧克力風味，
+                </p>
+                <p class="m-0 font-weight-400">讓你感受咖啡的甜蜜誘惑。</p>
               </div>
             </div>
             <div
@@ -126,8 +132,8 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">新鮮水果拿鐵</h2>
-                <p class="m-0">清爽的果香與濃郁咖啡的結合，</p>
-                <p class="m-0">讓你感受到夏日的微涼和愉悅。</p>
+                <p class="m-0 font-weight-400">清爽的果香與濃郁咖啡的結合，</p>
+                <p class="m-0 font-weight-400">讓你感受到夏日的微涼和愉悅。</p>
               </div>
             </div>
           </div>

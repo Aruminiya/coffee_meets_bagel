@@ -97,6 +97,11 @@ export default {
             <p class="m-0">線上點餐</p>
           </router-link>
         </div>
+        <div class="navbar-nav">
+          <router-link to="/fqa" class="nav-link" aria-current="page" href="#">
+            <p class="m-0">常見問題</p>
+          </router-link>
+        </div>
       </div>
       <div class="navbar cartIconNav mx-5 d-none d-lg-block">
         <div class="cartIconContainer position-relative" @click="isShow = true">

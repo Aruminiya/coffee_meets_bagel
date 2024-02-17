@@ -16,9 +16,11 @@
 
       <div class="textContainer">
         <div class="text px-3">
-          <p class="m-0">106 台北市大安區信義路三段 75 號 1 號 2 樓</p>
+          <p class="m-0 font-weight-400">
+            106 台北市大安區信義路三段 75 號 1 號 2 樓
+          </p>
           <div>
-            <p class="m-0">02-2707-8877</p>
+            <p class="m-0 font-weight-400">02-2707-8877</p>
             <a href="#"
               ><img src="../../public/FacebookIcon.svg" alt="FacebookIcon"
             /></a>
