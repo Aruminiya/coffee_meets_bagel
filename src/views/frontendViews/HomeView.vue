@@ -12,12 +12,14 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
+import FooterComponent from "../../components/FooterComponent.vue";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     HomePageNavBarComponent,
+    FooterComponent,
   },
   data() {
     return {
@@ -29,10 +31,18 @@ export default {
   },
   computed: {
     slidesPerViewData() {
-      return this.windowInnerWidth >= 768 ? 3 : 1;
+      return this.windowInnerWidth >= 1200
+        ? 5
+        : this.windowInnerWidth >= 768
+        ? 3
+        : 1;
     },
     initialSlideData() {
-      return this.windowInnerWidth >= 768 ? 1 : 0;
+      return this.windowInnerWidth >= 1200
+        ? 2
+        : this.windowInnerWidth >= 768
+        ? 1
+        : 0;
     },
   },
   mounted() {
@@ -94,8 +104,12 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">今日的特選咖啡</h2>
-                <p class="m-0">彷彿是陽光和微風的交織，溫暖中帶點清新。</p>
-                <p class="m-0">讓這杯獨特的風味，陪伴你的美好一天。</p>
+                <p class="m-0 font-weight-400">
+                  彷彿是陽光和微風的交織，溫暖中帶點清新。
+                </p>
+                <p class="m-0 font-weight-400">
+                  讓這杯獨特的風味，陪伴你的美好一天。
+                </p>
               </div>
             </div>
             <div
@@ -105,8 +119,10 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">挑戰你的味蕾</h2>
-                <p class="m-0">今日的推薦咖啡散發出濃郁的巧克力風味，</p>
-                <p class="m-0">讓你感受咖啡的甜蜜誘惑。</p>
+                <p class="m-0 font-weight-400">
+                  今日的推薦咖啡散發出濃郁的巧克力風味，
+                </p>
+                <p class="m-0 font-weight-400">讓你感受咖啡的甜蜜誘惑。</p>
               </div>
             </div>
             <div
@@ -116,8 +132,8 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">新鮮水果拿鐵</h2>
-                <p class="m-0">清爽的果香與濃郁咖啡的結合，</p>
-                <p class="m-0">讓你感受到夏日的微涼和愉悅。</p>
+                <p class="m-0 font-weight-400">清爽的果香與濃郁咖啡的結合，</p>
+                <p class="m-0 font-weight-400">讓你感受到夏日的微涼和愉悅。</p>
               </div>
             </div>
           </div>
@@ -344,8 +360,8 @@ export default {
           <div class="title d-flex align-items-center m-5">
             <hr class="wordDash" />
             <div>
-              <h1 class="m-0 d-none d-lg-block">系列餐品</h1>
-              <h3 class="m-0 d-md-block d-lg-none">系列餐品</h3>
+              <h1 class="titleWord m-0 d-none d-lg-block">系列餐品</h1>
+              <h3 class="titleWord m-0 d-md-block d-lg-none">系列餐品</h3>
             </div>
 
             <hr class="wordDash" />
@@ -420,6 +436,7 @@ export default {
       </div>
     </div>
   </main>
+  <FooterComponent />
 </template>
 
 <style lang="scss">
@@ -866,10 +883,13 @@ export default {
       opacity: 1;
       width: 60px;
     }
+    .titleWord {
+      font-weight: 700;
+    }
   }
   .swiper {
     width: 100%;
-    height: 90vh;
+    height: 70vh;
   }
   .swiper-slide {
     text-align: center;
@@ -882,6 +902,9 @@ export default {
     align-items: center;
     .mealsImg {
       background-color: $colorChart-Gray-100;
+      h4 {
+        font-weight: 700;
+      }
     }
   }
 }
@@ -938,12 +961,18 @@ export default {
 
 .swiperImg_01 {
   background-image: url("../../../public/swiperImg_01.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperImg_02 {
   background-image: url("../../../public/swiperImg_02.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperImg_03 {
   background-image: url("../../../public/swiperImg_03.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperText {
   background-color: rgba(255, 255, 255, 0.5);

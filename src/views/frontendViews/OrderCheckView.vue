@@ -1,11 +1,13 @@
 <script>
 import NavBarComponent from "../../components/NavBarComponent.vue";
+import FooterComponent from "../../components/FooterComponent.vue";
 import OrderCheckProgressComponent from "../../components/OrderCheckProgressComponent.vue";
 import OderCheckStep_01 from "../../components/OderCheckStep_01.vue";
 
 export default {
   components: {
     NavBarComponent,
+    FooterComponent,
     OrderCheckProgressComponent,
     OderCheckStep_01,
   },
@@ -51,6 +53,7 @@ export default {
     <OrderCheckProgressComponent :step="showOrderCheckProgressComponent" />
     <router-view></router-view>
   </main>
+  <FooterComponent />
 </template>
 
 <style lang="scss" scoped>

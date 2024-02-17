@@ -64,9 +64,9 @@ export default {
     <div class="row">
       <div class="col-12 my-2 px-1">
         <div class="w-100 d-flex justify-content-between">
-          <p class="">填寫資料</p>
-          <p class="">確認訂單</p>
-          <p class="">訂單成立</p>
+          <p class="stepWord">填寫資料</p>
+          <p class="stepWord">確認訂單</p>
+          <p class="stepWord">訂單成立</p>
         </div>
       </div>
     </div>
@@ -81,8 +81,20 @@ export default {
     background-color: $colorChart-Primary-200;
   }
 }
+
+.stepWord {
+  color: $colorChart-Gray-500;
+}
 .doneStep {
   background-color: $colorChart-Primary-300;
   border-color: $colorChart-Primary-300;
+  &:hover {
+    background-color: darken($colorChart-Primary-300, 4%);
+    border-color: darken($colorChart-Primary-300, 4%);
+  }
+  &:active {
+    background-color: darken($colorChart-Primary-300, 7%);
+    border-color: darken($colorChart-Primary-300, 7%);
+  }
 }
 </style>
