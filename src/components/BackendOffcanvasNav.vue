@@ -13,7 +13,7 @@
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
         <li class="nav-item">
-          <router-link to="/admin" class="nav-link text-decoration-none">
+          <router-link to="/admin" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 grid_view
@@ -23,7 +23,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-decoration-none">
+          <a class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 local_cafe
@@ -33,7 +33,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminProducts" class="nav-link text-decoration-none">
+          <router-link to="/admin/adminProducts" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 assignment_turned_in
@@ -43,7 +43,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#">
+          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 sell
@@ -63,7 +63,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <router-link to="/" class="text-decoration-none">
+          <router-link to="/" class="text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14">
               <span class="material-symbols-outlined me-2">
                 reply
@@ -91,15 +91,17 @@ export default {
     openNav () {
       this.offcanvasNav.show();
     },
-    // 關閉 canvas -> 尚未用到
-    // closeNav () {
-    //   this.offcanvasNav.hide();
-    // }
+    // 關閉 canvas -> 由於切換頁面時，原先開啟的 offCanvas 實體並未被關閉所以會有黑色的 backdrop 覆蓋畫面，因此需要在每個連結綁一個 offCanvas.hide()，再切換頁面的同時關閉 OffCanvas 實體
+    closeNav () {
+      this.offcanvasNav.hide();
+    }
   },
+  updated () { console.log(this.offcanvasNav) },
   mounted () {
     // 用 ref 抓取 offcanvas DOM
     // 如果要移除 backdrop，就不能把畫面的叉叉移除，不然沒地方關閉 offcanvas
     this.offcanvasNav = new bootstrap.Offcanvas(this.$refs.offcanvasNav, { scroll: true });
+    console.log(this.offcanvasNav._config.backdrop)
   }
 }
 </script>

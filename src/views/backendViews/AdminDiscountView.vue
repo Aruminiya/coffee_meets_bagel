@@ -80,7 +80,8 @@ const path = import.meta.env.VITE_USER_PATH;
 export default {
   data () {
     return {
-      coupons: []
+      coupons: [],
+      tempCoupon: {}
     }
   },
   components: {
@@ -104,7 +105,11 @@ export default {
       }).catch(err => {
         alert(err.response)
       })
-    }
+    },
+    // postNewCoupon (couponData) {
+    //   this.tempCoupon = couponData;
+    //   this.axios.post(`${host}/v2/api/${path}/admin/coupon`, this.tempCoupon).then(res => console.log(res.data)).catch(err => alert(err.message))
+    // }
   },
   mounted () {
     // 從 cookie 取得 token 資料

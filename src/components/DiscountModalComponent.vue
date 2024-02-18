@@ -3,29 +3,34 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body lh-1 fs-2 px-5 py-15">
+          {{ discountData }}
           <form>
             <div class="mb-11">
               <label for="discountTitle" class="form-label mb-3">折價券名稱</label>
-              <input type="text" class="form-control lh-1 fs-4" id="discountTitle">
+              <input type="text" class="form-control lh-1 fs-4" id="discountTitle" v-model="discountData.title">
             </div>
             <div class="mb-11">
               <label for="discountCode" class="form-label mb-3">優惠碼</label>
-              <input type="text" class="form-control lh-1 fs-4" id="discountCode">
+              <input type="text" class="form-control lh-1 fs-4" id="discountCode" v-model="discountData.code">
             </div>
             <div class="mb-11">
               <label for="discountPercent" class="form-label mb-3">折扣額度</label>
-              <input type="number" min="5" max="90" class="form-control lh-1 fs-4" id="discountPercent">
+              <input type="number" min="5" max="90" class="form-control lh-1 fs-4" id="discountPercent"
+                v-model="discountData.percent">
             </div>
             <div class="mb-11">
               <label for="discountQuantity" class="form-label mb-3">總數量</label>
-              <input type="number" min="1" max="1000" class="form-control lh-1 fs-4" id="discountQuantity">
+              <input type="number" min="1" max="1000" class="form-control lh-1 fs-4" id="discountQuantity"
+                v-model="discountData.is_enabled">
             </div>
             <div class="mb-11">
               <label for="discountDueDate" class="form-label mb-3">到期日</label>
-              <input type="date" class="form-control lh-1 fs-4" id="discountDueDate" @click="defineDate">
+              <input type="date" class="form-control lh-1 fs-4" id="discountDueDate" @click="defineDate"
+                v-model="discountData.due_date">
             </div>
             <div class="d-flex justify-content-between">
-              <button type="button" class="btn btn-success lh-1 fs-2 px-4 py-2">確定新增</button>
+              <button type="button" class="btn btn-success lh-1 fs-2 px-4 py-2"
+                @click="$emit('add-counpon', discountData)">確定新增</button>
               <button type="button" class="btn btn-primary lh-1 fs-2 px-4 py-2" @click="closeModal">取消新增</button>
             </div>
           </form>
@@ -42,7 +47,13 @@ export default {
   data () {
     return {
       discountModal: null,
-      product: {},
+      discountData: {
+        title: '',
+        is_enabled: '',
+        percent: '',
+        due_date: '',
+        code: ''
+      },
     };
   },
   methods: {
@@ -68,7 +79,6 @@ export default {
       if (selectedDate < new Date(today)) {
         this.value = today;
       }
-
     }
   },
   mounted () {
