@@ -138,7 +138,6 @@ export default {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
-<<<<<<< HEAD
     goThisPage(page) {
       this.getProducts(page);
     },
@@ -147,12 +146,12 @@ export default {
         .delete(`${host}/v2/api/${path}/admin/product/${id}`)
         .then((res) => {
           Swal.fire('刪除成功');
-          this.getProducts(page);
+          this.getProducts();
         })
-        .catch((error) => {          
+        .catch((error) => {        
+          console.log(error);  
           Swal.fire("資料刪除失敗");
         });
-      console.log(123);
     },
     confirmDelete(id) {
       Swal.fire({
@@ -168,15 +167,6 @@ export default {
       });
     },
     modalShow(product) {
-=======
-    goThisPage (page) {
-      // console.log(page);
-      this.getProducts(page);
-    },
-
-
-    modalShow (product) {
->>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
       // this.product = product;
       this.$refs.modal.modalShow(product)
     },
@@ -189,17 +179,8 @@ export default {
     openOffCanvasNav() {
       this.$refs.backendNav.openNav();
     },
-<<<<<<< HEAD
     addNewProduct() {
       this.$router.push('/admin/addProduct');
-=======
-    // closeOffCanvasNav () {
-    //   this.$refs.backendNav.closeNav();
-    // },
-
-    log () {
-      console.log(this.$refs);
->>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
     }
   },
   mounted () {
@@ -306,16 +287,12 @@ export default {
                 <router-link :to="`/admin/adminProducts/${product.id}`" class="text-warning">
                   <span class="material-symbols-outlined fs-1"> edit </span>
                 </router-link>
-                <!-- <a href="#" class="text-warning" @click.prevent="">
-                </a> -->
                 <a href="#" class="text-danger ms-4" @click.prevent="confirmDelete(product.id)">
                   <span class="material-symbols-outlined fs-1"> delete </span>
                 </a>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
 
