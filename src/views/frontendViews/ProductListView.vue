@@ -42,13 +42,13 @@ export default{
 <div class='container' >
     
     <nav class='row pt-5'>
-        <div class='d-flex justify-content-between flex-column-reverse flex-lg-row'>
-        <ul class='d-flex col-lg-5 justify-content-between ps-0 mb-0'>
-            <li style='list-style:none' class='d-flex align-items-center '><button type="button" class="btn btn-primary rounded-pill" >全 部</button></li>
-            <li style='list-style:none' class='d-flex align-items-center '><button type="button" class="btn btn-primary rounded-pill">推 薦</button></li>
-            <li style='list-style:none' class='d-flex align-items-center '><button type="button" class="btn btn-primary rounded-pill">飲 品</button></li>
-            <li style='list-style:none' class='d-flex align-items-center '><button type="button" class="btn btn-primary rounded-pill">蛋 糕</button></li>
-            <li style='list-style:none' class='d-flex align-items-center '><button type="button" class="btn btn-primary rounded-pill">餅 乾</button></li>
+        <div class='d-flex justify-content-between flex-column-reverse flex-lg-row '>
+        <ul class='d-flex col-lg-5 justify-content-lg-between ps-0 mb-0 mt-2 justify-content-center '>
+            <li style='list-style:none' class='d-flex align-items-center mx-2'><button type="button" class="btn btn-primary rounded-pill" >全 部</button></li>
+            <li style='list-style:none' class='d-flex align-items-center mx-2'><button type="button" class="btn btn-primary rounded-pill">推 薦</button></li>
+            <li style='list-style:none' class='d-flex align-items-center mx-2'><button type="button" class="btn btn-primary rounded-pill">飲 品</button></li>
+            <li style='list-style:none' class='d-flex align-items-center mx-2'><button type="button" class="btn btn-primary rounded-pill">蛋 糕</button></li>
+            <li style='list-style:none' class='d-flex align-items-center mx-2'><button type="button" class="btn btn-primary rounded-pill">餅 乾</button></li>
         </ul>
         <div class='col-lg-4 border border-primary rounded-pill d-flex align-items-center' style='height:50px'>
             <span class="material-symbols-outlined ms-3 d-block" style='font-size:40px'>search</span>
@@ -57,11 +57,11 @@ export default{
         </div>
     </nav>
     <div class='row py-5'>
-        <div class='col-lg-3 d-flex align-items-center justify-content-between'>
+        <div class='col-lg-4 d-flex align-items-center justify-content-lg-between justify-content-center'>
             <h1 class='text-primary'>全部</h1> 
             <h4 class='d-flex align-items-center text-primary'>
                 <!-- <span class="material-symbols-outlined" style='font-size:32px'>coffee</span> -->
-                <i class="fa-solid fa-crown me-1"></i>
+                <i class="fa-solid fa-crown me-1 text-warning ms-5"></i>
                 店長推薦
             </h4>
         </div>
@@ -80,10 +80,6 @@ export default{
                     </div>
                     <div class='card-body addToCartBtn ' >
                         <div class=' addToCartText ' style='height:72px'>
-                            <!-- <div class=' d-flex justify-content-between'>
-                            <p class="card-text text-primary"> {{item.title}}</p>
-                            <p class='text-primary'>NT${{item.price}}/{{item.unit}}</p>
-                            </div> -->
                             <p style=' font-size:12px'>{{item.description}}</p>
                         </div>
                         <button class='text-center w-100 '><p class='mb-0 '>加入購物車</p></button>
@@ -101,7 +97,7 @@ export default{
 .addToCartBtn {
     position: relative;
     z-index:1;
-    height:60px;
+    height:70px;
     
     &::before {
         content: "";
@@ -110,16 +106,23 @@ export default{
         right: 0;
         bottom: 0;
         left: 0;
-       // background-color: #Dedbda;
         background-color:rgba(222,219,218,0.8);
         transform: scaleY(0);
         transition: transform 0.3s ease-in-out;
         z-index: -1;
-    }
+    };
+    button{
+        display:block;
+        background-color:#4f2413;
+        color:	#FFFFFF;
+        border: 2px solid transparent;
+        }
+    @media(min-width:992px){
     button{
         display:none
-
     }
+    }
+
     
 }
 
@@ -128,14 +131,18 @@ export default{
 
 .productCard{
     position:relative;
+    .card-body{
+        padding:8px;
+    }
 
-    .addToCartText{
+    @media(min-width:993px){
+        .addToCartText{
         display:none;
         };
     &:hover{
         button{
         display:block;
-         background-color:#4f2413;
+        background-color:#4f2413;
         color:	#FFFFFF;
         border: 2px solid transparent;
         }
@@ -146,12 +153,15 @@ export default{
             display:none
         };
         .addToCartBtn::before{
-        margin-top:-50px;
+        height:120px;
+        margin-top:0px;
         transform: scaleY(1);
         transform-origin:bottom center;
 
         }
     }
+    }
+
     
 }
 

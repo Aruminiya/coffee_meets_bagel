@@ -23,6 +23,12 @@
           </router-link>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
+          <a class="nav-link" href="#">訂單管理</a>
+        </li>
+        <li class="nav-item">
+          <router-link to="/admin/adminProducts">商品管理</router-link>
+=======
           <a class="nav-link text-decoration-none">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
@@ -41,6 +47,7 @@
               <h3 class="fw-bold lh-1 m-0">商品管理</h3>
             </div>
           </router-link>
+>>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
         </li>
         <li class="nav-item">
           <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#">
