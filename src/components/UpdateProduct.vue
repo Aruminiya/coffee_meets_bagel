@@ -10,7 +10,7 @@ export default {
     return {
       product: {},
       defaultImageUrl: 'https://www.ils.com.tw/zh/Up_files/webskin/RWD/include/images/type3album_blank.png',
-      newImageUrl: '',  // https://i.ytimg.com/vi/snCH79g4AHk/maxresdefault.jpg
+      newImageUrl: '',
       showImageUrl: '',
       newImagesUrl: [],
       defaultProduct: {
@@ -37,7 +37,9 @@ export default {
       this.$refs.backendNav.openNav();
     },
     modalShow(url) {
-      this.$refs.modal.modalShow(url)
+      if (url !== this.defaultImageUrl) {
+        this.$refs.modal.modalShow(url)
+      }
     },
     addNewImage() {
       this.showImageUrl = this.newImageUrl
@@ -51,8 +53,7 @@ export default {
     getProduct() {
       // 取得路由的產品ID
       const id = this.$route.params.id;
-
-      if(id){
+      if (id) {
         this.axios.get(`${host}/v2/api/${path}/product/${id}`)
           .then((res) => {
             // console.log(res.data);
@@ -65,14 +66,33 @@ export default {
           .catch(() => {
             Swal.fire("取得產品資料失敗");
           });
-      }else {
+      } else {
         this.product = this.defaultProduct;
       }
     },
+    addProduct() {
+      this.product.imagesUrl = this.newImagesUrl;
+      const data = this.product;
+      this.axios.post(`${host}/v2/api/${path}/admin/product`, { data })
+        .then(() => {
+          Swal.fire({
+            title: "產品新增成功",
+            confirmButtonText: "返回產品列表",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push('/admin/adminProducts');
+            } 
+          });
+        })
+        .catch((err) => {          
+          console.log(err);
+          Swal.fire("產品新增失敗");
+        });
+    },
     enabledProduct() {
-      if(this.product.is_enabled === 0){
+      if (this.product.is_enabled === 0) {
         this.product.is_enabled = 1
-      }else if(this.product.is_enabled === 1) {
+      } else if (this.product.is_enabled === 1) {
         this.product.is_enabled = 0
       }
     },
@@ -128,9 +148,17 @@ export default {
           });
         }
       });
-    }
+    },
   },
   mounted() {
+    // 從cookie取出登入時存入的token
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    // 將token設定到axios的預設header裡
+    this.axios.defaults.headers.common.Authorization = token;
+
     this.getProduct();
     this.showImageUrl = this.defaultImageUrl;
   },
@@ -190,11 +218,11 @@ export default {
           </div>
           <div class="col-6">
             <h3 class="text-primary">原價</h3>
-            <input type="text" class="form-control rounded-top" v-model="product.origin_price">
+            <input type="number" class="form-control rounded-top" v-model="product.origin_price">
           </div>
           <div class="col-6">
             <h3 class="text-primary">售價</h3>
-            <input type="text" class="form-control rounded-top" v-model="product.price">
+            <input type="number" class="form-control rounded-top" v-model="product.price">
           </div>
         </div>
         <div class="mb-2">
@@ -206,16 +234,18 @@ export default {
         <div class="position-absolute bottom-0 start-0 p-3">
           <div class="d-flex">
             <h3 class="mb-0 text-primary">商品狀態</h3>
-            <button type="button" class="btn btn-outline-primary bottom-0 start-0 ms-3"
-            v-if="product.is_enabled" @click="enabledProduct">已啟用</button>
-            <button type="button" class="btn btn-outline-secondary bottom-0 start-0 ms-3"
-            v-else @click="enabledProduct" >未啟用</button>
+            <button type="button" class="btn btn-outline-primary bottom-0 start-0 ms-3" v-if="product.is_enabled"
+              @click="enabledProduct">已啟用</button>
+            <button type="button" class="btn btn-outline-secondary bottom-0 start-0 ms-3" v-else
+              @click="enabledProduct">未啟用</button>
           </div>
         </div>
         <div class="position-absolute bottom-0 end-0 p-3">
           <button type="button" class="btn btn-outline-warning ms-3" @click="backToList">返回產品列表</button>
-          <button type="button" class="btn btn-outline-success ms-3" @click="getProduct">回復初始值</button>
-          <button type="button" class="btn btn-outline-primary ms-3" @click="confirmUpdate">確定修改</button>
+          <button type="button" class="btn btn-outline-success ms-3" v-if="product.id" @click="getProduct">回復初始值</button>
+          <button type="button" class="btn btn-outline-primary ms-3" v-if="product.id"
+            @click="confirmUpdate">確定修改</button>
+          <button type="button" class="btn btn-outline-primary ms-3" v-else @click="addProduct">新增商品</button>
         </div>
       </div>
     </div>
