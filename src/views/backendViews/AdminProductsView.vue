@@ -146,12 +146,12 @@ export default {
         .delete(`${host}/v2/api/${path}/admin/product/${id}`)
         .then((res) => {
           Swal.fire('刪除成功');
-          this.getProducts(page);
+          this.getProducts();
         })
         .catch((error) => {
+          console.log(error);
           Swal.fire("資料刪除失敗");
         });
-      console.log(123);
     },
     confirmDelete (id) {
       Swal.fire({
@@ -167,50 +167,36 @@ export default {
       });
     },
     modalShow (product) {
-      goThisPage(page) {
-        // console.log(page);
-        this.getProducts(page);
-      },
-
-
-      modalShow(product) {
-        // this.product = product;
-        this.$refs.modal.modalShow(product)
-      },
-      modalHide() {
-        this.productModal.hide();
-      },
-      getThisProduct(product) {
-        this.product = product;
-      },
-      openOffCanvasNav() {
-        this.$refs.backendNav.openNav();
-      },
-      addNewProduct() {
-        this.$router.push('/admin/addProduct');
-        // closeOffCanvasNav () {
-        //   this.$refs.backendNav.closeNav();
-        // },
-
-        log() {
-          console.log(this.$refs);
-        }
-      },
-      mounted() {
-        // 從cookie取出登入時存入的token
-        const token = document.cookie.replace(
-          /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-          "$1"
-        );
-        // 將token設定到axios的預設header裡
-        this.axios.defaults.headers.common.Authorization = token;
-        // 確認登入狀態
-        this.checkAdmin();
-      },
-    };
-  }
-}
+      // this.product = product;
+      this.$refs.modal.modalShow(product)
+    },
+    modalHide () {
+      this.productModal.hide();
+    },
+    getThisProduct (product) {
+      this.product = product;
+    },
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav();
+    },
+    addNewProduct () {
+      this.$router.push('/admin/addProduct');
+    }
+  },
+  mounted () {
+    // 從cookie取出登入時存入的token
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    // 將token設定到axios的預設header裡
+    this.axios.defaults.headers.common.Authorization = token;
+    // 確認登入狀態
+    this.checkAdmin();
+  },
+};
 </script>
+
 
 <template>
   <link rel="stylesheet"
@@ -300,16 +286,12 @@ export default {
                 <router-link :to="`/admin/adminProducts/${product.id}`" class="text-warning">
                   <span class="material-symbols-outlined fs-1"> edit </span>
                 </router-link>
-                <!-- <a href="#" class="text-warning" @click.prevent="">
-                </a> -->
                 <a href="#" class="text-danger ms-4" @click.prevent="confirmDelete(product.id)">
                   <span class="material-symbols-outlined fs-1"> delete </span>
                 </a>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
 
