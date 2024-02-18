@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 
 export default {
-  data() {
+  data () {
     return {
       text: "純測試",
       allProducts: [],
@@ -28,7 +28,7 @@ export default {
     adminLogo
   },
   methods: {
-    checkAdmin() {
+    checkAdmin () {
       this.axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
@@ -48,7 +48,7 @@ export default {
           });
         });
     },
-    searchProduct() {
+    searchProduct () {
       const result = this.allProducts.filter(product => {
         // 比對標題內容與產品描述對應搜尋關鍵字
         return [product.title, product.content, product.description].toString().match(this.search)
@@ -60,7 +60,7 @@ export default {
       this.search = ''
     },
     // 先取得所有商品, 以及所有分類
-    getAllProducts() {
+    getAllProducts () {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
@@ -76,7 +76,7 @@ export default {
         });
     },
     // 預設取得第一頁資料
-    getProducts(page = 1) {
+    getProducts (page = 1) {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
@@ -88,7 +88,7 @@ export default {
         });
     },
     // 變更分類時取得分類資料 
-    getProductsByCategory(category) {
+    getProductsByCategory (category) {
       if (category === "檢視全部") {
         this.getProducts();
       } else {
@@ -104,7 +104,7 @@ export default {
       }
     },
     // 測試用, 如果需要token再從這邊抓
-    testLogin() {
+    testLogin () {
       const user = {
         username: "tingyu1112@gmail.com",
         password: "cmbSideProject",
@@ -123,21 +123,22 @@ export default {
         });
     },
     // 取得所有商品後取得所有分類
-    getCategories() {
+    getCategories () {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
       );
     },
     // 上一頁
-    previousPage() {
+    previousPage () {
       this.pagination.current_page--;
       this.getProducts(this.pagination.current_page);
     },
     // 下一頁
-    nextPage() {
+    nextPage () {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
+<<<<<<< HEAD
     goThisPage(page) {
       this.getProducts(page);
     },
@@ -167,23 +168,41 @@ export default {
       });
     },
     modalShow(product) {
+=======
+    goThisPage (page) {
+      // console.log(page);
+      this.getProducts(page);
+    },
+
+
+    modalShow (product) {
+>>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
       // this.product = product;
       this.$refs.modal.modalShow(product)
     },
-    modalHide() {
+    modalHide () {
       this.productModal.hide();
     },
-    getThisProduct(product) {
+    getThisProduct (product) {
       this.product = product;
     },
     openOffCanvasNav() {
       this.$refs.backendNav.openNav();
     },
+<<<<<<< HEAD
     addNewProduct() {
       this.$router.push('/admin/addProduct');
+=======
+    // closeOffCanvasNav () {
+    //   this.$refs.backendNav.closeNav();
+    // },
+
+    log () {
+      console.log(this.$refs);
+>>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
     }
   },
-  mounted() {
+  mounted () {
     // 從cookie取出登入時存入的token
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,

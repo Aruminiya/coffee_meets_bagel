@@ -5,13 +5,17 @@ export default {
     editMode: { type: Boolean, default: true },
   },
 
-  emits: ["cartItemClicked", "deleteItemClicked"],
+  emits: ["cartItemClicked", "deleteItemClicked", "editItemClickedEmit"],
   data() {
     return {
       tempItem: { ...this.item },
+      isEditMode: true,
+      timer: null, // 将 timer 变量定义在 data 中
     };
   },
   methods: {
+    // 防手抖 debounce
+
     deleteItemClickedEmit() {
       if (this.editMode) {
         this.$emit("deleteItemClicked");
@@ -21,6 +25,44 @@ export default {
       if (this.editMode) {
         this.$emit("cartItemClicked");
       }
+    },
+    editItemClickedEmit(calculate) {
+      if (this.editMode) {
+        if (calculate === "+") {
+          this.tempItem.qty++;
+          // 這邊是 debounce 的運用
+          clearTimeout(this.timer);
+          this.timer = setTimeout(() => {
+            // console.log(this.tempItem);
+            this.$emit("editItemClickedEmit", this.tempItem);
+          }, 500);
+        } else if (calculate === "-" && this.tempItem.qty > 1) {
+          this.tempItem.qty--;
+          // 這邊是 debounce 的運用
+          clearTimeout(this.timer);
+          this.timer = setTimeout(() => {
+            // console.log(this.tempItem);
+            this.$emit("editItemClickedEmit", this.tempItem);
+          }, 500);
+        } else if (calculate === "blur") {
+          parseInt(this.tempItem.qty);
+          if (this.tempItem.qty > 0) {
+            if (this.tempItem.qty !== this.item.qty) {
+              this.$emit("editItemClickedEmit", this.tempItem);
+            }
+          } else {
+            this.tempItem.qty = this.item.qty;
+          }
+        } else {
+          console.warn("無效的計算");
+        }
+      }
+    },
+  },
+  watch: {
+    editMode(newVal) {
+      console.log(newVal);
+      this.isEditMode = newVal;
     },
   },
 };
@@ -61,12 +103,12 @@ export default {
         <p>{{ tempItem.product.content }}</p>
 
         <p v-if="editMode" class="tempItemQty">
-          選擇數量：<button @click="tempItem.qty--">-</button>
-          <input type="text" v-model="tempItem.qty" /><button
-            @click="tempItem.qty++"
-          >
-            +
-          </button>
+          選擇數量：<button @click="editItemClickedEmit('-')">-</button>
+          <input
+            type="number"
+            v-model.lazy="tempItem.qty"
+            @blur="editItemClickedEmit('blur')"
+          /><button @click="editItemClickedEmit('+')">+</button>
         </p>
         <p v-else>選擇數量：{{ tempItem.qty }}</p>
       </div>
@@ -110,6 +152,19 @@ button {
     background-color: darken($colorChart-Primary-200, 10%);
     scale: 1.1;
   }
+}
+
+// 隱藏數字輸入框的箭頭
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .tempItemQty {

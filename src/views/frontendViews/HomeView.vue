@@ -12,18 +12,30 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
+import FooterComponent from "../../components/FooterComponent.vue";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     HomePageNavBarComponent,
+    FooterComponent,
   },
   data() {
     return {
       test: "歡迎來到首頁",
       modules: [Autoplay, Pagination, Navigation],
+      // 這邊是給 SwiperSlide 的 slidesPerView 判斷用的
+      windowInnerWidth: window.innerWidth,
     };
+  },
+  computed: {
+    slidesPerViewData() {
+      return this.windowInnerWidth >= 768 ? 3 : 1;
+    },
+    initialSlideData() {
+      return this.windowInnerWidth >= 768 ? 1 : 0;
+    },
   },
   mounted() {
     console.log(this.test);
@@ -344,13 +356,13 @@ export default {
         <div class="block_05 col-12">
           <swiper
             ref="{swiperRef}"
-            :slidesPerView="3"
+            :slidesPerView="slidesPerViewData"
             :centeredSlides="true"
             :spaceBetween="30"
             :pagination="{
               type: 'fraction',
             }"
-            initialSlide="1"
+            :initialSlide="initialSlideData"
             :navigation="true"
             :modules="modules"
             class="mySwiper"
@@ -410,6 +422,7 @@ export default {
       </div>
     </div>
   </main>
+  <FooterComponent />
 </template>
 
 <style lang="scss">
@@ -928,12 +941,18 @@ export default {
 
 .swiperImg_01 {
   background-image: url("../../../public/swiperImg_01.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperImg_02 {
   background-image: url("../../../public/swiperImg_02.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperImg_03 {
   background-image: url("../../../public/swiperImg_03.png");
+  background-position: center;
+  background-size: cover;
 }
 .swiperText {
   background-color: rgba(255, 255, 255, 0.5);
