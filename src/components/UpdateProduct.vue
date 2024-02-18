@@ -59,11 +59,14 @@ export default {
             // console.log(res.data);
             this.product = res.data.product
             // 避免抓到空值, 先過濾多圖陣列
-            this.newImagesUrl = this.product.imagesUrl.filter(item => {
-              return item !== ''
-            })
+            if(this.product.imagesUrl){
+              this.newImagesUrl = this.product.imagesUrl.filter(item => {
+                return item !== ''
+              })
+            }
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log(err);
             Swal.fire("取得產品資料失敗");
           });
       } else {
