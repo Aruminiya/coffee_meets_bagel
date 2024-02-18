@@ -2,12 +2,17 @@
 <script>
 
 import axios from 'axios';
-import VueAxios from 'vue-axios'
-import NavBarComponent from '../../components/NavBarComponent.vue'
+import VueAxios from 'vue-axios';
+import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import NavBarComponent from '../../components/NavBarComponent.vue';
+import FooterComponent from '../../components/FooterComponent.vue';
+import ModalComponent from '../../components/ModalComponent.vue'
 
 export default{
     components:{
-        NavBarComponent
+        NavBarComponent,
+        FooterComponent,
+        ModalComponent
     },
     data(){
         return{
@@ -17,9 +22,14 @@ export default{
             api_path : 'florafirstapi'
             },
             productsList:[],
+            modal:null,
         }
     },
     methods:{
+        openModal(product){
+            console.log(product)
+            this.$refs.productDetailModal.modalShow(product)
+        }
 
     },
     mounted(){
@@ -30,6 +40,8 @@ export default{
             console.log(this.productsList);
             console.log('mounted')
         });
+        
+
     }
 }
 
@@ -39,7 +51,12 @@ export default{
 
 <template>
 <NavBarComponent></NavBarComponent>
+
+<ModalComponent ref='productDetailModal'></ModalComponent>
+
+
 <div class='container' >
+    
     
     <nav class='row pt-5'>
         <div class='d-flex justify-content-between flex-column-reverse flex-lg-row '>
@@ -71,7 +88,7 @@ export default{
         <ul class='row d-flex ps-0  '>
             <li v-for='item in productsList' class='col-lg-3 d-flex justify-content-center mb-5 productCard' style='list-style:none' >
                 <div class="card border-0" style="width: 18rem;">
-                    <img :src='item.imageUrl' class="" :alt="item.title" style='height:280px'>
+                    <img :src='item.imageUrl' class="" :alt="item.title" style='height:280px; object-fit="none" '>
                     <div class="card-body cardContent">
                         <div class='d-flex justify-content-between'>
                             <p class="card-text text-primary"> {{item.title}}</p>
@@ -80,9 +97,9 @@ export default{
                     </div>
                     <div class='card-body addToCartBtn ' >
                         <div class=' addToCartText ' style='height:72px'>
-                            <p style=' font-size:12px'>{{item.description}}</p>
+                            <p style=' font-size:14px'>{{item.description}}</p>
                         </div>
-                        <button class='text-center w-100 '><p class='mb-0 '>加入購物車</p></button>
+                        <button ref='modalBtn' @click='openModal(item)' class='text-center w-100 '><p class='mb-0 '>加入購物車</p></button>
 
                     </div>
                 </div>
@@ -90,6 +107,7 @@ export default{
         </ul>
     </div>
 </div>
+<FooterComponent></FooterComponent>
 </template>
 
 <style lang='scss'>
