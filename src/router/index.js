@@ -80,9 +80,18 @@ const router = createRouter({
           component: () =>
             import("../views/backendViews/AdminDiscountView.vue"),
         },
+        {
+          path: "addProduct",
+          name: "addProduct",
+          component: () => import("../views/backendViews/AdminAddProductView.vue"),
+        },
       ],
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // 始终滚动到顶部
+    return { top: 0 };
+  },
 });
 
 export default router;
