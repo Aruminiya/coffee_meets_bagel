@@ -80,6 +80,11 @@ const router = createRouter({
           component: () =>
             import("../views/backendViews/AdminDiscountView.vue"),
         },
+        {
+          path: "addProduct",
+          name: "addProduct",
+          component: () => import("../views/backendViews/AdminAddProductView.vue"),
+        },
       ],
     },
   ],
