@@ -138,23 +138,22 @@ export default {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
-<<<<<<< HEAD
-    goThisPage(page) {
+    goThisPage (page) {
       this.getProducts(page);
     },
-    deleteProduct(id) {
+    deleteProduct (id) {
       this.axios
         .delete(`${host}/v2/api/${path}/admin/product/${id}`)
         .then((res) => {
           Swal.fire('刪除成功');
           this.getProducts(page);
         })
-        .catch((error) => {          
+        .catch((error) => {
           Swal.fire("資料刪除失敗");
         });
       console.log(123);
     },
-    confirmDelete(id) {
+    confirmDelete (id) {
       Swal.fire({
         title: "您確定要刪除嗎?",
         showCancelButton: true,
@@ -167,55 +166,51 @@ export default {
         }
       });
     },
-    modalShow(product) {
-=======
-    goThisPage (page) {
-      // console.log(page);
-      this.getProducts(page);
-    },
-
-
     modalShow (product) {
->>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
-      // this.product = product;
-      this.$refs.modal.modalShow(product)
-    },
-    modalHide () {
-      this.productModal.hide();
-    },
-    getThisProduct (product) {
-      this.product = product;
-    },
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
-    },
-<<<<<<< HEAD
-    addNewProduct() {
-      this.$router.push('/admin/addProduct');
-=======
-    // closeOffCanvasNav () {
-    //   this.$refs.backendNav.closeNav();
-    // },
+      goThisPage(page) {
+        // console.log(page);
+        this.getProducts(page);
+      },
 
-    log () {
-      console.log(this.$refs);
->>>>>>> d30bcadada4fc8738604783f1ff0ff8a73481e16
-    }
-  },
-  mounted () {
-    // 從cookie取出登入時存入的token
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    // 將token設定到axios的預設header裡
-    this.axios.defaults.headers.common.Authorization = token;
-    // 確認登入狀態
-    this.checkAdmin();
-  },
-};
+
+      modalShow(product) {
+        // this.product = product;
+        this.$refs.modal.modalShow(product)
+      },
+      modalHide() {
+        this.productModal.hide();
+      },
+      getThisProduct(product) {
+        this.product = product;
+      },
+      openOffCanvasNav() {
+        this.$refs.backendNav.openNav();
+      },
+      addNewProduct() {
+        this.$router.push('/admin/addProduct');
+        // closeOffCanvasNav () {
+        //   this.$refs.backendNav.closeNav();
+        // },
+
+        log() {
+          console.log(this.$refs);
+        }
+      },
+      mounted() {
+        // 從cookie取出登入時存入的token
+        const token = document.cookie.replace(
+          /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
+          "$1"
+        );
+        // 將token設定到axios的預設header裡
+        this.axios.defaults.headers.common.Authorization = token;
+        // 確認登入狀態
+        this.checkAdmin();
+      },
+    };
+  }
+}
 </script>
-
 
 <template>
   <link rel="stylesheet"
@@ -253,8 +248,7 @@ export default {
           </select>
         </div>
         <div class="col-6 py-3 my-3 text-end">
-          <button type="button" class="btn btn-outline-success"
-          @click="addNewProduct">新增商品</button>
+          <button type="button" class="btn btn-outline-success" @click="addNewProduct">新增商品</button>
         </div>
 
       </div>
