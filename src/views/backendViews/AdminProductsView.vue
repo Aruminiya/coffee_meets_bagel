@@ -6,6 +6,7 @@ import modal from '../../components/ModalComponent.vue';
 import pagination from '../../components/PaginationComponent.vue';
 import adminNav from '../../components/BackendOffcanvasNav.vue';
 import adminLogo from '../../components/BackendLogoComponent.vue';
+import Swal from 'sweetalert2';
 
 
 export default {
@@ -18,8 +19,6 @@ export default {
       categories: [],
       search: '',
       product: {}
-      // productModal: {},
-      // imageUrl: ''
     };
   },
   components: {
@@ -40,7 +39,13 @@ export default {
           this.getAllProducts();
         })
         .catch((err) => {
-          console.log(err);
+          Swal.fire({
+            title: "登入驗證失敗, 請重新登入",
+            confirmButtonText: "Save",
+          }).then((result) => {
+            // 驗證失敗轉回登入頁面(未完成), 目前先轉回首頁
+            this.$router.push('/')
+          });
         });
     },
     searchProduct() {
@@ -66,9 +71,8 @@ export default {
           // 取完所有資料再取要渲染的資料
           this.getProducts();
         })
-        .catch((error) => {
-          console.log("資料取得失敗");
-          console.error(error);
+        .catch(() => {
+          Swal.fire("資料取得失敗");
         });
     },
     // 預設取得第一頁資料
@@ -76,14 +80,11 @@ export default {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
-          // console.log(response.data);
           this.products = response.data.products;
           this.pagination = response.data.pagination;
-          // console.log(this.pagination);
         })
-        .catch((error) => {
-          console.log("資料取得失敗");
-          console.error(error);
+        .catch(() => {
+          Swal.fire("資料取得失敗");
         });
     },
     // 變更分類時取得分類資料 
@@ -97,9 +98,8 @@ export default {
             this.products = response.data.products;
             this.pagination = response.data.pagination;
           })
-          .catch((error) => {
-            console.log("資料取得失敗");
-            console.error(error);
+          .catch(() => {
+            Swal.fire("取得產品分類失敗");
           });
       }
     },
@@ -119,8 +119,7 @@ export default {
           )}; path=/`;
         })
         .catch((error) => {
-          console.log("資料取得失敗");
-          console.error(error);
+          Swal.fire("登入失敗");
         });
     },
     // 取得所有商品後取得所有分類
@@ -140,11 +139,33 @@ export default {
       this.getProducts(this.pagination.current_page);
     },
     goThisPage(page) {
-      // console.log(page);
       this.getProducts(page);
     },
-
-
+    deleteProduct(id) {
+      this.axios
+        .delete(`${host}/v2/api/${path}/admin/product/${id}`)
+        .then((res) => {
+          Swal.fire('刪除成功');
+          this.getProducts(page);
+        })
+        .catch((error) => {          
+          Swal.fire("資料刪除失敗");
+        });
+      console.log(123);
+    },
+    confirmDelete(id) {
+      Swal.fire({
+        title: "您確定要刪除嗎?",
+        showCancelButton: true,
+        cancelButtonText: '返回商品列表',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "確定刪除",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteProduct(id)
+        }
+      });
+    },
     modalShow(product) {
       // this.product = product;
       this.$refs.modal.modalShow(product)
@@ -155,19 +176,12 @@ export default {
     getThisProduct(product) {
       this.product = product;
     },
-    openOffCanvasNav () {
+    openOffCanvasNav() {
       this.$refs.backendNav.openNav();
     },
-    // closeOffCanvasNav () {
-    //   this.$refs.backendNav.closeNav();
-    // },
-
-    log() {
-      console.log(this.$refs);
+    addNewProduct() {
+      this.$router.push('/admin/addProduct');
     }
-
-
-
   },
   mounted() {
     // 從cookie取出登入時存入的token
@@ -179,10 +193,6 @@ export default {
     this.axios.defaults.headers.common.Authorization = token;
     // 確認登入狀態
     this.checkAdmin();
-    // this.testLogin()
-
-    // this.$refs.modal.modalShow()
-    // console.log(this.$refs.modal.modalShow());
   },
 };
 </script>
@@ -224,9 +234,8 @@ export default {
           </select>
         </div>
         <div class="col-6 py-3 my-3 text-end">
-          <button type="button" class="btn btn-outline-success">
-            新增商品
-          </button>
+          <button type="button" class="btn btn-outline-success"
+          @click="addNewProduct">新增商品</button>
         </div>
 
       </div>
@@ -258,7 +267,7 @@ export default {
                     </div>
                   </div>
                   <div class="col-6">
-                    
+
                     <p v-if="product.is_enabled === 1" class="card-text mb-2">
                       狀態 : <span class="text-success">販售中</span>
                     </p>
@@ -280,7 +289,7 @@ export default {
                 </router-link>
                 <!-- <a href="#" class="text-warning" @click.prevent="">
                 </a> -->
-                <a href="#" class="text-danger ms-4" @click.prevent="">
+                <a href="#" class="text-danger ms-4" @click.prevent="confirmDelete(product.id)">
                   <span class="material-symbols-outlined fs-1"> delete </span>
                 </a>
               </div>

@@ -72,6 +72,11 @@ const router = createRouter({
           name: "adminProductsById",
           component: () => import("../views/backendViews/AdminDynamicProductView.vue"),
         },
+        {
+          path: "addProduct",
+          name: "addProduct",
+          component: () => import("../views/backendViews/AdminAddProductView.vue"),
+        },
       ],
     },
   ],
