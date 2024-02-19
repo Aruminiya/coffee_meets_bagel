@@ -129,8 +129,11 @@ export default {
             <p :class="{ 'text-danger': couponData.response?.data?.message }">
               {{ couponData.response?.data?.message }}
             </p>
-
-            <button class="btn btn-primary btn02 w-100">我想再加點</button>
+            <router-link to="/productList"
+              ><button class="btn btn-primary btn02 w-100">
+                我想再加點
+              </button></router-link
+            >
           </div>
         </div>
       </div>
