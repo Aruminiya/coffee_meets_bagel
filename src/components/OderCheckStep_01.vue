@@ -26,6 +26,7 @@ export default {
     ...mapState(cartStore, ["data", "isCartsLoading"]),
     ...mapState(couponStore, ["couponData", "couponUsed"]),
   },
+
   methods: {
     ...mapActions(cartStore, ["getCarts", "editCarts", "deleteCarts"]),
     ...mapActions(couponStore, ["useCoupon"]),
@@ -40,10 +41,18 @@ export default {
     // 先取得購物車資訊
     this.getCarts();
   },
+  watch: {
+    data(newVal, oldVal) {
+      if (newVal.carts?.length === 0) {
+        this.$router.push("/productList");
+      }
+    },
+  },
 };
 </script>
 
 <template>
+  <!-- {{ data.carts?.length ? "是" : "否" }} -->
   <section class="container">
     <div class="row">
       <div class="col-lg-6 col-12 p-5">
