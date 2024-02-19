@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 
 export default {
-  data () {
+  data() {
     return {
       text: "純測試",
       allProducts: [],
@@ -28,7 +28,7 @@ export default {
     adminLogo
   },
   methods: {
-    checkAdmin () {
+    checkAdmin() {
       this.axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
@@ -48,7 +48,7 @@ export default {
           });
         });
     },
-    searchProduct () {
+    searchProduct() {
       const result = this.allProducts.filter(product => {
         // 比對標題內容與產品描述對應搜尋關鍵字
         return [product.title, product.content, product.description].toString().match(this.search)
@@ -60,7 +60,7 @@ export default {
       this.search = ''
     },
     // 先取得所有商品, 以及所有分類
-    getAllProducts () {
+    getAllProducts() {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
@@ -76,7 +76,7 @@ export default {
         });
     },
     // 預設取得第一頁資料
-    getProducts (page = 1) {
+    getProducts(page = 1) {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
@@ -88,7 +88,7 @@ export default {
         });
     },
     // 變更分類時取得分類資料 
-    getProductsByCategory (category) {
+    getProductsByCategory(category) {
       if (category === "檢視全部") {
         this.getProducts();
       } else {
@@ -104,7 +104,7 @@ export default {
       }
     },
     // 測試用, 如果需要token再從這邊抓
-    testLogin () {
+    testLogin() {
       const user = {
         username: "tingyu1112@gmail.com",
         password: "cmbSideProject",
@@ -123,18 +123,18 @@ export default {
         });
     },
     // 取得所有商品後取得所有分類
-    getCategories () {
+    getCategories() {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
       );
     },
     // 上一頁
-    previousPage () {
+    previousPage() {
       this.pagination.current_page--;
       this.getProducts(this.pagination.current_page);
     },
     // 下一頁
-    nextPage () {
+    nextPage() {
       this.pagination.current_page++;
       this.getProducts(this.pagination.current_page);
     },
@@ -148,8 +148,8 @@ export default {
           Swal.fire('刪除成功');
           this.getProducts();
         })
-        .catch((error) => {        
-          console.log(error);  
+        .catch((error) => {
+          console.log(error);
           Swal.fire("資料刪除失敗");
         });
     },
@@ -170,10 +170,10 @@ export default {
       // this.product = product;
       this.$refs.modal.modalShow(product)
     },
-    modalHide () {
+    modalHide() {
       this.productModal.hide();
     },
-    getThisProduct (product) {
+    getThisProduct(product) {
       this.product = product;
     },
     openOffCanvasNav() {
@@ -181,9 +181,40 @@ export default {
     },
     addNewProduct() {
       this.$router.push('/admin/addProduct');
+    },
+    changeEnabledProduct(product) {
+      if(product.is_enabled === 1){
+        product.is_enabled = 0;
+      }else {
+        product.is_enabled = 1;
+      }
+      const data = {...product};
+      this.axios.put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
+        .then((res) => {
+          console.log(res.data);
+          this.enableMessage(product.is_enabled);
+        }).catch((err) => {
+          console.log(err);
+          Swal.fire("系統啟用失敗");
+        });
+    },
+    enableMessage(is_enabled) {
+      if(is_enabled === 1){
+        Swal.fire({
+            title: "系統訊息",
+            text: "產品已啟用",
+            icon: "success"
+          });
+      }else {
+        Swal.fire({
+            title: "系統訊息",
+            text: "產品已停用",
+            icon: "warning"
+          });
+      }
     }
   },
-  mounted () {
+  mounted() {
     // 從cookie取出登入時存入的token
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
@@ -234,22 +265,28 @@ export default {
           </select>
         </div>
         <div class="col-6 py-3 my-3 text-end">
-          <button type="button" class="btn btn-outline-success"
-          @click="addNewProduct">新增商品</button>
+          <button type="button" class="btn btn-outline-success" @click="addNewProduct">
+            新增商品
+            <span class="material-symbols-outlined align-middle">add</span>
+          </button>
         </div>
 
       </div>
       <div class="border rounded p-3 pb-0 product__list mb-8">
         <!-- 依設計稿調整至顯示三欄 -->
         <div v-for="product in products" :key="product.id" class="card mb-3">
-          <div class="row g-0">
-            <div class="col-md-4 p-3">
+          <div class="row g-0 position-relative">
+            <div v-if="product.is_recommend" class="position-absolute rotate">
+              <span class="material-symbols-outlined rotate__star">stars</span>
+            </div>
+            <div class="col-md-4 p-3 ">
               <!-- 點圖放大 -->
               <a href="#" @click.prevent="modalShow(product), getThisProduct(product)">
-                <img :src="product.imageUrl" class="img-fluid rounded-start" alt="#" />
+                <img :src="product.imageUrl" class="img-fluid rounded-start" 
+                :class="{'product__disable' : product.is_enabled !== 1}" alt="#" />
               </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" :class="{'product__disable' : product.is_enabled !== 1}">
               <div class="card-body">
                 <h5 class="card-title">商品編號 : {{ product.id }}</h5>
                 <h5 class="card-title">
@@ -267,14 +304,13 @@ export default {
                     </div>
                   </div>
                   <div class="col-6">
-
-                    <p v-if="product.is_enabled === 1" class="card-text mb-2">
-                      狀態 : <span class="text-success">販售中</span>
-                    </p>
-                    <p v-else class="card-text mb-2">
-                      狀態 : <span class="text-danger">暫停販售</span>
-                    </p>
                     <p class="card-text mb-2">{{ product.content }}</p>
+
+                    <p v-if="product.is_recommend === 1" class="card-text mb-2">
+                      <span class="material-symbols-outlined align-middle text-warning">recommend</span>
+                      今日主廚推薦
+                    </p>
+
                   </div>
                 </div>
                 <p class="card-text">
@@ -283,13 +319,34 @@ export default {
               </div>
             </div>
             <div class="col-md-2 py-2">
-              <div class="card-footer border-top-0 bg-white text-end">
-                <router-link :to="`/admin/adminProducts/${product.id}`" class="text-warning">
-                  <span class="material-symbols-outlined fs-1"> edit </span>
-                </router-link>
-                <a href="#" class="text-danger ms-4" @click.prevent="confirmDelete(product.id)">
-                  <span class="material-symbols-outlined fs-1"> delete </span>
-                </a>
+              <div class="card-footer border-top-0 bg-white d-flex flex-column align-items-end">
+                <div class="mb-3">
+                  <button type="button" class="btn btn-outline-success" @click="changeEnabledProduct(product)"
+                    v-if="product.is_enabled !== 1">
+                    商品啟用
+                    <span class="material-symbols-outlined align-middle">check_circle</span>
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary" v-else @click="changeEnabledProduct(product)">
+                    停止販售
+                    <span class="material-symbols-outlined align-middle">cancel</span>
+                  </button>
+                </div>
+                <div class="mb-3">
+                  <router-link :to="`/admin/adminProducts/${product.id}`" v-if="product.is_enabled === 1">
+                    <button type="button" class="btn btn-outline-warning">編輯商品
+                      <span class="material-symbols-outlined align-middle"> edit </span>
+                    </button>
+                  </router-link>
+                  <button type="button" class="btn btn-outline-warning" disabled v-else>編輯商品
+                    <span class="material-symbols-outlined align-middle"> edit </span>
+                  </button>
+                </div>
+                <div class="mb-3">
+                  <button type="button" class="btn btn-outline-danger" @click.prevent="confirmDelete(product.id)">
+                    刪除商品
+                    <span class="material-symbols-outlined align-middle"> delete </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -347,5 +404,21 @@ export default {
 .modal__img {
   max-width: 100%;
   object-fit: contain;
+}
+
+.rotate {
+  left: 12px;
+  top: 12px;
+  width: fit-content;
+
+  &__star {
+    transform: rotate(45deg);
+    font-size: 72px;
+    color: gold;
+  }
+}
+
+.product__disable{
+  opacity: 0.6;
 }
 </style>
