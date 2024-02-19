@@ -16,12 +16,16 @@ export default {
     modalHide() {
       this.productModal.hide();
     },
+    onlyShow(){
+      this.productModal.show();
+    }
   },
   mounted() {
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: true, // 按下ESC是否可以關閉
     });
+   // this.productModal.show()
   },
 };
 </script>
@@ -32,7 +36,8 @@ export default {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
-            <slot name="modal-title"></slot>
+            <!-- <slot name="modal-title"></slot> -->
+            {{product.title}}
           </h5>
           <button
             type="button"

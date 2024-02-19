@@ -34,7 +34,17 @@ export default {
       <div class="col-lg-6 col-12 p-5">
         <div>
           <h3>訂單內容 <span class="text-success">(已成立)</span></h3>
-          <h4 v-if="isOrderLoading">Loading...</h4>
+          <div
+            v-if="isOrderLoading"
+            class="loading d-flex justify-content-center align-items-center h-100"
+          >
+            <img
+              src="../../public/LoadingIcon.gif"
+              alt="LoadingIcon"
+              width="100"
+              height="100"
+            />
+          </div>
           <div
             v-else
             class="position-relative"
@@ -50,7 +60,9 @@ export default {
             />
           </div>
         </div>
-        <h5>付款金額：NT${{ orderInfo.order?.total }}</h5>
+        <h5 v-if="isOrderLoading === false">
+          付款金額：NT${{ orderInfo.order?.total }}
+        </h5>
       </div>
       <!-- 訂購表單 -->
 
@@ -91,7 +103,7 @@ export default {
           </div>
         </div>
         <br />
-        <router-link to="/"
+        <router-link to="/productList"
           ><button class="btn btn-primary w-100 m-1">
             繼續點餐
           </button></router-link

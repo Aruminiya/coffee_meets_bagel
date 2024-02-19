@@ -26,11 +26,6 @@ const router = createRouter({
           component: () => import("../views/frontendViews/FqaView.vue"),
         },
         {
-          path: "order",
-          name: "order",
-          component: () => import("../views/frontendViews/OrderView.vue"),
-        },
-        {
           path: "orderCheckView",
           name: "orderCheckView",
           component: () => import("../views/frontendViews/OrderCheckView.vue"),
@@ -88,11 +83,16 @@ const router = createRouter({
         {
           path: "addProduct",
           name: "addProduct",
-          component: () => import("../views/backendViews/AdminDynamicProductView.vue"),
+          component: () =>
+            import("../views/backendViews/AdminAddProductView.vue"),
         },
       ],
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // 始终滚动到顶部
+    return { top: 0 };
+  },
 });
 
 export default router;

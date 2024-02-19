@@ -26,6 +26,7 @@ export default {
     ...mapState(cartStore, ["data", "isCartsLoading"]),
     ...mapState(couponStore, ["couponData", "couponUsed"]),
   },
+
   methods: {
     ...mapActions(cartStore, ["getCarts", "editCarts", "deleteCarts"]),
     ...mapActions(couponStore, ["useCoupon"]),
@@ -40,16 +41,34 @@ export default {
     // 先取得購物車資訊
     this.getCarts();
   },
+  watch: {
+    data(newVal, oldVal) {
+      if (newVal.carts?.length === 0) {
+        this.$router.push("/productList");
+      }
+    },
+  },
 };
 </script>
 
 <template>
+  <!-- {{ data.carts?.length ? "是" : "否" }} -->
   <section class="container">
     <div class="row">
       <div class="col-lg-6 col-12 p-5">
         <div>
           <h3>確認購物車內容</h3>
-          <h4 v-if="isCartsLoading">Loading...</h4>
+          <div
+            v-if="isCartsLoading"
+            class="loading d-flex justify-content-center align-items-center h-100"
+          >
+            <img
+              src="../../public/LoadingIcon.gif"
+              alt="LoadingIcon"
+              width="100"
+              height="100"
+            />
+          </div>
           <div
             v-else
             class="cartProductInfo position-relative"
@@ -110,8 +129,11 @@ export default {
             <p :class="{ 'text-danger': couponData.response?.data?.message }">
               {{ couponData.response?.data?.message }}
             </p>
-
-            <button class="btn btn-primary btn02 w-100">我想再加點</button>
+            <router-link to="/productList"
+              ><button class="btn btn-primary btn02 w-100">
+                我想再加點
+              </button></router-link
+            >
           </div>
         </div>
       </div>
