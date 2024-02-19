@@ -222,9 +222,9 @@ export default {
         </div>
       </div>
       <div class="row">
-        <div class="block_04 col-12 p-0">
-          <div class="Img_01 rounded">
-            <div class="imgContainer rounded h-100 position-relative">
+        <div class="block_04 col-12 py-3">
+          <div class="Img_01">
+            <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_01.png"
@@ -232,8 +232,8 @@ export default {
               />
             </div>
           </div>
-          <div class="Img_02 rounded">
-            <div class="imgContainer rounded h-100 position-relative">
+          <div class="Img_02">
+            <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_02.png"
@@ -241,8 +241,8 @@ export default {
               />
             </div>
           </div>
-          <div class="Img_03 rounded">
-            <div class="imgContainer rounded h-100 position-relative">
+          <div class="Img_03">
+            <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_03.png"
@@ -250,8 +250,8 @@ export default {
               />
             </div>
           </div>
-          <div class="Img_04 rounded">
-            <div class="imgContainer rounded h-100 position-relative">
+          <div class="Img_04">
+            <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_04.png"
@@ -259,7 +259,7 @@ export default {
               />
             </div>
           </div>
-          <div class="Img_05 rounded">
+          <div class="Img_05">
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
@@ -268,7 +268,7 @@ export default {
               />
             </div>
           </div>
-          <div class="Img_06 rounded">
+          <div class="Img_06">
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
@@ -515,9 +515,9 @@ export default {
     "Img01 Img02 Img02"
     "Img03 Img03 Img04"
     "Img05 Img06 Img04";
-  gap: 3px;
+  gap: 16px;
+
   .Img_01 {
-    background: #f39b9b;
     grid-area: Img01;
     .imgContainer {
       background-image: url("../../../public/ChunkImg_01.png");
@@ -525,6 +525,7 @@ export default {
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
       overflow: hidden;
+      border-radius: 16px;
       img {
         width: 100%;
         height: 100%;
@@ -535,10 +536,12 @@ export default {
           opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_01.png");
+      }
     }
   }
   .Img_02 {
-    background: #cdf39b;
     grid-area: Img02;
     .imgContainer {
       background-image: url("../../../public/ChunkImg_02.png");
@@ -546,6 +549,7 @@ export default {
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
       overflow: hidden;
+      border-radius: 16px;
       img {
         width: 100%;
         height: 100%;
@@ -556,10 +560,15 @@ export default {
           opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_02.png");
+        img {
+          object-position: 76% 50%;
+        }
+      }
     }
   }
   .Img_03 {
-    background: #5b91e2;
     grid-area: Img03;
     .imgContainer {
       background-image: url("../../../public/ChunkImg_03.png");
@@ -567,6 +576,7 @@ export default {
       background-position: 35% 50%; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
       overflow: hidden;
+      border-radius: 16px;
       img {
         width: 100%;
         height: 100%;
@@ -577,10 +587,12 @@ export default {
           opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_03.png");
+      }
     }
   }
   .Img_04 {
-    background: #50a51f;
     grid-area: Img04;
     .imgContainer {
       background-image: url("../../../public/ChunkImg_04.png");
@@ -588,6 +600,7 @@ export default {
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
       overflow: hidden;
+      border-radius: 16px;
       img {
         width: 100%;
         height: 100%;
@@ -598,10 +611,12 @@ export default {
           opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_04.png");
+      }
     }
   }
   .Img_05 {
-    background: #770f72;
     grid-area: Img05;
     .imgContainer {
       background-image: url("../../../public/ChunkImg_05.png");
@@ -609,6 +624,7 @@ export default {
       background-position: 80% 50%; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
       overflow: hidden;
+      border-radius: 16px;
       img {
         width: 100%;
         height: 100%;
@@ -619,17 +635,21 @@ export default {
           opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_05.png");
+      }
     }
   }
   .Img_06 {
-    background: rgb(38, 212, 204);
     grid-area: Img06;
+
     .imgContainer {
       background-image: url("../../../public/ChunkImg_06.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
       overflow: hidden;
+      border-radius: 16px;
       img {
         width: 100%;
         height: 100%;
@@ -640,17 +660,22 @@ export default {
           opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_06.png");
+      }
     }
   }
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
       "Img01 Img02 "
       "Img03 Img02 "
-      "Img03 Img05 "
-      "Img04 Img05"
-      "Img04 Img06";
+      "Img03 Img04 "
+      "Img03 Img04 "
+      "Img05 Img04"
+      "Img05 Img06"
+      "Img05 Img06";
   }
 }
 
