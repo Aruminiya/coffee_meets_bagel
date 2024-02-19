@@ -23,6 +23,7 @@ export default {
         ],
         'is_enabled': 0,
         'origin_price': 0,
+        'is_recommend': 0,
         'price': 0,
         'title': '',
         'unit': ''
@@ -99,6 +100,13 @@ export default {
         this.product.is_enabled = 0
       }
     },
+    enabledRecommend() {
+      if (this.product.is_recommend === 0 || this.product.is_recommend === undefined) {
+        this.product.is_recommend = 1
+      } else if (this.product.is_recommend === 1) {
+        this.product.is_recommend = 0
+      }
+    },
     backToList() {
       this.$router.push('/admin/adminProducts');
     },
@@ -164,6 +172,7 @@ export default {
 
     this.getProduct();
     this.showImageUrl = this.defaultImageUrl;
+    // this.closeOffCanvasNav()
   },
 }
 </script>
@@ -172,7 +181,7 @@ export default {
   <div class="container main">
     <div class="row border rounded p-3">
       <div class="col-4 overflow-scroll p-3">
-        <h3 class="text-primary">商品主圖</h3>
+        <h4 class="text-primary">商品主圖</h4>
         <div class="text-center mb-2">
           <a href="#" @click.prevent="modalShow(product.imageUrl)">
             <img class="main__pic rounded-top" :src="product.imageUrl" alt="商品主圖">
@@ -180,7 +189,7 @@ export default {
           <input type="text" class="form-control rounded-0 rounded-bottom" v-model="product.imageUrl">
         </div>
         <div class="row main__sub__pics__block">
-          <h3 class="text-primary align-self-start">產品副圖片</h3>
+          <h4 class="text-primary align-self-start">產品副圖片</h4>
           <div v-for="(url, index) in newImagesUrl" :key="url" class="col-6 text-center">
             <div v-if="url" class="mb-3">
               <a href="#" @click.prevent="modalShow(url)">
@@ -203,44 +212,51 @@ export default {
 
       <div class="col-8 p-3 position-relative">
         <div class="mb-2">
-          <h3 class="text-primary">產品編號</h3>
+          <h4 class="text-primary">產品編號</h4>
           <input type="text" class="form-control rounded-top" disabled v-model="product.id">
         </div>
         <div class="mb-2">
-          <h3 class="text-primary">產品名稱</h3>
+          <h4 class="text-primary">產品名稱</h4>
           <input type="text" class="form-control rounded-top" v-model="product.title">
         </div>
         <div class="mb-2 row">
           <div class="col-6 mb-2">
-            <h3 class="text-primary">產品分類</h3>
+            <h4 class="text-primary">產品分類</h4>
             <input type="text" class="form-control rounded-top" v-model="product.category">
           </div>
           <div class="col-6">
-            <h3 class="text-primary">單位</h3>
+            <h4 class="text-primary">單位</h4>
             <input type="text" class="form-control rounded-top" v-model="product.unit">
           </div>
           <div class="col-6">
-            <h3 class="text-primary">原價</h3>
+            <h4 class="text-primary">原價</h4>
             <input type="number" class="form-control rounded-top" v-model="product.origin_price">
           </div>
           <div class="col-6">
-            <h3 class="text-primary">售價</h3>
+            <h4 class="text-primary">售價</h4>
             <input type="number" class="form-control rounded-top" v-model="product.price">
           </div>
         </div>
         <div class="mb-2">
-          <h3 class="text-primary">產品描述</h3>
+          <h4 class="text-primary">產品描述</h4>
           <textarea v-model="product.content" class="w-100" rows="3"></textarea>
-          <h3 class="text-primary">說明內容</h3>
+          <h4 class="text-primary">說明內容</h4>
           <textarea v-model="product.description" class="w-100" rows="3"></textarea>
         </div>
-        <div class="position-absolute bottom-0 start-0 p-3">
+        <div class="position-absolute bottom-0 start-0 d-flex p-3">
           <div class="d-flex">
-            <h3 class="mb-0 text-primary">商品狀態</h3>
+            <h4 class="mb-0 text-primary">商品狀態</h4>
             <button type="button" class="btn btn-outline-primary bottom-0 start-0 ms-3" v-if="product.is_enabled"
               @click="enabledProduct">已啟用</button>
             <button type="button" class="btn btn-outline-secondary bottom-0 start-0 ms-3" v-else
               @click="enabledProduct">未啟用</button>
+          </div>
+          <div class="d-flex ms-3">
+            <h4 class="mb-0 text-primary">主廚推薦</h4>
+            <button type="button" class="btn btn-outline-primary bottom-0 start-0 ms-3" v-if="product.is_recommend"
+              @click="enabledRecommend">採用推薦</button>
+            <button type="button" class="btn btn-outline-secondary bottom-0 start-0 ms-3" v-else
+              @click="enabledRecommend">未採用</button>
           </div>
         </div>
         <div class="position-absolute bottom-0 end-0 p-3">
