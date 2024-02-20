@@ -244,7 +244,6 @@ export default {
     <div class="container">
       <div class="row">
 
-        <!-- 搜尋欄, 之後拆 -->
         <div class="col-3 py-3 my-3">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
@@ -276,6 +275,7 @@ export default {
         <!-- 依設計稿調整至顯示三欄 -->
         <div v-for="product in products" :key="product.id" class="card mb-3">
           <div class="row g-0 position-relative">
+            <!-- 主廚推薦的星星符號 -->
             <div v-if="product.is_recommend" class="position-absolute rotate">
               <span class="material-symbols-outlined rotate__star">stars</span>
             </div>
