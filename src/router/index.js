@@ -75,10 +75,10 @@ const router = createRouter({
             import("../views/backendViews/AdminDynamicProductView.vue"),
         },
         {
-          path: "adminDiscount",
-          name: "adminDiscount",
+          path: "adminCoupon",
+          name: "adminCoupon",
           component: () =>
-            import("../views/backendViews/AdminDiscountView.vue"),
+            import("../views/backendViews/AdminCouponView.vue"),
         },
         {
           path: "addProduct",

@@ -64,7 +64,7 @@
                 more
               </button>
             </div>
-            <table class="discountTable table table-light table-striped table-hover table-borderless">
+            <table class="couponTable table table-light table-striped table-hover table-borderless">
               <tbody>
                 <tr class="cursor-pointer" v-for="coupon in coupons" :key="coupon.id">
                   <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
@@ -436,7 +436,7 @@ export default {
   border-radius: 0 5px 0 0;
 }
 
-.discountTable {
+.couponTable {
   tbody {
     tr {
       &:first-child {

@@ -28,7 +28,7 @@
       <!-- 所有折扣、新增折價券 -->
       <div class="d-flex align-items-center mb-4">
         <h2 class="fs-48 fw-bold text-colorChart-Accessory-200 lh-1 mb-0 me-9">所有折扣</h2>
-        <button class="btn btn-colorChart-Primary-200 fs-4" @click="openDiscountModal">新增折價券</button>
+        <button class="btn btn-colorChart-Primary-200 fs-4" @click="openCouponModal(true)">新增折價券</button>
       </div>
 
       <div class="border rounded shadow p-4 table-responsive">
@@ -36,7 +36,7 @@
           <thead>
             <tr>
               <th width="150" class="top-left-border-radius ps-5 py-9 text-truncate">折價券名稱</th>
-              <th width="150" class="py-9">優惠碼</th>
+              <th width="150" class="py-9 text-truncate">優惠碼</th>
               <th width="100" class="py-9 text-truncate">折扣額度</th>
               <th width="100" class="py-9 text-truncate">總數量</th>
               <th width="50" class="top-right-border-radius py-9"></th>
@@ -51,7 +51,7 @@
               </td>
               <td class="py-11 pe-7">
                 <div class="d-flex justify-content-center">
-                  <span class="material-symbols-outlined fs-1 me-6" @click="openDiscountModal">
+                  <span class="material-symbols-outlined fs-1 me-6" @click="openCouponModal(false)">
                     edit_square
                   </span>
                   <span class="material-symbols-outlined fs-1">
@@ -65,13 +65,13 @@
       </div>
     </div>
   </main>
-  <DiscountModalComponent ref="discountModal" />
+  <CouponModalComponent ref="couponModal" :is-new="isNew" :coupon="tempCoupon" @add-coupon="postNewCoupon" />
 </template>
 
 <script>
 import adminLogo from '../../components/BackendLogoComponent.vue';
 import adminNav from '../../components/BackendOffcanvasNav.vue';
-import DiscountModalComponent from '@/components/DiscountModalComponent.vue';
+import CouponModalComponent from '@/components/CouponModalComponent.vue';
 
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
@@ -81,13 +81,19 @@ export default {
   data () {
     return {
       coupons: [],
-      tempCoupon: {}
+      tempCoupon: {
+        title: '',
+        is_enabled: 0,
+        percent: 100,
+        code: '',
+      },
+      isNew: false
     }
   },
   components: {
     adminLogo,
     adminNav,
-    DiscountModalComponent
+    CouponModalComponent
   },
   methods: {
     // 打開側邊欄位
@@ -95,8 +101,18 @@ export default {
       this.$refs.backendNav.openNav();
     },
     // 打開折扣編輯 modal
-    openDiscountModal () {
-      this.$refs.discountModal.openModal();
+    openCouponModal (isNew, item) {
+      this.isNew = isNew
+      if (this.isNew) {
+        this.tempCoupon = {
+          due_date: new Date().getTime() / 1000
+        }
+        console.log(this.tempCoupon)
+      } else {
+        this.tempCoupon = { ...item }
+      }
+
+      this.$refs.couponModal.openModal();
     },
     getCoupons () {
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then(res => {
@@ -106,10 +122,11 @@ export default {
         alert(err.response)
       })
     },
-    // postNewCoupon (couponData) {
-    //   this.tempCoupon = couponData;
-    //   this.axios.post(`${host}/v2/api/${path}/admin/coupon`, this.tempCoupon).then(res => console.log(res.data)).catch(err => alert(err.message))
-    // }
+    postNewCoupon (couponData) {
+      console.log(couponData)
+      this.tempCoupon = couponData;
+      this.axios.post(`${host}/v2/api/${path}/admin/coupon`, this.tempCoupon).then(res => console.log(res.data)).catch(err => console.log(err.response))
+    }
   },
   mounted () {
     // 從 cookie 取得 token 資料
