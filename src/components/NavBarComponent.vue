@@ -12,7 +12,6 @@ export default {
   props: { isEditMode: { type: Boolean, default: true } },
   data() {
     return {
-      item: {},
       // 控制自製 Modal 的開關
       isShow: false,
     };
@@ -89,7 +88,7 @@ export default {
         </div>
         <div class="navbar-nav">
           <router-link
-            to="/order"
+            to="/productList"
             class="nav-link"
             aria-current="page"
             href="#"
@@ -97,10 +96,16 @@ export default {
             <p class="m-0">線上點餐</p>
           </router-link>
         </div>
+        <div class="navbar-nav">
+          <router-link to="/fqa" class="nav-link" aria-current="page" href="#">
+            <p class="m-0">常見問題</p>
+          </router-link>
+        </div>
       </div>
       <div class="navbar cartIconNav mx-5 d-none d-lg-block">
         <div class="cartIconContainer position-relative" @click="isShow = true">
           <p
+            v-if="data.carts?.length"
             class="cartQty badge rounded-pill text-bg-danger position-absolute end-0"
           >
             {{ data.carts?.length }}
@@ -116,7 +121,7 @@ export default {
   </nav>
 
   <!-- 購物車自製 Modal -->
-  <section></section>
+
   <transition name="cartModal">
     <section v-show="isShow" class="cartModalContainer position-fixed p-3">
       <div class="d-flex flex-column h-100">
@@ -131,8 +136,18 @@ export default {
           <hr />
         </div>
 
-        <div class="block_02 cartProductInfoAll px-2">
-          <h4 v-if="isCartsLoading">Loading...</h4>
+        <div v-if="data.carts?.length" class="block_02 cartProductInfoAll px-2">
+          <div
+            v-if="isCartsLoading"
+            class="loading d-flex justify-content-center align-items-center h-100"
+          >
+            <img
+              src="../../public/LoadingIcon.gif"
+              alt="LoadingIcon"
+              width="100"
+              height="100"
+            />
+          </div>
 
           <div
             v-else
@@ -155,10 +170,28 @@ export default {
           </div>
         </div>
         <div class="block_03 my-2">
-          <button class="btn btn-primary w-100">去結帳</button>
+          <h4 v-if="data.carts?.length === 0" class="cartTextEmpty text-center">
+            購物車內尚無商品
+          </h4>
+          <router-link v-if="data.carts?.length" to="/orderCheckView/step1"
+            ><button
+              v-if="isCartsLoading === false"
+              class="btn btn-primary w-100"
+            >
+              去結帳
+            </button></router-link
+          >
         </div>
       </div>
     </section>
+  </transition>
+
+  <transition name="cartModalBg"
+    ><div
+      v-show="isShow"
+      class="cartModalFullBg position-fixed"
+      @click="isShow = false"
+    ></div>
   </transition>
 </template>
 
@@ -173,6 +206,7 @@ export default {
   }
 }
 .navbar {
+  z-index: 8;
   background-color: $colorChart-Accessory-100;
 }
 
@@ -184,6 +218,9 @@ p {
   transform: translate(8px, -3px);
 }
 
+.cartTextEmpty {
+  color: $colorChart-Gray-400;
+}
 .cartProductInfoAll {
   overflow: scroll;
 }
@@ -216,5 +253,32 @@ p {
 }
 .cartModal-leave-to {
   transform: translateX(100%);
+}
+
+.cartModalFullBg {
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+// 這是 Vue 提供的動畫系統
+.cartModalBg-enter-active,
+.cartModalBg-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.cartModalBg-enter-from {
+  opacity: 0;
+}
+.cartModalBg-enter-to {
+  opacity: 1;
+}
+.cartModalBg-leave-from {
+  opacity: 1;
+}
+.cartModalBg-leave-to {
+  opacity: 0;
 }
 </style>

@@ -26,11 +26,6 @@ const router = createRouter({
           component: () => import("../views/frontendViews/FqaView.vue"),
         },
         {
-          path: "order",
-          name: "order",
-          component: () => import("../views/frontendViews/OrderView.vue"),
-        },
-        {
           path: "orderCheckView",
           name: "orderCheckView",
           component: () => import("../views/frontendViews/OrderCheckView.vue"),
@@ -88,6 +83,7 @@ const router = createRouter({
         {
           path: "addProduct",
           name: "addProduct",
+<<<<<<< HEAD
           component: () => 
             import("../views/backendViews/AdminDynamicProductView.vue"),
         },
@@ -96,10 +92,18 @@ const router = createRouter({
           name: "analysisReport",
           component: () => 
             import("../views/backendViews/AdminAnalysisReportView.vue"),
+=======
+          component: () =>
+            import("../views/backendViews/AdminAddProductView.vue"),
+>>>>>>> 8aaf6e236feb9ea97f80b08f7b4b6f3f2a453c73
         },
       ],
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // 始终滚动到顶部
+    return { top: 0 };
+  },
 });
 
 export default router;

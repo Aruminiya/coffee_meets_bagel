@@ -31,10 +31,18 @@ export default {
   },
   computed: {
     slidesPerViewData() {
-      return this.windowInnerWidth >= 768 ? 3 : 1;
+      return this.windowInnerWidth >= 1200
+        ? 5
+        : this.windowInnerWidth >= 768
+        ? 3
+        : 1;
     },
     initialSlideData() {
-      return this.windowInnerWidth >= 768 ? 1 : 0;
+      return this.windowInnerWidth >= 1200
+        ? 2
+        : this.windowInnerWidth >= 768
+        ? 1
+        : 0;
     },
   },
   mounted() {
@@ -96,8 +104,12 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">今日的特選咖啡</h2>
-                <p class="m-0">彷彿是陽光和微風的交織，溫暖中帶點清新。</p>
-                <p class="m-0">讓這杯獨特的風味，陪伴你的美好一天。</p>
+                <p class="m-0 font-weight-400">
+                  彷彿是陽光和微風的交織，溫暖中帶點清新。
+                </p>
+                <p class="m-0 font-weight-400">
+                  讓這杯獨特的風味，陪伴你的美好一天。
+                </p>
               </div>
             </div>
             <div
@@ -107,8 +119,10 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">挑戰你的味蕾</h2>
-                <p class="m-0">今日的推薦咖啡散發出濃郁的巧克力風味，</p>
-                <p class="m-0">讓你感受咖啡的甜蜜誘惑。</p>
+                <p class="m-0 font-weight-400">
+                  今日的推薦咖啡散發出濃郁的巧克力風味，
+                </p>
+                <p class="m-0 font-weight-400">讓你感受咖啡的甜蜜誘惑。</p>
               </div>
             </div>
             <div
@@ -118,8 +132,8 @@ export default {
                 class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">新鮮水果拿鐵</h2>
-                <p class="m-0">清爽的果香與濃郁咖啡的結合，</p>
-                <p class="m-0">讓你感受到夏日的微涼和愉悅。</p>
+                <p class="m-0 font-weight-400">清爽的果香與濃郁咖啡的結合，</p>
+                <p class="m-0 font-weight-400">讓你感受到夏日的微涼和愉悅。</p>
               </div>
             </div>
           </div>
@@ -208,133 +222,59 @@ export default {
         </div>
       </div>
       <div class="row">
-        <div class="block_04 col-12 p-0 d-none d-sm-block">
-          <div class="chunk01 d-flex">
-            <div class="chunk01-1 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊01-1-->
-                <img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_01.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
-            </div>
-            <div class="chunk01-2 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊01-2-->
-                <img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_02.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
+        <div class="block_04 col-12 py-3">
+          <div class="Img_01">
+            <div class="imgContainer h-100 position-relative">
+              <img
+                class="position-absolute"
+                src="../../../public/ChunkIllustration_01.png"
+                alt="ChunkIllustration_01"
+              />
             </div>
           </div>
-          <div class="chunk02 d-flex">
-            <!-- 區塊02-1 -->
-            <div class="chunk02-1 d-flex flex-column">
-              <div class="chunk02-1-chunk01 p-3">
-                <div class="imgContainer rounded h-100 position-relative">
-                  <!--區塊02-1-區塊01--><img
-                    class="position-absolute"
-                    src="../../../public/ChunkIllustration_03.png"
-                    alt="ChunkIllustration_01"
-                  />
-                </div>
-              </div>
-              <div class="chunk02-1-chunk02 d-flex">
-                <!--區塊02-1-區塊02-->
-                <div class="chunk02-1-chunk02-1 p-3">
-                  <div class="imgContainer rounded h-100 position-relative">
-                    <!--區塊02-1-區塊02-1--><img
-                      class="position-absolute"
-                      src="../../../public/ChunkIllustration_05.png"
-                      alt="ChunkIllustration_01"
-                    />
-                  </div>
-                </div>
-                <div class="chunk02-1-chunk02-2 p-3">
-                  <div class="imgContainer rounded h-100 position-relative">
-                    <!--區塊02-1-區塊02-2--><img
-                      class="position-absolute"
-                      src="../../../public/ChunkIllustration_06.png"
-                      alt="ChunkIllustration_01"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="chunk02-2 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊02-2--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_04.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
+          <div class="Img_02">
+            <div class="imgContainer h-100 position-relative">
+              <img
+                class="position-absolute"
+                src="../../../public/ChunkIllustration_02.png"
+                alt="ChunkIllustration_02"
+              />
             </div>
           </div>
-        </div>
-        <div class="block_phone_04 col-12 p-0 d-flex d-sm-none">
-          <div class="chunk01 d-flex flex-column flex-grow-1">
-            <!--區塊01-->
-            <div class="chunk01-1 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊01-1--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_01.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
-            </div>
-            <div class="chunk01-2 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊01-2--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_03.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
-            </div>
-            <div class="chunk01-3 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊01-3--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_05.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
+          <div class="Img_03">
+            <div class="imgContainer h-100 position-relative">
+              <img
+                class="position-absolute"
+                src="../../../public/ChunkIllustration_03.png"
+                alt="ChunkIllustration_03"
+              />
             </div>
           </div>
-          <div class="chunk02 d-flex flex-column flex-grow-1">
-            <!--區塊02-->
-            <div class="chunk02-1 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊02-1--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_02.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
+          <div class="Img_04">
+            <div class="imgContainer h-100 position-relative">
+              <img
+                class="position-absolute"
+                src="../../../public/ChunkIllustration_04.png"
+                alt="ChunkIllustration_04"
+              />
             </div>
-            <div class="chunk02-2 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊02-2--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_04.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
+          </div>
+          <div class="Img_05">
+            <div class="imgContainer h-100 position-relative">
+              <img
+                class="position-absolute"
+                src="../../../public/ChunkIllustration_05.png"
+                alt="ChunkIllustration_05"
+              />
             </div>
-            <div class="chunk02-3 p-3">
-              <div class="imgContainer rounded h-100 position-relative">
-                <!--區塊02-3--><img
-                  class="position-absolute"
-                  src="../../../public/ChunkIllustration_06.png"
-                  alt="ChunkIllustration_01"
-                />
-              </div>
+          </div>
+          <div class="Img_06">
+            <div class="imgContainer h-100 position-relative">
+              <img
+                class="position-absolute"
+                src="../../../public/ChunkIllustration_06.png"
+                alt="ChunkIllustration_06"
+              />
             </div>
           </div>
         </div>
@@ -346,8 +286,8 @@ export default {
           <div class="title d-flex align-items-center m-5">
             <hr class="wordDash" />
             <div>
-              <h1 class="m-0 d-none d-lg-block">系列餐品</h1>
-              <h3 class="m-0 d-md-block d-lg-none">系列餐品</h3>
+              <h1 class="titleWord m-0 d-none d-lg-block">系列餐品</h1>
+              <h3 class="titleWord m-0 d-md-block d-lg-none">系列餐品</h3>
             </div>
 
             <hr class="wordDash" />
@@ -566,293 +506,179 @@ export default {
 
 .block_04 {
   background-color: $colorChart-bg-color;
-  .chunk01 {
-    .chunk01-1 {
-      // height: 360px;
-      flex: 1;
-      // background-color: #ff6262;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_01.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: center; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "Img01 Img02 Img02"
+    "Img03 Img03 Img04"
+    "Img05 Img06 Img04";
+  gap: 16px;
+
+  .Img_01 {
+    grid-area: Img01;
+    .imgContainer {
+      background-image: url("../../../public/ChunkImg_01.png");
+      background-size: cover; /* 調整背景圖片大小以填充容器 */
+      background-position: center; /* 調整背景圖片位置至中 */
+      background-repeat: no-repeat; /* 避免背景圖片重複 */
+      overflow: hidden;
+      border-radius: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: cover;
+        &:hover {
+          transition: opacity 0.2s; /* 添加過渡效果 */
+          opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_01.png");
+      }
     }
-    .chunk01-2 {
-      height: 360px;
-      flex: 2;
-      // background-color: #5bad17;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_02.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: center; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
+  }
+  .Img_02 {
+    grid-area: Img02;
+    .imgContainer {
+      background-image: url("../../../public/ChunkImg_02.png");
+      background-size: cover; /* 調整背景圖片大小以填充容器 */
+      background-position: center; /* 調整背景圖片位置至中 */
+      background-repeat: no-repeat; /* 避免背景圖片重複 */
+      overflow: hidden;
+      border-radius: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: cover;
+        &:hover {
+          transition: opacity 0.2s; /* 添加過渡效果 */
+          opacity: 0;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_02.png");
         img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
+          object-position: 76% 50%;
         }
       }
     }
   }
-  .chunk02 {
-    .chunk02-1 {
-      height: 720px;
-      flex: 2;
-      // background-color: #62ffea;
-      .chunk02-1-chunk01 {
-        height: 360px;
-        flex: 1;
-        // background-color: #ff62be;
-        .imgContainer {
-          background-image: url("../../../public/ChunkImg_03.png");
-          background-size: cover; /* 調整背景圖片大小以填充容器 */
-          background-position: 35% 50%; /* 調整背景圖片位置至中 */
-          background-repeat: no-repeat; /* 避免背景圖片重複 */
-          overflow: hidden;
-          img {
-            width: 100%;
-            height: 100%;
-            object-position: center;
-            object-fit: cover;
-            &:hover {
-              transition: opacity 0.2s; /* 添加過渡效果 */
-              opacity: 0;
-            }
-          }
+  .Img_03 {
+    grid-area: Img03;
+    .imgContainer {
+      background-image: url("../../../public/ChunkImg_03.png");
+      background-size: cover; /* 調整背景圖片大小以填充容器 */
+      background-position: 35% 50%; /* 調整背景圖片位置至中 */
+      background-repeat: no-repeat; /* 避免背景圖片重複 */
+      overflow: hidden;
+      border-radius: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: cover;
+        &:hover {
+          transition: opacity 0.2s; /* 添加過渡效果 */
+          opacity: 0;
         }
       }
-      .chunk02-1-chunk02 {
-        height: 360px;
-        flex: 1;
-        // background-color: #62cdff;
-        .chunk02-1-chunk02-1 {
-          height: 360px;
-          flex: 1;
-          // background-color: #ddff62;
-          .imgContainer {
-            background-image: url("../../../public/ChunkImg_05.png");
-            background-size: cover; /* 調整背景圖片大小以填充容器 */
-            background-position: 80% 50%; /* 調整背景圖片位置至中 */
-            background-repeat: no-repeat; /* 避免背景圖片重複 */
-            overflow: hidden;
-            img {
-              width: 100%;
-              height: 100%;
-              object-position: center;
-              object-fit: cover;
-              &:hover {
-                transition: opacity 0.2s; /* 添加過渡效果 */
-                opacity: 0;
-              }
-            }
-          }
-        }
-        .chunk02-1-chunk02-2 {
-          height: 360px;
-          flex: 1;
-          // background-color: #7f62ff;
-          .imgContainer {
-            background-image: url("../../../public/ChunkImg_06.png");
-            background-size: cover; /* 調整背景圖片大小以填充容器 */
-            background-position: center; /* 調整背景圖片位置至中 */
-            background-repeat: no-repeat; /* 避免背景圖片重複 */
-            overflow: hidden;
-            img {
-              width: 100%;
-              height: 100%;
-              object-position: center;
-              object-fit: cover;
-              &:hover {
-                transition: opacity 0.2s; /* 添加過渡效果 */
-                opacity: 0;
-              }
-            }
-          }
-        }
-      }
-    }
-    .chunk02-2 {
-      height: 720px;
-      flex: 1;
-      // background-color: #5817ad;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_04.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: center; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
-        }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_03.png");
       }
     }
   }
-}
-.block_phone_04 {
-  background-color: $colorChart-bg-color;
-  .chunk01 {
-    height: 600px;
-    .chunk01-1 {
-      height: 120px;
-      flex: 1;
-      // background-color: #ff6262;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_01.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: 20% 50%; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
+  .Img_04 {
+    grid-area: Img04;
+    .imgContainer {
+      background-image: url("../../../public/ChunkImg_04.png");
+      background-size: cover; /* 調整背景圖片大小以填充容器 */
+      background-position: center; /* 調整背景圖片位置至中 */
+      background-repeat: no-repeat; /* 避免背景圖片重複 */
+      overflow: hidden;
+      border-radius: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: cover;
+        &:hover {
+          transition: opacity 0.2s; /* 添加過渡效果 */
+          opacity: 0;
         }
       }
-    }
-    .chunk01-2 {
-      height: 240px;
-      flex: 2;
-      // background-color: #ddff62;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_03.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: 35% 50%; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
-        }
-      }
-    }
-    .chunk01-3 {
-      height: 240px;
-      flex: 2;
-      // background-color: #626cff;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_05.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: 80% 50%; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
-        }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_04.png");
       }
     }
   }
-  .chunk02 {
-    .chunk02-1 {
-      height: 120px;
-      flex: 3;
-      // background-color: #62ffdd;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_02.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: center; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
+  .Img_05 {
+    grid-area: Img05;
+    .imgContainer {
+      background-image: url("../../../public/ChunkImg_05.png");
+      background-size: cover; /* 調整背景圖片大小以填充容器 */
+      background-position: 80% 50%; /* 調整背景圖片位置至中 */
+      background-repeat: no-repeat; /* 避免背景圖片重複 */
+      overflow: hidden;
+      border-radius: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: cover;
+        &:hover {
+          transition: opacity 0.2s; /* 添加過渡效果 */
+          opacity: 0;
         }
       }
-    }
-    .chunk02-2 {
-      height: 240px;
-      flex: 3;
-      // background-color: #8c62ff;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_04.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: center; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
-        }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_05.png");
       }
     }
-    .chunk02-3 {
-      height: 240px;
-      flex: 2;
-      // background-color: #62ff84;
-      .imgContainer {
-        background-image: url("../../../public/ChunkImg_06.png");
-        background-size: cover; /* 調整背景圖片大小以填充容器 */
-        background-position: center; /* 調整背景圖片位置至中 */
-        background-repeat: no-repeat; /* 避免背景圖片重複 */
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-position: center;
-          object-fit: cover;
-          &:hover {
-            transition: opacity 0.2s; /* 添加過渡效果 */
-            opacity: 0;
-          }
+  }
+  .Img_06 {
+    grid-area: Img06;
+
+    .imgContainer {
+      background-image: url("../../../public/ChunkImg_06.png");
+      background-size: cover; /* 調整背景圖片大小以填充容器 */
+      background-position: center; /* 調整背景圖片位置至中 */
+      background-repeat: no-repeat; /* 避免背景圖片重複 */
+      overflow: hidden;
+      border-radius: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: cover;
+        &:hover {
+          transition: opacity 0.2s; /* 添加過渡效果 */
+          opacity: 0;
         }
       }
+      @media screen and (max-width: 768px) {
+        background-image: url("../../../public/ChunkImg_Phone_06.png");
+      }
     }
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "Img01 Img02 "
+      "Img03 Img02 "
+      "Img03 Img04 "
+      "Img03 Img04 "
+      "Img05 Img04"
+      "Img05 Img06"
+      "Img05 Img06";
   }
 }
+
 .block_05_BG {
   background-image: url("../../../public/BG_02.png");
   background-size: cover;
@@ -869,10 +695,13 @@ export default {
       opacity: 1;
       width: 60px;
     }
+    .titleWord {
+      font-weight: 700;
+    }
   }
   .swiper {
     width: 100%;
-    height: 90vh;
+    height: 70vh;
   }
   .swiper-slide {
     text-align: center;
@@ -885,6 +714,9 @@ export default {
     align-items: center;
     .mealsImg {
       background-color: $colorChart-Gray-100;
+      h4 {
+        font-weight: 700;
+      }
     }
   }
 }
