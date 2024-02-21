@@ -34,23 +34,8 @@ export default {
   <div class="modal fade" ref="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            <!-- <slot name="modal-title"></slot> -->
-            {{product.title}}
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
         <div class="modal-body text-center">
           <slot name="modal-body"></slot>
-        </div>
-        <div class="modal-footer">
-          <slot name="modal-footer"></slot>
         </div>
       </div>
     </div>

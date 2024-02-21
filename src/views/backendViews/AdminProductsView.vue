@@ -243,7 +243,9 @@ export default {
 
     <div class="container">
       <div class="row">
-
+        <div class="col-3 mt-3 p-3">
+          <h2 class="text-primary mb-0">商品列表</h2>
+        </div>
         <div class="col-3 py-3 my-3">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
@@ -263,7 +265,7 @@ export default {
             </option>
           </select>
         </div>
-        <div class="col-6 py-3 my-3 text-end">
+        <div class="col-3 py-3 my-3 text-end">
           <button type="button" class="btn btn-outline-success" @click="addNewProduct">
             新增商品
             <span class="material-symbols-outlined align-middle">add</span>
@@ -275,9 +277,9 @@ export default {
         <!-- 依設計稿調整至顯示三欄 -->
         <div v-for="product in products" :key="product.id" class="card mb-3">
           <div class="row g-0 position-relative">
-            <!-- 主廚推薦的星星符號 -->
+            <!-- 主廚推薦的符號 -->
             <div v-if="product.is_recommend" class="position-absolute rotate">
-              <span class="material-symbols-outlined rotate__star">stars</span>
+              <i class="fa-solid fa-crown me-1 text-warning rotate__star" aria-hidden="true"></i>
             </div>
             <div class="col-md-4 p-3 ">
               <!-- 點圖放大 -->
@@ -393,7 +395,7 @@ export default {
 .img-fluid {
   width: 400px;
   height: 180px;
-  object-fit: cover; // 或是 contain 但圖會顯小
+  object-fit: cover;
 }
 
 .product__list {
@@ -407,12 +409,12 @@ export default {
 }
 
 .rotate {
-  left: 12px;
-  top: 12px;
+  left: 20px;
+  top: 18px;
   width: fit-content;
 
   &__star {
-    transform: rotate(45deg);
+    transform: rotate(-30deg);
     font-size: 72px;
     color: gold;
   }

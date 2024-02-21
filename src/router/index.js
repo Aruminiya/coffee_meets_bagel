@@ -83,7 +83,6 @@ const router = createRouter({
         {
           path: "addProduct",
           name: "addProduct",
-<<<<<<< HEAD
           component: () => 
             import("../views/backendViews/AdminDynamicProductView.vue"),
         },
@@ -92,10 +91,6 @@ const router = createRouter({
           name: "analysisReport",
           component: () => 
             import("../views/backendViews/AdminAnalysisReportView.vue"),
-=======
-          component: () =>
-            import("../views/backendViews/AdminAddProductView.vue"),
->>>>>>> 8aaf6e236feb9ea97f80b08f7b4b6f3f2a453c73
         },
       ],
     },
