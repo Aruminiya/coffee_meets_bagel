@@ -53,14 +53,14 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-decoration-none" href="#">
+          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 equalizer
               </span>
               <h3 class="fw-bold lh-1 m-0">營收分析</h3>
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/" class="text-decoration-none" @click="closeNav">

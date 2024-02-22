@@ -83,7 +83,14 @@ const router = createRouter({
         {
           path: "addProduct",
           name: "addProduct",
-          component: () => import("../views/backendViews/AdminAddProductView.vue"),
+          component: () => 
+            import("../views/backendViews/AdminDynamicProductView.vue"),
+        },
+        {
+          path: "analysisReport",
+          name: "analysisReport",
+          component: () => 
+            import("../views/backendViews/AdminAnalysisReportView.vue"),
         },
       ],
     },

@@ -16,12 +16,16 @@ export default {
     modalHide() {
       this.productModal.hide();
     },
+    onlyShow(){
+      this.productModal.show();
+    }
   },
   mounted() {
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: true, // 按下ESC是否可以關閉
     });
+   // this.productModal.show()
   },
 };
 </script>
@@ -30,22 +34,8 @@ export default {
   <div class="modal fade" ref="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            <slot name="modal-title"></slot>
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
         <div class="modal-body text-center">
           <slot name="modal-body"></slot>
-        </div>
-        <div class="modal-footer">
-          <slot name="modal-footer"></slot>
         </div>
       </div>
     </div>
