@@ -196,6 +196,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.active {
+  & > * {
+    color: $colorChart-Primary-200;
+  }
+}
 .cartIconNav {
   border: none;
   .cartIconContainer {
