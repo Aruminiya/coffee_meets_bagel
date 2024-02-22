@@ -2,12 +2,11 @@
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
-import modal from '../../components/ModalComponent.vue';
-import pagination from '../../components/PaginationComponent.vue';
-import adminNav from '../../components/BackendOffcanvasNav.vue';
-import adminLogo from '../../components/BackendLogoComponent.vue';
-import Swal from 'sweetalert2';
-
+import modal from "../../components/ModalComponent.vue";
+import pagination from "../../components/PaginationComponent.vue";
+import adminNav from "../../components/BackendOffcanvasNav.vue";
+import adminLogo from "../../components/BackendLogoComponent.vue";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -17,15 +16,15 @@ export default {
       products: [],
       pagination: {},
       categories: [],
-      search: '',
-      product: {}
+      search: "",
+      product: {},
     };
   },
   components: {
     pagination,
     modal,
     adminNav,
-    adminLogo
+    adminLogo,
   },
   methods: {
     checkAdmin() {
@@ -44,20 +43,22 @@ export default {
             confirmButtonText: "Save",
           }).then((result) => {
             // 驗證失敗轉回登入頁面(未完成), 目前先轉回首頁
-            this.$router.push('/')
+            this.$router.push("/");
           });
         });
     },
     searchProduct() {
-      const result = this.allProducts.filter(product => {
+      const result = this.allProducts.filter((product) => {
         // 比對標題內容與產品描述對應搜尋關鍵字
-        return [product.title, product.content, product.description].toString().match(this.search)
-      })
+        return [product.title, product.content, product.description]
+          .toString()
+          .match(this.search);
+      });
       this.products = result;
       // 搜尋結果暫時先不處理分頁
       this.pagination.total_pages = 1;
       // 清空搜尋欄字串
-      this.search = ''
+      this.search = "";
     },
     // 先取得所有商品, 以及所有分類
     getAllProducts() {
@@ -87,12 +88,15 @@ export default {
           Swal.fire("資料取得失敗");
         });
     },
-    // 變更分類時取得分類資料 
+    // 變更分類時取得分類資料
     getProductsByCategory(category) {
       if (category === "檢視全部") {
         this.getProducts();
       } else {
-        this.axios.get(`${host}/v2/api/${path}/admin/products?page=1&category=${category}`)
+        this.axios
+          .get(
+            `${host}/v2/api/${path}/admin/products?page=1&category=${category}`
+          )
           .then((response) => {
             // console.log(response.data);
             this.products = response.data.products;
@@ -145,7 +149,7 @@ export default {
       this.axios
         .delete(`${host}/v2/api/${path}/admin/product/${id}`)
         .then((res) => {
-          Swal.fire('刪除成功');
+          Swal.fire("刪除成功");
           this.getProducts();
         })
         .catch((error) => {
@@ -157,18 +161,18 @@ export default {
       Swal.fire({
         title: "您確定要刪除嗎?",
         showCancelButton: true,
-        cancelButtonText: '返回商品列表',
-        cancelButtonColor: '#d33',
+        cancelButtonText: "返回商品列表",
+        cancelButtonColor: "#d33",
         confirmButtonText: "確定刪除",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.deleteProduct(id)
+          this.deleteProduct(id);
         }
       });
     },
     modalShow(product) {
       // this.product = product;
-      this.$refs.modal.modalShow(product)
+      this.$refs.modal.modalShow(product);
     },
     modalHide() {
       this.productModal.hide();
@@ -180,39 +184,41 @@ export default {
       this.$refs.backendNav.openNav();
     },
     addNewProduct() {
-      this.$router.push('/admin/addProduct');
+      this.$router.push("/admin/addProduct");
     },
     changeEnabledProduct(product) {
-      if(product.is_enabled === 1){
+      if (product.is_enabled === 1) {
         product.is_enabled = 0;
-      }else {
+      } else {
         product.is_enabled = 1;
       }
-      const data = {...product};
-      this.axios.put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
+      const data = { ...product };
+      this.axios
+        .put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
         .then((res) => {
           console.log(res.data);
           this.enableMessage(product.is_enabled);
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
           Swal.fire("系統啟用失敗");
         });
     },
     enableMessage(is_enabled) {
-      if(is_enabled === 1){
+      if (is_enabled === 1) {
         Swal.fire({
-            title: "系統訊息",
-            text: "產品已啟用",
-            icon: "success"
-          });
-      }else {
+          title: "系統訊息",
+          text: "產品已啟用",
+          icon: "success",
+        });
+      } else {
         Swal.fire({
-            title: "系統訊息",
-            text: "產品已停用",
-            icon: "warning"
-          });
+          title: "系統訊息",
+          text: "產品已停用",
+          icon: "warning",
+        });
       }
-    }
+    },
   },
   mounted() {
     // 從cookie取出登入時存入的token
@@ -228,10 +234,11 @@ export default {
 };
 </script>
 
-
 <template>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
 
   <div>
     <div>
@@ -248,30 +255,49 @@ export default {
         </div>
         <div class="col-3 py-3 my-3">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
-            <button type="button" @click="searchProduct()" class="btn btn-outline-success d-flex align-items-center">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="請輸入搜尋資料"
+              v-model="search"
+            />
+            <button
+              type="button"
+              @click="searchProduct()"
+              class="btn btn-outline-success d-flex align-items-center"
+            >
               <span class="material-symbols-outlined"> search </span>
             </button>
           </div>
         </div>
         <div class="col-3 py-3 my-3">
-          <select class="form-select form-select" aria-label=".form-select-sm example"
-            @change="getProductsByCategory($event.target.value)">
+          <select
+            class="form-select form-select"
+            aria-label=".form-select-sm example"
+            @change="getProductsByCategory($event.target.value)"
+          >
             <!-- 設計稿以販售狀態分類, 先改類別 -->
             <option selected>依商品類別檢視</option>
             <option value="檢視全部">檢視全部</option>
-            <option v-for="category in categories" :key="category" :value="category">
+            <option
+              v-for="category in categories"
+              :key="category"
+              :value="category"
+            >
               {{ category }}
             </option>
           </select>
         </div>
         <div class="col-3 py-3 my-3 text-end">
-          <button type="button" class="btn btn-outline-success" @click="addNewProduct">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            @click="addNewProduct"
+          >
             新增商品
             <span class="material-symbols-outlined align-middle">add</span>
           </button>
         </div>
-
       </div>
       <div class="border rounded p-3 pb-0 product__list mb-8">
         <!-- 依設計稿調整至顯示三欄 -->
@@ -279,22 +305,39 @@ export default {
           <div class="row g-0 position-relative">
             <!-- 主廚推薦的符號 -->
             <div v-if="product.is_recommend" class="position-absolute rotate">
-              <i class="fa-solid fa-crown me-1 text-warning rotate__star" aria-hidden="true"></i>
+              <i
+                class="fa-solid fa-crown me-1 text-warning rotate__star"
+                aria-hidden="true"
+              ></i>
             </div>
-            <div class="col-md-4 p-3 ">
+            <div class="col-md-4 p-3">
               <!-- 點圖放大 -->
-              <a href="#" @click.prevent="modalShow(product), getThisProduct(product)">
-                <img :src="product.imageUrl" class="img-fluid rounded-start" 
-                :class="{'product__disable' : product.is_enabled !== 1}" alt="#" />
+              <a
+                href="#"
+                @click.prevent="modalShow(product), getThisProduct(product)"
+              >
+                <img
+                  :src="product.imageUrl"
+                  class="img-fluid rounded-start"
+                  :class="{ product__disable: product.is_enabled !== 1 }"
+                  alt="#"
+                />
               </a>
             </div>
-            <div class="col-md-6" :class="{'product__disable' : product.is_enabled !== 1}">
+            <div
+              class="col-md-6"
+              :class="{ product__disable: product.is_enabled !== 1 }"
+            >
               <div class="card-body">
                 <h5 class="card-title">商品編號 : {{ product.id }}</h5>
                 <h5 class="card-title">
                   商品名稱 : {{ product.title }}
-                  <span class="badge bg-info text-dark ms-2">{{ product.category }}</span>
-                  <span class="fs-6 ms-4 mb-2 fw-normal">單位 : {{ product.unit }}</span>
+                  <span class="badge bg-info text-dark ms-2">{{
+                    product.category
+                  }}</span>
+                  <span class="fs-6 ms-4 mb-2 fw-normal"
+                    >單位 : {{ product.unit }}</span
+                  >
                 </h5>
                 <div class="row">
                   <div class="col-6">
@@ -309,10 +352,12 @@ export default {
                     <p class="card-text mb-2">{{ product.content }}</p>
 
                     <p v-if="product.is_recommend === 1" class="card-text mb-2">
-                      <span class="material-symbols-outlined align-middle text-warning">recommend</span>
+                      <span
+                        class="material-symbols-outlined align-middle text-warning"
+                        >recommend</span
+                      >
                       今日主廚推薦
                     </p>
-
                   </div>
                 </div>
                 <p class="card-text">
@@ -321,32 +366,67 @@ export default {
               </div>
             </div>
             <div class="col-md-2 py-2">
-              <div class="card-footer border-top-0 bg-white d-flex flex-column align-items-end">
+              <div
+                class="card-footer border-top-0 bg-white d-flex flex-column align-items-end"
+              >
                 <div class="mb-3">
-                  <button type="button" class="btn btn-outline-success" @click="changeEnabledProduct(product)"
-                    v-if="product.is_enabled !== 1">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    @click="changeEnabledProduct(product)"
+                    v-if="product.is_enabled !== 1"
+                  >
                     商品啟用
-                    <span class="material-symbols-outlined align-middle">check_circle</span>
+                    <span class="material-symbols-outlined align-middle"
+                      >check_circle</span
+                    >
                   </button>
-                  <button type="button" class="btn btn-outline-secondary" v-else @click="changeEnabledProduct(product)">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    v-else
+                    @click="changeEnabledProduct(product)"
+                  >
                     停止販售
-                    <span class="material-symbols-outlined align-middle">cancel</span>
+                    <span class="material-symbols-outlined align-middle"
+                      >cancel</span
+                    >
                   </button>
                 </div>
                 <div class="mb-3">
-                  <router-link :to="`/admin/adminProducts/${product.id}`" v-if="product.is_enabled === 1">
-                    <button type="button" class="btn btn-outline-warning">編輯商品
-                      <span class="material-symbols-outlined align-middle"> edit </span>
+                  <router-link
+                    :to="`/admin/adminProducts/${product.id}`"
+                    v-if="product.is_enabled === 1"
+                  >
+                    <button type="button" class="btn btn-outline-warning">
+                      編輯商品
+                      <span class="material-symbols-outlined align-middle">
+                        edit
+                      </span>
                     </button>
                   </router-link>
-                  <button type="button" class="btn btn-outline-warning" disabled v-else>編輯商品
-                    <span class="material-symbols-outlined align-middle"> edit </span>
+                  <button
+                    type="button"
+                    class="btn btn-outline-warning"
+                    disabled
+                    v-else
+                  >
+                    編輯商品
+                    <span class="material-symbols-outlined align-middle">
+                      edit
+                    </span>
                   </button>
                 </div>
                 <div class="mb-3">
-                  <button type="button" class="btn btn-outline-danger" @click.prevent="confirmDelete(product.id)">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    @click.prevent="confirmDelete(product.id)"
+                  >
                     刪除商品
-                    <span class="material-symbols-outlined align-middle"> delete </span>
+                    <span class="material-symbols-outlined align-middle">
+                      delete
+                    </span>
                   </button>
                 </div>
               </div>
@@ -361,13 +441,15 @@ export default {
           <h5 class="mb-0">{{ product.title }}</h5>
         </template>
         <template v-slot:modal-body>
-          <img class="modal__img" :src="product.imageUrl" alt="#">
+          <img class="modal__img" :src="product.imageUrl" alt="#" />
         </template>
       </modal>
 
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
-
+      <pagination
+        :pagination="pagination"
+        @emit-pages="getProducts"
+      ></pagination>
     </div>
   </div>
 </template>
@@ -380,8 +462,7 @@ export default {
   z-index: -1;
 
   &__bg {
-    background: radial-gradient(ellipse at bottom right,
-        #E69C7D 0%, white 60%);
+    background: radial-gradient(ellipse at bottom right, #e69c7d 0%, white 60%);
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -420,7 +501,7 @@ export default {
   }
 }
 
-.product__disable{
+.product__disable {
   opacity: 0.6;
 }
 </style>
