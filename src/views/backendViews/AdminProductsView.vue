@@ -2,12 +2,11 @@
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
-import modal from '../../components/ModalComponent.vue';
+import modal from '../../components/ModalShowImgComponent..vue';
 import pagination from '../../components/PaginationComponent.vue';
 import adminNav from '../../components/BackendOffcanvasNav.vue';
 import adminLogo from '../../components/BackendLogoComponent.vue';
 import Swal from 'sweetalert2';
-
 
 export default {
   data() {
@@ -18,7 +17,7 @@ export default {
       pagination: {},
       categories: [],
       search: '',
-      product: {}
+      product: {},
     };
   },
   components: {
@@ -183,34 +182,48 @@ export default {
       this.$router.push('/admin/addProduct');
     },
     changeEnabledProduct(product) {
-      if(product.is_enabled === 1){
-        product.is_enabled = 0;
-      }else {
-        product.is_enabled = 1;
+      if (product.is_enabled === 1) {
+        product.is_enabled = 0
+      } else {
+        product.is_enabled = 1
       }
-      const data = {...product};
+      const data = { ...product };
       this.axios.put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
         .then((res) => {
-          console.log(res.data);
           this.enableMessage(product.is_enabled);
         }).catch((err) => {
-          console.log(err);
-          Swal.fire("系統啟用失敗");
+          // console.log(err);
+          // 如果錯誤產品啟用狀態恢復原值
+          if (product.is_enabled === 1) {
+            product.is_enabled = 0
+          } else {
+            product.is_enabled = 1
+          }
+          Swal.fire("產品編輯失敗");
         });
     },
     enableMessage(is_enabled) {
-      if(is_enabled === 1){
+      if (is_enabled === 1) {
         Swal.fire({
-            title: "系統訊息",
-            text: "產品已啟用",
-            icon: "success"
-          });
-      }else {
+          title: "系統訊息",
+          text: "產品已啟用",
+          icon: "success"
+        });
+      } else {
         Swal.fire({
-            title: "系統訊息",
-            text: "產品已停用",
-            icon: "warning"
-          });
+          title: "系統訊息",
+          text: "產品已停用",
+          icon: "warning"
+        });
+      }
+    }
+  },
+  watch: {
+    product() {
+      if (this.product.is_enabled === 1) {
+        this.product.is_enabled = 0
+      } else {
+        this.product.is_enabled = 1
       }
     }
   },
@@ -278,17 +291,17 @@ export default {
         <div v-for="product in products" :key="product.id" class="card mb-3">
           <div class="row g-0 position-relative">
             <!-- 主廚推薦的符號 -->
-            <div v-if="product.is_recommend" class="position-absolute rotate">
+            <div v-if="product.is_recommend && product.is_enabled" class="position-absolute rotate">
               <i class="fa-solid fa-crown me-1 text-warning rotate__star" aria-hidden="true"></i>
             </div>
             <div class="col-md-4 p-3 ">
               <!-- 點圖放大 -->
               <a href="#" @click.prevent="modalShow(product), getThisProduct(product)">
-                <img :src="product.imageUrl" class="img-fluid rounded-start" 
-                :class="{'product__disable' : product.is_enabled !== 1}" alt="#" />
+                <img :src="product.imageUrl" class="img-fluid rounded-start"
+                  :class="{ 'product__disable': product.is_enabled !== 1 }" alt="#" />
               </a>
             </div>
-            <div class="col-md-6" :class="{'product__disable' : product.is_enabled !== 1}">
+            <div class="col-md-6" :class="{ 'product__disable': product.is_enabled !== 1 }">
               <div class="card-body">
                 <h5 class="card-title">商品編號 : {{ product.id }}</h5>
                 <h5 class="card-title">
@@ -308,9 +321,9 @@ export default {
                   <div class="col-6">
                     <p class="card-text mb-2">{{ product.content }}</p>
 
-                    <p v-if="product.is_recommend === 1" class="card-text mb-2">
-                      <span class="material-symbols-outlined align-middle text-warning">recommend</span>
-                      今日主廚推薦
+                    <p v-if="product.is_enabled !== 1" class="card-text mb-2 text-danger">
+                      <span data-v-ad3f08d1="" class="material-symbols-outlined align-middle ">cancel</span>
+                      此商品已停售
                     </p>
 
                   </div>
@@ -378,14 +391,6 @@ export default {
   width: 70%;
   right: 0%;
   z-index: -1;
-
-  &__bg {
-    background: radial-gradient(ellipse at bottom right,
-        #E69C7D 0%, white 60%);
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-  }
 }
 
 ::placeholder {
@@ -413,6 +418,16 @@ export default {
   top: 18px;
   width: fit-content;
 
+  ::after {
+    content: "主廚推薦";
+    font-size: 16px;
+    position: absolute;
+    color: #8d2b19;
+    top: 36px;
+    right: 20px;
+    width: 36px;
+  }
+
   &__star {
     transform: rotate(-30deg);
     font-size: 72px;
@@ -420,7 +435,7 @@ export default {
   }
 }
 
-.product__disable{
+.product__disable {
   opacity: 0.6;
 }
 </style>

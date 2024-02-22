@@ -23,7 +23,6 @@ export default {
   methods: {
     emitPages(page) {
       this.$emit('emit-pages', page)
-      console.log(page);
     }
   }
 }
