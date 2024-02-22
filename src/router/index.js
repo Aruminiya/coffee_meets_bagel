@@ -93,6 +93,11 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notExist",
+      component: () => import("../views/frontendViews/NotExistView.vue"),
+    },
   ],
   linkActiveClass: "active",
   scrollBehavior(to, from, savedPosition) {
