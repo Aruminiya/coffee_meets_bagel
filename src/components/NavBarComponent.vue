@@ -12,7 +12,6 @@ export default {
   props: { isEditMode: { type: Boolean, default: true } },
   data() {
     return {
-      item: {},
       // 控制自製 Modal 的開關
       isShow: false,
     };
@@ -197,6 +196,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.active {
+  & > * {
+    color: $colorChart-Primary-200;
+  }
+}
 .cartIconNav {
   border: none;
   .cartIconContainer {

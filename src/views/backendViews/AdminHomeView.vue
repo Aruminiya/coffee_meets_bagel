@@ -64,7 +64,7 @@
                 more
               </button>
             </div>
-            <table class="discountTable table table-light table-striped table-hover table-borderless">
+            <table class="couponTable table table-light table-striped table-hover table-borderless">
               <tbody>
                 <tr class="cursor-pointer" v-for="coupon in coupons" :key="coupon.id">
                   <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
@@ -264,7 +264,7 @@ export default {
         );
 
         // 如果訂單日期等於當前日期，就把該筆訂單推進 todayOrder 陣列
-        if (orderTaiwanDate === '2/1/2024') { // 先暫時抓 2/1 資料，因為目前沒有當日訂單
+        if (orderTaiwanDate === '2/14/2024') { // 先暫時抓 2/14 資料，因為目前沒有當日訂單，需要時替換回 taiwanTime
           todayOrder.push(item)
         }
       })
@@ -436,7 +436,7 @@ export default {
   border-radius: 0 5px 0 0;
 }
 
-.discountTable {
+.couponTable {
   tbody {
     tr {
       &:first-child {

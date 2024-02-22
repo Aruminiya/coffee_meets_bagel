@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar fixed-top">
     <h1>
-      <a class="navbar-brand border logo m-0 p-0" role="button" @click="openOffCanvasNav">CoffeeMeetsBagel</a>
+      <a class="navbar-brand logo m-0 p-0" role="button" @click="openOffCanvasNav">CoffeeMeetsBagel</a>
     </h1>
   </nav>
 </template>
