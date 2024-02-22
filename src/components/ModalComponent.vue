@@ -90,10 +90,10 @@ export default {
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner"  >
         <div class="carousel-item active">
-        <img :src="product.imagesUrl[1]" class="d-block w-100 rounded-3" alt="產品照片"  style='height:300px; object-fit:cover' >
+        <!-- <img :src="product.imagesUrl[1]" class="d-block w-100 rounded-3" alt="產品照片"  style='height:300px; object-fit:cover' > -->
         </div>
         <div class="carousel-item">
-        <img :src="product.imagesUrl[0]" class="d-block w-100 rounded-3" alt="產品照片" style='height:300px; object-fit:cover'>
+        <!-- <img :src="product.imagesUrl[0]" class="d-block w-100 rounded-3" alt="產品照片" style='height:300px; object-fit:cover'> -->
       </div>
      </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
