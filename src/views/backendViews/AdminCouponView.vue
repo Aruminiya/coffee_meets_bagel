@@ -11,7 +11,7 @@
   <adminNav ref="backendNav" />
   <main>
     <div class="container mt-10 py-5">
-      <!-- discount-searchbar -->
+      <!-- coupon-searchbar -->
       <div class="row">
         <div class="col-md-6 col-lg-4">
           <div class="input-group mb-4">
@@ -20,12 +20,12 @@
               class="form-control fs-3 fw-semibold text-secondary lh-1 border-colorChart-Primary-200 border-end-0 py-3 ps-4"
               placeholder="請輸入搜尋資料"
               aria-label="Username"
-              aria-describedby="discount-searchbar"
+              aria-describedby="coupon-searchbar"
             />
             <button
               class="btn btn-colorChart-Primary-200 d-flex align-items-center px-4"
               type="button"
-              id="discount-searchbar"
+              id="coupon-searchbar"
             >
               <span class="material-symbols-outlined cursor-pointer fs-2">
                 search
@@ -107,6 +107,7 @@
           </tbody>
         </table>
       </div>
+      <PaginationComponent :pagination="pagination" @emit-page="" />
     </div>
   </main>
   <CouponModalComponent
@@ -121,8 +122,10 @@
 import adminLogo from "../../components/BackendLogoComponent.vue";
 import adminNav from "../../components/BackendOffcanvasNav.vue";
 import CouponModalComponent from "@/components/CouponModalComponent.vue";
+import PaginationComponent from "@/components/PaginationComponent.vue";
 
 import Swal from "sweetalert2";
+import PaginationComponentVue from "@/components/PaginationComponent.vue";
 
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
@@ -140,6 +143,7 @@ export default {
         // 新增數量屬性
         // num: 0,
       },
+      pagination: {},
       isNew: false,
     };
   },
@@ -147,6 +151,7 @@ export default {
     adminLogo,
     adminNav,
     CouponModalComponent,
+    PaginationComponent,
   },
   methods: {
     // 打開側邊欄位
@@ -159,10 +164,11 @@ export default {
       // 判斷是否為「新增」優惠券
       if (this.isNew) {
         this.tempCoupon = {
+          // 先傳入 is_enabled: 0，否則沒有勾選是否啟用時，會因為沒有 is_enabled 屬性而 post 失敗
+          is_enabled: 0,
           // 是的話只把 tempCoupon 的 due_date 傳入。另外，因為 due_date post 時一定要使用 unix Timestamp 格式所以先處理好，抓的是當下時間
           due_date: new Date().getTime() / 1000,
         };
-        console.log(this.tempCoupon);
       } else {
         // 若是「編輯」折價券，tempCoupon 先接收該物件的淺拷貝資料，避免編輯 CouponModal 時，當前畫面同步變動，接著把 tempCoupon 用 props 傳到 CouponModal
         this.tempCoupon = { ...coupon };
@@ -176,6 +182,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.coupons = res.data.coupons;
+          this.pagination = res.data.pagination;
         })
         .catch((err) => {
           alert(err.response);
@@ -185,13 +192,13 @@ export default {
     filterDueDate(dueDate) {
       return new Date(dueDate * 1000).toLocaleDateString();
     },
-    updateCoupon(tempCoupon) {
+    updateCoupon(innerTempCoupon) {
       // 若是新增，用 post 方法及對應 API 路徑
       let url = `${host}/v2/api/${path}/admin/coupon`;
       let httpMethods = "post";
 
       // 這邊 tempCoupon 為內層新增、編輯後的折扣券物件
-      let data = tempCoupon;
+      let data = innerTempCoupon;
 
       // 若是編輯，用 put 方法及對應 API 路徑
       if (!this.isNew) {
@@ -202,7 +209,6 @@ export default {
 
       this.axios[httpMethods](url, { data })
         .then((res) => {
-          console.log(res.data);
           this.getCoupons();
           this.$refs.couponModal.closeModal();
         })
@@ -214,7 +220,7 @@ export default {
         text: "此動作不可復原！",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#20c997",
         cancelButtonColor: "#d33",
         cancelButtonText: "取消刪除",
         confirmButtonText: "確認刪除",

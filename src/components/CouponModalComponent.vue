@@ -69,6 +69,7 @@
                 v-model="due_date"
               />
             </div>
+
             <div class="form-check">
               <input
                 class="form-check-input"
