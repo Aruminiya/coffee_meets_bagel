@@ -10,13 +10,16 @@ export default {
     return {
       productModal: null,
       product: {},
+      img:[],
       qty:1,
     };
   },
   methods: {
     modalShow(product) {
-      this.product = product
+      this.product = product;
+      this.img = product.imagesUrl;
       this.productModal.show();
+      console.log(this.img)
     },
     modalHide() {
       this.productModal.hide();
@@ -90,10 +93,10 @@ export default {
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner"  >
         <div class="carousel-item active">
-        <!-- <img :src="product.imagesUrl[1]" class="d-block w-100 rounded-3" alt="產品照片"  style='height:300px; object-fit:cover' > -->
+        <img :src="img[1]" class="d-block w-100 rounded-3" alt="產品照片"  style='height:300px; object-fit:cover' >
         </div>
         <div class="carousel-item">
-        <!-- <img :src="product.imagesUrl[0]" class="d-block w-100 rounded-3" alt="產品照片" style='height:300px; object-fit:cover'> -->
+       <img :src="img[0]" class="d-block w-100 rounded-3" alt="產品照片"  style='height:300px; object-fit:cover' >
       </div>
      </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
