@@ -3,6 +3,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary bg-opacity-25">
+          {{ tempCoupon }}
           <h5 class="modal-title" id="exampleModalLabel">
             <span v-if="isNew">新增優惠券</span>
             <span v-else>編輯優惠券</span>
@@ -50,17 +51,6 @@
               />
             </div>
             <div class="mb-4">
-              <label for="couponNum" class="form-label mb-3">總數量</label>
-              <input
-                type="number"
-                min="1"
-                max="1000"
-                class="form-control lh-1 fs-4"
-                id="couponNum"
-                v-model.number="tempCoupon.num"
-              />
-            </div>
-            <div class="mb-4">
               <label for="couponDueDate" class="form-label mb-3">到期日</label>
               <input
                 type="date"
@@ -69,10 +59,9 @@
                 v-model="due_date"
               />
             </div>
-
-            <div class="form-check">
+            <div class="form-check d-flex align-items-center m-0">
               <input
-                class="form-check-input"
+                class="form-check-input me-3"
                 type="checkbox"
                 id="couponEnabled"
                 v-model="tempCoupon.is_enabled"
@@ -112,7 +101,7 @@
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 
 export default {
-  // 驗證外層 AdminCouponView 傳入的資料型別所以使用物件
+  // 驗證外層 AdminCouponView 傳入的資料型別是否使用物件
   props: {
     // 若是編輯要使用外部傳入的物件
     coupon: Object,
@@ -151,7 +140,7 @@ export default {
       // dateAndTime 用 split 轉成的陣列，再用 [0] 取得年月日，最後才會渲染到 input date
       this.due_date = dateAndTime;
     },
-    // 處理 unix Timestamp 為整數
+    // 每當 due_date 變化，tempProduct 的 due_date 會同步處理為 unix Timestamp 整數
     due_date() {
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
     },
