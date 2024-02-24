@@ -49,7 +49,7 @@
                 v-model="tempCoupon.percent"
               />
             </div>
-            <!-- <div class="mb-4">
+            <div class="mb-4">
               <label for="couponNum" class="form-label mb-3">總數量</label>
               <input
                 type="number"
@@ -59,7 +59,7 @@
                 id="couponNum"
                 v-model.number="tempCoupon.num"
               />
-            </div> -->
+            </div>
             <div class="mb-4">
               <label for="couponDueDate" class="form-label mb-3">到期日</label>
               <input

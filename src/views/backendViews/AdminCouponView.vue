@@ -61,7 +61,7 @@
               </th>
               <th width="100" class="py-9 text-truncate">優惠碼</th>
               <th width="100" class="py-9 text-truncate">折扣額度</th>
-              <!-- <th width="100" class="py-9 text-truncate">總數量</th> -->
+              <th width="100" class="py-9 text-truncate">總數量</th>
               <th width="100" class="py-9 text-truncate">到期日</th>
               <th width="100" class="py-9 text-truncate">是否啟用</th>
               <th width="50" class="top-right-border-radius py-9"></th>
@@ -76,7 +76,7 @@
               <td class="ps-5 py-11 text-truncate">{{ coupon.title }}</td>
               <td class="py-11 text-truncate">{{ coupon.code }}</td>
               <td class="py-11 text-truncate">{{ coupon.percent }}%OFF</td>
-              <!-- <td class="py-11 text-truncate">{{ coupon.num }}張</td> -->
+              <td class="py-11 text-truncate">{{ coupon.num }}張</td>
               <td class="py-11 text-truncate">
                 {{ filterDueDate(coupon.due_date) }}
               </td>
@@ -141,7 +141,7 @@ export default {
         percent: 100,
         code: "",
         // 新增數量屬性
-        // num: 0,
+        num: 0,
       },
       pagination: {},
       isNew: false,
