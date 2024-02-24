@@ -15,14 +15,9 @@ export default {
     return {
       productModal: null,
       product: {},
-<<<<<<< HEAD
       img:[],
       qty:1,
       isLoading:false,
-=======
-      img: [],
-      qty: 1,
->>>>>>> 68bcd842660a5deb6b1f6b7d50387cf2f464427d
     };
   },
   methods: {
@@ -31,11 +26,7 @@ export default {
       this.product = product;
       this.img = product.imagesUrl;
       this.productModal.show();
-<<<<<<< HEAD
       //console.log(this.img)
-=======
-      console.log(this.img);
->>>>>>> 68bcd842660a5deb6b1f6b7d50387cf2f464427d
     },
     modalHide() {
       this.productModal.hide();
@@ -48,45 +39,18 @@ export default {
         this.qty--;
       }
     },
-<<<<<<< HEAD
     add(id,qty){
       this.addCarts(id, qty);
       this.modalHide();
       this.qty=1;
       this.$refs.toastRef.toastShow()
     }
-=======
-    addToCart(id) {
-      console.log(id, this.qty);
-      const host = import.meta.env.VITE_HEXAPI;
-      const path = import.meta.env.VITE_USER_PATH;
-      const data = {
-        product_id: id,
-        qty: 1,
-      };
-      console.log({ data });
-
-      axios
-        .post(`${host}/v2/api/${path}/cart`, { data })
-        .then((res) => {
-          console.log(res);
-          this.modalHide();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    },
->>>>>>> 68bcd842660a5deb6b1f6b7d50387cf2f464427d
   },
   computed:{
     ...mapState(cartStore, ["isCartsLoading",'addedToCart'])
   }
   ,
   mounted() {
-<<<<<<< HEAD
-=======
-    console.log(this.product);
->>>>>>> 68bcd842660a5deb6b1f6b7d50387cf2f464427d
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: true, // 按下ESC是否可以關閉
@@ -96,17 +60,8 @@ export default {
 </script>
 
 <template>
-<<<<<<< HEAD
  <ToastComponent ref='toastRef' ></ToastComponent>
   <div class="modal fade text-primary" ref="productModal" tabindex="-1" aria-hidden="true">
-=======
-  <div
-    class="modal fade text-primary"
-    ref="productModal"
-    tabindex="-1"
-    aria-hidden="true"
-  >
->>>>>>> 68bcd842660a5deb6b1f6b7d50387cf2f464427d
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header row d-flex justify-content-end mx-0 border-0">
@@ -222,22 +177,9 @@ export default {
 
         <div class="modal-footer border-0">
           <!-- <slot name="modal-footer"></slot> -->
-<<<<<<< HEAD
           <button @click='add(product.id, qty)' class='text-center w-100 btn' style='background-color:#ce3f25'><p class='mb-0 text-light'>
             <i class="fa-solid fa-cart-shopping me-1"></i>
             加入購物車</p></button>
-=======
-          <button
-            @click="addToCart(product.id)"
-            class="text-center w-100 btn"
-            style="background-color: #ce3f25"
-          >
-            <p class="mb-0 text-light">
-              <i class="fa-solid fa-cart-shopping me-1"></i>
-              加入購物車
-            </p>
-          </button>
->>>>>>> 68bcd842660a5deb6b1f6b7d50387cf2f464427d
         </div>
       </div>
     </div>
