@@ -8,6 +8,9 @@ import VueAxios from "vue-axios";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
+
 
 // 內部資源
 import "./assets/boostrapCustom.scss";
@@ -23,5 +26,6 @@ app.use(createPinia());
 app.use(VueAxios, axios);
 app.use(VueSweetalert2);
 app.use(router);
+app.component('LaodingOverlay', Loading);
 
 app.mount("#app");

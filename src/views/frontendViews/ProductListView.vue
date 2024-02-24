@@ -6,13 +6,17 @@ import VueAxios from 'vue-axios';
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
-import ModalComponent from '../../components/ModalComponent.vue'
-
+import ModalComponent from '../../components/ModalComponent.vue';
+import ToastComponent from '../../components/ToastComponent.vue';
+//pinia
+import { mapState, mapActions } from "pinia";
+import cartStore from "../../stores/CartStore.js";
 export default{
     components:{
         NavBarComponent,
         FooterComponent,
-        ModalComponent
+        ModalComponent,
+        ToastComponent,
     },
     data(){
         return{
@@ -23,23 +27,27 @@ export default{
             },
             productsList:[],
             modal:null,
+            isLoading:true,
         }
     },
     methods:{
         openModal(product){
             console.log(product)
-            //console.log( this.$refs)
+            console.log( this.$refs)
             this.$refs.productDetailModal.modalShow(product)
         }
 
     },
+    computed:{
+        ...mapState(cartStore, ['addedToCart']),
+    },
     mounted(){
+        //console.log(this.$refs.toast)
+        //this.$refs.toastRef.toastShow()
         axios.get(`${this.api.url}/api/${this.api.api_path}/products/all`)
         .then((res)=>{
-            //this.changeIsLoadingStatus();
-            this.productsList = res.data.products
-            console.log(this.productsList);
-            console.log('mounted')
+            this.productsList = res.data.products;
+            this.isLoading=false;
         });
         
 
@@ -52,7 +60,7 @@ export default{
 
 <template>
 <NavBarComponent></NavBarComponent>
-
+ <LaodingOverlay :active='isLoading'/>
 <ModalComponent ref='productDetailModal'></ModalComponent>
 
 
@@ -72,6 +80,7 @@ export default{
             <span class="material-symbols-outlined ms-3 d-block" style='font-size:40px'>search</span>
             <input placeholder='  搜尋商品' style='border:none ;height:40px; background-color:transparent' class='w-75'>
         </div>
+        <!-- <ToastComponent ref='toastRef' ></ToastComponent> -->
         </div>
     </nav>
     <div class='row py-5'>
@@ -90,13 +99,13 @@ export default{
             <li v-for='item in productsList' class='col-lg-3 d-flex justify-content-center mb-5 productCard' style='list-style:none' >
                 <div class="card border-0" style="width: 18rem;">
                     <img :src='item.imageUrl' class="" :alt="item.title" style='height:280px; object-fit="none" '>
-                    <div class="card-body cardContent">
+                    <div class="card-body cardContent ">
                         <div class='d-flex justify-content-between'>
                             <p class="card-text text-primary"> {{item.title}}</p>
                             <p class='text-primary'>NT${{item.price}}/{{item.unit}}</p>
                         </div>
                     </div>
-                    <div class='card-body addToCartBtn ' >
+                    <div class='card-body addToCartBtn' >
                         <div class=' addToCartText ' style='height:72px'>
                             <p style=' font-size:14px'>{{item.description}}</p>
                         </div>
@@ -117,6 +126,9 @@ export default{
     position: relative;
     z-index:1;
     height:70px;
+    @media(max-width:991px){
+    height:120px;
+    }
     
     &::before {
         content: "";
@@ -154,7 +166,7 @@ export default{
         padding:8px;
     }
 
-    @media(min-width:993px){
+    @media(min-width:992px){
         .addToCartText{
         display:none;
         };
@@ -172,7 +184,7 @@ export default{
             display:none
         };
         .addToCartBtn::before{
-        height:120px;
+        height:130px;
         margin-top:0px;
         transform: scaleY(1);
         transform-origin:bottom center;
