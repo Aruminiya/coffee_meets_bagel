@@ -19,4 +19,8 @@ export default {
   <router-link to="/admin/adminProducts">後台訂單(暫存)</router-link>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+body {
+  background-color: $colorChart-bg-color;
+}
+</style>

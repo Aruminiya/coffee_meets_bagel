@@ -60,7 +60,7 @@ export default {
           <div
             class="d-flex flex-column justify-content-end justify-content-md-center banner"
           >
-            <div class="bannerWord position-relative">
+            <div class="bannerWord position-relative d-flex flex-column">
               <h1 class="title">Coffee meets Bagel</h1>
               <h2 class="subtitle">品味烘焙藝術的奇妙交融</h2>
               <h2 class="subtitle">共譜美好早晨的詩篇</h2>
@@ -384,6 +384,7 @@ export default {
     }
   }
   .bannerWord {
+    width: 80%;
     left: 180px;
     .title {
       font-size: 54px;

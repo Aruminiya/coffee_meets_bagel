@@ -77,24 +77,29 @@ const router = createRouter({
         {
           path: "adminCoupon",
           name: "adminCoupon",
-          component: () =>
-            import("../views/backendViews/AdminCouponView.vue"),
+          component: () => import("../views/backendViews/AdminCouponView.vue"),
         },
         {
           path: "addProduct",
           name: "addProduct",
-          component: () => 
+          component: () =>
             import("../views/backendViews/AdminDynamicProductView.vue"),
         },
         {
           path: "analysisReport",
           name: "analysisReport",
-          component: () => 
+          component: () =>
             import("../views/backendViews/AdminAnalysisReportView.vue"),
         },
       ],
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notExist",
+      component: () => import("../views/frontendViews/NotExistView.vue"),
+    },
   ],
+  linkActiveClass: "active",
   scrollBehavior(to, from, savedPosition) {
     // 始终滚动到顶部
     return { top: 0 };

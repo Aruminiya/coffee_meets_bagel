@@ -31,18 +31,19 @@ export default defineStore("CartStore", {
         });
     },
     // 商品加入購物車
-    addCarts(item) {
+    addCarts(id) {
+      console.log('this is addCarts', id)
       const host = import.meta.env.VITE_HEXAPI;
       const path = import.meta.env.VITE_USER_PATH;
 
-      axios
-        .post(`${host}/v2/api/${path}/cart`, item)
-        .then((res) => {
-          this.getCarts();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      // axios
+      //   .post(`${host}/v2/api/${path}/cart`, item)
+      //   .then((res) => {
+      //     this.getCarts();
+      //   })
+      //   .catch((err) => {
+      //     console.error(err);
+      //   });
     },
     //編輯購物車商品
     editCarts(item) {

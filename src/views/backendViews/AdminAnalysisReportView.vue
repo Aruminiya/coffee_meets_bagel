@@ -30,6 +30,7 @@ export default {
       flatpickrInstance: null,
       minDate: '',
       result: '',
+      resultArray: []
     }
   },
   components: {
@@ -43,15 +44,74 @@ export default {
     addNewProduct() {
       this.$router.push('/admin/addProduct');
     },
+    getSaleRankingData(orders) {
+      const uniqueProducts = {};
+      
+      orders.forEach(function (orderItem) {
+        for (const productId in orderItem.products) {
+          const product = orderItem.products[productId].product;
+          const qty = orderItem.products[productId].qty;
+
+          if (!uniqueProducts[product.title]) {
+            uniqueProducts[product.title] = qty;
+          } else {
+            uniqueProducts[product.title] += qty;
+          }
+        }
+      });
+
+      // 将对象转换为所需的格式（二维数组）
+      const resultArray = [];
+      for (const title in uniqueProducts) {
+        resultArray.push([title, uniqueProducts[title]]);
+      }
+      console.log(resultArray);
+      return resultArray
+    },
+    getSalePriceRankingData(orders) {
+      const uniqueProducts = {};
+      
+      orders.forEach(function (orderItem) {
+        for (const productId in orderItem.products) {
+          const product = orderItem.products[productId].product;
+          const total = orderItem.products[productId].total;
+
+          if (!uniqueProducts[product.title]) {
+            uniqueProducts[product.title] = total;
+          } else {
+            uniqueProducts[product.title] += total;
+          }
+        }
+      });
+
+      // 将对象转换为所需的格式（二维数组）
+      const resultArray = [];
+      for (const title in uniqueProducts) {
+        resultArray.push([title, uniqueProducts[title]]);
+      }
+      console.log(resultArray);
+      return resultArray
+    },
     createChart() {
-      // 使用C3.js和D3.js创建图表
-      const chart = c3.generate({
-        bindto: '#chart',
+      // 建立圖表
+      const saleRanking = c3.generate({
+        bindto: '#saleRanking',
         data: {
-          columns: [
-            ['data1', 30, 200, 100, 400, 150, 250],
-            ['data2', 50, 20, 10, 40, 15, 25]
-          ]
+          columns: this.getSaleRankingData(this.orders),
+          type: 'donut',
+        },
+        donut: {
+          title: "商品銷售比例"
+        }
+      });
+      const amountRanking = c3.generate({
+        bindto: '#amountRanking',
+        data: {
+          columns: this.getSalePriceRankingData(this.orders),
+          type: 'donut',
+        },
+        donut: {
+          title: "商品銷售金額比例"
         }
       });
     },
@@ -76,6 +136,8 @@ export default {
           // this.minDate = moment.min(this.orders.map(order => 
           //   moment.unix(order.create_at))).tz('Asia/Taipei').format('YYYY-MM-DD');
 
+          this.createChart() 
+          
         })
         .catch((err) => {
 
@@ -90,7 +152,7 @@ export default {
 
         });
     },
-    getTotal(orders){
+    getTotal(orders) {
       let total = 0;
       orders.forEach((item) => {
         total += item.total
@@ -99,7 +161,7 @@ export default {
     },
     getDayOrders() {
       // 抓取選取日期相關資料
-      this.daySelected.orders = this.orders.filter((item) => {        
+      this.daySelected.orders = this.orders.filter((item) => {
         const date = moment.unix(item.create_at);
         const taiwanDate = date.tz('Asia/Taipei');
         return taiwanDate.format('YYYY-MM-DD').match(this.selectedDate)
@@ -107,15 +169,15 @@ export default {
       this.daySelected.total = this.getTotal(this.daySelected.orders);
     },
     getTimes(orders) {
-      
+
       orders.forEach((item) => {
         const date = moment.unix(item.create_at);
         const taiwanDate = date.tz('Asia/Taipei');
-        
-        
+
+
         // console.log(taiwanDate.format('YYYY-MM-DD HH:mm:ss'));
         // console.log(taiwanDate.format('YYYY-MM-DD'), taiwanDate.add(-1, 'week').format('YYYY-MM-DD'));
-        
+
 
       })
 
@@ -131,21 +193,21 @@ export default {
         // 設定跳過金額為0的日期
         disable: ['']
       });
-      
+
       // 監聽日期變化事件
       // this.flatpickrInstance.config.onChange.push((selectedDates, dateStr) => {
       //   this.selectedDate = dateStr;
       // });
     },
     showMessage(message) {
-      return this.selectedDate === null? '請先選擇日期' : message;
+      return this.selectedDate === null ? '請先選擇日期' : message;
     },
 
 
 
   },
   // computed: {
-	// 	// 改用呼叫的方式, 邏輯寫在函式內
+  // 	// 改用呼叫的方式, 邏輯寫在函式內
   //   showMessage(message) {
   //     return this.selectedDate === null? '請先選擇日期' : message;
   //   },
@@ -168,9 +230,9 @@ export default {
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
 
-    
 
-    
+
+
     // 抓取今日日期與昨日日期
     // this.today.date = moment().format('YYYY-MM-DD');
     // this.yesterday.date = moment().add(-1, 'day').format('YYYY-MM-DD');
@@ -182,7 +244,7 @@ export default {
     const sundayDate = currentDate.clone().endOf('week').add(1, 'day').format('YYYY-MM-DD');
 
     // console.log('星期一 : ' + mondayDate, ', 星期日 : ' + sundayDate);
-    
+
 
     this.getOrders();
     // this.createChart();
@@ -202,7 +264,7 @@ export default {
     <div class="container">
       <h2 class="text-primary mb-3 py-3">營收分析</h2>
       <div class="border p-4 rounded row">
-        <div class="col-3 mb-4">          
+        <div class="col-3 mb-4">
           <div class="border border-warning rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-warning">{{ showMessage(selectedDate) }}</h6>
@@ -210,8 +272,7 @@ export default {
             <div class="border-warning border-top p-3 bg-warning d-flex align-items-center">
               <span class="material-symbols-outlined text-white align-middle me-2">calendar_month</span>
               <div class="input-group input-group-sm">
-                <input ref="flatpickrInput" type="text" v-model="selectedDate" 
-                  placeholder="請選擇日期" class="form-control" >
+                <input ref="flatpickrInput" type="text" v-model="selectedDate" placeholder="請選擇日期" class="form-control">
               </div>
             </div>
           </div>
@@ -224,13 +285,13 @@ export default {
             <div class="border-success border-top p-3 bg-success d-flex align-items-center">
               <span class="material-symbols-outlined text-white align-middle me-2">calendar_month</span>
               <div class="input-group input-group-sm">
-                <input  type="text" placeholder="請選擇日期" class="form-control" >
+                <input type="text" placeholder="請選擇日期" class="form-control">
               </div>
             </div>
           </div>
         </div>
         <div class="col-3 mb-4">
-          
+
           <div class="border border-primary rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-primary">請選取查詢月份</h6>
@@ -242,7 +303,7 @@ export default {
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
           <div class="border border-info rounded">
@@ -260,7 +321,7 @@ export default {
 
         <!-- 中 -->
         <div class="col-3 mb-4">
-          
+
           <div class="border border-warning rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-warning">當日訂單總筆數</h6>
@@ -268,14 +329,14 @@ export default {
             <div class="border-warning border-top p-3 bg-warning">
               <h6 class="mb-0 text-white d-flex justify-content-between align-items-center">
                 <span class="material-symbols-outlined">sell</span>
-                <span> {{ showMessage(`當日訂單共 ${ daySelected.orders.length } 筆`) }} </span>
+                <span> {{ showMessage(`當日訂單共 ${daySelected.orders.length} 筆`) }} </span>
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
-          
+
           <div class="border border-success rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-success">此區間總共筆數</h6>
@@ -287,10 +348,10 @@ export default {
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
-          
+
           <div class="border border-primary rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-primary">當月訂單總筆數</h6>
@@ -302,7 +363,7 @@ export default {
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
           <div class="border border-info rounded">
@@ -319,7 +380,7 @@ export default {
         </div>
         <!-- 下半 -->
         <div class="col-3 mb-4">
-          
+
           <div class="border border-warning rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-warning">當日訂單總額</h6>
@@ -331,10 +392,10 @@ export default {
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
-          
+
           <div class="border border-success rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-success">此區間訂單總額</h6>
@@ -346,10 +407,10 @@ export default {
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
-          
+
           <div class="border border-primary rounded">
             <div class="p-3 text-center">
               <h6 class="mb-0 text-primary">當月訂單總額</h6>
@@ -361,7 +422,7 @@ export default {
               </h6>
             </div>
           </div>
-          
+
         </div>
         <div class="col-3 mb-4">
           <div class="border border-info rounded">
@@ -376,13 +437,15 @@ export default {
             </div>
           </div>
         </div>
-
-        <div id="chart"></div>
+        <div class="col-6">
+          <div id="saleRanking"></div>
+        </div>
+        <div class="col-6">
+          <div id="amountRanking"></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

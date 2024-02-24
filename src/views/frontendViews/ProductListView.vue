@@ -28,6 +28,7 @@ export default{
     methods:{
         openModal(product){
             console.log(product)
+            //console.log( this.$refs)
             this.$refs.productDetailModal.modalShow(product)
         }
 
