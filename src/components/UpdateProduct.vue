@@ -252,7 +252,7 @@ export default {
               @click="enabledProduct">未啟用</button>
           </div>
           <div class="d-flex ms-3">
-            <h4 class="mb-0 text-primary">主廚推薦</h4>
+            <h4 class="mb-0 text-primary">店長推薦</h4>
             <button type="button" class="btn btn-outline-primary bottom-0 start-0 ms-3" v-if="product.is_recommend"
               @click="enabledRecommend">採用推薦</button>
             <button type="button" class="btn btn-outline-secondary bottom-0 start-0 ms-3" v-else
