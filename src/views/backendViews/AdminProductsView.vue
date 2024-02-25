@@ -93,7 +93,6 @@ export default {
       } else {
         this.axios.get(`${host}/v2/api/${path}/admin/products?page=1&category=${category}`)
           .then((response) => {
-            // console.log(response.data);
             this.products = response.data.products;
             this.pagination = response.data.pagination;
           })
@@ -101,25 +100,6 @@ export default {
             Swal.fire("取得產品分類失敗");
           });
       }
-    },
-    // 測試用, 如果需要token再從這邊抓
-    testLogin() {
-      const user = {
-        username: "tingyu1112@gmail.com",
-        password: "cmbSideProject",
-      };
-      this.axios
-        .post(`${host}/v2/admin/signin`, user)
-        .then((res) => {
-          const { token, expired } = res.data;
-          // 將 token 與 expired 設定好到期時間存入cookie
-          document.cookie = `florafirstapi=${token}; expired=${new Date(
-            expired
-          )}; path=/`;
-        })
-        .catch((error) => {
-          Swal.fire("登入失敗");
-        });
     },
     // 取得所有商品後取得所有分類
     getCategories() {
@@ -148,7 +128,6 @@ export default {
           this.getProducts();
         })
         .catch((error) => {
-          console.log(error);
           Swal.fire("資料刪除失敗");
         });
     },
@@ -166,7 +145,6 @@ export default {
       });
     },
     modalShow(product) {
-      // this.product = product;
       this.$refs.modal.modalShow(product)
     },
     modalHide() {
@@ -191,8 +169,7 @@ export default {
       this.axios.put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
         .then((res) => {
           this.enableMessage(product.is_enabled);
-        }).catch((err) => {
-          // console.log(err);
+        }).catch(() => {
           // 如果錯誤產品啟用狀態恢復原值
           if (product.is_enabled === 1) {
             product.is_enabled = 0
@@ -215,15 +192,6 @@ export default {
           text: "產品已停用",
           icon: "warning"
         });
-      }
-    }
-  },
-  watch: {
-    product() {
-      if (this.product.is_enabled === 1) {
-        this.product.is_enabled = 0
-      } else {
-        this.product.is_enabled = 1
       }
     }
   },
@@ -320,12 +288,10 @@ export default {
                   </div>
                   <div class="col-6">
                     <p class="card-text mb-2">{{ product.content }}</p>
-
                     <p v-if="product.is_enabled !== 1" class="card-text mb-2 text-danger">
                       <span data-v-ad3f08d1="" class="material-symbols-outlined align-middle ">cancel</span>
                       此商品已停售
                     </p>
-
                   </div>
                 </div>
                 <p class="card-text">
@@ -333,6 +299,7 @@ export default {
                 </p>
               </div>
             </div>
+
             <div class="col-md-2 py-2">
               <div class="card-footer border-top-0 bg-white d-flex flex-column align-items-end">
                 <div class="mb-3">
@@ -380,19 +347,11 @@ export default {
 
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
       <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
-
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.main {
-  position: absolute;
-  width: 70%;
-  right: 0%;
-  z-index: -1;
-}
-
 ::placeholder {
   color: rgb(179, 175, 175);
 }
@@ -419,7 +378,7 @@ export default {
   width: fit-content;
 
   ::after {
-    content: "主廚推薦";
+    content: "店長推薦";
     font-size: 16px;
     position: absolute;
     color: #8d2b19;
