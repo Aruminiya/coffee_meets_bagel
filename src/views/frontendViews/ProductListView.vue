@@ -28,6 +28,7 @@ export default{
             productsList:[],
             modal:null,
             isLoading:true,
+            showPagination:false,
             pages:{
 
             }
@@ -43,18 +44,19 @@ export default{
     },
     methods:{
         openModal(product){
-            console.log(product)
-            console.log( this.$refs)
+            // console.log(product)
+            // console.log( this.$refs)
             this.$refs.productDetailModal.modalShow(product)
         },
 
         getProduct(page=1){
-        this.isLoading=true,
-        console.log(this.$route);
+        this.isLoading=true;
+        this.showPagination=true;
+        //console.log(this.$route);
         const {category = ''} = this.$route.query;
         axios.get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products?category=${category}&page=${page}`)
         .then((res)=>{
-            console.log(res)
+            //console.log(res)
             this.pages=res.data.pagination;
             this.productsList = res.data.products;
             this.productsList.sort(function(a, b){
@@ -64,12 +66,48 @@ export default{
         });
         },
 
+        sortRecommend(){
+            this.isLoading=true;
+            this.showPagination=false;
+            axios.get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
+            .then((res)=>{
+                const recommendArr = [];
+                res.data.products.forEach((item) => {
+                    if(item.is_recommend === 1){
+                        recommendArr.push(item)
+                    };
+                    //console.log(recommendArr);
+                    this.productsList = recommendArr;
+                    //console.log(this.producstList);
+                    this.productsList.sort(function(a, b){
+                        return a.title.localeCompare(b.title, 'zh-Hans-CN');
+                });
+                    this.isLoading=false;
+                });
+            });
+
+        },
+
+        scrollBehavior() {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+                });
+        },
+
+
+
     },
     computed:{
         ...mapState(cartStore, ['addedToCart']),
     },
     mounted(){
-        this.getProduct()
+        this.getProduct();
+        //this.sortRecommend()
+        //const arr = ['ab', 'abc','de']
+        
+
 
         
 
@@ -82,7 +120,7 @@ export default{
 
 <template>
 <NavBarComponent></NavBarComponent>
- <LaodingOverlay :active='isLoading'/>
+<LaodingOverlay :active='isLoading'/>
 <ModalComponent ref='productDetailModal'></ModalComponent>
 
 
@@ -100,8 +138,8 @@ export default{
             </li>
 
             <li style='list-style:none' class='d-flex align-items-center '>
-             <RouterLink class="btn btn-primary rounded-pill" to="/productList/recommend">推薦
-            </RouterLink>
+             <a class="btn rounded-pill" style='background-color:#712214; color:white' @click='sortRecommend'>推薦
+            </a>
             </li>
             <li style='list-style:none' class='d-flex align-items-center '>
              <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=輕食">
@@ -172,12 +210,13 @@ export default{
             </li>
         </ul>
 
- <nav aria-label="Page navigation example" class='d-flex justify-content-center' v-if='pages.total_pages!==1'>
+ <nav aria-label="Page navigation example" class='d-flex justify-content-center' 
+ v-if='pages.total_pages!==1 && showPagination==true' >
   <ul class="pagination">
 
     <li class="page-item" :class='{disabled:pages.has_pre==false}'
     @click.prevent="getProduct(pages.current_page-1)" >
-        <a class="page-link "  href="#" aria-label="Previous" >
+        <a class="page-link "  href="#" aria-label="Previous" @click='scrollBehavior'>
           <span aria-hidden="true">&laquo</span>
         </a>
     </li>
@@ -188,12 +227,12 @@ export default{
     @click.prevent="getProduct(page)">
     <a class='page-link' 
     :class="{'bg-warning': pages.current_page == page}"
-    href="#" >{{page}}</a>
+    href="#" @click='scrollBehavior' >{{page}}</a>
     </li>
 
     <li class="page-item" :class='{disabled:pages.has_next==false}'
     @click.prevent="getProduct(pages.current_page+1)" >
-        <a class="page-link" href="#" aria-label="Next" >
+        <a class="page-link" href="#" aria-label="Next" @click='scrollBehavior' >
           <span aria-hidden="true">&raquo;</span>
         </a>
     </li>
