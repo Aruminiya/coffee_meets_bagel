@@ -48,28 +48,28 @@ const router = createRouter({
           path: "productList",
           name: "productList",
           component: () => import("../views/frontendViews/ProductListView.vue"),
-          children:[
-            {
-              path:'recommend',
-              component: () => import("../views/frontendViews/productType/RecommendView.vue"),
-            },
-            {
-              path:'food',
-              component: () => import("../views/frontendViews/productType/FoodView.vue"),
-            },
-            {
-              path:'cookie',
-              component: () => import("../views/frontendViews/productType/CookieView.vue"),
-            },
-            {
-              path:'drink',
-              component: () => import("../views/frontendViews/productType/DrinkView.vue"),
-            },
-            {
-              path:'cake',
-              component: () => import("../views/frontendViews/productType/CakeView.vue"),
-            },
-          ]
+          // children:[
+          //   {
+          //     path:'recommend',
+          //     component: () => import("../views/frontendViews/productType/RecommendView.vue"),
+          //   },
+          //   {
+          //     path:'food',
+          //     component: () => import("../views/frontendViews/productType/FoodView.vue"),
+          //   },
+          //   {
+          //     path:'cookie',
+          //     component: () => import("../views/frontendViews/productType/CookieView.vue"),
+          //   },
+          //   {
+          //     path:'drink',
+          //     component: () => import("../views/frontendViews/productType/DrinkView.vue"),
+          //   },
+          //   {
+          //     path:'cake',
+          //     component: () => import("../views/frontendViews/productType/CakeView.vue"),
+          //   },
+          // ]
         },
       ],
     },

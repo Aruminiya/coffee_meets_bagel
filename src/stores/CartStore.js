@@ -12,7 +12,7 @@ export default defineStore("CartStore", {
     useCouponPrice: null,
     isCartsLoading: true,
     couponData: {},
-    cartStatus:'',
+    cartStatus: "",
   }),
   getters: {},
   actions: {
@@ -26,7 +26,6 @@ export default defineStore("CartStore", {
           const { data } = res.data;
           this.data = data;
           this.isCartsLoading = false;
-          console.log(this.data)
         })
         .catch((err) => {
           console.error(err);
@@ -34,21 +33,25 @@ export default defineStore("CartStore", {
     },
     // 商品加入購物車
     addCarts(id, qty) {
-      this.cartStatus='';
+      this.cartStatus = "";
       const host = import.meta.env.VITE_HEXAPI;
       const path = import.meta.env.VITE_USER_PATH;
       const data = {
-        'product_id':id,
-        "qty":qty
+        product_id: id,
+        qty: qty,
       };
-      axios.post('https://vue3-course-api.hexschool.io/v2/api/florafirstapi/cart', {data})
-      .then((res)=>{
-      this.cartStatus = `${res.data.data.product.title}${res.data.message}`
-      this.getCarts();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      axios
+        .post(
+          "https://vue3-course-api.hexschool.io/v2/api/florafirstapi/cart",
+          { data }
+        )
+        .then((res) => {
+          this.cartStatus = `${res.data.data.product.title}${res.data.message}`;
+          this.getCarts();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
     //編輯購物車商品
     editCarts(item) {
