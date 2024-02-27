@@ -70,9 +70,14 @@ export default {
           <div
             class="container d-flex justify-content-center align-items-center"
           >
-            <img
+            <!-- <img
               class="img-fluid"
               src="../../../public/CoffeeMaker.gif"
+              alt="CoffeeMaker"
+            /> -->
+            <img
+              class="img-fluid"
+              src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/CoffeeMaker.gif?raw=true"
               alt="CoffeeMaker"
             />
           </div>
@@ -143,13 +148,15 @@ section {
   }
 }
 .section1 {
-  background-image: url("../../../public/FAQ_01.png");
+  // background-image: url("../../../public/FAQ_01.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/FAQ_01.png?raw=true");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("../../../public/FAQ_Phone_01.png");
+    // background-image: url("../../../public/FAQ_Phone_01.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/FAQ_Phone_01.png?raw=true");
   }
   .text {
     left: 10vw;
