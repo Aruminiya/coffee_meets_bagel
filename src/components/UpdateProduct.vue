@@ -49,7 +49,6 @@ export default {
       this.showImageUrl = this.defaultImageUrl
       // input清空
       this.newImageUrl = ''
-      // console.log(this.newImagesUrl);
     },
     getProduct() {
       // 取得路由的產品ID
@@ -57,7 +56,6 @@ export default {
       if (id) {
         this.axios.get(`${host}/v2/api/${path}/product/${id}`)
           .then((res) => {
-            // console.log(res.data);
             this.product = res.data.product
             // 避免抓到空值, 先過濾多圖陣列
             if(this.product.imagesUrl){
@@ -116,7 +114,6 @@ export default {
       // 將新的副圖片陣列指向原本產品物件的副圖片陣列
       this.product.imagesUrl = this.newImagesUrl;
       const data = this.product;
-
       this.axios.put(`${host}/v2/api/${path}/admin/product/${id}`, { data })
         .then(() => {
           Swal.fire({
@@ -149,7 +146,6 @@ export default {
         if (result.isConfirmed) {
           this.updateProduct()
         } else if (
-          /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire({
@@ -169,14 +165,11 @@ export default {
     );
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
-
     this.getProduct();
     this.showImageUrl = this.defaultImageUrl;
-    // this.closeOffCanvasNav()
   },
 }
 </script>
-
 <template>
   <div class="container main">
     <div class="row border rounded p-3">
@@ -209,7 +202,6 @@ export default {
           </div>
         </div>
       </div>
-
       <div class="col-8 p-3 position-relative">
         <div class="mb-2">
           <h4 class="text-primary">產品編號</h4>
@@ -260,7 +252,7 @@ export default {
           </div>
         </div>
         <div class="position-absolute bottom-0 end-0 p-3">
-          <button type="button" class="btn btn-outline-warning ms-3" @click="backToList">返回產品列表</button>
+          <button type="button" class="btn btn-outline-primary ms-3" @click="backToList">返回產品列表</button>
           <button type="button" class="btn btn-outline-success ms-3" v-if="product.id" @click="getProduct">回復初始值</button>
           <button type="button" class="btn btn-outline-primary ms-3" v-if="product.id"
             @click="confirmUpdate">確定修改</button>
@@ -269,7 +261,6 @@ export default {
       </div>
     </div>
   </div>
-
   <!-- modal< 點選圖片放大顯示 -->
   <modal ref="modal">
     <template v-slot:modal-body>
@@ -277,11 +268,8 @@ export default {
     </template>
   </modal>
 </template>
-
 <style scoped lang="scss">
 .main {
-  // margin-top: 100px;
-
   &__pic {
     width: 100%;
     height: 200px;
