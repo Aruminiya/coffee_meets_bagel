@@ -88,9 +88,14 @@ export default {
             <hr class="wordDash" />
           </div>
           <div class="px-0 pt-5 p-sm-3">
-            <img
+            <!-- <img
               class="img-fluid"
               src="../../../public/TodayRecommendation.gif"
+              alt="TodayRecommendation"
+            /> -->
+            <img
+              class="img-fluid"
+              src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/TodayRecommendation.gif?raw=true"
               alt="TodayRecommendation"
             />
           </div>
@@ -225,54 +230,84 @@ export default {
         <div class="block_04 col-12 py-3">
           <div class="Img_01">
             <div class="imgContainer h-100 position-relative">
-              <img
+              <!-- <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_01.png"
+                alt="ChunkIllustration_01"
+              /> -->
+              <img
+                class="position-absolute"
+                src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkIllustration_01.png?raw=true"
                 alt="ChunkIllustration_01"
               />
             </div>
           </div>
           <div class="Img_02">
             <div class="imgContainer h-100 position-relative">
-              <img
+              <!-- <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_02.png"
+                alt="ChunkIllustration_02"
+              /> -->
+              <img
+                class="position-absolute"
+                src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkIllustration_02.png?raw=true"
                 alt="ChunkIllustration_02"
               />
             </div>
           </div>
           <div class="Img_03">
             <div class="imgContainer h-100 position-relative">
-              <img
+              <!-- <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_03.png"
+                alt="ChunkIllustration_03"
+              /> -->
+              <img
+                class="position-absolute"
+                src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkIllustration_03.png?raw=true"
                 alt="ChunkIllustration_03"
               />
             </div>
           </div>
           <div class="Img_04">
             <div class="imgContainer h-100 position-relative">
-              <img
+              <!-- <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_04.png"
+                alt="ChunkIllustration_04"
+              /> -->
+              <img
+                class="position-absolute"
+                src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkIllustration_04.png?raw=true"
                 alt="ChunkIllustration_04"
               />
             </div>
           </div>
           <div class="Img_05">
             <div class="imgContainer h-100 position-relative">
-              <img
+              <!-- <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_05.png"
+                alt="ChunkIllustration_05"
+              /> -->
+              <img
+                class="position-absolute"
+                src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkIllustration_05.png?raw=true"
                 alt="ChunkIllustration_05"
               />
             </div>
           </div>
           <div class="Img_06">
             <div class="imgContainer h-100 position-relative">
-              <img
+              <!-- <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_06.png"
+                alt="ChunkIllustration_06"
+              /> -->
+              <img
+                class="position-absolute"
+                src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkIllustration_06.png?raw=true"
                 alt="ChunkIllustration_06"
               />
             </div>
@@ -309,9 +344,14 @@ export default {
           >
             <swiper-slide>
               <div class="mealsImg d-flex flex-column rounded p-3">
-                <img
+                <!-- <img
                   class="rounded"
                   src="../../../public/Meals_01.png"
+                  alt="Meals_01"
+                /> -->
+                <img
+                  class="rounded"
+                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_01.png?raw=true"
                   alt="Meals_01"
                 />
                 <h4 class="m-2">蛋糕</h4>
@@ -319,9 +359,14 @@ export default {
             </swiper-slide>
             <swiper-slide>
               <div class="mealsImg d-flex flex-column rounded p-3">
-                <img
+                <!-- <img
                   class="rounded"
                   src="../../../public/Meals_02.png"
+                  alt="Meals_02"
+                /> -->
+                <img
+                  class="rounded"
+                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_02.png?raw=true"
                   alt="Meals_02"
                 />
                 <h4 class="m-2">輕食</h4>
@@ -329,9 +374,14 @@ export default {
             </swiper-slide>
             <swiper-slide>
               <div class="mealsImg d-flex flex-column rounded p-3">
-                <img
+                <!-- <img
                   class="rounded"
                   src="../../../public/Meals_03.png"
+                  alt="Meals_03"
+                /> -->
+                <img
+                  class="rounded"
+                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_03.png?raw=true"
                   alt="Meals_03"
                 />
                 <h4 class="m-2">飲品</h4>
@@ -339,9 +389,14 @@ export default {
             </swiper-slide>
             <swiper-slide>
               <div class="mealsImg d-flex flex-column rounded p-3">
-                <img
+                <!-- <img
                   class="rounded"
                   src="../../../public/Meals_04.png"
+                  alt="Meals_04"
+                /> -->
+                <img
+                  class="rounded"
+                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_04.png?raw=true"
                   alt="Meals_04"
                 />
                 <h4 class="m-2">餅乾</h4>
@@ -349,9 +404,14 @@ export default {
             </swiper-slide>
             <swiper-slide>
               <div class="mealsImg d-flex flex-column rounded p-3">
-                <img
+                <!-- <img
                   class="rounded"
                   src="../../../public/Meals_05.png"
+                  alt="Meals_05"
+                /> -->
+                <img
+                  class="rounded"
+                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_05.png?raw=true"
                   alt="Meals_05"
                 />
                 <h4 class="m-2">鬆餅</h4>
@@ -369,7 +429,8 @@ export default {
 .banner {
   width: 100%; /* 假設容器寬度為 300 像素 */
   aspect-ratio: 1920 / 896; /* 假設你的圖片高度與寬度的比例為 4:3 */
-  background-image: url("../../../public/Banner.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Banner.png?raw=true");
+  // background-image: url("../../../public/Banner.png");
   background-size: cover; /* 調整背景圖片大小以填充容器 */
   background-position: right; /* 調整背景圖片位置至中 */
   background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -481,20 +542,23 @@ export default {
 .RecommendationImg {
   height: 100%;
   &.Img_01 {
-    background-image: url("../../../public/RecommendationImg_01.png");
+    // background-image: url("../../../public/RecommendationImg_01.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/RecommendationImg_01.png?raw=true");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
     transition: background-size 0.2s ease-in-out; /* 添加動畫效果 */
   }
   &.Img_02 {
-    background-image: url("../../../public/RecommendationImg_02.png");
+    // background-image: url("../../../public/RecommendationImg_02.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/RecommendationImg_02.png?raw=true");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
   }
   &.Img_03 {
-    background-image: url("../../../public/RecommendationImg_03.png");
+    // background-image: url("../../../public/RecommendationImg_03.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/RecommendationImg_03.png?raw=true");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -521,7 +585,8 @@ export default {
   .Img_01 {
     grid-area: Img01;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_01.png");
+      // background-image: url("../../../public/ChunkImg_01.png");
+      background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_01.png?raw=true");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -538,14 +603,16 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_01.png");
+        // background-image: url("../../../public/ChunkImg_Phone_01.png");
+        background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_Phone_01.png?raw=true");
       }
     }
   }
   .Img_02 {
     grid-area: Img02;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_02.png");
+      // background-image: url("../../../public/ChunkImg_02.png");
+      background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_02.png?raw=true");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -562,7 +629,8 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_02.png");
+        // background-image: url("../../../public/ChunkImg_Phone_02.png");
+        background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_Phone_02.png?raw=true");
         img {
           object-position: 76% 50%;
         }
@@ -572,7 +640,8 @@ export default {
   .Img_03 {
     grid-area: Img03;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_03.png");
+      // background-image: url("../../../public/ChunkImg_03.png");
+      background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_03.png?raw=true");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: 35% 50%; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -589,14 +658,16 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_03.png");
+        // background-image: url("../../../public/ChunkImg_Phone_03.png");
+        background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_Phone_03.png?raw=true");
       }
     }
   }
   .Img_04 {
     grid-area: Img04;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_04.png");
+      // background-image: url("../../../public/ChunkImg_04.png");
+      background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_04.png?raw=true");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -613,14 +684,16 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_04.png");
+        // background-image: url("../../../public/ChunkImg_Phone_04.png");
+        background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_Phone_04.png?raw=true");
       }
     }
   }
   .Img_05 {
     grid-area: Img05;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_05.png");
+      // background-image: url("../../../public/ChunkImg_05.png");
+      background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_05.png?raw=true");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: 80% 50%; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -637,7 +710,8 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_05.png");
+        // background-image: url("../../../public/ChunkImg_Phone_05.png");
+        background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_Phone_05.png?raw=true");
       }
     }
   }
@@ -645,7 +719,8 @@ export default {
     grid-area: Img06;
 
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_06.png");
+      // background-image: url("../../../public/ChunkImg_06.png");
+      background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_06.png?raw=true");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -662,7 +737,8 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_06.png");
+        // background-image: url("../../../public/ChunkImg_Phone_06.png");
+        background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/ChunkImg_Phone_06.png?raw=true");
       }
     }
   }
@@ -773,17 +849,20 @@ export default {
 }
 
 .swiperImg_01 {
-  background-image: url("../../../public/swiperImg_01.png");
+  // background-image: url("../../../public/swiperImg_01.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/swiperImg_01.png?raw=true");
   background-position: center;
   background-size: cover;
 }
 .swiperImg_02 {
-  background-image: url("../../../public/swiperImg_02.png");
+  // background-image: url("../../../public/swiperImg_02.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/swiperImg_02.png?raw=true");
   background-position: center;
   background-size: cover;
 }
 .swiperImg_03 {
-  background-image: url("../../../public/swiperImg_03.png");
+  // background-image: url("../../../public/swiperImg_03.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/swiperImg_03.png?raw=true");
   background-position: center;
   background-size: cover;
 }
