@@ -67,6 +67,10 @@ export default {
         .then((response) => {
           // 存入所有產品
           this.allProducts = Object.values(response.data.products);
+
+          this.allProducts.forEach((item) => {
+            item.check_enabled = item.is_enabled;
+          })
           // 取得分類
           this.getCategories();
           // 取完所有資料再取要渲染的資料
@@ -83,6 +87,11 @@ export default {
         .then((response) => {
           this.products = response.data.products;
           this.pagination = response.data.pagination;
+
+          // 新增自訂屬性判斷是否啟用(避免送出停用時API尚未回傳就直接反應)
+          this.products.forEach((item) => {
+            item.check_enabled = item.is_enabled;
+          })
         })
         .catch(() => {
           Swal.fire("資料取得失敗");
@@ -100,6 +109,9 @@ export default {
           .then((response) => {
             this.products = response.data.products;
             this.pagination = response.data.pagination;
+            this.products.forEach((item) => {
+              item.check_enabled = item.is_enabled;
+            })
           })
           .catch(() => {
             Swal.fire("取得產品分類失敗");
@@ -175,6 +187,8 @@ export default {
         .put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
         .then((res) => {
           this.enableMessage(product.is_enabled);
+          // 成功回傳修改狀態後再改變css樣式
+          product.check_enabled = product.is_enabled;
         }).catch(() => {
           // 如果錯誤產品啟用狀態恢復原值
           if (product.is_enabled === 1) {
@@ -231,32 +245,20 @@ export default {
 
     <div class="container">
       <div class="row">
-        <div class="col-3 mt-3 p-3">
+        <div class="col-3 p-3">
           <h2 class="text-primary mb-0">商品列表</h2>
         </div>
-        <div class="col-3 py-3 my-3">
+        <div class="col-3 py-3">
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="請輸入搜尋資料"
-              v-model="search"
-            />
-            <button
-              type="button"
-              @click="searchProduct()"
-              class="btn btn-outline-success d-flex align-items-center"
-            >
+            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
+            <button type="button" @click="searchProduct()" class="btn btn-outline-primary d-flex align-items-center">
               <span class="material-symbols-outlined"> search </span>
             </button>
           </div>
         </div>
-        <div class="col-3 py-3 my-3">
-          <select
-            class="form-select form-select"
-            aria-label=".form-select-sm example"
-            @change="getProductsByCategory($event.target.value)"
-          >
+        <div class="col-3 py-3">
+          <select class="form-select form-select" aria-label=".form-select-sm example"
+            @change="getProductsByCategory($event.target.value)">
             <!-- 設計稿以販售狀態分類, 先改類別 -->
             <option selected>依商品類別檢視</option>
             <option value="檢視全部">檢視全部</option>
@@ -269,43 +271,34 @@ export default {
             </option>
           </select>
         </div>
-        <div class="col-3 py-3 my-3 text-end">
-          <button
-            type="button"
-            class="btn btn-outline-success"
-            @click="addNewProduct"
-          >
+        <div class="col-3 py-3 text-end">
+          <button type="button" class="btn btn-outline-success" @click="addNewProduct">
             新增商品
             <span class="material-symbols-outlined align-middle">add</span>
           </button>
         </div>
       </div>
-      <div class="border rounded p-3 pb-0 product__list mb-8">
-        <!-- 依設計稿調整至顯示三欄 -->
+      <div class="border rounded p-3 pb-0 mb-8">
         <div v-for="product in products" :key="product.id" class="card mb-3">
           <div class="row g-0 position-relative">
             <!-- 主廚推薦的符號 -->
-            <div v-if="product.is_recommend && product.is_enabled" class="position-absolute rotate">
+            <div v-if="product.is_recommend && product.check_enabled" class="position-absolute rotate">
               <i class="fa-solid fa-crown me-1 text-warning rotate__star" aria-hidden="true"></i>
             </div>
             <div class="col-md-4 p-3">
               <!-- 點圖放大 -->
               <a href="#" @click.prevent="modalShow(product), getThisProduct(product)">
                 <img :src="product.imageUrl" class="img-fluid rounded-start"
-                  :class="{ 'product__disable': product.is_enabled !== 1 }" alt="#" />
+                  :class="{ 'product__disable': product.check_enabled !== 1 }" alt="#" />
               </a>
             </div>
-            <div class="col-md-6" :class="{ 'product__disable': product.is_enabled !== 1 }">
+            <div class="col-md-6" :class="{ 'product__disable': product.check_enabled !== 1 }">
               <div class="card-body">
                 <h5 class="card-title">商品編號 : {{ product.id }}</h5>
                 <h5 class="card-title">
                   商品名稱 : {{ product.title }}
-                  <span class="badge bg-info text-dark ms-2">{{
-                    product.category
-                  }}</span>
-                  <span class="fs-6 ms-4 mb-2 fw-normal"
-                    >單位 : {{ product.unit }}</span
-                  >
+                  <span class="badge bg-primary ms-2">{{ product.category }}</span>
+                  <span class="fs-6 ms-4 mb-2 fw-normal">單位 : {{ product.unit }}</span>
                 </h5>
                 <div class="row">
                   <div class="col-6">
@@ -318,7 +311,7 @@ export default {
                   </div>
                   <div class="col-6">
                     <p class="card-text mb-2">{{ product.content }}</p>
-                    <p v-if="product.is_enabled !== 1" class="card-text mb-2 text-danger">
+                    <p v-if="product.check_enabled !== 1" class="card-text mb-2 text-danger">
                       <span data-v-ad3f08d1="" class="material-symbols-outlined align-middle ">cancel</span>
                       此商品已停售
                     </p>
@@ -359,27 +352,13 @@ export default {
                   </button>
                 </div>
                 <div class="mb-3">
-                  <router-link
-                    :to="`/admin/adminProducts/${product.id}`"
-                    v-if="product.is_enabled === 1"
-                  >
-                    <button type="button" class="btn btn-outline-warning">
-                      編輯商品
-                      <span class="material-symbols-outlined align-middle">
-                        edit
-                      </span>
+                  <router-link :to="`/admin/adminProducts/${product.id}`" v-if="product.is_enabled === 1">
+                    <button type="button" class="btn btn-outline-primary">編輯商品
+                      <span class="material-symbols-outlined align-middle"> edit </span>
                     </button>
                   </router-link>
-                  <button
-                    type="button"
-                    class="btn btn-outline-warning"
-                    disabled
-                    v-else
-                  >
-                    編輯商品
-                    <span class="material-symbols-outlined align-middle">
-                      edit
-                    </span>
+                  <button type="button" class="btn btn-outline-primary" disabled v-else>編輯商品
+                    <span class="material-symbols-outlined align-middle"> edit </span>
                   </button>
                 </div>
                 <div class="mb-3">
@@ -399,17 +378,12 @@ export default {
           </div>
         </div>
       </div>
-
       <!-- modal< 點選圖片放大顯示 -->
       <modal ref="modal">
-        <template v-slot:modal-title>
-          <h5 class="mb-0">{{ product.title }}</h5>
-        </template>
         <template v-slot:modal-body>
           <img class="modal__img" :src="product.imageUrl" alt="#" />
         </template>
       </modal>
-
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
       <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
     </div>
@@ -421,15 +395,14 @@ export default {
   color: rgb(179, 175, 175);
 }
 
+.container {
+  margin-top: 90px;
+}
+
 .img-fluid {
   width: 400px;
   height: 180px;
   object-fit: cover;
-}
-
-.product__list {
-  max-height: 708px;
-  overflow: auto;
 }
 
 .modal__img {

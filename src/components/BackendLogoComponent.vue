@@ -26,7 +26,6 @@ export default {
   white-space: nowrap;
 }
 .navbar{
-  // 先寫死寬度, 避免擋到產品搜尋欄位
-  width: 256px;
+  background: white;
 }
 </style>
