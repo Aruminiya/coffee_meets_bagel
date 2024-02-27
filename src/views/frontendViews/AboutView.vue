@@ -132,13 +132,15 @@ section {
 }
 
 .section1 {
-  background-image: url("../../../public/AboutUs_01.png");
+  // background-image: url("../../../public/AboutUs_01.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_01.png?raw=true");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_01.png");
+    // background-image: url("../../../public/AboutUs_Phone_01.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_Phone_01.png?raw=true");
   }
   .text {
     left: 10vw;
@@ -150,13 +152,15 @@ section {
   }
 }
 .section2 {
-  background-image: url("../../../public/AboutUs_02.png");
+  // background-image: url("../../../public/AboutUs_02.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_02.png?raw=true");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_02.png");
+    // background-image: url("../../../public/AboutUs_Phone_02.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_Phone_02.png?raw=true");
   }
   .text {
     right: 10vw;
@@ -171,18 +175,17 @@ section {
       bottom: 80vh;
     }
   }
-  @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_02.png");
-  }
 }
 .section3 {
-  background-image: url("../../../public/AboutUs_03.png");
+  // background-image: url("../../../public/AboutUs_03.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_03.png?raw=true");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_03.png");
+    // background-image: url("../../../public/AboutUs_Phone_03.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_Phone_03.png?raw=true");
   }
   .text {
     left: 8vw;
@@ -197,18 +200,17 @@ section {
       bottom: 80vh;
     }
   }
-  @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_03.png");
-  }
 }
 .section4 {
-  background-image: url("../../../public/AboutUs_04.png");
+  // background-image: url("../../../public/AboutUs_04.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_04.png?raw=true");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_04.png");
+    // background-image: url("../../../public/AboutUs_Phone_04.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_Phone_04.png?raw=true");
   }
   .text {
     right: 10vw;
@@ -227,18 +229,17 @@ section {
       bottom: 80vh;
     }
   }
-  @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_04.png");
-  }
 }
 .section5 {
-  background-image: url("../../../public/AboutUs_05.png");
+  // background-image: url("../../../public/AboutUs_05.png");
+  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_05.png?raw=true");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_05.png");
+    // background-image: url("../../../public/AboutUs_Phone_05.png");
+    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/AboutUs_Phone_05.png?raw=true");
   }
   .text {
     // h1 {
@@ -258,9 +259,6 @@ section {
       left: 0vw;
       bottom: 80vh;
     }
-  }
-  @media screen and (max-width: 576px) {
-    background-image: url("../../../public/AboutUs_Phone_05.png");
   }
 }
 </style>
