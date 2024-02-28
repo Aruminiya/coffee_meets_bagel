@@ -64,18 +64,18 @@ export default {
   <div class="modal fade text-primary" ref="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header row d-flex justify-content-end mx-0 border-0">
+        <div class="modal-header row d-flex justify-content-lg-end justify-content-between mx-0 border-0">
           <div
-            class="col-8 d-flex flex-nowrap justify-content-between align-items-center"
+            class="col-lg-8 d-flex flex-nowrap justify-content-between align-items-center"
           >
-            <h5 class="modal-title">
+            <div class="modal-title d-flex align-items-center">
               <!-- <slot name="modal-title"></slot> -->
               <img
                 src="../../public/coffee_meets_bagel_LogoIcon.svg"
                 style="width: 32px"
               />
-              產品細節
-            </h5>
+              <p class='h5 mb-0 ms-2'>產品細節</p>
+            </div>
             <button
               type="button"
               class="btn-close"

@@ -31,7 +31,10 @@ export default{
             showPagination:false,
             pages:{
 
-            }
+            },
+            category:'全部',
+            search:'',
+            allProducts:[],
         }
     },
     watch:{
@@ -65,8 +68,17 @@ export default{
             this.isLoading=false;
         });
         },
+        getAllProduct(){
+            axios.get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
+            .then((res)=>{
+               // console.log(res);
+                this.allProducts = res.data.products;
+                //console.log(this.allProducts)
+            })
+        },
 
-        sortRecommend(){
+        sortRecommend(e){
+            this.findCategory(e);
             this.isLoading=true;
             this.showPagination=false;
             axios.get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
@@ -95,22 +107,25 @@ export default{
                 behavior: "smooth",
                 });
         },
-
-
-
+        findCategory(e){
+            //console.log(e.target.innerHTML)
+            this.category=e.target.innerHTML;
+        },
     },
     computed:{
         ...mapState(cartStore, ['addedToCart']),
+        filterProducts(){
+            return this.allProducts.filter((item)=>{
+               // console.log(item);
+                return item.title.match(this.search)
+            })
+        },
+
     },
     mounted(){
         this.getProduct();
-        //this.sortRecommend()
-        //const arr = ['ab', 'abc','de']
-        
-
-
-        
-
+        //this. filterProducts()
+        this.getAllProduct()
     }
 }
 
@@ -133,46 +148,59 @@ export default{
         <ul class='d-flex col-lg-4 justify-content-between ps-0 mb-0 mt-2 justify-content-center '>
 
             <li style='list-style:none' class='d-flex align-items-center '>
-             <RouterLink class="btn btn-primary rounded-pill" to="/productList">全部
+             <RouterLink class="btn btn-primary rounded-pill" to="/productList" @click='findCategory($event)'>全部
             </RouterLink>
             </li>
 
             <li style='list-style:none' class='d-flex align-items-center '>
-             <a class="btn rounded-pill" style='background-color:#712214; color:white' @click='sortRecommend'>推薦
+             <a class="btn rounded-pill" style='background-color:#712214; color:white' @click='sortRecommend($event)'>推薦
             </a>
             </li>
             <li style='list-style:none' class='d-flex align-items-center '>
-             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=輕食">
+             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=輕食"
+             @click='findCategory($event)'>
              輕食
             </RouterLink>
             </li>
 
             <li style='list-style:none' class='d-flex align-items-center '>
-             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=飲品" >飲品
+             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=飲品"
+             @click='findCategory($event)' >飲品
             </RouterLink>
             </li>
 
             <li style='list-style:none' class='d-flex align-items-center '>
-             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=蛋糕">蛋糕
+             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=蛋糕"
+             @click='findCategory($event)'>蛋糕
             </RouterLink>
             </li>
 
             <li style='list-style:none' class='d-flex align-items-center '>
-             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=餅乾">餅乾
+             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=餅乾"
+             @click='findCategory($event)'>餅乾
             </RouterLink>
             </li>
             
 
         </ul>
-        <div class='col-lg-4 border border-primary rounded-pill d-flex align-items-center' style='height:50px'>
-            <span class="material-symbols-outlined ms-3 d-block" style='font-size:40px'>search</span>
-            <input placeholder='  搜尋商品' style='border:none ;height:40px; background-color:transparent' class='w-75'>
-        </div>
+
+<div class="dropdown col-lg-4 border border-primary rounded-pill d-flex align-items-center">
+    
+    <span class="material-symbols-outlined ms-3 d-block" style='font-size:40px'>search</span>
+
+  <input class="w-75" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"
+  style='border:none ;height:40px; background-color:transparent'
+  placeholder='搜尋商品'  v-model='search'>
+  <ul class="dropdown-menu w-75" aria-labelledby="dropdownMenu2"
+  v-show="search">
+    <li v-for='item in filterProducts' :key='item.id'><button class="dropdown-item" type="button" @click='openModal(item)' >{{item.title}}</button></li>
+  </ul>
+</div>
         </div>
     </nav>
     <div class='row py-5'>
         <div class='col-lg-4 d-flex align-items-center justify-content-lg-between justify-content-center'>
-            <h1 class='text-primary'>全部</h1> 
+            <h1 class='text-primary'>{{category}}</h1> 
             <h4 class='d-flex align-items-center text-primary'>
                 <i class="fa-solid fa-crown me-1 text-warning ms-5"></i>
                 店長推薦
