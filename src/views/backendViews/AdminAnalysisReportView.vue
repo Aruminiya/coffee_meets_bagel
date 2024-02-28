@@ -170,9 +170,6 @@ export default {
     getTotalAverage(total, length) {
       return isNaN(total / length) ? 0 : Math.floor(total / length)
     },
-    // countProductsData(orders) {
-
-    // },
     // 傳入訂單陣列計算相關數據
     getDayOrders(orders) {
       this.daySelected.orders = orders
@@ -215,8 +212,6 @@ export default {
       // 如果碰到沒資料的日期回傳預設字串
       this.daySelected.topDays += maxOrders[0]?.total === undefined ? `此時段沒有訂單資料` : `共 ${maxOrders[0]?.total} 元`;
       this.daySelected.lowDays += maxOrders[0]?.total === undefined ? `此時段沒有訂單資料` : `共 ${minOrders[0]?.total} 元`;
-
-
     },
     // 設定Flatpickr相關選項, 選取單日
     initFlatpickr() {
@@ -304,7 +299,6 @@ export default {
     );
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
-
     this.getOrders();
   }
 }
@@ -320,13 +314,13 @@ export default {
     </div>
 
     <div class="container">
-      <h2 class="text-primary mb-3 py-3">營收分析</h2>
+      <h2 class="text-primary mb-3">營收分析</h2>
       <div class="border p-4 rounded row">
         <div class="col-5 mb-4">
           <h4 class="text-primary my-3">查詢日期銷售狀況</h4>
           <div class="col-12 mb-4">
             <div class="btn__group d-flex ">
-              <button type="button" class="btn btn-outline-info btn__1 p-3" @click="isMultipleDatesMode('singleDay')"
+              <button type="button" class="btn btn-outline-primary btn__1 p-3" @click="isMultipleDatesMode('singleDay')"
                 :class="{ 'active': multipleDatesState.singleDay }">以日期查詢</button>
               <button type="button" class="btn btn-outline-danger btn__2 p-3"
                 @click="isMultipleDatesMode('multipleDates')"
@@ -351,7 +345,6 @@ export default {
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="col-7">
@@ -392,7 +385,6 @@ export default {
           </div>
         </div>
 
-        <!-- 下半 -->
         <div class="col-7">
           <div class="d-flex justify-content-between">
             <h4 class="text-primary my-3">查詢品項銷售狀況</h4>
@@ -420,22 +412,22 @@ export default {
                   <th class="ps-3">銷售品項</th>
                   <th class="pe-3 text-end">{{ qty[0] }}</th>
                   <th class="ps-3 text-start">累計數量 :</th>
-                  <td class="text-end pe-3">{{ qty[1] }}</td>
+                  <td class="text-end pe-3">{{ `共 ${qty[1]} 件` }}</td>
                 </tr>
               </tbody>
               <tbody v-if="!showRankChart">
                 <tr v-for="amount in productsAmount" :key="amount">
                   <th class="ps-3">銷售品項</th>
                   <th class="pe-3 text-end">{{ amount[0] }}</th>
-                  <th class="ps-3 text-start">累計數量 :</th>
-                  <td class="text-end pe-3">{{ amount[1] }}</td>
+                  <th class="ps-3 text-start">累計金額 :</th>
+                  <td class="text-end pe-3">{{ `共 ${amount[1]} 元` }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="col-5 p-4 mt-5">
-          <div v-show="daySelected.orders.length !== 0">
+        <div class="col-5 px-4">
+          <div v-show="daySelected.orders.length !== 0" class="mt-3">
             <div v-show="showRankChart">
               <div id="saleRanking"></div>
             </div>
@@ -443,9 +435,10 @@ export default {
               <div id="saleAmountRanking"></div>
             </div>
           </div>
-          <div v-show="daySelected.orders.length === 0">
+          <div v-show="daySelected.orders.length === 0" class="text-center">
             <div>
-              <img class="not-fount" src="https://www.housefu168.com/assets/images/noData.png" alt="">
+              <h4 class="text-primary my-3">很抱歉, 您選取的日期沒有資料</h4>
+              <img class="not-fount" src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/NoData.gif?raw=true" alt="">
             </div>
           </div>
         </div>
@@ -455,6 +448,9 @@ export default {
 </template>
 
 <style scoped lang="scss">
+.container {
+  margin-top: 90px;
+}
 .btn {
   &__1 {
     border-radius: 5px 0px 0px 0px;
@@ -473,9 +469,9 @@ export default {
 }
 
 .product__table {
-  max-height: 338px;
+  max-height: 250px;
 }
 .not-fount {
-  width: 500px
+  width: 300px;
 }
 </style>

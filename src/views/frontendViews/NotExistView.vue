@@ -35,9 +35,16 @@ export default {
             <h6>謝謝您的理解與支持。</h6>
           </div>
 
-          <img
+          <!-- <img
             class="img-fluid"
             src="../../../public/404Icon.gif"
+            alt="404Icon"
+            width="500"
+            height="500"
+          /> -->
+          <img
+            class="img-fluid"
+            src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/404Icon.gif?raw=true"
             alt="404Icon"
             width="500"
             height="500"

@@ -3,7 +3,21 @@ const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
 import modal from './ModalComponent.vue';
+import uploadImageModal from './ModalUploadImageFile.vue';
+import changeUrlModal from './ModalChangeUrl.vue';
 import Swal from "sweetalert2";
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 1500,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
 
 export default {
   data() {
@@ -27,11 +41,14 @@ export default {
         'price': 0,
         'title': '',
         'unit': ''
-      }
+      },
+      showUrl: false
     }
   },
   components: {
-    modal
+    modal,
+    uploadImageModal,
+    changeUrlModal
   },
   methods: {
     openOffCanvasNav() {
@@ -42,6 +59,12 @@ export default {
         this.$refs.modal.modalShow(url)
       }
     },
+    uploadModalShow(index) {
+      this.$refs.inputModal.modalShow(index)
+    },
+    changeUrlModalShow(index) {
+      this.$refs.changeUrlModal.modalShow(index)
+    },
     addNewImage() {
       this.showImageUrl = this.newImageUrl
       this.newImagesUrl.push(this.showImageUrl)
@@ -49,7 +72,6 @@ export default {
       this.showImageUrl = this.defaultImageUrl
       // input清空
       this.newImageUrl = ''
-      // console.log(this.newImagesUrl);
     },
     getProduct() {
       // 取得路由的產品ID
@@ -57,10 +79,9 @@ export default {
       if (id) {
         this.axios.get(`${host}/v2/api/${path}/product/${id}`)
           .then((res) => {
-            // console.log(res.data);
             this.product = res.data.product
             // 避免抓到空值, 先過濾多圖陣列
-            if(this.product.imagesUrl){
+            if (this.product.imagesUrl) {
               this.newImagesUrl = this.product.imagesUrl.filter(item => {
                 return item !== ''
               })
@@ -85,10 +106,10 @@ export default {
           }).then((result) => {
             if (result.isConfirmed) {
               this.$router.push('/admin/adminProducts');
-            } 
+            }
           });
         })
-        .catch((err) => {          
+        .catch((err) => {
           console.log(err);
           Swal.fire("產品新增失敗");
         });
@@ -116,7 +137,6 @@ export default {
       // 將新的副圖片陣列指向原本產品物件的副圖片陣列
       this.product.imagesUrl = this.newImagesUrl;
       const data = this.product;
-
       this.axios.put(`${host}/v2/api/${path}/admin/product/${id}`, { data })
         .then(() => {
           Swal.fire({
@@ -128,6 +148,22 @@ export default {
         }).catch(() => {
           Swal.fire("系統更新失敗");
         });
+    },
+    deleteImage(index) {
+      this.newImagesUrl.splice(index, 1);
+      Toast.fire({
+        icon: "success",
+        title: "系統訊息 - 圖片已刪除"
+      });
+    },
+    changeMainImg(index) {
+      const changedImg = this.product.imageUrl;
+      this.product.imageUrl = this.newImagesUrl[index];
+      this.newImagesUrl[index] = changedImg;
+      Toast.fire({
+        icon: "success",
+        title: "系統訊息 - 產品首圖設定成功"
+      });
     },
     confirmUpdate() {
       const swalWithBootstrapButtons = Swal.mixin({
@@ -149,16 +185,27 @@ export default {
         if (result.isConfirmed) {
           this.updateProduct()
         } else if (
-          /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire({
-            title: "取消更新",
-            text: "系統將不會儲存您的變更",
-            icon: "warning"
+          Toast.fire({
+            icon: "warning",
+            title: "取消更新 - 系統將不會儲存您的變更"
           });
         }
       });
+    },
+    // 根據回傳的結果修改對應圖片
+    uploadSuccess(url, index) {
+      if(index === -1) {
+        this.product.imageUrl = url;
+      }else if(index === undefined) {
+        this.newImagesUrl.push(url);
+      }else {
+        this.newImagesUrl[index] = url;
+      }
+    },
+    uploadError(err) {
+      console.log(err.message);
     },
   },
   mounted() {
@@ -169,14 +216,11 @@ export default {
     );
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
-
     this.getProduct();
     this.showImageUrl = this.defaultImageUrl;
-    // this.closeOffCanvasNav()
   },
 }
 </script>
-
 <template>
   <div class="container main">
     <div class="row border rounded p-3">
@@ -186,30 +230,49 @@ export default {
           <a href="#" @click.prevent="modalShow(product.imageUrl)">
             <img class="main__pic rounded-top" :src="product.imageUrl" alt="商品主圖">
           </a>
-          <input type="text" class="form-control rounded-0 rounded-bottom" v-model="product.imageUrl">
+          <button class="btn btn-outline-primary form-control rounded-top-0 dropdown-toggle" type="button"
+            data-bs-toggle="dropdown" aria-expanded="false">編輯產品主圖</button>
+          <ul class="dropdown-menu">
+            <!-- 以-1代表商品主圖 -->
+            <li><a class="dropdown-item" @click.prevent="uploadModalShow(-1)" href="#">上傳檔案</a></li>
+            <li><a class="dropdown-item" @click.prevent="changeUrlModalShow(-1)" href="#">設定圖片路徑</a></li>
+          </ul>
         </div>
         <div class="row main__sub__pics__block">
           <h4 class="text-primary align-self-start">產品副圖片</h4>
           <div v-for="(url, index) in newImagesUrl" :key="url" class="col-6 text-center">
-            <div v-if="url" class="mb-3">
+            <div v-if="url" class="mb-3 position-relative">
               <a href="#" @click.prevent="modalShow(url)">
                 <img :src="url" alt="商品副圖片" class="main__sub__pics rounded-top">
               </a>
-              <input type="text" class="form-control rounded-0 rounded-bottom" v-model="newImagesUrl[index]">
+              <div v-if="showUrl">
+                <input type="text" class="form-control rounded-0 rounded-bottom" v-model="newImagesUrl[index]">
+              </div>
+              <div v-else>
+                <button class="btn btn-outline-primary form-control rounded-top-0 dropdown-toggle" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">編輯圖片</button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" @click.prevent="changeMainImg(index)" href="#">設為主圖</a></li>
+                  <li><a class="dropdown-item" @click.prevent="uploadModalShow(index)" href="#">上傳檔案</a></li>
+                  <li><a class="dropdown-item" @click.prevent="changeUrlModalShow(index)" href="#">設定圖片路徑</a></li>
+                  <li><a class="dropdown-item text-danger" @click.prevent="deleteImage(index)" href="#">刪除此圖片</a></li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="col-6">
             <div>
               <img class="main__sub__pics rounded-top" :src="showImageUrl">
-              <input type="text" class="form-control rounded-0" v-model="newImageUrl">
-              <!-- 優化時改用先判斷url是否正確 -->
-              <button class="btn btn-outline-primary form-control rounded-0 rounded-bottom" type="button"
-                :class="{ 'disabled': newImageUrl === '' }" @click="addNewImage">新增圖片</button>
+              <button class="btn btn-outline-primary form-control rounded-top-0 dropdown-toggle" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">新增圖片</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" @click.prevent="uploadModalShow()" href="#">上傳檔案</a></li>
+                <li><a class="dropdown-item" @click.prevent="changeUrlModalShow()" href="#">設定圖片路徑</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-
       <div class="col-8 p-3 position-relative">
         <div class="mb-2">
           <h4 class="text-primary">產品編號</h4>
@@ -260,7 +323,7 @@ export default {
           </div>
         </div>
         <div class="position-absolute bottom-0 end-0 p-3">
-          <button type="button" class="btn btn-outline-warning ms-3" @click="backToList">返回產品列表</button>
+          <button type="button" class="btn btn-outline-primary ms-3" @click="backToList">返回產品列表</button>
           <button type="button" class="btn btn-outline-success ms-3" v-if="product.id" @click="getProduct">回復初始值</button>
           <button type="button" class="btn btn-outline-primary ms-3" v-if="product.id"
             @click="confirmUpdate">確定修改</button>
@@ -276,12 +339,16 @@ export default {
       <img :src="product.imageUrl" alt="#" class="modal__img">
     </template>
   </modal>
-</template>
 
+  <!-- modal上傳圖片 -->
+  <uploadImageModal ref="inputModal" @upload-success="uploadSuccess" @upload-error="uploadError"></uploadImageModal>
+
+  <!-- modal更換圖片網址 -->
+  <changeUrlModal ref="changeUrlModal" @change-url="uploadSuccess"></changeUrlModal>
+  
+</template>
 <style scoped lang="scss">
 .main {
-  // margin-top: 100px;
-
   &__pic {
     width: 100%;
     height: 200px;
