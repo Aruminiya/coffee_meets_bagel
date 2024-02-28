@@ -8,6 +8,18 @@ import adminNav from '../../components/BackendOffcanvasNav.vue';
 import adminLogo from '../../components/BackendLogoComponent.vue';
 import Swal from 'sweetalert2';
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 1500,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+
 export default {
   data() {
     return {
@@ -201,16 +213,14 @@ export default {
     },
     enableMessage(is_enabled) {
       if (is_enabled === 1) {
-        Swal.fire({
-          title: "系統訊息",
-          text: "產品已啟用",
-          icon: "success"
+        Toast.fire({
+          icon: "success",
+          title: "系統訊息 - 產品已啟用"
         });
       } else {
-        Swal.fire({
-          title: "系統訊息",
-          text: "產品已停用",
-          icon: "warning"
+        Toast.fire({
+          icon: "warning",
+          title: "系統訊息 - 產品已停用"
         });
       }
     }
