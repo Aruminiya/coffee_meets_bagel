@@ -117,7 +117,7 @@ export default{
         filterProducts(){
             return this.allProducts.filter((item)=>{
                // console.log(item);
-                return item.title.match(this.search)
+                return item.title.toLowerCase().match(this.search)
             })
         },
 
@@ -193,8 +193,10 @@ export default{
   placeholder='搜尋商品'  v-model='search'>
   <ul class="dropdown-menu w-75" aria-labelledby="dropdownMenu2"
   v-show="search">
+    <li  v-if='filterProducts.length==0' ><button class="dropdown-item" disabled>查無商品</button></li>
     <li v-for='item in filterProducts' :key='item.id'><button class="dropdown-item" type="button" @click='openModal(item)' >{{item.title}}</button></li>
   </ul>
+
 </div>
         </div>
     </nav>
