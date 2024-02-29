@@ -797,7 +797,7 @@ export default {
     a {
       text-decoration: none;
     }
-    /* Center slide text vertically */
+    /*  Center slide text vertically  */
     display: flex;
     justify-content: center;
     align-items: center;
