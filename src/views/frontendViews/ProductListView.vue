@@ -186,7 +186,7 @@ export default{
 
 <div class="dropdown col-lg-4 border border-primary rounded-pill d-flex align-items-center">
     
-    <span class="material-symbols-outlined ms-3 d-block" style='font-size:40px'>search</span>
+    <span class="material-symbols-outlined ms-3 d-block text-primary" style='font-size:40px'>search</span>
 
   <input class="w-75" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"
   style='border:none ;height:40px; background-color:transparent'
