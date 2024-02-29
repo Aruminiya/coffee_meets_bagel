@@ -343,79 +343,89 @@ export default {
             class="mySwiper"
           >
             <swiper-slide>
-              <div class="mealsImg d-flex flex-column rounded p-3">
-                <!-- <img
+              <router-link to="/productList?category=蛋糕"
+                ><div class="mealsImg d-flex flex-column rounded p-3">
+                  <!-- <img
                   class="rounded"
                   src="../../../public/Meals_01.png"
                   alt="Meals_01"
                 /> -->
-                <img
-                  class="rounded"
-                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_01.png?raw=true"
-                  alt="Meals_01"
-                />
-                <h4 class="m-2">蛋糕</h4>
-              </div>
+                  <img
+                    class="rounded"
+                    src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_01.png?raw=true"
+                    alt="Meals_01"
+                  />
+                  <h4 class="m-2">蛋糕</h4>
+                </div></router-link
+              >
             </swiper-slide>
             <swiper-slide>
-              <div class="mealsImg d-flex flex-column rounded p-3">
-                <!-- <img
+              <router-link to="/productList?category=輕食"
+                ><div class="mealsImg d-flex flex-column rounded p-3">
+                  <!-- <img
                   class="rounded"
                   src="../../../public/Meals_02.png"
                   alt="Meals_02"
                 /> -->
-                <img
-                  class="rounded"
-                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_02.png?raw=true"
-                  alt="Meals_02"
-                />
-                <h4 class="m-2">輕食</h4>
-              </div>
+                  <img
+                    class="rounded"
+                    src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_02.png?raw=true"
+                    alt="Meals_02"
+                  />
+                  <h4 class="m-2">輕食</h4>
+                </div></router-link
+              >
             </swiper-slide>
             <swiper-slide>
-              <div class="mealsImg d-flex flex-column rounded p-3">
-                <!-- <img
+              <router-link to="/productList?category=飲品"
+                ><div class="mealsImg d-flex flex-column rounded p-3">
+                  <!-- <img
                   class="rounded"
                   src="../../../public/Meals_03.png"
                   alt="Meals_03"
                 /> -->
-                <img
-                  class="rounded"
-                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_03.png?raw=true"
-                  alt="Meals_03"
-                />
-                <h4 class="m-2">飲品</h4>
-              </div>
+                  <img
+                    class="rounded"
+                    src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_03.png?raw=true"
+                    alt="Meals_03"
+                  />
+                  <h4 class="m-2">飲品</h4>
+                </div></router-link
+              >
             </swiper-slide>
             <swiper-slide>
-              <div class="mealsImg d-flex flex-column rounded p-3">
-                <!-- <img
+              <router-link to="/productList?category=餅乾"
+                ><div class="mealsImg d-flex flex-column rounded p-3">
+                  <!-- <img
                   class="rounded"
                   src="../../../public/Meals_04.png"
                   alt="Meals_04"
                 /> -->
-                <img
-                  class="rounded"
-                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_04.png?raw=true"
-                  alt="Meals_04"
-                />
-                <h4 class="m-2">餅乾</h4>
-              </div>
+                  <img
+                    class="rounded"
+                    src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_04.png?raw=true"
+                    alt="Meals_04"
+                  />
+                  <h4 class="m-2">餅乾</h4>
+                </div></router-link
+              >
             </swiper-slide>
             <swiper-slide>
-              <div class="mealsImg d-flex flex-column rounded p-3">
-                <!-- <img
+              <router-link to="/productList?category=鬆餅"
+                ><div class="mealsImg d-flex flex-column rounded p-3">
+                  <!-- <img
                   class="rounded"
                   src="../../../public/Meals_05.png"
                   alt="Meals_05"
                 /> -->
-                <img
-                  class="rounded"
-                  src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_05.png?raw=true"
-                  alt="Meals_05"
-                />
-                <h4 class="m-2">鬆餅</h4>
-              </div>
+                  <img
+                    class="rounded"
+                    src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/Meals_05.png?raw=true"
+                    alt="Meals_05"
+                  />
+                  <h4 class="m-2">鬆餅</h4>
+                </div></router-link
+              >
             </swiper-slide>
           </swiper>
         </div>
@@ -784,15 +794,22 @@ export default {
     text-align: center;
     font-size: 18px;
     background: transparent;
-
+    a {
+      text-decoration: none;
+    }
     /* Center slide text vertically */
     display: flex;
     justify-content: center;
     align-items: center;
     .mealsImg {
       background-color: $colorChart-Gray-100;
+      transition: scale 0.2s ease-in-out;
+      cursor: pointer;
       h4 {
         font-weight: 700;
+      }
+      &:hover {
+        scale: 1.05;
       }
     }
   }
