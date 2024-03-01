@@ -25,7 +25,6 @@ export default {
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: true, // 按下ESC是否可以關閉
     });
-   // this.productModal.show()
   },
 };
 </script>

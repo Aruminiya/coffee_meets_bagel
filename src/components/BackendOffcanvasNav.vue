@@ -23,14 +23,18 @@
           </router-link>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link text-decoration-none" @click="closeNav">
+=======
+          <router-link to="/admin/adminOrders" class="nav-link text-decoration-none">
+>>>>>>> Atsushi02
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
-                local_cafe
+                list_alt
               </span>
               <h3 class="fw-bold lh-1 m-0">訂單管理</h3>
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/admin/adminProducts" class="nav-link text-decoration-none" @click="closeNav">
@@ -81,14 +85,14 @@
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 
 export default {
-  data () {
+  data() {
     return {
       offcanvasNav: null
     }
   },
   methods: {
     // 打開 canvas
-    openNav () {
+    openNav() {
       this.offcanvasNav.show();
     },
     // 關閉 canvas -> 由於切換頁面時，原先開啟的 offCanvas 實體並未被關閉所以會有黑色的 backdrop 覆蓋畫面，因此需要在每個連結綁一個 offCanvas.hide()，再切換頁面的同時關閉 OffCanvas 實體
@@ -96,7 +100,7 @@ export default {
       this.offcanvasNav.hide();
     }
   },
-  mounted () {
+  mounted() {
     // 用 ref 抓取 offcanvas DOM
     // 如果要移除 backdrop，就不能把畫面的叉叉移除，不然沒地方關閉 offcanvas
     this.offcanvasNav = new bootstrap.Offcanvas(this.$refs.offcanvasNav, { scroll: true });
