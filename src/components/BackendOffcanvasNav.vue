@@ -53,7 +53,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none">
+          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none" href="#">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 equalizer
@@ -63,14 +63,24 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/" class="text-decoration-none">
-            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14">
+          <router-link to="/" class="nav-link text-decoration-none" href="#">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 reply
               </span>
               <h3 class="fw-bold lh-1 m-0">前往前台</h3>
             </div>
           </router-link>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-decoration-none" @click.prevent="logout" href="#">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
+                logout
+              </span>
+              <h3 class="fw-bold lh-1 m-0">登出</h3>
+            </div>
+          </a>
         </li>
       </ul>
     </div>
@@ -79,6 +89,7 @@
 
 <script>
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -95,6 +106,26 @@ export default {
     // closeNav () {
     //   this.offcanvasNav.hide();
     // }
+    logout() {
+      Swal.fire({
+        title: "確定要登出嗎?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定登出"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "已成功登出",
+            icon: "success"
+          });
+          // 強制將cookie的值改掉
+          document.cookie = `florafirstapi='';`
+          this.$router.push('/admin/adminLogin');
+        }
+      });
+    }
   },
   mounted() {
     // 用 ref 抓取 offcanvas DOM
