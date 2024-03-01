@@ -52,10 +52,10 @@ export default {
         .catch((err) => {
           Swal.fire({
             title: "登入驗證失敗, 請重新登入",
-            confirmButtonText: "Save",
+            confirmButtonText: "確定",
           }).then((result) => {
-            // 驗證失敗轉回登入頁面(未完成), 目前先轉回首頁
-            this.$router.push("/");
+            // 驗證失敗轉回登入頁面
+            this.$router.push('/admin/adminLogin');
           });
         });
     },

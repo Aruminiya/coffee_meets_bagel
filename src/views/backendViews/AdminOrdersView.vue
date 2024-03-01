@@ -37,6 +37,24 @@ export default {
     showProductsModal
   },
   methods: {
+    checkAdmin() {
+      this.axios
+        .post(`${host}/v2/api/user/check`)
+        .then((res) => {
+          // 驗證完取得所需資料
+          this.getOrders();
+          this.getAllOrders();
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "登入驗證失敗, 請重新登入",
+            confirmButtonText: "確定",
+          }).then((result) => {
+            // 驗證失敗轉回登入頁面
+            this.$router.push('/admin/adminLogin');
+          });
+        });
+    },
     getAllOrders() {
       // 建立promise陣列
       const promises = [];
@@ -126,8 +144,7 @@ export default {
     );
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
-    this.getOrders();
-    this.getAllOrders();
+    this.checkAdmin();
   },
 }
 

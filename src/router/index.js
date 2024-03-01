@@ -103,6 +103,12 @@ const router = createRouter({
           component: () =>
             import("../views/backendViews/AdminDynamicOrderView.vue"),
         },
+        {
+          path: "adminLogin",
+          name: "adminLogin",
+          component: () =>
+            import("../views/backendViews/AdminLoginView.vue"),
+        },
       ],
     },
     {

@@ -56,6 +56,23 @@ export default {
     addNewProduct() {
       this.$router.push('/admin/addProduct');
     },
+    checkAdmin() {
+      this.axios
+        .post(`${host}/v2/api/user/check`)
+        .then((res) => {
+          // 驗證完畢後取得訂單列表
+          this.getOrders();
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "登入驗證失敗, 請重新登入",
+            confirmButtonText: "確定",
+          }).then((result) => {
+            // 驗證失敗轉回登入頁面
+            this.$router.push('/admin/adminLogin');
+          });
+        });
+    },
     // 將orders資料轉為輸出為二維陣列跑圖表
     getSaleRankingData(orders, str) {
       const uniqueProducts = {};
@@ -291,7 +308,7 @@ export default {
     );
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
-    this.getOrders();
+    this.checkAdmin();
   }
 }
 </script>
