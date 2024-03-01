@@ -31,10 +31,15 @@ export default {
     <adminNav ref="backendNav"></adminNav>
   </div>
   <div class="container">
-    <h2 class="text-primary mb-3 py-3">產品編輯</h2>
+    <h2 class="text-primary mb-0 py-3">產品編輯</h2>
   </div>
 
   <!-- 產品元件 -->
   <updateProduct></updateProduct>    
 </template>
 
+<style scoped lang="scss">
+h2 {
+  margin-top: 90px;
+}
+</style>

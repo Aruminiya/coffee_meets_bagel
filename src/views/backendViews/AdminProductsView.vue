@@ -275,7 +275,6 @@ export default {
             <span class="material-symbols-outlined align-middle">add</span>
           </button>
         </div>
-
       </div>
       <div class="border rounded p-3 pb-0 mb-8">
         <div v-for="product in products" :key="product.id" class="card mb-3">

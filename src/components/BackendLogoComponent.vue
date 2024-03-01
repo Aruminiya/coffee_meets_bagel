@@ -26,6 +26,6 @@ export default {
   white-space: nowrap;
 }
 .navbar{
-  background: white;
+  background: $colorChart-bg-color;
 }
 </style>
