@@ -3,7 +3,7 @@ const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
 import Swal from 'sweetalert2';
-// "tingyu1112@gmail.com"
+// tingyu1112@gmail.com
 // cmbSideProject
 export default {
   data() {
@@ -48,9 +48,11 @@ export default {
           type="password">
         <button class="form-control login__item btn btn-outline-primary rounded-pill mb-4" @click="login"
           type="submit">登入</button>
+          <router-link to="/" class="nav-link text-primary text-decoration-none" href="#">
+            返回前台
+          </router-link>
       </div>
     </div>
-
   </div>
 </template>
 

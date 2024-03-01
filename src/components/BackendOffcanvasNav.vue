@@ -13,7 +13,7 @@
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
         <li class="nav-item">
-          <router-link to="/admin" class="nav-link text-decoration-none">
+          <router-link to="/admin" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 grid_view
@@ -23,7 +23,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminOrders" class="nav-link text-decoration-none">
+          <router-link to="/admin/adminOrders" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 list_alt
@@ -33,7 +33,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminProducts" class="nav-link text-decoration-none">
+          <router-link to="/admin/adminProducts" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 assignment_turned_in
@@ -43,7 +43,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#">
+          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 sell
@@ -53,7 +53,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none" href="#">
+          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none" href="#" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 equalizer
@@ -63,7 +63,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/" class="nav-link text-decoration-none" href="#">
+          <router-link to="/" class="nav-link text-decoration-none" href="#" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 reply
@@ -103,9 +103,9 @@ export default {
       this.offcanvasNav.show();
     },
     // 關閉 canvas -> 尚未用到
-    // closeNav () {
-    //   this.offcanvasNav.hide();
-    // }
+    closeNav () {
+      this.offcanvasNav.hide();
+    },
     logout() {
       Swal.fire({
         title: "確定要登出嗎?",
