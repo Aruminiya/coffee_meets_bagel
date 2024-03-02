@@ -67,6 +67,7 @@ export default {
 <style lang="scss" scoped>
 main {
   min-height: 100vh;
-  background-image: url("../../../public/BG_03.png");
+  // background-image: url("../../../public/BG_03.png");
+  background-image: url("https://i.imgur.com/pbKVylr.png");
 }
 </style>
