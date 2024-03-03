@@ -140,7 +140,7 @@ export default {
       // dateAndTime 用 split 轉成的陣列，再用 [0] 取得年月日，最後才會渲染到 input date
       this.due_date = dateAndTime;
     },
-    // 每當 due_date 變化，tempProduct 的 due_date 會同步處理為 unix Timestamp 整數
+    // 每當 due_date 變化，tempCoupon 的 due_date 會同步處理為 unix Timestamp 整數
     due_date() {
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
     },
