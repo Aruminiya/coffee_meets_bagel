@@ -69,8 +69,8 @@ export default {
 </script>
 
 <template>
-  <!-- <h6>{{ item }}</h6>
-  <p>{{ tempItem }}</p> -->
+  <!-- <h6>{{ item }}</h6> -->
+  <!-- <p>{{ tempItem }}</p> -->
 
   <div class="cartItem position-relative">
     <button
@@ -94,6 +94,9 @@ export default {
       </div>
       <br />
       <div class="contentContainer position-relative">
+        <span v-if="tempItem.product.is_recommend"
+          ><i class="fa-solid fa-crown me-1 text-warning"></i
+        ></span>
         <span
           ><h6 class="d-inline-block">{{ tempItem.product.title }} &nbsp;</h6>
           <p class="badge rounded-pill">

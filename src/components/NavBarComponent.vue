@@ -25,7 +25,6 @@ export default {
   mounted() {
     // 先取得購物車資訊
     this.getCarts();
-    console.log("mounted啟動");
     // if (this.$route.fullPath === "/orderCheckView/step2") {
     //   this.isEditMode = false;
     // }
@@ -176,7 +175,7 @@ export default {
           <router-link v-if="data.carts?.length" to="/orderCheckView/step1"
             ><button
               v-if="isCartsLoading === false"
-              class="btn btn-primary w-100"
+              class="goToCheck btn btn-primary w-100"
             >
               去結帳
             </button></router-link
@@ -218,6 +217,10 @@ export default {
 p {
   color: $colorChart-Accessory-200;
 }
+
+.goToCheck {
+  color: $colorChart-Gray-100;
+}
 .cartQty {
   font-size: 10px;
   transform: translate(8px, -3px);
@@ -228,6 +231,11 @@ p {
 }
 .cartProductInfoAll {
   overflow: scroll;
+}
+
+/* 隐藏默认的滚动条 */
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge, Opera */
 }
 .cartModalContainer {
   z-index: 10;

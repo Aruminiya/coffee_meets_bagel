@@ -23,14 +23,14 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-decoration-none" @click="closeNav">
+          <router-link to="/admin/adminOrders" class="nav-link text-decoration-none" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
-                local_cafe
+                list_alt
               </span>
               <h3 class="fw-bold lh-1 m-0">訂單管理</h3>
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/admin/adminProducts" class="nav-link text-decoration-none" @click="closeNav">
@@ -43,7 +43,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminCoupon" class="nav-link text-decoration-none" @click="closeNav">
+          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 sell
@@ -53,7 +53,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none">
+          <router-link to="/admin/analysisReport" class="nav-link text-decoration-none" href="#" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 equalizer
@@ -63,14 +63,24 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/" class="text-decoration-none" @click="closeNav">
-            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14">
+          <router-link to="/" class="nav-link text-decoration-none" href="#" @click="closeNav">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 reply
               </span>
               <h3 class="fw-bold lh-1 m-0">前往前台</h3>
             </div>
           </router-link>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-decoration-none" @click.prevent="logout" href="#">
+            <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
+              <span class="material-symbols-outlined me-2">
+                logout
+              </span>
+              <h3 class="fw-bold lh-1 m-0">登出</h3>
+            </div>
+          </a>
         </li>
       </ul>
     </div>
@@ -79,24 +89,45 @@
 
 <script>
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import Swal from 'sweetalert2';
 
 export default {
-  data () {
+  data() {
     return {
       offcanvasNav: null
     }
   },
   methods: {
     // 打開 canvas
-    openNav () {
+    openNav() {
       this.offcanvasNav.show();
     },
-    // 關閉 canvas -> 由於切換頁面時，原先開啟的 offCanvas 實體並未被關閉所以會有黑色的 backdrop 覆蓋畫面，因此需要在每個連結綁一個 offCanvas.hide()，再切換頁面的同時關閉 OffCanvas 實體
+    // 關閉 canvas -> 尚未用到
     closeNav () {
       this.offcanvasNav.hide();
+    },
+    logout() {
+      Swal.fire({
+        title: "確定要登出嗎?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定登出"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "已成功登出",
+            icon: "success"
+          });
+          // 強制將cookie的值改掉
+          document.cookie = `florafirstapi='';`
+          this.$router.push('/admin/adminLogin');
+        }
+      });
     }
   },
-  mounted () {
+  mounted() {
     // 用 ref 抓取 offcanvas DOM
     // 如果要移除 backdrop，就不能把畫面的叉叉移除，不然沒地方關閉 offcanvas
     this.offcanvasNav = new bootstrap.Offcanvas(this.$refs.offcanvasNav, { scroll: true });

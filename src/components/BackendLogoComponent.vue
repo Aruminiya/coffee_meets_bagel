@@ -7,9 +7,10 @@
 </template>
 
 <script>
+
 export default {
   // props 當作 emit
-  props: ['openOffCanvasNav']
+  props: ['openOffCanvasNav'],
 }
 </script>
 
@@ -26,7 +27,6 @@ export default {
   white-space: nowrap;
 }
 .navbar{
-  // 先寫死寬度, 避免擋到產品搜尋欄位
-  width: 256px;
+  background: $colorChart-bg-color;
 }
 </style>

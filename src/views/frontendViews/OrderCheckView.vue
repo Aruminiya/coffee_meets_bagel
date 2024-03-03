@@ -4,6 +4,10 @@ import FooterComponent from "../../components/FooterComponent.vue";
 import OrderCheckProgressComponent from "../../components/OrderCheckProgressComponent.vue";
 import OderCheckStep_01 from "../../components/OderCheckStep_01.vue";
 
+import { mapState, mapActions } from "pinia";
+
+import cartStore from "../../stores/CartStore.js";
+
 export default {
   components: {
     NavBarComponent,
@@ -31,16 +35,20 @@ export default {
       }
     },
   },
+  methods: { ...mapActions(cartStore, ["getCarts"]) },
   beforeRouteUpdate(to) {
     //路由守位 當路由變化時啟動
     // console.log(to);
     // console.log(this.isNavBarEditMode);
 
-    if (to.fullPath === "/orderCheckView/step2") {
+    if (to.fullPath === "/orderCheckView/step2" || "/orderCheckView/step3") {
       console.log(to);
       this.isNavBarEditMode = false;
     } else {
       this.isNavBarEditMode = true;
+    }
+    if (to.fullPath === "/orderCheckView/step3") {
+      this.getCarts();
     }
   },
 };
@@ -59,6 +67,7 @@ export default {
 <style lang="scss" scoped>
 main {
   min-height: 100vh;
-  background-image: url("../../../public/BG_03.png");
+  // background-image: url("../../../public/BG_03.png");
+  background-image: url("https://i.imgur.com/pbKVylr.png");
 }
 </style>

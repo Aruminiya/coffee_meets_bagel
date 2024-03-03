@@ -91,6 +91,24 @@ const router = createRouter({
           component: () =>
             import("../views/backendViews/AdminAnalysisReportView.vue"),
         },
+        {
+          path: "adminOrders",
+          name: "adminOrders",
+          component: () =>
+            import("../views/backendViews/AdminOrdersView.vue"),
+        },
+        {
+          path: "adminOrders/:id",
+          name: "adminOrdersById",
+          component: () =>
+            import("../views/backendViews/AdminDynamicOrderView.vue"),
+        },
+        {
+          path: "adminLogin",
+          name: "adminLogin",
+          component: () =>
+            import("../views/backendViews/AdminLoginView.vue"),
+        },
       ],
     },
     {

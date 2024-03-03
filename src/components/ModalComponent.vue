@@ -2,24 +2,31 @@
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 import axios from "axios";
 
+import ToastComponent from '../components/ToastComponent.vue';
+//pinia
 import { mapState, mapActions } from "pinia";
 import cartStore from "../stores/CartStore.js";
 //不好意思芙蘭先拿來用嘿
 export default {
+  components:{
+    ToastComponent,
+  },
   data() {
     return {
       productModal: null,
       product: {},
-      img: [],
-      qty: 1,
+      img:[],
+      qty:1,
+      isLoading:false,
     };
   },
   methods: {
+    ...mapActions(cartStore, ["addCarts"]),
     modalShow(product) {
       this.product = product;
       this.img = product.imagesUrl;
       this.productModal.show();
-      console.log(this.img);
+      //console.log(this.img)
     },
     modalHide() {
       this.productModal.hide();
@@ -32,30 +39,18 @@ export default {
         this.qty--;
       }
     },
-    addToCart(id) {
-      console.log(id, this.qty);
-      const host = import.meta.env.VITE_HEXAPI;
-      const path = import.meta.env.VITE_USER_PATH;
-      const data = {
-        product_id: id,
-        qty: 1,
-      };
-      console.log({ data });
-
-      axios
-        .post(`${host}/v2/api/${path}/cart`, { data })
-        .then((res) => {
-          console.log(res);
-          this.modalHide();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    },
+    add(id,qty){
+      this.addCarts(id, qty);
+      this.modalHide();
+      this.qty=1;
+      this.$refs.toastRef.toastShow()
+    }
   },
-
+  computed:{
+    ...mapState(cartStore, ["isCartsLoading",'addedToCart'])
+  }
+  ,
   mounted() {
-    console.log(this.product);
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: true, // 按下ESC是否可以關閉
@@ -65,26 +60,22 @@ export default {
 </script>
 
 <template>
-  <div
-    class="modal fade text-primary"
-    ref="productModal"
-    tabindex="-1"
-    aria-hidden="true"
-  >
+ <ToastComponent ref='toastRef' ></ToastComponent>
+  <div class="modal fade text-primary" ref="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header row d-flex justify-content-end mx-0 border-0">
+        <div class="modal-header row d-flex justify-content-lg-end justify-content-between mx-0 border-0">
           <div
-            class="col-8 d-flex flex-nowrap justify-content-between align-items-center"
+            class="col-lg-8 d-flex flex-nowrap justify-content-between align-items-center"
           >
-            <h5 class="modal-title">
+            <div class="modal-title d-flex align-items-center">
               <!-- <slot name="modal-title"></slot> -->
               <img
                 src="../../public/coffee_meets_bagel_LogoIcon.svg"
                 style="width: 32px"
               />
-              產品細節
-            </h5>
+              <p class='h5 mb-0 ms-2'>產品細節</p>
+            </div>
             <button
               type="button"
               class="btn-close"
@@ -186,16 +177,9 @@ export default {
 
         <div class="modal-footer border-0">
           <!-- <slot name="modal-footer"></slot> -->
-          <button
-            @click="addToCart(product.id)"
-            class="text-center w-100 btn"
-            style="background-color: #ce3f25"
-          >
-            <p class="mb-0 text-light">
-              <i class="fa-solid fa-cart-shopping me-1"></i>
-              加入購物車
-            </p>
-          </button>
+          <button @click='add(product.id, qty)' class='text-center w-100 btn' style='background-color:#ce3f25'><p class='mb-0 text-light'>
+            <i class="fa-solid fa-cart-shopping me-1"></i>
+            加入購物車</p></button>
         </div>
       </div>
     </div>
