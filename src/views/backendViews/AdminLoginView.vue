@@ -3,8 +3,7 @@ const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
 import Swal from 'sweetalert2';
-// tingyu1112@gmail.com
-// cmbSideProject
+
 export default {
   data() {
     return {

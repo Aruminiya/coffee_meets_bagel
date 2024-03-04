@@ -81,7 +81,6 @@ export default {
         .then((response) => {
           // 存入所有產品
           this.allProducts = Object.values(response.data.products);
-
           this.allProducts.forEach((item) => {
             item.check_enabled = item.is_enabled;
           })
@@ -101,7 +100,6 @@ export default {
         .then((response) => {
           this.products = response.data.products;
           this.pagination = response.data.pagination;
-
           // 新增自訂屬性判斷是否啟用(避免送出停用時API尚未回傳就直接反應)
           this.products.forEach((item) => {
             item.check_enabled = item.is_enabled;

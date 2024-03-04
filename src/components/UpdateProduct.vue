@@ -87,8 +87,7 @@ export default {
               })
             }
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
             Swal.fire("取得產品資料失敗");
           });
       } else {
@@ -109,8 +108,7 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           Swal.fire("產品新增失敗");
         });
     },
@@ -204,8 +202,8 @@ export default {
         this.newImagesUrl[index] = url;
       }
     },
-    uploadError(err) {
-      console.log(err.message);
+    uploadError() {
+      Swal.fire("圖片上傳失敗");
     },
   },
   mounted() {
