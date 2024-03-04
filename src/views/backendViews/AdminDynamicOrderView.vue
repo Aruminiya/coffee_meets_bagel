@@ -55,7 +55,6 @@ export default {
             this.total = res.data.order.total;
             this.productsCount = Object.keys(this.products).length;
             this.create_at = moment.unix(this.order.create_at).format('YYYY年 MM月 DD日 A h時 : mm分 : ss秒');
-            console.log(this.order);
           })
           .catch(() => {
             Swal.fire("取得訂單資料失敗");
@@ -101,7 +100,6 @@ export default {
       }
       this.axios.put(`${host}/v2/api/${path}/admin/order/${this.$route.params.id}`, data)
         .then((res) => {
-          console.log(res.data);
           this.$router.push('/admin/adminOrders');
         })
         .catch(() => {

@@ -132,6 +132,7 @@ import adminNav from '../../components/BackendOffcanvasNav.vue';
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
+import moment from 'moment-timezone';
 
 export default {
   data () {
@@ -262,9 +263,9 @@ export default {
           "en-US",
           orderOptions
         );
-
         // 如果訂單日期等於當前日期，就把該筆訂單推進 todayOrder 陣列
-        if (orderTaiwanDate === '2/14/2024') { // 先暫時抓 2/14 資料，因為目前沒有當日訂單，需要時替換回 taiwanTime
+        // 改比對每日當日日期
+        if (orderTaiwanDate === moment().format('M/D/YYYY')) { // 先暫時抓 2/14 資料，因為目前沒有當日訂單，需要時替換回 taiwanTime
           todayOrder.push(item)
         }
       })

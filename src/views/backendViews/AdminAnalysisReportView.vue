@@ -81,7 +81,7 @@ export default {
         for (const productId in orderItem.products) {
           const product = orderItem.products[productId].product;
           const item = orderItem.products[productId][str];
-
+          
           if (!uniqueProducts[product.title]) {
             uniqueProducts[product.title] = item;
           } else {
