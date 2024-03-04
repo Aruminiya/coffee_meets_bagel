@@ -11,7 +11,7 @@
   <!-- 主要區塊 -->
   <main>
     <div class="container mt-20 mb-5">
-      <div class="row">
+      <div class="row  pt-4">
         <div class="col-md-6">
           <!-- 所有訂單 -->
           <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
@@ -545,6 +545,7 @@ export default {
     }
   }
 }
+
 
 .revenueTable {
   tbody {

@@ -15,7 +15,7 @@
       <!-- coupon-searchbar -->
       <div class="row">
         <div class="col-md-6 col-lg-4">
-          <div class="input-group mb-4">
+          <div class="input-group my-4">
             <input
               type="text"
               v-model="search"

@@ -190,7 +190,7 @@ export default {
             <div class="row g-0 position-relative">
               <div class="col-5 p-3">
                 <h6 class="d-flex justify-content-between text-primary">
-                  <span>訂單編號 :</span> <span class="text-dark">{{ order.id }}</span>
+                  <span>訂單編號 :</span> <span class="text-dark">{{ order.create_at }}</span>
                 </h6>
                 <h6 class="d-flex justify-content-between text-primary">
                   <span>下單日期 :</span> <span class="text-dark">{{ getDate(order.create_at) }}</span>
