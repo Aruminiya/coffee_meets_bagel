@@ -1,6 +1,8 @@
 <template>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+  />
 
   <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav component 裡面 -->
   <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
@@ -13,22 +15,39 @@
         <div class="col-md-6">
           <!-- 所有訂單 -->
           <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
-            <div class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3">
+            <div
+              class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3"
+            >
               <h2 class="fs-52 text-colorChart-Accessory-200 lh-1">所有訂單</h2>
-              <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
-                more
-              </button>
+              <div>
+                <router-link to="/admin/adminOrders">
+                  <button
+                    type="button"
+                    class="btn btn-primary-2 fs-2 text-white lh-1 px-7"
+                  >
+                    more
+                  </button>
+                </router-link>
+              </div>
             </div>
-            <div class="card mb-3 border-0 cursor-pointer" v-for="order in renderOrders" :key="order.id">
+            <div
+              class="card mb-3 border-0 cursor-pointer"
+              v-for="order in renderOrders"
+              :key="order.id"
+            >
               <div class="row g-0">
-                <div class="col-lg-8 colorChart-bg-color card-detail-border-radius">
+                <div
+                  class="col-lg-8 colorChart-bg-color card-detail-border-radius"
+                >
                   <div class="card-body py-6">
                     <div class="row mb-2">
                       <div class="col-6 col-lg-5">
                         <p class="card-text fs-2 lh-1 mb-0 ps-2">訂單編號</p>
                       </div>
                       <div class="col-6 col-lg-7">
-                        <p class="card-text fs-2 lh-1 mb-0">{{ order.create_at }}</p>
+                        <p class="card-text fs-2 lh-1 mb-0">
+                          {{ order.create_at }}
+                        </p>
                       </div>
                     </div>
                     <div class="row">
@@ -36,20 +55,24 @@
                         <p class="card-text fs-2 lh-1 mb-0 ps-2">金額</p>
                       </div>
                       <div class="col-6 col-lg-7">
-                        <p class="card-text fs-2 lh-1 mb-0">$ {{ order.total }}</p>
+                        <p class="card-text fs-2 lh-1 mb-0">
+                          $ {{ order.total }}
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <template v-if="!order.is_paid">
                   <div
-                    class="col-lg-4 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
+                    class="col-lg-4 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius"
+                  >
                     <p class="fs-2 text-white m-0">未付款</p>
                   </div>
                 </template>
                 <template v-else>
                   <div
-                    class="col-lg-4 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
+                    class="col-lg-4 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius"
+                  >
                     <p class="fs-2 text-white m-0">已付款</p>
                   </div>
                 </template>
@@ -59,16 +82,33 @@
           <!-- 折價券 -->
           <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">折價券資訊</h2>
-              <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
-                more
-              </button>
+              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">
+                折價券資訊
+              </h2>
+              <div>
+                <router-link to="/admin/adminCoupon">
+                  <button
+                    type="button"
+                    class="btn btn-primary-2 fs-2 text-white lh-1 px-7"
+                  >
+                    more
+                  </button>
+                </router-link>
+              </div>
             </div>
-            <table class="couponTable table table-light table-striped table-hover table-borderless">
+            <table
+              class="couponTable table table-light table-striped table-hover table-borderless"
+            >
               <tbody>
-                <tr class="cursor-pointer" v-for="coupon in coupons" :key="coupon.id">
+                <tr
+                  class="cursor-pointer"
+                  v-for="coupon in renderCoupons"
+                  :key="coupon.id"
+                >
                   <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
-                  <td class="fs-2 lh-1 text-end p-6">{{ coupon.percent }}% OFF</td>
+                  <td class="fs-2 lh-1 text-end p-6">
+                    {{ coupon.percent }}% OFF
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -88,30 +128,61 @@
                 </div>
               </div>
               <div class="col-md-7">
-                <div class="d-flex flex-column align-items-center align-items-md-start">
-                  <p class="fs-52 lh-1 text-colorChart-Gray-500 fw-bold">$ {{ orderTodayTotal }}</p>
-                  <h2 class="fs-1 lh-1 text-colorChart-Gray-500 fw-medium">今日營業額</h2>
+                <div
+                  class="d-flex flex-column align-items-center align-items-md-start"
+                >
+                  <p class="fs-52 lh-1 text-colorChart-Gray-500 fw-bold">
+                    $ {{ orderTodayTotal }}
+                  </p>
+                  <h2 class="fs-1 lh-1 text-colorChart-Gray-500 fw-medium">
+                    今日營業額
+                  </h2>
                 </div>
               </div>
             </div>
           </div>
           <div class="colorChart-Gray-10 shadow rounded text-bold px-4 py-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">今日銷量榜</h2>
-              <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
-                more
-              </button>
+              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">
+                今日銷量榜
+              </h2>
+              <div>
+                <router-link to="/admin/analysisReport">
+                  <button
+                    type="button"
+                    class="btn btn-primary-2 fs-2 text-white lh-1 px-7"
+                  >
+                    more
+                  </button>
+                </router-link>
+              </div>
             </div>
-            <table class="revenueTable table table-light table-striped table-hover table-borderless fs-2">
+            <table
+              class="revenueTable table table-light table-striped table-hover table-borderless fs-2"
+            >
               <thead>
                 <tr>
-                  <th class="fw-medium top-left-border-radius ps-3 py-4" scope="col">排名</th>
+                  <th
+                    class="fw-medium top-left-border-radius ps-3 py-4"
+                    scope="col"
+                  >
+                    排名
+                  </th>
                   <th class="fw-medium py-4" scope="col">品項</th>
-                  <th class="fw-medium top-right-border-radius py-4" scope="col">銷售額</th>
+                  <th
+                    class="fw-medium top-right-border-radius py-4"
+                    scope="col"
+                  >
+                    銷售額
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in productRank" :key="item.title" class="cursor-pointer">
+                <tr
+                  v-for="(item, index) in productRank"
+                  :key="item.title"
+                  class="cursor-pointer"
+                >
                   <td width="100" class="ps-3 py-4">{{ index + 1 }}</td>
                   <td width="200" class="py-4">{{ item.title }}</td>
                   <td width="100" class="py-4">$ {{ item.total }}</td>
@@ -126,15 +197,15 @@
 </template>
 
 <script>
-import adminLogo from '../../components/BackendLogoComponent.vue';
-import adminNav from '../../components/BackendOffcanvasNav.vue';
+import adminLogo from "../../components/BackendLogoComponent.vue";
+import adminNav from "../../components/BackendOffcanvasNav.vue";
 
 // 通用環境變數
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
 export default {
-  data () {
+  data() {
     return {
       // 直接寫死
       user: {
@@ -149,14 +220,14 @@ export default {
   },
   components: {
     adminLogo,
-    adminNav
+    adminNav,
   },
   methods: {
     // 打開側邊欄位
-    openOffCanvasNav () {
+    openOffCanvasNav() {
       this.$refs.backendNav.openNav();
     },
-    login () {
+    login() {
       this.axios
         .post(`${host}/v2/admin/signin`, this.user)
         .then((res) => {
@@ -172,7 +243,7 @@ export default {
           console.log(err);
         });
     },
-    checkLogin () {
+    checkLogin() {
       this.axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
@@ -184,14 +255,14 @@ export default {
         });
     },
     // 後台取得所有訂單
-    getOrders () {
+    getOrders() {
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         this.orders = res.data.orders;
         // console.log(this.orders);
       });
     },
     // 後台取得所有折價券
-    getCoupons () {
+    getCoupons() {
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then((res) => {
         this.coupons = res.data.coupons;
         // console.log(this.coupons);
@@ -199,7 +270,16 @@ export default {
     },
   },
   computed: {
-    renderOrders () {
+    renderCoupons() {
+      let data = [];
+      this.coupons.forEach((item, index) => {
+        if (index <= 1) {
+          data.push(item);
+        }
+      });
+      return data;
+    },
+    renderOrders() {
       let data = [];
       this.orders.forEach((item, index) => {
         if (index <= 4) {
@@ -208,7 +288,7 @@ export default {
       });
       return data;
     },
-    orderTodayTotal () {
+    orderTodayTotal() {
       // 取得目前時間
       const currentDate = new Date();
 
@@ -242,7 +322,7 @@ export default {
       return todayTotalComma;
     },
     // 今日銷量榜
-    productRank () {
+    productRank() {
       // 1. 先過濾非當日的訂單
       // 取得目前時間
       const currentDate = new Date();
@@ -264,10 +344,11 @@ export default {
         );
 
         // 如果訂單日期等於當前日期，就把該筆訂單推進 todayOrder 陣列
-        if (orderTaiwanDate === '2/14/2024') { // 先暫時抓 2/14 資料，因為目前沒有當日訂單，需要時替換回 taiwanTime
-          todayOrder.push(item)
+        if (orderTaiwanDate === "2/14/2024") {
+          // 先暫時抓 2/14 資料，因為目前沒有當日訂單，需要時替換回 taiwanTime
+          todayOrder.push(item);
         }
-      })
+      });
 
       // 2. 宣告一個空物件，用來裝商品 title 及當日銷售額
 
@@ -276,51 +357,50 @@ export default {
       // 用來裝當日訂單中，每一筆訂單的 key 值所組成的陣列
       let orderProduct = [];
 
-      todayOrder.forEach(order => {
-
+      todayOrder.forEach((order) => {
         // order.products 因為是物件，所以要先用 Object.keys 取得每個項目的 id 陣列
         orderProduct = Object.keys(order.products);
         // orderProduct 陣列跑 forEach 把每個商品的 id 抓出來
-        orderProduct.forEach(product => {
+        orderProduct.forEach((product) => {
           // 再使用物件取值方式取得每一筆訂單中，單一商品的詳細資料
-          let productTitle = order.products[product].product.title // 單一商品名稱
-          let productTotal = order.products[product].final_total // 單一商品銷售額
+          let productTitle = order.products[product].product.title; // 單一商品名稱
+          let productTotal = order.products[product].final_total; // 單一商品銷售額
 
           if (todayProductData[productTitle] === undefined) {
             todayProductData[productTitle] = productTotal;
           } else {
             todayProductData[productTitle] += productTotal;
           }
-        })
+        });
       });
 
       // 為了符合此格式 [{title:xxx, total:xxx}, {title:xxx, total:xxx},] 而建立的陣列
       let todayProductArray = [];
 
       // 暫存 todayProductData 裡所有的 key 值
-      let tempProductArray = []
-      tempProductArray = Object.keys(todayProductData)
+      let tempProductArray = [];
+      tempProductArray = Object.keys(todayProductData);
 
       tempProductArray.forEach((item, index) => {
         // 把畫面限制為 5 筆資料
         if (index <= 4) {
-          let obj = {}
-          obj.title = item
-          obj.total = todayProductData[item]
+          let obj = {};
+          obj.title = item;
+          obj.total = todayProductData[item];
 
-          todayProductArray.push(obj)
+          todayProductArray.push(obj);
         }
-      })
+      });
 
       // 由大到小排序
       let productSort = todayProductArray.sort((a, b) => {
-        return b.total - a.total
-      })
+        return b.total - a.total;
+      });
 
       return productSort;
     },
   },
-  mounted () {
+  mounted() {
     // 從 cookie 取得 token 資料
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
@@ -342,7 +422,7 @@ export default {
   display: block;
   width: 256px;
   height: 64px;
-  background-image: url('../../../public/coffee_meets_bagel_Logo.svg');
+  background-image: url("../../../public/coffee_meets_bagel_Logo.svg");
   background-repeat: no-repeat;
   text-indent: 101%;
   overflow: hidden;
@@ -374,7 +454,7 @@ export default {
 }
 
 .text-colorChart-Accessory-200 {
-  color: $colorChart-Accessory-200
+  color: $colorChart-Accessory-200;
 }
 
 // 所有訂單卡片效果
@@ -421,7 +501,7 @@ export default {
 
 // 今日營業額文字
 .text-colorChart-Gray-500 {
-  color: $colorChart-Gray-500
+  color: $colorChart-Gray-500;
 }
 
 .cursor-pointer {
