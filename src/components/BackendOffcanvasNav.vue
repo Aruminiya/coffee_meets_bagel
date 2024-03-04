@@ -43,7 +43,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/adminDiscount" class="nav-link text-decoration-none" href="#" @click="closeNav">
+          <router-link to="/admin/adminCoupon" class="nav-link text-decoration-none" href="#" @click="closeNav">
             <div class="d-flex align-items-center fs-2 text-colorChart-Accessory-200 ms-14 mb-4">
               <span class="material-symbols-outlined me-2">
                 sell
@@ -121,7 +121,8 @@ export default {
             icon: "success"
           });
           // 強制將cookie的值改掉
-          document.cookie = `florafirstapi='';`
+          document.cookie = `florafirstapi='';`;
+          this.offcanvasNav.hide();
           this.$router.push('/admin/adminLogin');
         }
       });

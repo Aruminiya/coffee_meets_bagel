@@ -14,7 +14,7 @@
       <!-- discount-searchbar -->
       <div class="row">
         <div class="col-md-6 col-lg-4">
-          <div class="input-group mb-4">
+          <div class="input-group my-4">
             <input
               type="text"
               class="form-control fs-3 fw-semibold text-secondary lh-1 border-colorChart-Primary-200 border-end-0 py-3 ps-4"

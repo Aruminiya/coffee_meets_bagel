@@ -190,27 +190,15 @@ export default {
   <div class="container">
     <h2 class="text-primary mb-0 py-3">編輯訂單</h2>
     <div class="row border rounded p-3">
-      <h4 class="text-primary mb-3">訂單編號 <span class="fs-5 ms-3 text-dark">{{ order.id }}</span></h4>
+      <h4 class="text-primary mb-3">訂單編號 <span class="fs-5 ms-3 text-dark">{{ order.create_at }}</span></h4>
       <div class="mb-0 d-flex justify-content-between">
         <h4 class="text-primary mb-0">訂單成立時間 <span class="fs-5 ms-3 text-dark">{{ create_at }}</span></h4>
         <div class="d-flex">
           <button type="button" class="btn btn-outline-primary me-3" @click="backToList">返回列表</button>
           <button type="button" class="btn btn-outline-primary me-3" :class="{ 'disabled': order.is_paid }"
             @click="getOrder">回復初始值</button>
-          <!-- 新增訂單內的品項(未完成) -->
-          <!-- <div class="me-3">
-            <select class="form-select border-primary text-primary" :disabled="order.is_paid"
-              aria-label="Default select example" @change="addProductToOrder($event)">
-              <option selected>新增品項</option>
-              <option v-for="product in allProducts" :key="product.id" :value="product.title">{{ product.title }}</option>
-            </select>
-          </div> -->
-
           <button type="button" class="btn btn-outline-success me-1" @click="updateOrder">確認修改</button>
-          <!-- <button type="button" class="btn btn-outline-success me-1" @click="updateOrder"
-            :class="{ 'disabled': order.is_paid }">確認修改</button> -->
         </div>
-        
       </div>
       <div class="col-6 p-3">
         <div class="row">
