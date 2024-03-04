@@ -28,6 +28,8 @@ export default {
       orders: [],
       allOrders: [],
       pagination: {},
+      searchStr: '',
+      checkAll: true
     };
   },
   components: {
@@ -78,7 +80,6 @@ export default {
           // 確保迴圈的請求都跑完
           Promise.all(promises)
             .then(() => {
-              console.log(this.allOrders);
             })
             .catch(() => {
               Swal.fire('取得資料失敗')
@@ -91,7 +92,6 @@ export default {
         .then((res) => {
           this.orders = res.data.orders;
           this.pagination = res.data.pagination;
-          console.log(this.orders);
         })
         .catch(() => {
           Swal.fire("資料取得失敗");
@@ -101,7 +101,6 @@ export default {
       this.$refs.backendNav.openNav();
     },
     openProductsTable(products) {
-      // console.log(this.$refs);
       this.$refs.showProductModal.modalShow(products);
     },
     deleteOrder(id) {
@@ -115,7 +114,6 @@ export default {
         if (result.isConfirmed) {
           this.axios.delete(`${host}/v2/api/${path}/admin/order/${id}`)
             .then((res) => {
-              console.log(res.data);
               Swal.fire({
                 position: "center",
                 icon: "success",
@@ -134,6 +132,23 @@ export default {
     },
     getDate(date) {
       return moment.unix(date).format('YYYY年 MM月 DD日');
+    },
+    searchOrder(str) {
+      this.checkAll = false;
+      this.orders = this.allOrders.filter((item) => {
+        return JSON.stringify(item).match(str)
+      })
+    },
+    isOrderPaid(value) {
+      if(value === '檢視全部') {
+        this.checkAll = true;
+        this.getOrders();
+      }else if( value === '未付款') {
+        this.checkAll = false;
+        this.orders = this.allOrders.filter((item) => {
+        return item.is_paid === false;
+      })
+      }
     }
   },
   mounted() {
@@ -169,22 +184,21 @@ export default {
         </div>
         <div class="col-3 py-3">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="請輸入搜尋資料" />
-            <button type="button" class="btn btn-outline-primary d-flex align-items-center">
+            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="searchStr"/>
+            <button type="button" class="btn btn-outline-primary d-flex align-items-center" @click="searchOrder(searchStr)">
               <span class="material-symbols-outlined"> search </span>
             </button>
           </div>
         </div>
         <div class="col-3 py-3">
-          <select class="form-select form-select" aria-label=".form-select-sm example">
-            <!-- 設計稿以販售狀態分類, 先改類別 -->
+          <select class="form-select form-select" aria-label=".form-select-sm example" 
+          @change="isOrderPaid($event.target.value)">
+            <!-- 只查詢未付款與全部 -->
             <option selected>請選擇訂單狀態</option>
             <option value="檢視全部">檢視全部</option>
-            <option>已付款</option>
-            <option>未付款</option>
+            <option value="未付款">未付款</option>
           </select>
         </div>
-
         <div class="border rounded p-3 pb-0 mb-8">
           <div v-for="order in orders" :key="order.id" class="card mb-3">
             <div class="row g-0 position-relative">
@@ -226,18 +240,13 @@ export default {
                     </h6>
                   </div>
                 </div>
-
               </div>
               <div class="col-2 p-3">
                 <div class="border-top-0 bg-white d-flex flex-column align-items-end">
-
-
                   <button class="btn btn-outline-primary mb-2" type="button" @click="openProductsTable(order.products)">
                     <span class="material-symbols-outlined align-middle"> view_list </span>查看明細</button>
 
-
                   <router-link :to="`/admin/adminOrders/${order.id}`">
-                    <!-- <button class="btn btn-outline-primary mb-2" type="button" :class="{'disabled' : order.is_paid}"> -->
                     <button class="btn btn-outline-primary mb-2" type="button">
                       <span class="material-symbols-outlined align-middle"> edit </span>編輯訂單</button>
                   </router-link>
@@ -252,7 +261,7 @@ export default {
       </div>
 
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <pagination :pagination="pagination" @emit-pages="getOrders"></pagination>
+      <pagination v-if="checkAll" :pagination="pagination" @emit-pages="getOrders"></pagination>
 
       <!-- modal -->
       <showProductsModal ref="showProductModal"></showProductsModal>
