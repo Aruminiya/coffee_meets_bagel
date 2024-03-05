@@ -36,44 +36,36 @@
               :key="order.id"
             >
               <div class="row g-0">
-                <div
-                  class="col-lg-8 colorChart-bg-color card-detail-border-radius"
-                >
+                <div class="col-lg-10 colorChart-bg-color card-detail-border-radius">
                   <div class="card-body py-6">
                     <div class="row mb-2">
-                      <div class="col-6 col-lg-5">
-                        <p class="card-text fs-2 lh-1 mb-0 ps-2">訂單編號</p>
+                      <div class="col-6 col-lg-4">
+                        <p class="card-text fs-4 lh-1 mb-0 ps-2">訂單編號</p>
                       </div>
-                      <div class="col-6 col-lg-7">
-                        <p class="card-text fs-2 lh-1 mb-0">
-                          {{ order.create_at }}
-                        </p>
+                      <div class="col-6 col-lg-8">
+                        <p class="card-text fs-4 lh-1 mb-0">{{ order.id }}</p>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-6 col-lg-5">
-                        <p class="card-text fs-2 lh-1 mb-0 ps-2">金額</p>
+                      <div class="col-6 col-lg-4">
+                        <p class="card-text fs-4 lh-1 mb-0 ps-2">金額</p>
                       </div>
-                      <div class="col-6 col-lg-7">
-                        <p class="card-text fs-2 lh-1 mb-0">
-                          $ {{ order.total }}
-                        </p>
+                      <div class="col-6 col-lg-8">
+                        <p class="card-text fs-4 lh-1 mb-0">$ {{ order.total }}</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <template v-if="!order.is_paid">
                   <div
-                    class="col-lg-4 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius"
-                  >
-                    <p class="fs-2 text-white m-0">未付款</p>
+                    class="col-lg-2 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
+                    <p class="fs-4 text-white m-0">未付款</p>
                   </div>
                 </template>
                 <template v-else>
                   <div
-                    class="col-lg-4 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius"
-                  >
-                    <p class="fs-2 text-white m-0">已付款</p>
+                    class="col-lg-2 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
+                    <p class="fs-4 text-white m-0">已付款</p>
                   </div>
                 </template>
               </div>
