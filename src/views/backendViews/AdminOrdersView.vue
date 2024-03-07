@@ -39,24 +39,6 @@ export default {
     showProductsModal
   },
   methods: {
-    checkAdmin() {
-      this.axios
-        .post(`${host}/v2/api/user/check`)
-        .then((res) => {
-          // 驗證完取得所需資料
-          this.getOrders();
-          this.getAllOrders();
-        })
-        .catch((err) => {
-          Swal.fire({
-            title: "登入驗證失敗, 請重新登入",
-            confirmButtonText: "確定",
-          }).then((result) => {
-            // 驗證失敗轉回登入頁面
-            this.$router.push('/admin/adminLogin');
-          });
-        });
-    },
     getAllOrders() {
       // 建立promise陣列
       const promises = [];
@@ -149,17 +131,14 @@ export default {
         return item.is_paid === false;
       })
       }
+    },
+    goOrderPage(id) {
+      this.$router.push(`/admin/adminOrders/${id}`)
     }
   },
   mounted() {
-    // 從cookie取出登入時存入的token
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    // 將token設定到axios的預設header裡
-    this.axios.defaults.headers.common.Authorization = token;
-    this.checkAdmin();
+    this.getOrders();
+    this.getAllOrders();
   },
 }
 
@@ -245,11 +224,9 @@ export default {
                 <div class="border-top-0 bg-white d-flex flex-column align-items-end">
                   <button class="btn btn-outline-primary mb-2" type="button" @click="openProductsTable(order.products)">
                     <span class="material-symbols-outlined align-middle"> view_list </span>查看明細</button>
-
-                  <router-link :to="`/admin/adminOrders/${order.id}`">
-                    <button class="btn btn-outline-primary mb-2" type="button">
+                    <button class="btn btn-outline-primary mb-2" type="button" 
+                    :class="{ 'disabled': order.is_paid }" @click="goOrderPage(order.id)">
                       <span class="material-symbols-outlined align-middle"> edit </span>編輯訂單</button>
-                  </router-link>
                   <button class="btn btn-outline-danger" type="button" :class="{ 'disabled': order.is_paid }"
                     @click="deleteOrder(order.id)">
                     <span class="material-symbols-outlined align-middle"> delete </span>刪除訂單</button>

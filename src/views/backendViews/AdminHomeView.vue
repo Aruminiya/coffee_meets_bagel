@@ -1,8 +1,6 @@
 <template>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
-  />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
   <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav component 裡面 -->
   <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
@@ -15,43 +13,34 @@
         <div class="col-md-6">
           <!-- 所有訂單 -->
           <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
-            <div
-              class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3"
-            >
-              <h2 class="fs-52 text-colorChart-Accessory-200 lh-1">所有訂單</h2>
+            <div class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2 mb-3">
+              <h2 class="fs-2 text-colorChart-Accessory-200 lh-1">所有訂單</h2>
               <div>
                 <router-link to="/admin/adminOrders">
-                  <button
-                    type="button"
-                    class="btn btn-primary-2 fs-2 text-white lh-1 px-7"
-                  >
+                  <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
                     more
                   </button>
                 </router-link>
               </div>
             </div>
-            <div
-              class="card mb-3 border-0 cursor-pointer"
-              v-for="order in renderOrders"
-              :key="order.id"
-            >
+            <div class="card mb-3 border-0 cursor-pointer" v-for="order in renderOrders" :key="order.id">
               <div class="row g-0">
                 <div class="col-lg-10 colorChart-bg-color card-detail-border-radius">
                   <div class="card-body py-6">
                     <div class="row mb-2">
                       <div class="col-6 col-lg-4">
-                        <p class="card-text fs-4 lh-1 mb-0 ps-2">訂單編號</p>
+                        <p class="card-text fs-5 lh-1 mb-0 ps-2">訂單編號</p>
                       </div>
                       <div class="col-6 col-lg-8">
-                        <p class="card-text fs-4 lh-1 mb-0">{{ order.id }}</p>
+                        <p class="card-text fs-5 lh-1 mb-0">{{ order.id }}</p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-6 col-lg-4">
-                        <p class="card-text fs-4 lh-1 mb-0 ps-2">金額</p>
+                        <p class="card-text fs-5 lh-1 mb-0 ps-2">金額</p>
                       </div>
                       <div class="col-6 col-lg-8">
-                        <p class="card-text fs-4 lh-1 mb-0">$ {{ order.total }}</p>
+                        <p class="card-text fs-5 lh-1 mb-0">$ {{ order.total }}</p>
                       </div>
                     </div>
                   </div>
@@ -59,13 +48,13 @@
                 <template v-if="!order.is_paid">
                   <div
                     class="col-lg-2 bg-danger bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
-                    <p class="fs-4 text-white m-0">未付款</p>
+                    <p class="fs-5 text-white m-0">未付款</p>
                   </div>
                 </template>
                 <template v-else>
                   <div
                     class="col-lg-2 bg-success bg-opacity-75 d-flex justify-content-center align-items-center card-paid-border-radius">
-                    <p class="fs-4 text-white m-0">已付款</p>
+                    <p class="fs-5 text-white m-0">已付款</p>
                   </div>
                 </template>
               </div>
@@ -74,31 +63,22 @@
           <!-- 折價券 -->
           <div class="colorChart-Gray-10 shadow rounded text-white p-4 mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">
+              <h2 class="fs-2 lh-1 text-colorChart-Accessory-200">
                 折價券資訊
               </h2>
               <div>
                 <router-link to="/admin/adminCoupon">
-                  <button
-                    type="button"
-                    class="btn btn-primary-2 fs-2 text-white lh-1 px-7"
-                  >
+                  <button type="button" class="btn btn-primary-2 fs-2 text-white lh-1 px-7">
                     more
                   </button>
                 </router-link>
               </div>
             </div>
-            <table
-              class="couponTable table table-light table-striped table-hover table-borderless"
-            >
+            <table class="couponTable table table-light table-striped table-hover table-borderless">
               <tbody>
-                <tr
-                  class="cursor-pointer"
-                  v-for="coupon in renderCoupons"
-                  :key="coupon.id"
-                >
-                  <td class="fs-2 lh-1 p-6">{{ coupon.code }}</td>
-                  <td class="fs-2 lh-1 text-end p-6">
+                <tr class="cursor-pointer" v-for="coupon in renderCoupons" :key="coupon.id">
+                  <td class="fs-3 lh-1 p-6">{{ coupon.code }}</td>
+                  <td class="fs-3 lh-1 text-end p-6">
                     {{ coupon.percent }}% OFF
                   </td>
                 </tr>
@@ -120,13 +100,11 @@
                 </div>
               </div>
               <div class="col-md-7">
-                <div
-                  class="d-flex flex-column align-items-center align-items-md-start"
-                >
+                <div class="d-flex flex-column align-items-center align-items-md-start">
                   <p class="fs-52 lh-1 text-colorChart-Gray-500 fw-bold">
                     $ {{ orderTodayTotal }}
                   </p>
-                  <h2 class="fs-1 lh-1 text-colorChart-Gray-500 fw-medium">
+                  <h2 class="fs-2 lh-1 text-colorChart-Gray-500 fw-medium">
                     今日營業額
                   </h2>
                 </div>
@@ -135,46 +113,31 @@
           </div>
           <div class="colorChart-Gray-10 shadow rounded text-bold px-4 py-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h2 class="fs-1 lh-1 text-colorChart-Accessory-200">
+              <h2 class="fs-2 lh-1 text-colorChart-Accessory-200">
                 今日銷量榜
               </h2>
               <div>
                 <router-link to="/admin/analysisReport">
-                  <button
-                    type="button"
-                    class="btn btn-primary-2 fs-2 text-white lh-1 px-7"
-                  >
+                  <button type="button" class="btn btn-primary-2 fs-3 text-white lh-1 px-7">
                     more
                   </button>
                 </router-link>
               </div>
             </div>
-            <table
-              class="revenueTable table table-light table-striped table-hover table-borderless fs-2"
-            >
+            <table class="revenueTable table table-light table-striped table-hover table-borderless fs-3">
               <thead>
                 <tr>
-                  <th
-                    class="fw-medium top-left-border-radius ps-3 py-4"
-                    scope="col"
-                  >
+                  <th class="fw-medium top-left-border-radius ps-3 py-4" scope="col">
                     排名
                   </th>
                   <th class="fw-medium py-4" scope="col">品項</th>
-                  <th
-                    class="fw-medium top-right-border-radius py-4"
-                    scope="col"
-                  >
+                  <th class="fw-medium top-right-border-radius py-4" scope="col">
                     銷售額
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(item, index) in productRank"
-                  :key="item.title"
-                  class="cursor-pointer"
-                >
+                <tr v-for="(item, index) in productRank" :key="item.title" class="cursor-pointer">
                   <td width="100" class="ps-3 py-4">{{ index + 1 }}</td>
                   <td width="200" class="py-4">{{ item.title }}</td>
                   <td width="100" class="py-4">$ {{ item.total }}</td>
@@ -200,11 +163,6 @@ import moment from 'moment-timezone';
 export default {
   data() {
     return {
-      // 直接寫死
-      user: {
-        username: "tingyu1112@gmail.com",
-        password: "cmbSideProject",
-      },
       // 儲存所有訂單資料
       orders: [],
       // 儲存所有折價券資料
@@ -220,45 +178,16 @@ export default {
     openOffCanvasNav() {
       this.$refs.backendNav.openNav();
     },
-    login() {
-      this.axios
-        .post(`${host}/v2/admin/signin`, this.user)
-        .then((res) => {
-          // 把回傳的 token 及 expired timestamp 用解構賦值方式存成同名變數
-          const { token, expired } = res.data;
-
-          // 把 token 及 expired 存到 cookie
-          document.cookie = `florafirstapi=${token}; expires=${new Date(
-            expired
-          )}`;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    checkLogin() {
-      this.axios
-        .post(`${host}/v2/api/user/check`)
-        .then((res) => {
-          this.getOrders();
-          this.getCoupons();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     // 後台取得所有訂單
     getOrders() {
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         this.orders = res.data.orders;
-        // console.log(this.orders);
       });
     },
     // 後台取得所有折價券
     getCoupons() {
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then((res) => {
         this.coupons = res.data.coupons;
-        // console.log(this.coupons);
       });
     },
   },
@@ -393,17 +322,8 @@ export default {
     },
   },
   mounted() {
-    // 從 cookie 取得 token 資料
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-
-    // 有些 request 需要夾帶 token 才能使用，所以在發送請求時夾帶 headers 資料，mounted 就載入的話，每次發請求都會自動夾帶
-    this.axios.defaults.headers.common["Authorization"] = token;
-
-    this.checkLogin();
-    this.login();
+    this.getOrders();
+    this.getCoupons();
   },
 };
 </script>

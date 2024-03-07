@@ -41,26 +41,6 @@ export default {
     adminLogo,
   },
   methods: {
-    checkAdmin() {
-      this.axios
-        .post(`${host}/v2/api/user/check`)
-        .then((res) => {
-          // 驗證完畢後取得產品列表
-          // 要渲染的資料
-          this.getProducts();
-          // 所有資料, 以及所有分類
-          this.getAllProducts();
-        })
-        .catch((err) => {
-          Swal.fire({
-            title: "登入驗證失敗, 請重新登入",
-            confirmButtonText: "確定",
-          }).then((result) => {
-            // 驗證失敗轉回登入頁面
-            this.$router.push('/admin/adminLogin');
-          });
-        });
-    },
     searchProduct() {
       const result = this.allProducts.filter((product) => {
         // 比對標題內容與產品描述對應搜尋關鍵字
@@ -230,15 +210,10 @@ export default {
     }
   },
   mounted() {
-    // 從cookie取出登入時存入的token
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    // 將token設定到axios的預設header裡
-    this.axios.defaults.headers.common.Authorization = token;
-    // 確認登入狀態
-    this.checkAdmin();
+    // 要渲染的資料
+    this.getProducts();
+    // 所有資料, 以及所有分類
+    this.getAllProducts();
   },
 };
 </script>

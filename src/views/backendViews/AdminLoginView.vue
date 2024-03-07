@@ -20,9 +20,8 @@ export default {
           // 把回傳的 token 及 expired timestamp 用解構賦值方式存成同名變數
           const { token, expired } = res.data;
           // 把 token 及 expired 存到 cookie
-          document.cookie = `florafirstapi=${token}; expires=${new Date(
-            expired
-          )}`;
+          document.cookie = `florafirstapi=${token}; expires=${new Date(expired)}`;
+          // document.cookie = `floraFirstApiToken=${token}; expires=${new Date(expired)}`;
           Swal.fire('登入成功, 將前往後台首頁');
           this.$router.push('/admin');
         }).catch((err) => {

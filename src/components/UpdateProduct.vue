@@ -207,13 +207,6 @@ export default {
     },
   },
   mounted() {
-    // 從cookie取出登入時存入的token
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    // 將token設定到axios的預設header裡
-    this.axios.defaults.headers.common.Authorization = token;
     this.getProduct();
     this.showImageUrl = this.defaultImageUrl;
   },

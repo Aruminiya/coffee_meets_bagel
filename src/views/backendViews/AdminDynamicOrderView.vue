@@ -119,17 +119,6 @@ export default {
         return '無使用優惠';
       }
     },
-    getAllProducts() {
-      this.axios
-        .get(`${host}/v2/api/${path}/admin/products/all`)
-        .then((response) => {
-          // 存入所有產品
-          this.allProducts = Object.values(response.data.products);
-        })
-        .catch(() => {
-          Swal.fire("資料取得失敗");
-        });
-    },
     getTotal(product) {
       product.total = Math.round(product.product.price * product.qty)
       return product.total;
@@ -148,13 +137,6 @@ export default {
         this.total += item.final_total
       })
     },
-    // 新增訂單內的品項(未完成)
-    // addProductToOrder(event) {
-    //   const newProduct = this.allProducts.filter((item) => {
-    //     return item.title === event.target.value;
-    //   })
-    //   const newData = {};
-    // }
   },
   watch: {
     'order.products': {
@@ -165,15 +147,7 @@ export default {
     }
   },
   mounted() {
-    // 從cookie取出登入時存入的token
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    // 將token設定到axios的預設header裡
-    this.axios.defaults.headers.common.Authorization = token;
     this.getOrder();
-    this.getAllProducts();
   },
 }
 </script>
@@ -195,7 +169,8 @@ export default {
           <button type="button" class="btn btn-outline-primary me-3" @click="backToList">返回列表</button>
           <button type="button" class="btn btn-outline-primary me-3" :class="{ 'disabled': order.is_paid }"
             @click="getOrder">回復初始值</button>
-          <button type="button" class="btn btn-outline-success me-1" @click="updateOrder">確認修改</button>
+          <button type="button" class="btn btn-outline-success me-1" 
+          :class="{ 'disabled': order.is_paid }" @click="updateOrder">確認修改</button>
         </div>
       </div>
       <div class="col-6 p-3">
@@ -251,7 +226,7 @@ export default {
         <div v-for="product in order.products" :key="product.id" class="border p-3 rounded mt-3 row">
           <div class="d-flex mb-3 d-flex align-items-center justify-content-between">
             <h4 class="text-primary mb-0">{{ product.product.title }}</h4>
-            <button class="btn btn-outline-danger" :class="{ 'disabled': productsCount === 1 }" type="button"
+            <button class="btn btn-outline-danger" :class="{ 'disabled': productsCount === 1 || order.is_paid }" type="button"
               @click="removeProduct(product.id)">移除商品</button>
           </div>
           <div class="col-3 d-flex align-items-center">

@@ -3,7 +3,6 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-secondary bg-opacity-25">
-          {{ tempCoupon }}
           <h5 class="modal-title" id="exampleModalLabel">
             <span v-if="isNew">新增優惠券</span>
             <span v-else>編輯優惠券</span>

@@ -1,18 +1,16 @@
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
-
 import adminNav from '../../components/BackendOffcanvasNav.vue';
 import adminLogo from '../../components/BackendLogoComponent.vue';
 import * as d3 from 'd3';
 import * as c3 from 'c3';
 import 'c3/c3.min.css';
 import Swal from 'sweetalert2';
-
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 import moment from 'moment-timezone';
 
+const host = import.meta.env.VITE_HEXAPI;
+const path = import.meta.env.VITE_USER_PATH;
 export default {
   data() {
     return {
@@ -55,23 +53,6 @@ export default {
     },
     addNewProduct() {
       this.$router.push('/admin/addProduct');
-    },
-    checkAdmin() {
-      this.axios
-        .post(`${host}/v2/api/user/check`)
-        .then((res) => {
-          // 驗證完畢後取得訂單列表
-          this.getOrders();
-        })
-        .catch((err) => {
-          Swal.fire({
-            title: "登入驗證失敗, 請重新登入",
-            confirmButtonText: "確定",
-          }).then((result) => {
-            // 驗證失敗轉回登入頁面
-            this.$router.push('/admin/adminLogin');
-          });
-        });
     },
     // 將orders資料轉為輸出為二維陣列跑圖表
     getSaleRankingData(orders, str) {
@@ -301,14 +282,7 @@ export default {
     }
   },
   mounted() {
-    // 從cookie取出登入時存入的token
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    // 將token設定到axios的預設header裡
-    this.axios.defaults.headers.common.Authorization = token;
-    this.checkAdmin();
+    this.getOrders();
   }
 }
 </script>

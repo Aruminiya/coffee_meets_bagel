@@ -10,7 +10,6 @@
   <!-- 側邊選單 -->
   <adminNav ref="backendNav" />
   <main>
-    {{ tempCoupon }}
     <div class="container mt-10 py-5">
       <!-- coupon-searchbar -->
       <div class="row">
@@ -129,7 +128,8 @@ import adminLogo from "../../components/BackendLogoComponent.vue";
 import adminNav from "../../components/BackendOffcanvasNav.vue";
 import CouponModalComponent from "@/components/CouponModalComponent.vue";
 import PaginationComponent from "@/components/PaginationComponent.vue";
-
+import { mapActions } from "pinia";
+import checkLogin from '../../stores/CheckLogin.js'
 import Swal from "sweetalert2";
 
 // 通用環境變數
@@ -167,6 +167,8 @@ export default {
     PaginationComponent,
   },
   methods: {
+    // 載入pinia內的checkLogin方法
+    ...mapActions(checkLogin, ['checkLogin']),
     // 打開側邊欄位
     openOffCanvasNav() {
       this.$refs.backendNav.openNav();
@@ -314,7 +316,7 @@ export default {
 
     // 有些 request 需要夾帶 token 才能使用，所以在發送請求時夾帶 headers 資料，mounted 就載入的話，每次發請求都會自動夾帶
     this.axios.defaults.headers.common["Authorization"] = token;
-
+    this.checkLogin();
     this.getAllCoupons();
     this.getRenderCoupons();
   },
