@@ -128,8 +128,6 @@ import adminLogo from "../../components/BackendLogoComponent.vue";
 import adminNav from "../../components/BackendOffcanvasNav.vue";
 import CouponModalComponent from "@/components/CouponModalComponent.vue";
 import PaginationComponent from "@/components/PaginationComponent.vue";
-import { mapActions } from "pinia";
-import checkLogin from '../../stores/CheckLogin.js'
 import Swal from "sweetalert2";
 
 // 通用環境變數
@@ -167,8 +165,6 @@ export default {
     PaginationComponent,
   },
   methods: {
-    // 載入pinia內的checkLogin方法
-    ...mapActions(checkLogin, ['checkLogin']),
     // 打開側邊欄位
     openOffCanvasNav() {
       this.$refs.backendNav.openNav();
@@ -308,15 +304,6 @@ export default {
     },
   },
   mounted() {
-    // 從 cookie 取得 token 資料
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)florafirstapi\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-
-    // 有些 request 需要夾帶 token 才能使用，所以在發送請求時夾帶 headers 資料，mounted 就載入的話，每次發請求都會自動夾帶
-    this.axios.defaults.headers.common["Authorization"] = token;
-    this.checkLogin();
     this.getAllCoupons();
     this.getRenderCoupons();
   },
