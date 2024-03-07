@@ -145,7 +145,7 @@ export default{
     
     <nav class='row pt-5 justify-content-md-center'>
         <div class='d-flex justify-content-between flex-column-reverse flex-lg-row col-md-6 col-lg-12 '>
-        <ul class='d-flex col-lg-4 justify-content-between ps-0 mb-0 mt-2 justify-content-center '>
+        <ul class='d-flex col-lg-5 justify-content-between ps-0 mb-0 mt-2 justify-content-center '>
 
             <li style='list-style:none' class='d-flex align-items-center '>
              <RouterLink class="btn btn-primary rounded-pill" to="/productList" @click='findCategory($event)'>全部

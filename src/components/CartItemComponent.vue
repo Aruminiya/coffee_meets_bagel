@@ -65,7 +65,7 @@ export default {
       this.isEditMode = newVal;
     },
     item(n,o){
-      console.log(n,o);
+      //console.log(n,o);
       this.tempItem = {...n}
     }
   },
