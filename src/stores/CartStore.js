@@ -25,6 +25,7 @@ export default defineStore("CartStore", {
         .then((res) => {
           const { data } = res.data;
           this.data = data;
+         
           this.isCartsLoading = false;
         })
         .catch((err) => {
@@ -48,6 +49,7 @@ export default defineStore("CartStore", {
         .then((res) => {
           this.cartStatus = `${res.data.data.product.title}${res.data.message}`;
           this.getCarts();
+          
         })
         .catch((err) => {
           console.error(err);

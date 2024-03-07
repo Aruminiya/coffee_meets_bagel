@@ -44,6 +44,7 @@ export default {
       this.modalHide();
       this.qty=1;
       this.$refs.toastRef.toastShow()
+     // window.location.reload();
     }
   },
   computed:{
@@ -59,9 +60,11 @@ export default {
 };
 </script>
 
+
 <template>
+
  <ToastComponent ref='toastRef' ></ToastComponent>
-  <div class="modal fade text-primary" ref="productModal" tabindex="-1" aria-hidden="true">
+ <div class="modal fade text-primary" ref="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header row d-flex justify-content-lg-end justify-content-between mx-0 border-0">
@@ -184,4 +187,7 @@ export default {
       </div>
     </div>
   </div>
+
 </template>
+
+

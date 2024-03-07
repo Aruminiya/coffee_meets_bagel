@@ -180,6 +180,12 @@ export default{
              @click='findCategory($event)'>餅乾
             </RouterLink>
             </li>
+
+            <li style='list-style:none' class='d-flex align-items-center '>
+             <RouterLink class="btn btn-primary rounded-pill" to="/productList?category=鬆餅"
+             @click='findCategory($event)'>鬆餅
+            </RouterLink>
+            </li>
             
 
         </ul>
@@ -211,8 +217,8 @@ export default{
     </div>
     <div>
 
-        <ul class='row d-flex ps-0  '>
-            <li v-for='item in productsList' class='col-lg-3 d-flex justify-content-center mb-5 productCard' style='list-style:none' >
+        <ul class='row d-flex ps-0  pb-5'>
+            <li v-for='item in productsList' class='col-lg-3 d-flex justify-content-center productCard mb-5' style='list-style:none' >
                 <div class="card border-0" style="width: 18rem;">
                     <img :src='item.imageUrl' class="" :alt="item.title" style='height:280px; object-fit="none" '>
                     <div class="card-body cardContent  ">
@@ -230,7 +236,7 @@ export default{
 
                     </div>
                     <div class='card-body addToCartBtn' >
-                        <div class=' addToCartText ' style='height:72px'>
+                        <div class=' addToCartText ' style='height:80px'>
                             <p style=' font-size:14px'>{{item.description}}</p>
                         </div>
                         <button ref='modalBtn' @click='openModal(item)' class='text-center w-100 '><p class='mb-0 '>加入購物車</p></button>
