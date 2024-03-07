@@ -7,9 +7,10 @@
 </template>
 
 <script>
+
 export default {
   // props 當作 emit
-  props: ['openOffCanvasNav']
+  props: ['openOffCanvasNav'],
 }
 </script>
 
@@ -26,6 +27,6 @@ export default {
   white-space: nowrap;
 }
 .navbar{
-  background: white;
+  background: $colorChart-bg-color;
 }
 </style>

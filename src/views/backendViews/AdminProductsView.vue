@@ -30,6 +30,8 @@ export default {
       categories: [],
       search: '',
       product: {},
+      showCategory: false,
+      category: ''
     };
   },
   components: {
@@ -52,10 +54,10 @@ export default {
         .catch((err) => {
           Swal.fire({
             title: "登入驗證失敗, 請重新登入",
-            confirmButtonText: "Save",
+            confirmButtonText: "確定",
           }).then((result) => {
-            // 驗證失敗轉回登入頁面(未完成), 目前先轉回首頁
-            this.$router.push("/");
+            // 驗證失敗轉回登入頁面
+            this.$router.push('/admin/adminLogin');
           });
         });
     },
@@ -79,7 +81,6 @@ export default {
         .then((response) => {
           // 存入所有產品
           this.allProducts = Object.values(response.data.products);
-
           this.allProducts.forEach((item) => {
             item.check_enabled = item.is_enabled;
           })
@@ -99,7 +100,6 @@ export default {
         .then((response) => {
           this.products = response.data.products;
           this.pagination = response.data.pagination;
-
           // 新增自訂屬性判斷是否啟用(避免送出停用時API尚未回傳就直接反應)
           this.products.forEach((item) => {
             item.check_enabled = item.is_enabled;
@@ -109,14 +109,18 @@ export default {
           Swal.fire("資料取得失敗");
         });
     },
+    setCategory(category) {
+      this.category = category;
+      this.getProductsByCategory()
+    },
     // 變更分類時取得分類資料
-    getProductsByCategory(category) {
-      if (category === "檢視全部") {
-        this.getProducts();
+    getProductsByCategory(page = 1) {
+      if (this.category === "檢視全部") {
+        this.getProducts(1);
       } else {
         this.axios
           .get(
-            `${host}/v2/api/${path}/admin/products?page=1&category=${category}`
+            `${host}/v2/api/${path}/admin/products?page=${page}&category=${this.category}`
           )
           .then((response) => {
             this.products = response.data.products;
@@ -268,7 +272,7 @@ export default {
         </div>
         <div class="col-3 py-3">
           <select class="form-select form-select" aria-label=".form-select-sm example"
-            @change="getProductsByCategory($event.target.value)">
+            @change="setCategory($event.target.value)">
             <!-- 設計稿以販售狀態分類, 先改類別 -->
             <option selected>依商品類別檢視</option>
             <option value="檢視全部">檢視全部</option>
@@ -395,7 +399,8 @@ export default {
         </template>
       </modal>
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <pagination :pagination="pagination" @emit-pages="getProducts"></pagination>
+      <pagination v-if="showCategory" :pagination="pagination" @emit-pages="getProducts"></pagination>
+      <pagination v-else :pagination="pagination" @emit-pages="getProductsByCategory"></pagination>
     </div>
   </div>
 </template>

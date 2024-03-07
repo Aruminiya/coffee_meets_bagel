@@ -149,14 +149,14 @@ section {
 }
 .section1 {
   // background-image: url("../../../public/FAQ_01.png");
-  background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/FAQ_01.png?raw=true");
+  background-image: url("https://i.imgur.com/864oX3J.png");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
     // background-image: url("../../../public/FAQ_Phone_01.png");
-    background-image: url("https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/FAQ_Phone_01.png?raw=true");
+    background-image: url("https://i.imgur.com/IzU3sjn.png");
   }
   .text {
     left: 10vw;
@@ -169,7 +169,8 @@ section {
 }
 
 .FQA {
-  background-image: url("../../../public/BG_01.png");
+  // background-image: url("../../../public/BG_01.png");
+  background-image: url("https://i.imgur.com/RWJATLm.png");
   background-size: cover;
   background-position: center;
   .QA {

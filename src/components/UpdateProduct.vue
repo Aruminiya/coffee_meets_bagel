@@ -87,8 +87,7 @@ export default {
               })
             }
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
             Swal.fire("取得產品資料失敗");
           });
       } else {
@@ -109,8 +108,7 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           Swal.fire("產品新增失敗");
         });
     },
@@ -204,8 +202,8 @@ export default {
         this.newImagesUrl[index] = url;
       }
     },
-    uploadError(err) {
-      console.log(err.message);
+    uploadError() {
+      Swal.fire("圖片上傳失敗");
     },
   },
   mounted() {
@@ -262,7 +260,7 @@ export default {
           </div>
           <div class="col-6">
             <div>
-              <img class="main__sub__pics rounded-top" :src="showImageUrl">
+              <img class="main__sub__pics rounded-top border border-primary border-bottom-0" :src="showImageUrl">
               <button class="btn btn-outline-primary form-control rounded-top-0 dropdown-toggle" type="button"
                 data-bs-toggle="dropdown" aria-expanded="false">新增圖片</button>
               <ul class="dropdown-menu">
@@ -324,8 +322,8 @@ export default {
         </div>
         <div class="position-absolute bottom-0 end-0 p-3">
           <button type="button" class="btn btn-outline-primary ms-3" @click="backToList">返回產品列表</button>
-          <button type="button" class="btn btn-outline-success ms-3" v-if="product.id" @click="getProduct">回復初始值</button>
-          <button type="button" class="btn btn-outline-primary ms-3" v-if="product.id"
+          <button type="button" class="btn btn-outline-primary ms-3" v-if="product.id" @click="getProduct">回復初始值</button>
+          <button type="button" class="btn btn-outline-success ms-3" v-if="product.id"
             @click="confirmUpdate">確定修改</button>
           <button type="button" class="btn btn-outline-primary ms-3" v-else @click="addProduct">新增商品</button>
         </div>
@@ -333,17 +331,17 @@ export default {
     </div>
   </div>
 
-  <!-- modal< 點選圖片放大顯示 -->
+  <!-- modal 點選圖片放大顯示 -->
   <modal ref="modal">
     <template v-slot:modal-body>
       <img :src="product.imageUrl" alt="#" class="modal__img">
     </template>
   </modal>
 
-  <!-- modal上傳圖片 -->
+  <!-- modal 上傳圖片 -->
   <uploadImageModal ref="inputModal" @upload-success="uploadSuccess" @upload-error="uploadError"></uploadImageModal>
 
-  <!-- modal更換圖片網址 -->
+  <!-- modal 更換圖片網址 -->
   <changeUrlModal ref="changeUrlModal" @change-url="uploadSuccess"></changeUrlModal>
   
 </template>

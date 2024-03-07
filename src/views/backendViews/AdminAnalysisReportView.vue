@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
-
 import moment from 'moment-timezone';
 
 export default {
@@ -57,6 +56,23 @@ export default {
     addNewProduct() {
       this.$router.push('/admin/addProduct');
     },
+    checkAdmin() {
+      this.axios
+        .post(`${host}/v2/api/user/check`)
+        .then((res) => {
+          // 驗證完畢後取得訂單列表
+          this.getOrders();
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "登入驗證失敗, 請重新登入",
+            confirmButtonText: "確定",
+          }).then((result) => {
+            // 驗證失敗轉回登入頁面
+            this.$router.push('/admin/adminLogin');
+          });
+        });
+    },
     // 將orders資料轉為輸出為二維陣列跑圖表
     getSaleRankingData(orders, str) {
       const uniqueProducts = {};
@@ -65,7 +81,7 @@ export default {
         for (const productId in orderItem.products) {
           const product = orderItem.products[productId].product;
           const item = orderItem.products[productId][str];
-
+          
           if (!uniqueProducts[product.title]) {
             uniqueProducts[product.title] = item;
           } else {
@@ -151,11 +167,9 @@ export default {
             .then(() => {
               // 初始化資料
               this.initOrdersData();
-              console.log(this.orders);
             })
-            .catch((error) => {
-              // 
-              console.error('Error occurred:', error);
+            .catch(() => {
+              Swal.fire('取得資料失敗')
             });
         });
     },
@@ -258,11 +272,6 @@ export default {
         return this.selectedDate === null ? '請先選擇日期' : message;
       }
     },
-    // 切換圖表數據
-    changeChart() {
-      this.showRankChart = !this.showRankChart;
-    }
-
   },
   watch: {
     selectedDate(newDate) {
@@ -299,7 +308,7 @@ export default {
     );
     // 將token設定到axios的預設header裡
     this.axios.defaults.headers.common.Authorization = token;
-    this.getOrders();
+    this.checkAdmin();
   }
 }
 </script>
@@ -314,7 +323,7 @@ export default {
     </div>
 
     <div class="container">
-      <h2 class="text-primary mb-3">營收分析</h2>
+      <h2 class="text-primary mb-0 py-3">營收分析</h2>
       <div class="border p-4 rounded row">
         <div class="col-5 mb-4">
           <h4 class="text-primary my-3">查詢日期銷售狀況</h4>
@@ -390,9 +399,9 @@ export default {
             <h4 class="text-primary my-3">查詢品項銷售狀況</h4>
             <div>
               <div class="btn-group my-3" role="group">
-                <button type="button" class="btn btn-outline-primary" @click="changeChart()"
+                <button type="button" class="btn btn-outline-primary" @click="showRankChart = true"
                 :class="{'active' : showRankChart}">查看銷售數量分析</button>
-                <button type="button" class="btn btn-outline-success" @click="changeChart()"
+                <button type="button" class="btn btn-outline-success" @click="showRankChart = false"
                 :class="{'active' : !showRankChart}">查看銷售金額分析</button>
               </div>
             </div>

@@ -30,7 +30,7 @@ export default defineStore("OrderStore", {
         });
     },
     //訂單結帳
-    orderCheckout(personInfo) {
+    orderCheckout(personInfo, fn) {
       console.log("送出訂單", personInfo);
 
       const host = import.meta.env.VITE_HEXAPI;
@@ -42,6 +42,7 @@ export default defineStore("OrderStore", {
           localStorage.setItem("orderId", JSON.stringify(res.data.orderId));
           // 確認送出訂單
           this.orderEstablished = true;
+          fn();
         })
         .catch((err) => {
           console.error(err);

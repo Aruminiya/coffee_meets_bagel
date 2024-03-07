@@ -30,6 +30,9 @@ export default {
   methods: {
     ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
     ...mapActions(orderStore, ["orderCheckout"]),
+    toNextStep() {
+      this.$router.push("/orderCheckView/step3");
+    },
   },
   mounted() {
     // console.log(this.orderEstablished);
@@ -39,11 +42,11 @@ export default {
     this.personInfo = JSON.parse(localStorage.getItem("personInfo"));
   },
   watch: {
-    orderEstablished(newVal, oldVal) {
-      if (newVal) {
-        this.$router.push("/orderCheckView/step3");
-      }
-    },
+    // orderEstablished(newVal, oldVal) {
+    //   if (newVal) {
+    //     this.$router.push("/orderCheckView/step3");
+    //   }
+    // },
   },
 };
 </script>
@@ -137,7 +140,7 @@ export default {
         <br />
         <button
           class="btn btn-primary w-100"
-          @click="orderCheckout(personInfo)"
+          @click="orderCheckout(personInfo, toNextStep)"
         >
           送出訂單
         </button>
