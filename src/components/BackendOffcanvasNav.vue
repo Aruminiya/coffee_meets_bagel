@@ -106,30 +106,21 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "確定登出",
       }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "已登出",
-            text: "將返回登入頁面",
-            icon: "success"
-          });
-          this.logout();
-        }
+        this.logout();
       });
     },
     logout() {
-      this.axios.post(`${host}/v2/logout`)
-        .then((res) => {
+      this.axios(`${host}`)
+        .then(() => {
           Swal.fire({
             title: "已成功登出",
             icon: "success",
           });
-          // 清除cookie的token
-          document.cookie = `florafirstapi=''`;
           this.offcanvasNav.hide();
           this.$router.push('/admin/adminLogin');
         }).catch(() => {
-          // 清除cookie的token
-          document.cookie = `florafirstapi=''`;
+          // 強制將cookie的值改掉
+          document.cookie = `florafirstapi='';`;
           this.offcanvasNav.hide();
           this.$router.push('/admin/adminLogin');
         })

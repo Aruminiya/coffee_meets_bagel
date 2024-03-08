@@ -38,7 +38,7 @@ export default {
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <h3 class="text-primary">請選擇要上傳的圖片檔案</h3>
+          <h3 class="text-primary">請選擇要更換的圖片路徑</h3>
           <input type="url" class="form-control rounded-bottom-0" v-model="imageUrl">
           <button type="bottom" class="form-control btn btn-outline-primary rounded-top-0"
           @click="changeUrl">送出修改</button>
