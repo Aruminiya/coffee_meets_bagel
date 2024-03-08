@@ -22,6 +22,7 @@ export default {
   },
   data() {
     return {
+      currentCategory:undefined,
       categories: ["飲品", "蛋糕", "餅乾", "輕食"],
       productsList: [],
       modal: null,
@@ -108,7 +109,6 @@ export default {
       });
     },
     findCategory(e) {
-      //console.log(e.target.innerHTML)
       this.category = e.target.innerHTML;
     },
   },
@@ -125,6 +125,8 @@ export default {
     this.getProduct();
     //this. filterProducts()
     this.getAllProduct();
+    //console.log(this.$router.currentRoute._value.query.category);
+    this.category = this.$router.currentRoute._value.query.category;
   },
 };
 </script>
@@ -386,7 +388,7 @@ export default {
       </nav>
     </div>
   </div>
-  <FooterComponent></FooterComponent>
+  <FooterComponent/>
 </template>
 
 <style lang="scss">
