@@ -129,6 +129,7 @@ export default {
     this.getProduct();
     this.getAllProduct();
     //console.log(this. allProducts)
+    
     //console.log(this.$router.currentRoute._value.query.category);
     if (this.$router.currentRoute._value.query.category == undefined) {
       this.category == "全部";
