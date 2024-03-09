@@ -2,7 +2,7 @@
 const host = import.meta.env.VITE_HEXAPI;
 const path = import.meta.env.VITE_USER_PATH;
 
-import modal from './ModalComponent.vue';
+import modal from './ModalShowImgComponent..vue';
 import uploadImageModal from './ModalUploadImageFile.vue';
 import changeUrlModal from './ModalChangeUrl.vue';
 import Swal from "sweetalert2";
