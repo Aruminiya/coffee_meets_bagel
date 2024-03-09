@@ -351,7 +351,7 @@ export default {
                   <td colspan="2" class="text-end pe-3"> {{ `共 ${daySelected.orders.length} 筆` }} </td>
                 </tr>
                 <tr>
-                  <th colspan="2" class="ps-3">訂單總筆數</th>
+                  <th colspan="2" class="ps-3">平均銷售額</th>
                   <td colspan="2" class="text-end pe-3"> {{ `平均每筆 ${getTotalAverage(daySelected.total,
                     daySelected.orders.length)} 元` }} </td>
                 </tr>
