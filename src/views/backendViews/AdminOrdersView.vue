@@ -63,9 +63,12 @@ export default {
         }
         // 確保迴圈的請求都跑完
         Promise.all(promises)
-          .then(() => {})
-          .catch(() => {
-            Swal.fire("取得資料失敗");
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            // Swal.fire("取得資料失敗");
+            console.error(err);
           });
       });
     },
