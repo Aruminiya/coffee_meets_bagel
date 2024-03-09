@@ -62,7 +62,7 @@ export default {
         .then((res) => {
           this.pages = res.data.pagination;
           this.productsList = res.data.products;
-         // console.log(this.productsList);
+          console.log(this.productsList);
           this.productsList.sort(function (a, b) {
             return a.title.localeCompare(b.title, "zh-Hans-CN");
           });
