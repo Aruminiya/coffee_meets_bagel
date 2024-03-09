@@ -80,11 +80,15 @@ export default {
         .then((res) => {
          
           this.allProducts = res.data.products;
+<<<<<<< HEAD
           //console.log(this.allProducts)
           this.allProducts.sort(function (a, b) {
             return a.title.localeCompare(b.title, "zh-Hans-CN");
           });
           this.isLoading = false;
+=======
+          
+>>>>>>> dev
         });
     },
 
