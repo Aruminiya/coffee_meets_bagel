@@ -75,7 +75,7 @@ export default {
         .then((res) => {
           // console.log(res);
           this.allProducts = res.data.products;
-          //console.log(this.allProducts)
+          
         });
     },
 
