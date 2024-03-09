@@ -60,6 +60,7 @@ export default {
         )
         .then((res) => {
           //console.log(res)
+          
           this.pages = res.data.pagination;
           this.productsList = res.data.products;
           this.productsList.sort(function (a, b) {
