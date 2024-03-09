@@ -22,14 +22,14 @@ export default {
   },
   data() {
     return {
-      currentCategory:undefined,
+      currentCategory: undefined,
       categories: ["飲品", "蛋糕", "餅乾", "輕食"],
       productsList: [],
       modal: null,
       isLoading: true,
       showPagination: false,
       pages: {},
-      category: "全部",
+      category: "",
       search: "",
       allProducts: [],
     };
@@ -50,6 +50,7 @@ export default {
     },
 
     getProduct(page = 1) {
+      // this.category = e.target.innerHTML;
       this.isLoading = true;
       this.showPagination = true;
       //console.log(this.$route);
@@ -59,8 +60,14 @@ export default {
           `${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products?category=${category}&page=${page}`
         )
         .then((res) => {
+<<<<<<< HEAD
+=======
+          //console.log(res)
+
+>>>>>>> 229ee56a22ff385a46351d7ef9a9e55b6105bf17
           this.pages = res.data.pagination;
           this.productsList = res.data.products;
+          console.log(this.productsList);
           this.productsList.sort(function (a, b) {
             return a.title.localeCompare(b.title, "zh-Hans-CN");
           });
@@ -68,12 +75,14 @@ export default {
         });
     },
     getAllProduct() {
+      this.isLoading = true;
+      this.showPagination = true;
+      this.category = "全部";
+      const category = "";
       axios
         .get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
         .then((res) => {
-          // console.log(res);
           this.allProducts = res.data.products;
-          
         });
     },
 
@@ -122,10 +131,15 @@ export default {
   },
   mounted() {
     this.getProduct();
-    //this. filterProducts()
     this.getAllProduct();
-    //console.log(this.$router.currentRoute._value.query.category);
-    this.category = this.$router.currentRoute._value.query.category;
+    //console.log(this. allProducts)
+    console.log(this.$router.currentRoute._value.query.category);
+    if (this.$router.currentRoute._value.query.category == undefined) {
+      this.category == "全部";
+    } else {
+      this.category = this.$router.currentRoute._value.query.category;
+      console.log(this.category);
+    }
   },
 };
 </script>
@@ -187,7 +201,7 @@ export default {
             <RouterLink
               class="btn btn-primary rounded-pill"
               to="/productList"
-              @click="findCategory($event)"
+              @click="getAllProduct"
               >全部
             </RouterLink>
           </li>
@@ -387,7 +401,7 @@ export default {
       </nav>
     </div>
   </div>
-  <FooterComponent/>
+  <FooterComponent />
 </template>
 
 <style lang="scss">
