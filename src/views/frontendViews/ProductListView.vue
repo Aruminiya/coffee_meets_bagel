@@ -59,8 +59,6 @@ export default {
           `${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products?category=${category}&page=${page}`
         )
         .then((res) => {
-          //console.log(res)
-          
           this.pages = res.data.pagination;
           this.productsList = res.data.products;
           this.productsList.sort(function (a, b) {
