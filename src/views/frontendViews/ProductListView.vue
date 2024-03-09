@@ -50,18 +50,15 @@ export default {
     },
 
     getProduct(page = 1) {
-     // this.category = e.target.innerHTML;
       this.isLoading = true;
       this.showPagination = true;
-      //console.log(this.$route);
       const { category = "" } = this.$route.query;
+      console.log(category)
       axios
         .get(
           `${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products?category=${category}&page=${page}`
         )
         .then((res) => {
-          //console.log(res)
-          
           this.pages = res.data.pagination;
           this.productsList = res.data.products;
           console.log(this.productsList)
@@ -71,25 +68,18 @@ export default {
           this.isLoading = false;
         });
     },
-    getAllProduct() {
+    getAllProduct(page = 1) {
      this.isLoading = true;
       this.showPagination = true;
       this.category = '全部'
       const category = "";
+       this.productsList=[];
       axios.get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
         .then((res) => {
-         
           this.allProducts = res.data.products;
-<<<<<<< HEAD
-          //console.log(this.allProducts)
-          this.allProducts.sort(function (a, b) {
-            return a.title.localeCompare(b.title, "zh-Hans-CN");
-          });
-          this.isLoading = false;
-=======
-          
->>>>>>> dev
+          console.log(this.allProducts)
         });
+        this.getProduct();
     },
 
     sortRecommend(e) {
@@ -136,16 +126,18 @@ export default {
     },
   },
   mounted() {
-    this.getProduct();
-    this.getAllProduct();
+    ;
+     this.getProduct()
     //console.log(this. allProducts)
     console.log(this.$router.currentRoute._value.query.category);
     if(this.$router.currentRoute._value.query.category==undefined){
       this.category=='全部';
+      this.getAllProduct();
       
     }else{
       this.category = this.$router.currentRoute._value.query.category;
       console.log(this.category)
+     
     }
     
   },
