@@ -1,45 +1,43 @@
 <script>
-import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
-import CartItemComponent from "../components/CartItemComponent.vue";
+import CartItemComponent from '../components/CartItemComponent.vue'
 
 // pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../stores/CartStore.js";
-import orderStore from "../stores/OrderStore.js";
+import { mapState, mapActions } from 'pinia'
+import cartStore from '../stores/CartStore.js'
+import orderStore from '../stores/OrderStore.js'
 
 export default {
   components: {
-    OrderCheckProgressComponent,
-    CartItemComponent,
+    CartItemComponent
   },
-  data() {
+  data () {
     return {
       item: {},
-      personInfo: "",
-    };
+      personInfo: ''
+    }
   },
   computed: {
     ...mapState(cartStore, [
-      "data",
-      "couponData",
-      "isCartsLoading",
-      "useCouponPrice",
+      'data',
+      'couponData',
+      'isCartsLoading',
+      'useCouponPrice'
     ]),
-    ...mapState(orderStore, ["orderEstablished"]),
+    ...mapState(orderStore, ['orderEstablished'])
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "deleteCarts", "useCoupon"]),
-    ...mapActions(orderStore, ["orderCheckout"]),
-    toNextStep() {
-      this.$router.push("/orderCheckView/step3");
-    },
+    ...mapActions(cartStore, ['getCarts', 'deleteCarts', 'useCoupon']),
+    ...mapActions(orderStore, ['orderCheckout']),
+    toNextStep () {
+      this.$router.push('/orderCheckView/step3')
+    }
   },
-  mounted() {
+  mounted () {
     // console.log(this.orderEstablished);
     // 先取得購物車資訊
-    this.getCarts();
-    //取得上一步驟在 localStorage 存放的使用者資料
-    this.personInfo = JSON.parse(localStorage.getItem("personInfo"));
+    this.getCarts()
+    // 取得上一步驟在 localStorage 存放的使用者資料
+    this.personInfo = JSON.parse(localStorage.getItem('personInfo'))
   },
   watch: {
     // orderEstablished(newVal, oldVal) {
@@ -47,8 +45,8 @@ export default {
     //     this.$router.push("/orderCheckView/step3");
     //   }
     // },
-  },
-};
+  }
+}
 </script>
 
 <template>

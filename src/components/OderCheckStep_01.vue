@@ -1,54 +1,52 @@
 <script>
-import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
-import CartItemComponent from "../components/CartItemComponent.vue";
-import OrderCheckFormComponent from "../components/OrderCheckFormComponent.vue";
-import ModalComponent from "../components/ModalComponent.vue";
+import CartItemComponent from '../components/CartItemComponent.vue'
+import OrderCheckFormComponent from '../components/OrderCheckFormComponent.vue'
+import ModalComponent from '../components/ModalComponent.vue'
 
 // pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../stores/CartStore.js";
-import couponStore from "../stores/CouponStore.js";
+import { mapState, mapActions } from 'pinia'
+import cartStore from '../stores/CartStore.js'
+import couponStore from '../stores/CouponStore.js'
 
 export default {
   components: {
-    OrderCheckProgressComponent,
     CartItemComponent,
     OrderCheckFormComponent,
-    ModalComponent,
+    ModalComponent
   },
-  data() {
+  data () {
     return {
       item: {},
-      couponCode: "",
-    };
+      couponCode: ''
+    }
   },
   computed: {
-    ...mapState(cartStore, ["data", "isCartsLoading"]),
-    ...mapState(couponStore, ["couponData", "couponUsed"]),
+    ...mapState(cartStore, ['data', 'isCartsLoading']),
+    ...mapState(couponStore, ['couponData', 'couponUsed'])
   },
 
   methods: {
-    ...mapActions(cartStore, ["getCarts", "editCarts", "deleteCarts"]),
-    ...mapActions(couponStore, ["useCoupon"]),
-    cartItemClicked(item) {
+    ...mapActions(cartStore, ['getCarts', 'editCarts', 'deleteCarts']),
+    ...mapActions(couponStore, ['useCoupon']),
+    cartItemClicked (item) {
       // 點擊的商品資料給 this.item
-      this.item = item;
+      this.item = item
       // 然後 modalComponent 打開 可以讀到 this.item
-      this.$refs.modalComponent.modalShow();
-    },
+      this.$refs.modalComponent.modalShow()
+    }
   },
-  mounted() {
+  mounted () {
     // 先取得購物車資訊
-    this.getCarts();
+    this.getCarts()
   },
   watch: {
-    data(newVal, oldVal) {
+    data (newVal, oldVal) {
       if (newVal.carts?.length === 0) {
-        this.$router.push("/productList");
+        this.$router.push('/productList')
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <template>

@@ -1,32 +1,32 @@
 <script>
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
 
 export default {
-  data() {
+  data () {
     return {
       productModal: null,
-      product: {},
-    };
-  },
-  methods: {
-    modalShow(product) {
-      this.product = product
-      this.productModal.show();
-    },
-    modalHide() {
-      this.productModal.hide();
-    },
-    onlyShow(){
-      this.productModal.show();
+      product: {}
     }
   },
-  mounted() {
+  methods: {
+    modalShow (product) {
+      this.product = product
+      this.productModal.show()
+    },
+    modalHide () {
+      this.productModal.hide()
+    },
+    onlyShow () {
+      this.productModal.show()
+    }
+  },
+  mounted () {
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
-      keyboard: true, // 按下ESC是否可以關閉
-    });
-  },
-};
+      keyboard: true // 按下ESC是否可以關閉
+    })
+  }
+}
 </script>
 
 <template>
@@ -40,4 +40,3 @@ export default {
     </div>
   </div>
 </template>
-

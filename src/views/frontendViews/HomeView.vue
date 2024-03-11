@@ -1,54 +1,54 @@
 <script>
 // Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from "swiper/vue";
+import { Swiper, SwiperSlide } from 'swiper/vue'
 
 // Import Swiper styles
-import "swiper/css";
+import 'swiper/css'
 
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
-import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
-import FooterComponent from "../../components/FooterComponent.vue";
+import HomePageNavBarComponent from '../../components/HomePageNavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     HomePageNavBarComponent,
-    FooterComponent,
+    FooterComponent
   },
-  data() {
+  data () {
     return {
-      test: "歡迎來到首頁",
+      test: '歡迎來到首頁',
       modules: [Autoplay, Pagination, Navigation],
       // 這邊是給 SwiperSlide 的 slidesPerView 判斷用的
-      windowInnerWidth: window.innerWidth,
-    };
+      windowInnerWidth: window.innerWidth
+    }
   },
   computed: {
-    slidesPerViewData() {
+    slidesPerViewData () {
       return this.windowInnerWidth >= 1200
         ? 5
         : this.windowInnerWidth >= 768
-        ? 3
-        : 1;
+          ? 3
+          : 1
     },
-    initialSlideData() {
+    initialSlideData () {
       return this.windowInnerWidth >= 1200
         ? 2
         : this.windowInnerWidth >= 768
-        ? 1
-        : 0;
-    },
+          ? 1
+          : 0
+    }
   },
-  mounted() {
-    console.log(this.test);
-  },
-};
+  mounted () {
+    console.log(this.test)
+  }
+}
 </script>
 
 <template>

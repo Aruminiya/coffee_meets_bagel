@@ -1,26 +1,26 @@
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
+import modal from './ModalShowImgComponent..vue'
+import uploadImageModal from './ModalUploadImageFile.vue'
+import changeUrlModal from './ModalChangeUrl.vue'
+import Swal from 'sweetalert2'
 
-import modal from './ModalShowImgComponent..vue';
-import uploadImageModal from './ModalUploadImageFile.vue';
-import changeUrlModal from './ModalChangeUrl.vue';
-import Swal from "sweetalert2";
+const host = import.meta.env.VITE_HEXAPI
+const path = import.meta.env.VITE_USER_PATH
 
 const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
+  position: 'top-end',
   showConfirmButton: false,
   timer: 1500,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
+    toast.onmouseenter = Swal.stopTimer
+    toast.onmouseleave = Swal.resumeTimer
   }
-});
+})
 
 export default {
-  data() {
+  data () {
     return {
       product: {},
       defaultImageUrl: 'https://www.ils.com.tw/zh/Up_files/webskin/RWD/include/images/type3album_blank.png',
@@ -28,19 +28,19 @@ export default {
       showImageUrl: '',
       newImagesUrl: [],
       defaultProduct: {
-        'category': '',
-        'content': '',
-        'description': '',
-        'imageUrl': 'https://www.ils.com.tw/zh/Up_files/webskin/RWD/include/images/type3album_blank.png',
-        'imagesUrl': [
-          'https://www.ils.com.tw/zh/Up_files/webskin/RWD/include/images/type3album_blank.png',
+        category: '',
+        content: '',
+        description: '',
+        imageUrl: 'https://www.ils.com.tw/zh/Up_files/webskin/RWD/include/images/type3album_blank.png',
+        imagesUrl: [
+          'https://www.ils.com.tw/zh/Up_files/webskin/RWD/include/images/type3album_blank.png'
         ],
-        'is_enabled': 0,
-        'origin_price': 0,
-        'is_recommend': 0,
-        'price': 0,
-        'title': '',
-        'unit': ''
+        is_enabled: 0,
+        origin_price: 0,
+        is_recommend: 0,
+        price: 0,
+        title: '',
+        unit: ''
       },
       showUrl: false
     }
@@ -51,21 +51,21 @@ export default {
     changeUrlModal
   },
   methods: {
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
-    modalShow(url) {
+    modalShow (url) {
       if (url !== this.defaultImageUrl) {
         this.$refs.modal.modalShow(url)
       }
     },
-    uploadModalShow(index) {
+    uploadModalShow (index) {
       this.$refs.inputModal.modalShow(index)
     },
-    changeUrlModalShow(index) {
+    changeUrlModalShow (index) {
       this.$refs.changeUrlModal.modalShow(index)
     },
-    addNewImage() {
+    addNewImage () {
       this.showImageUrl = this.newImageUrl
       this.newImagesUrl.push(this.showImageUrl)
       // 新圖推到陣列後回復到預設圖片
@@ -73,9 +73,9 @@ export default {
       // input清空
       this.newImageUrl = ''
     },
-    getProduct() {
+    getProduct () {
       // 取得路由的產品ID
-      const id = this.$route.params.id;
+      const id = this.$route.params.id
       if (id) {
         this.axios.get(`${host}/v2/api/${path}/product/${id}`)
           .then((res) => {
@@ -88,96 +88,96 @@ export default {
             }
           })
           .catch(() => {
-            Swal.fire("取得產品資料失敗");
-          });
+            Swal.fire('取得產品資料失敗')
+          })
       } else {
-        this.product = this.defaultProduct;
+        this.product = this.defaultProduct
       }
     },
-    addProduct() {
-      this.product.imagesUrl = this.newImagesUrl;
-      const data = this.product;
+    addProduct () {
+      this.product.imagesUrl = this.newImagesUrl
+      const data = this.product
       this.axios.post(`${host}/v2/api/${path}/admin/product`, { data })
         .then(() => {
           Swal.fire({
-            title: "產品新增成功",
-            confirmButtonText: "返回產品列表",
+            title: '產品新增成功',
+            confirmButtonText: '返回產品列表'
           }).then((result) => {
             if (result.isConfirmed) {
-              this.$router.push('/admin/adminProducts');
+              this.$router.push('/admin/adminProducts')
             }
-          });
+          })
         })
         .catch(() => {
-          Swal.fire("產品新增失敗");
-        });
+          Swal.fire('產品新增失敗')
+        })
     },
-    enabledProduct() {
+    enabledProduct () {
       if (this.product.is_enabled === 0) {
         this.product.is_enabled = 1
       } else if (this.product.is_enabled === 1) {
         this.product.is_enabled = 0
       }
     },
-    enabledRecommend() {
+    enabledRecommend () {
       if (this.product.is_recommend === 0 || this.product.is_recommend === undefined) {
         this.product.is_recommend = 1
       } else if (this.product.is_recommend === 1) {
         this.product.is_recommend = 0
       }
     },
-    backToList() {
-      this.$router.push('/admin/adminProducts');
+    backToList () {
+      this.$router.push('/admin/adminProducts')
     },
-    updateProduct() {
+    updateProduct () {
       // 取得路由的產品ID
-      const id = this.$route.params.id;
+      const id = this.$route.params.id
       // 將新的副圖片陣列指向原本產品物件的副圖片陣列
-      this.product.imagesUrl = this.newImagesUrl;
-      const data = this.product;
+      this.product.imagesUrl = this.newImagesUrl
+      const data = this.product
       this.axios.put(`${host}/v2/api/${path}/admin/product/${id}`, { data })
         .then(() => {
           Swal.fire({
-            title: "系統訊息",
-            text: "產品內容已更新, 將返回產品列表",
-            icon: "success"
-          });
+            title: '系統訊息',
+            text: '產品內容已更新, 將返回產品列表',
+            icon: 'success'
+          })
           this.$router.push('/admin/adminProducts')
         }).catch(() => {
-          Swal.fire("系統更新失敗");
-        });
+          Swal.fire('系統更新失敗')
+        })
     },
-    deleteImage(index) {
-      this.newImagesUrl.splice(index, 1);
+    deleteImage (index) {
+      this.newImagesUrl.splice(index, 1)
       Toast.fire({
-        icon: "success",
-        title: "系統訊息 - 圖片已刪除"
-      });
+        icon: 'success',
+        title: '系統訊息 - 圖片已刪除'
+      })
     },
-    changeMainImg(index) {
-      const changedImg = this.product.imageUrl;
-      this.product.imageUrl = this.newImagesUrl[index];
-      this.newImagesUrl[index] = changedImg;
+    changeMainImg (index) {
+      const changedImg = this.product.imageUrl
+      this.product.imageUrl = this.newImagesUrl[index]
+      this.newImagesUrl[index] = changedImg
       Toast.fire({
-        icon: "success",
-        title: "系統訊息 - 產品首圖設定成功"
-      });
+        icon: 'success',
+        title: '系統訊息 - 產品首圖設定成功'
+      })
     },
-    confirmUpdate() {
+    confirmUpdate () {
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger"
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
         },
         buttonsStyling: true
-      });
+      })
       swalWithBootstrapButtons.fire({
-        title: "系統訊息",
-        text: "確定要更新產品資訊嗎?",
-        icon: "info",
+        title: '系統訊息',
+        text: '確定要更新產品資訊嗎?',
+        icon: 'info',
         showCancelButton: true,
-        confirmButtonText: "確定更新",
-        cancelButtonText: "取消更新",
+        confirmButtonText: '確定更新',
+        cancelButtonText: '取消更新',
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
@@ -186,30 +186,30 @@ export default {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           Toast.fire({
-            icon: "warning",
-            title: "取消更新 - 系統將不會儲存您的變更"
-          });
+            icon: 'warning',
+            title: '取消更新 - 系統將不會儲存您的變更'
+          })
         }
-      });
+      })
     },
     // 根據回傳的結果修改對應圖片
-    uploadSuccess(url, index) {
-      if(index === -1) {
-        this.product.imageUrl = url;
-      }else if(index === undefined) {
-        this.newImagesUrl.push(url);
-      }else {
-        this.newImagesUrl[index] = url;
+    uploadSuccess (url, index) {
+      if (index === -1) {
+        this.product.imageUrl = url
+      } else if (index === undefined) {
+        this.newImagesUrl.push(url)
+      } else {
+        this.newImagesUrl[index] = url
       }
     },
-    uploadError() {
-      Swal.fire("圖片上傳失敗");
-    },
+    uploadError () {
+      Swal.fire('圖片上傳失敗')
+    }
   },
-  mounted() {
-    this.getProduct();
-    this.showImageUrl = this.defaultImageUrl;
-  },
+  mounted () {
+    this.getProduct()
+    this.showImageUrl = this.defaultImageUrl
+  }
 }
 </script>
 <template>
@@ -336,7 +336,7 @@ export default {
 
   <!-- modal 更換圖片網址 -->
   <changeUrlModal ref="changeUrlModal" @change-url="uploadSuccess"></changeUrlModal>
-  
+
 </template>
 <style scoped lang="scss">
 .main {

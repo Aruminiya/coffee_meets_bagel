@@ -1,21 +1,21 @@
 <script>
 export default {
   props: {
-    step: { type: Number, default: 1 },
+    step: { type: Number, default: 1 }
   },
   computed: {
-    nowStep() {
+    nowStep () {
       return this.step === 1
-        ? "0%"
+        ? '0%'
         : this.step === 2
-        ? "50%"
-        : this.step === 3
-        ? "100%"
-        : "無效的步驟";
-    },
+          ? '50%'
+          : this.step === 3
+            ? '100%'
+            : '無效的步驟'
+    }
   },
-  mounted() {},
-};
+  mounted () {}
+}
 </script>
 
 <template>

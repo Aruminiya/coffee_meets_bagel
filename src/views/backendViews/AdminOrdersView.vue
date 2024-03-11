@@ -1,176 +1,177 @@
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
+import showProductsModal from '../../components/OrdersProductsTable.vue'
+import pagination from '../../components/PaginationComponent.vue'
+import adminNav from '../../components/BackendOffcanvasNav.vue'
+import adminLogo from '../../components/BackendLogoComponent.vue'
+import Swal from 'sweetalert2'
+import moment from 'moment-timezone'
+import axios from 'axios'
 
-import showProductsModal from "../../components/OrdersProductsTable.vue";
-import pagination from "../../components/PaginationComponent.vue";
-import adminNav from "../../components/BackendOffcanvasNav.vue";
-import adminLogo from "../../components/BackendLogoComponent.vue";
-import Swal from "sweetalert2";
-import moment from "moment-timezone";
-import axios from "axios";
+const host = import.meta.env.VITE_HEXAPI
+const path = import.meta.env.VITE_USER_PATH
 
 // 設定時區
-moment.locale("zh-tw");
+moment.locale('zh-tw')
 // 自定義繁體中文語言檔
-moment.updateLocale("zh-tw", {
+moment.updateLocale('zh-tw', {
   meridiem: function (hour) {
     if (hour < 12) {
-      return "上午";
+      return '上午'
     } else {
-      return "下午";
+      return '下午'
     }
-  },
-});
+  }
+})
 
 export default {
-  data() {
+  data () {
     return {
       orders: [],
       allOrders: [],
       pagination: {},
-      searchStr: "",
-      checkAll: true,
-    };
+      searchStr: '',
+      checkAll: true
+    }
   },
   components: {
     pagination,
     adminNav,
     adminLogo,
-    showProductsModal,
+    showProductsModal
   },
   methods: {
-    getAllOrders() {
+    getAllOrders () {
       // 建立promise陣列
-      const promises = [];
+      const promises = []
       axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         // 先抓第一頁訂單資料
-        this.allOrders = res.data.orders;
-        const pages = res.data.pagination.total_pages;
+        this.allOrders = res.data.orders
+        const pages = res.data.pagination.total_pages
         for (let i = 2; i <= pages; i++) {
           // 每跑一次迴圈就建立一個promise物件
           const promise = axios.get(
             `${host}/v2/api/${path}/admin/orders?page=${i}`
-          );
+          )
           promise.then((res) => {
             // 繼續將第二頁後的訂單資料推入this.orders
             res.data.orders.forEach((item) => {
-              this.allOrders.push(item);
-            });
-          });
+              this.allOrders.push(item)
+            })
+          })
           // 將請求物件推進陣列
-          promises.push(promise);
+          promises.push(promise)
         }
         // 確保迴圈的請求都跑完
         Promise.all(promises)
           .then((res) => {
-            console.log(res);
+            console.log(res)
           })
           .catch((err) => {
             // Swal.fire("取得資料失敗");
-            console.error(err);
-          });
-      });
+            console.error(err)
+          })
+      })
     },
-    checkLogin() {
+    checkLogin () {
       const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("florafirstapi="))
-        ?.split("=")[1];
-      axios.defaults.headers.common["Authorization"] = token;
+        .split('; ')
+        .find((row) => row.startsWith('florafirstapi='))
+        ?.split('=')[1]
+      axios.defaults.headers.common.Authorization = token
 
       axios
         .post(`${host}/v2/api/user/check`)
         .then((res) => {
-          (this.isLogin = true), console.log("目前狀態已登入");
-          return;
+          // eslint-disable-next-line no-unused-expressions
+          this.isLogin = true
+          console.log('目前狀態已登入')
         })
         .catch((err) => {
-          console.log(this.$router);
+          console.log(this.$router)
           Swal.fire({
             title: `${err.response.data.message}`,
-            confirmButtonText: "確定",
+            confirmButtonText: '確定'
           }).then((result) => {
             // 驗證失敗轉回登入頁面
-            this.$router.push("/admin/adminLogin");
-          });
-        });
+            this.$router.push('/admin/adminLogin')
+          })
+        })
     },
-    getOrders(page = 1) {
+    getOrders (page = 1) {
       axios
         .get(`${host}/v2/api/${path}/admin/orders?page=${page}`)
         .then((res) => {
-          (this.orders = res.data.orders),
-            (this.pagination = res.data.pagination);
+          this.orders = res.data.orders
+          this.pagination = res.data.pagination
         })
         .catch(() => {
-          Swal.fire("資料取得失敗");
-        });
+          Swal.fire('資料取得失敗')
+        })
     },
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
-    openProductsTable(products) {
-      this.$refs.showProductModal.modalShow(products);
+    openProductsTable (products) {
+      this.$refs.showProductModal.modalShow(products)
     },
-    deleteOrder(id) {
+    deleteOrder (id) {
       Swal.fire({
-        icon: "warning",
-        title: "確定要刪除此訂單嗎?",
+        icon: 'warning',
+        title: '確定要刪除此訂單嗎?',
         showCancelButton: true,
-        confirmButtonText: "確定",
-        confirmButtonColor: "#1B8754",
+        confirmButtonText: '確定',
+        confirmButtonColor: '#1B8754'
       }).then((result) => {
         if (result.isConfirmed) {
           axios
             .delete(`${host}/v2/api/${path}/admin/order/${id}`)
             .then((res) => {
               Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "訂單已刪除",
+                position: 'center',
+                icon: 'success',
+                title: '訂單已刪除',
                 showConfirmButton: false,
-                timer: 1500,
-              });
-              this.getOrders();
-              this.getAllOrders();
+                timer: 1500
+              })
+              this.getOrders()
+              this.getAllOrders()
             })
             .catch(() => {
-              Swal.fire("刪除訂單失敗");
-            });
+              Swal.fire('刪除訂單失敗')
+            })
         }
-      });
+      })
     },
-    getDate(date) {
-      return moment.unix(date).format("YYYY年 MM月 DD日");
+    getDate (date) {
+      return moment.unix(date).format('YYYY年 MM月 DD日')
     },
-    searchOrder(str) {
-      this.checkAll = false;
+    searchOrder (str) {
+      this.checkAll = false
       this.orders = this.allOrders.filter((item) => {
-        return JSON.stringify(item).match(str);
-      });
+        return JSON.stringify(item).match(str)
+      })
     },
-    isOrderPaid(value) {
-      if (value === "檢視全部") {
-        this.checkAll = true;
-        this.getOrders();
-      } else if (value === "未付款") {
-        this.checkAll = false;
+    isOrderPaid (value) {
+      if (value === '檢視全部') {
+        this.checkAll = true
+        this.getOrders()
+      } else if (value === '未付款') {
+        this.checkAll = false
         this.orders = this.allOrders.filter((item) => {
-          return item.is_paid === false;
-        });
+          return item.is_paid === false
+        })
       }
     },
-    goOrderPage(id) {
-      this.$router.push(`/admin/adminOrders/${id}`);
-    },
+    goOrderPage (id) {
+      this.$router.push(`/admin/adminOrders/${id}`)
+    }
   },
-  mounted() {
-    this.checkLogin();
-    this.getOrders();
-    this.getAllOrders();
-  },
-};
+  mounted () {
+    this.checkLogin()
+    this.getOrders()
+    this.getAllOrders()
+  }
+}
 </script>
 
 <template>

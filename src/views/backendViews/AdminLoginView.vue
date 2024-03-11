@@ -1,34 +1,33 @@
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
+import Swal from 'sweetalert2'
 
-import Swal from 'sweetalert2';
+const host = import.meta.env.VITE_HEXAPI
 
 export default {
-  data() {
+  data () {
     return {
       user: {
         username: '',
-        password: '',
-      },
+        password: ''
+      }
     }
   },
   methods: {
-    login() {
+    login () {
       this.axios.post(`${host}/v2/admin/signin`, this.user)
         .then((res) => {
           // 把回傳的 token 及 expired timestamp 用解構賦值方式存成同名變數
-          const { token, expired } = res.data;
+          const { token, expired } = res.data
           // 把 token 及 expired 存到 cookie
-          document.cookie = `florafirstapi=${token}; expires=${new Date(expired)}`;
+          document.cookie = `florafirstapi=${token}; expires=${new Date(expired)}`
           // document.cookie = `floraFirstApiToken=${token}; expires=${new Date(expired)}`;
-          Swal.fire('登入成功, 將前往後台首頁');
-          this.$router.push('/admin');
-        }).catch((err) => {
-          Swal.fire('登入資訊錯誤, 請檢察您的帳號密碼');
+          Swal.fire('登入成功, 將前往後台首頁')
+          this.$router.push('/admin')
+        }).catch(() => {
+          Swal.fire('登入資訊錯誤, 請檢察您的帳號密碼')
         })
     }
-  },
+  }
 }
 </script>
 

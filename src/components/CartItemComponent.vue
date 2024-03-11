@@ -2,74 +2,74 @@
 export default {
   props: {
     item: { type: Object, require: true },
-    editMode: { type: Boolean, default: true },
+    editMode: { type: Boolean, default: true }
   },
 
-  emits: ["cartItemClicked", "deleteItemClicked", "editItemClickedEmit"],
-  data() {
+  emits: ['cartItemClicked', 'deleteItemClicked', 'editItemClickedEmit'],
+  data () {
     return {
       tempItem: { ...this.item },
       isEditMode: true,
-      timer: null, // 将 timer 变量定义在 data 中
-    };
+      timer: null // 将 timer 变量定义在 data 中
+    }
   },
   methods: {
     // 防手抖 debounce
 
-    deleteItemClickedEmit() {
+    deleteItemClickedEmit () {
       if (this.editMode) {
-        this.$emit("deleteItemClicked");
+        this.$emit('deleteItemClicked')
       }
     },
-    cartItemClickedEmit() {
+    cartItemClickedEmit () {
       if (this.editMode) {
-        this.$emit("cartItemClicked");
+        this.$emit('cartItemClicked')
       }
     },
-    editItemClickedEmit(calculate) {
+    editItemClickedEmit (calculate) {
       if (this.editMode) {
-        if (calculate === "+") {
-          this.tempItem.qty++;
+        if (calculate === '+') {
+          this.tempItem.qty++
           // 這邊是 debounce 的運用
-          clearTimeout(this.timer);
+          clearTimeout(this.timer)
           this.timer = setTimeout(() => {
             // console.log(this.tempItem);
-            this.$emit("editItemClickedEmit", this.tempItem);
-          }, 500);
-        } else if (calculate === "-" && this.tempItem.qty > 1) {
-          this.tempItem.qty--;
+            this.$emit('editItemClickedEmit', this.tempItem)
+          }, 500)
+        } else if (calculate === '-' && this.tempItem.qty > 1) {
+          this.tempItem.qty--
           // 這邊是 debounce 的運用
-          clearTimeout(this.timer);
+          clearTimeout(this.timer)
           this.timer = setTimeout(() => {
             // console.log(this.tempItem);
-            this.$emit("editItemClickedEmit", this.tempItem);
-          }, 500);
-        } else if (calculate === "blur") {
-          parseInt(this.tempItem.qty);
+            this.$emit('editItemClickedEmit', this.tempItem)
+          }, 500)
+        } else if (calculate === 'blur') {
+          parseInt(this.tempItem.qty)
           if (this.tempItem.qty > 0) {
             if (this.tempItem.qty !== this.item.qty) {
-              this.$emit("editItemClickedEmit", this.tempItem);
+              this.$emit('editItemClickedEmit', this.tempItem)
             }
           } else {
-            this.tempItem.qty = this.item.qty;
+            this.tempItem.qty = this.item.qty
           }
         } else {
-          console.warn("無效的計算");
+          console.warn('無效的計算')
         }
       }
-    },
-  },
-  watch: {
-    editMode(newVal) {
-      console.log(newVal);
-      this.isEditMode = newVal;
-    },
-    item(n,o){
-      //console.log(n,o);
-      this.tempItem = {...n}
     }
   },
-};
+  watch: {
+    editMode (newVal) {
+      console.log(newVal)
+      this.isEditMode = newVal
+    },
+    item (n, o) {
+      // console.log(n,o);
+      this.tempItem = { ...n }
+    }
+  }
+}
 </script>
 
 <template>

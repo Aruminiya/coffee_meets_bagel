@@ -1,10 +1,10 @@
 <script>
-import HomePageNavBarComponent from "../../components/HomePageNavBarComponent.vue";
-import FooterComponent from "../../components/FooterComponent.vue";
+import HomePageNavBarComponent from '../../components/HomePageNavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
 
 export default {
-  components: { HomePageNavBarComponent, FooterComponent },
-};
+  components: { HomePageNavBarComponent, FooterComponent }
+}
 </script>
 
 <template>

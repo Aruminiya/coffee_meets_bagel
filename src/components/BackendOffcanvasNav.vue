@@ -78,63 +78,63 @@
 </template>
 
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
-import Swal from "sweetalert2";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
+import Swal from 'sweetalert2'
+
+const host = import.meta.env.VITE_HEXAPI
 
 export default {
-  data() {
+  data () {
     return {
-      offcanvasNav: null,
-    };
+      offcanvasNav: null
+    }
   },
   methods: {
     // 打開 canvas
-    openNav() {
-      this.offcanvasNav.show();
+    openNav () {
+      this.offcanvasNav.show()
     },
     // 關閉 canvas -> 尚未用到
-    closeNav() {
-      this.offcanvasNav.hide();
+    closeNav () {
+      this.offcanvasNav.hide()
     },
-    confirmLogout() {
+    confirmLogout () {
       Swal.fire({
-        title: "確定要登出嗎?",
-        icon: "warning",
+        title: '確定要登出嗎?',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "確定登出",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定登出'
       }).then((result) => {
-        this.logout();
-      });
+        this.logout()
+      })
     },
-    logout() {
+    logout () {
       this.axios(`${host}`)
         .then(() => {
           Swal.fire({
-            title: "已成功登出",
-            icon: "success",
-          });
-          this.offcanvasNav.hide();
-          this.$router.push('/admin/adminLogin');
+            title: '已成功登出',
+            icon: 'success'
+          })
+          this.offcanvasNav.hide()
+          this.$router.push('/admin/adminLogin')
         }).catch(() => {
           // 強制將cookie的值改掉
-          document.cookie = `florafirstapi='';`;
-          this.offcanvasNav.hide();
-          this.$router.push('/admin/adminLogin');
+          document.cookie = 'florafirstapi=\'\';'
+          this.offcanvasNav.hide()
+          this.$router.push('/admin/adminLogin')
         })
-
-    },
+    }
   },
-  mounted() {
+  mounted () {
     // 用 ref 抓取 offcanvas DOM
     // 如果要移除 backdrop，就不能把畫面的叉叉移除，不然沒地方關閉 offcanvas
     this.offcanvasNav = new bootstrap.Offcanvas(this.$refs.offcanvasNav, {
-      scroll: true,
-    });
-  },
-};
+      scroll: true
+    })
+  }
+}
 </script>
 
 <style lang="scss">

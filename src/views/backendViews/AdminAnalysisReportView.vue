@@ -1,18 +1,17 @@
 <script>
-import adminNav from '../../components/BackendOffcanvasNav.vue';
-import adminLogo from '../../components/BackendLogoComponent.vue';
-import * as d3 from 'd3';
-import * as c3 from 'c3';
-import 'c3/c3.min.css';
-import Swal from 'sweetalert2';
-import flatpickr from "flatpickr";
-import 'flatpickr/dist/flatpickr.min.css';
-import moment from 'moment-timezone';
+import adminNav from '../../components/BackendOffcanvasNav.vue'
+import adminLogo from '../../components/BackendLogoComponent.vue'
+import * as c3 from 'c3'
+import 'c3/c3.min.css'
+import Swal from 'sweetalert2'
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
+import moment from 'moment-timezone'
 
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
+const host = import.meta.env.VITE_HEXAPI
+const path = import.meta.env.VITE_USER_PATH
 export default {
-  data() {
+  data () {
     return {
       orders: [],
       total: 0,
@@ -25,7 +24,7 @@ export default {
         minDate: '',
         maxDate: '',
         topDays: '',
-        lowDays: '',
+        lowDays: ''
       },
       selectedDate: null,
       selectedDateArr: [],
@@ -48,156 +47,155 @@ export default {
     adminLogo
   },
   methods: {
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
-    addNewProduct() {
-      this.$router.push('/admin/addProduct');
+    addNewProduct () {
+      this.$router.push('/admin/addProduct')
     },
     // 將orders資料轉為輸出為二維陣列跑圖表
-    getSaleRankingData(orders, str) {
-      const uniqueProducts = {};
+    getSaleRankingData (orders, str) {
+      const uniqueProducts = {}
       // 建立品項陣列
       orders.forEach(function (orderItem) {
         for (const productId in orderItem.products) {
-          const product = orderItem.products[productId].product;
-          const item = orderItem.products[productId][str];
-          
+          const product = orderItem.products[productId].product
+          const item = orderItem.products[productId][str]
           if (!uniqueProducts[product.title]) {
-            uniqueProducts[product.title] = item;
+            uniqueProducts[product.title] = item
           } else {
-            uniqueProducts[product.title] += item;
+            uniqueProducts[product.title] += item
           }
         }
-      });
+      })
       // 依品項加入對應的值
-      const resultArray = [];
+      const resultArray = []
       for (const title in uniqueProducts) {
-        resultArray.push([title, uniqueProducts[title]]);
+        resultArray.push([title, uniqueProducts[title]])
       }
       // 回傳陣列跑圖表
       return resultArray
     },
     // 建立圖表
-    createChart(orders) {
+    createChart (orders) {
       // 統計數量
-      const saleRanking = c3.generate({
+      c3.generate({
         bindto: '#saleRanking',
         data: {
           columns: this.getSaleRankingData(orders, 'qty'),
-          type: 'donut',
+          type: 'donut'
         },
         donut: {
-          title: "商品銷售比例"
+          title: '商品銷售比例'
         }
-      });
+      })
       // 統計金額
-      const saleAmountRanking = c3.generate({
+      c3.generate({
         bindto: '#saleAmountRanking',
         data: {
           columns: this.getSaleRankingData(orders, 'total'),
-          type: 'donut',
+          type: 'donut'
         },
         donut: {
-          title: "商品銷售金額比例"
+          title: '商品銷售金額比例'
         }
-      });
-      this.productsQty = this.getSaleRankingData(orders, 'qty');
-      this.productsAmount = this.getSaleRankingData(orders, 'total');
+      })
+      this.productsQty = this.getSaleRankingData(orders, 'qty')
+      this.productsAmount = this.getSaleRankingData(orders, 'total')
     },
-    initOrdersData() {
-      this.daySelected.orders = this.orders;
-      this.getDayOrders(this.orders);
+    initOrdersData () {
+      this.daySelected.orders = this.orders
+      this.getDayOrders(this.orders)
 
       // 抓訂單內最早的日期
       this.minDate = moment.min(this.orders.map(order =>
-        moment.unix(order.create_at))).tz('Asia/Taipei').format('YYYY-MM-DD');
+        moment.unix(order.create_at))).tz('Asia/Taipei').format('YYYY-MM-DD')
       // 抓當日日期
-      this.maxDate = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
+      this.maxDate = moment.tz('Asia/Taipei').format('YYYY-MM-DD')
       // 初始日期陣列的最初與最終日
       this.daySelected.minDate = this.minDate
       this.daySelected.maxDate = this.maxDate
       // 初始化日歷內訂單所存在日期
-      this.initFlatpickr();
-      this.initRangeFlatpickr();
+      this.initFlatpickr()
+      this.initRangeFlatpickr()
       // 建立圖表
       this.createChart(this.orders)
     },
-    getOrders() {
+    getOrders () {
       // 建立promise陣列
-      const promises = [];
+      const promises = []
       this.axios.get(`${host}/v2/api/${path}/admin/orders`)
         .then((res) => {
           // 先抓第一頁訂單資料
-          this.orders = res.data.orders;
-          const pages = res.data.pagination.total_pages;
+          this.orders = res.data.orders
+          const pages = res.data.pagination.total_pages
           for (let i = 2; i <= pages; i++) {
             // 每跑一次迴圈就建立一個promise物件
             const promise = this.axios.get(`${host}/v2/api/${path}/admin/orders?page=${i}`)
             promise.then((res) => {
               // 繼續將第二頁後的訂單資料推入this.orders
               res.data.orders.forEach((item) => {
-                this.orders.push(item);
+                this.orders.push(item)
               })
             })
             // 將請求物件推進陣列
-            promises.push(promise);
+            promises.push(promise)
           }
           // 確保迴圈的請求都跑完
           Promise.all(promises)
             .then(() => {
               // 初始化資料
-              this.initOrdersData();
+              this.initOrdersData()
             })
             .catch(() => {
               Swal.fire('取得資料失敗')
-            });
-        });
+            })
+        })
     },
-    getTotal(orders) {
-      let total = 0;
+    getTotal (orders) {
+      let total = 0
       orders.forEach((item) => {
         total += item.total
       })
-      return isNaN(total) ? 0 : total;
+      return isNaN(total) ? 0 : total
     },
     // 計算平均值
-    getTotalAverage(total, length) {
+    getTotalAverage (total, length) {
       return isNaN(total / length) ? 0 : Math.floor(total / length)
     },
     // 傳入訂單陣列計算相關數據
-    getDayOrders(orders) {
+    getDayOrders (orders) {
       this.daySelected.orders = orders
       // this.countProductsData(this.daySelected.orders);
-      this.daySelected.total = this.getTotal(this.daySelected.orders);
+      this.daySelected.total = this.getTotal(this.daySelected.orders)
       // 確保可以抓到最大與最小值
-      let maxTotal = 0;
-      let minTotal = Infinity;
+      let maxTotal = 0
+      let minTotal = Infinity
       // 建立最大與最小值的陣列(值可能會重複)
-      let maxOrders = [];
-      let minOrders = [];
+      let maxOrders = []
+      let minOrders = []
       // 恢復預設值
-      this.daySelected.topDays = '';
-      this.daySelected.lowDays = '';
+      this.daySelected.topDays = ''
+      this.daySelected.lowDays = ''
 
       orders.forEach((order) => {
-        const total = order.total;
+        const total = order.total
         // 與前一個值比大小
         if (total > maxTotal) {
-          maxTotal = total;
+          maxTotal = total
           // 覆蓋陣列以確保最大值
-          maxOrders = [order];
+          maxOrders = [order]
           // 值相等就推進去
         } else if (total === maxTotal) {
-          maxOrders.push(order);
+          maxOrders.push(order)
         }
         if (total < minTotal) {
-          minTotal = total;
-          minOrders = [order];
+          minTotal = total
+          minOrders = [order]
         } else if (total === minTotal) {
-          minOrders.push(order);
+          minOrders.push(order)
         }
-      });
+      })
       maxOrders.forEach((item) => {
         this.daySelected.topDays += `${moment.unix(item.create_at).tz('Asia/Taipei').format('YYYY-MM-DD')}, `
       })
@@ -205,21 +203,21 @@ export default {
         this.daySelected.lowDays += `${moment.unix(item.create_at).tz('Asia/Taipei').format('YYYY-MM-DD')}, `
       })
       // 如果碰到沒資料的日期回傳預設字串
-      this.daySelected.topDays += maxOrders[0]?.total === undefined ? `此時段沒有訂單資料` : `共 ${maxOrders[0]?.total} 元`;
-      this.daySelected.lowDays += maxOrders[0]?.total === undefined ? `此時段沒有訂單資料` : `共 ${minOrders[0]?.total} 元`;
+      this.daySelected.topDays += maxOrders[0]?.total === undefined ? '此時段沒有訂單資料' : `共 ${maxOrders[0]?.total} 元`
+      this.daySelected.lowDays += maxOrders[0]?.total === undefined ? '此時段沒有訂單資料' : `共 ${minOrders[0]?.total} 元`
     },
     // 設定Flatpickr相關選項, 選取單日
-    initFlatpickr() {
+    initFlatpickr () {
       this.flatpickrInstance = flatpickr(this.$refs.flatpickrInput, {
         dateFormat: 'Y-m-d',
         // 最大日期不可超過今天
         maxDate: this.maxDate,
         // 抓取訂單內最早的日期
-        minDate: this.minDate,
-      });
+        minDate: this.minDate
+      })
     },
     // 選取多日
-    initRangeFlatpickr() {
+    initRangeFlatpickr () {
       this.flatpickrRangeInstance = flatpickr(this.$refs.flatpickrRangeInput, {
         dateFormat: 'Y-m-d',
         // 最大日期不可超過今天
@@ -228,61 +226,61 @@ export default {
         minDate: this.minDate,
         // 選取範圍
         mode: 'range'
-      });
+      })
     },
     // 切換日期選擇模式
-    isMultipleDatesMode(str) {
+    isMultipleDatesMode (str) {
       // 查看全部日期時將顯示日期改為訂單全部
       // 查看單日或多日時由watch監聽日期變化
       if (str === 'all') {
-        this.daySelected.minDate = this.minDate;
-        this.daySelected.maxDate = this.maxDate;
-        this.getDayOrders(this.orders);
+        this.daySelected.minDate = this.minDate
+        this.daySelected.maxDate = this.maxDate
+        this.getDayOrders(this.orders)
       }
       Object.keys(this.multipleDatesState).forEach(key => {
-        this.multipleDatesState[key] = false;
-      });
-      this.multipleDatesState[str] = true;
-      this.selectedDate = null;
+        this.multipleDatesState[key] = false
+      })
+      this.multipleDatesState[str] = true
+      this.selectedDate = null
     },
     // 設定要顯示的選取日期
-    showMessage(message) {
+    showMessage (message) {
       if (this.multipleDatesState.all) {
         return '查看所有日期'
       } else if (!this.multipleDatesState.all) {
-        return this.selectedDate === null ? '請先選擇日期' : message;
+        return this.selectedDate === null ? '請先選擇日期' : message
       }
-    },
+    }
   },
   watch: {
-    selectedDate(newDate) {
+    selectedDate (newDate) {
       this.daySelected.date = newDate
       // newDate不為null及拆解日期字串抓日期頭尾
       if (newDate !== null) {
         this.selectedDateArr = newDate.split(' ')
-        this.daySelected.minDate = this.selectedDateArr[0];
+        this.daySelected.minDate = this.selectedDateArr[0]
         this.daySelected.maxDate = this.selectedDateArr[this.selectedDateArr.length - 1]
       }
       // 取得兩個日期的相差天數(同一天則為0)
-      const diffDays = moment(this.daySelected.maxDate).diff(moment(this.daySelected.minDate), 'days');
+      const diffDays = moment(this.daySelected.maxDate).diff(moment(this.daySelected.minDate), 'days')
 
       // 重置選取的日期陣列
-      this.daySelected.dates = [];
+      this.daySelected.dates = []
       for (let i = 0; i <= diffDays; i++) {
         this.daySelected.dates.push(moment(this.daySelected.minDate).add(i, 'day').format('YYYY-MM-DD'))
       }
       const resultArray = [...new Set(this.orders.filter(itemA => {
         return this.daySelected.dates.some(itemB =>
           moment.unix(itemA.create_at).tz('Asia/Taipei').format('YYYY-MM-DD').includes(itemB))
-      }))];
+      }))]
 
       // 取得切換日期後的orders後取得相關數據與建立圖表
       this.getDayOrders(resultArray)
       this.createChart(resultArray)
     }
   },
-  mounted() {
-    this.getOrders();
+  mounted () {
+    this.getOrders()
   }
 }
 </script>

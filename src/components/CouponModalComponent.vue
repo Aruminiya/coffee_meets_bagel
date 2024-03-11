@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
 
 export default {
   // 驗證外層 AdminCouponView 傳入的資料型別是否使用物件
@@ -105,10 +105,10 @@ export default {
     // 若是編輯要使用外部傳入的物件
     coupon: Object,
     // 判斷 modal header 要顯示新增或編輯優惠券
-    isNew: Boolean,
+    isNew: Boolean
   },
-  emits: ["update-coupon"],
-  data() {
+  emits: ['update-coupon'],
+  data () {
     return {
       // bs5 modal 實體
       couponModal: null,
@@ -116,51 +116,51 @@ export default {
       // 新增、編輯用的暫時 coupon 資料
       tempCoupon: {},
 
-      due_date: "",
-    };
+      due_date: ''
+    }
   },
   methods: {
-    openModal() {
-      this.couponModal.show();
+    openModal () {
+      this.couponModal.show()
     },
-    closeModal() {
-      this.couponModal.hide();
-    },
+    closeModal () {
+      this.couponModal.hide()
+    }
   },
   watch: {
-    coupon() {
+    coupon () {
       // 把外層傳入的 props 存到內層 tempCoupon，用 watch 監聽外層 tempCoupon 資料的變化
-      this.tempCoupon = this.coupon;
+      this.tempCoupon = this.coupon
       // 傳入的是時間格式是處理好的 unix Timestamp，接著要將時間格式改為 YYYY-MM-DD
       const dateAndTime = new Date(this.tempCoupon.due_date * 1000)
         .toISOString()
-        .split("T")[0];
+        .split('T')[0]
 
       // dateAndTime 用 split 轉成的陣列，再用 [0] 取得年月日，最後才會渲染到 input date
-      this.due_date = dateAndTime;
+      this.due_date = dateAndTime
     },
     // 每當 due_date 變化，tempCoupon 的 due_date 會同步處理為 unix Timestamp 整數
-    due_date() {
-      this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
-    },
+    due_date () {
+      this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000)
+    }
   },
-  mounted() {
+  mounted () {
     // 在內層元件建立 BS5 Modal 實體
     this.couponModal = new bootstrap.Modal(this.$refs.couponModal, {
-      backdrop: "static",
-    });
+      backdrop: 'static'
+    })
 
     // 讓選取日期不能小於當日
     // 抓取選擇日期 input 的 DOM
-    const dateInput = document.querySelector("#couponDueDate");
+    const dateInput = document.querySelector('#couponDueDate')
 
     // 使用 new Date() 存取為當天日期變數 today
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split('T')[0]
 
     // 使用 input 屬性把 min 設為 today
-    dateInput.min = today;
-  },
-};
+    dateInput.min = today
+  }
+}
 </script>
 
 <style></style>

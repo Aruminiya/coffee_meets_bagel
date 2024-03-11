@@ -36,11 +36,11 @@
 
 <script>
 export default {
-  props: ["pagination"],
+  props: ['pagination'],
   methods: {
-    emitPages(page) {
-      this.$emit("emit-pages", page);
-    },
-  },
-};
+    emitPages (page) {
+      this.$emit('emit-pages', page)
+    }
+  }
+}
 </script>

@@ -1,26 +1,26 @@
 <script>
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
-//pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../stores/CartStore.js";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
+// pinia
+import { mapState } from 'pinia'
+import cartStore from '../stores/CartStore.js'
 
-export default{
-    data(){
-        return{
-            toast:null,
-        }
-    },
-    methods:{
-        toastShow(){
-            this.toast.show();
-        }
-    },
-    computed:{
-        ...mapState(cartStore,['cartStatus'] )
-    },
-    mounted(){
-     this.toast = new bootstrap.Toast(this.$refs.toast);
+export default {
+  data () {
+    return {
+      toast: null
     }
+  },
+  methods: {
+    toastShow () {
+      this.toast.show()
+    }
+  },
+  computed: {
+    ...mapState(cartStore, ['cartStatus'])
+  },
+  mounted () {
+    this.toast = new bootstrap.Toast(this.$refs.toast)
+  }
 }
 </script>
 
@@ -34,5 +34,4 @@ export default{
     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
   </div>
 </div>
-    
 </template>

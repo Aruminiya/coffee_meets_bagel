@@ -1,10 +1,10 @@
 <script>
-import adminNav from '../../components/BackendOffcanvasNav.vue';
-import adminLogo from '../../components/BackendLogoComponent.vue';
-import updateProduct from '../../components/UpdateProduct.vue';
+import adminNav from '../../components/BackendOffcanvasNav.vue'
+import adminLogo from '../../components/BackendLogoComponent.vue'
+import updateProduct from '../../components/UpdateProduct.vue'
 
 export default {
-  data() {
+  data () {
     return {}
   },
   components: {
@@ -13,13 +13,13 @@ export default {
     updateProduct
   },
   methods: {
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
-    modalShow(url) {
+    modalShow (url) {
       this.$refs.modal.modalShow(url)
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -35,7 +35,7 @@ export default {
   </div>
 
   <!-- 產品元件 -->
-  <updateProduct></updateProduct>    
+  <updateProduct></updateProduct>
 </template>
 
 <style scoped lang="scss">

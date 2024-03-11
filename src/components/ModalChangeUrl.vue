@@ -1,36 +1,36 @@
 <script>
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
 
 export default {
-  data() {
+  data () {
     return {
       changeUrlModal: null,
       imageUrl: '',
       index: 0
-    };
+    }
   },
   methods: {
-    modalShow(index) {
+    modalShow (index) {
       // 抓外層傳入的index值
-      this.index = index;
-      this.changeUrlModal.show();
+      this.index = index
+      this.changeUrlModal.show()
     },
-    modalHide() {
-      this.changeUrlModal.hide();
+    modalHide () {
+      this.changeUrlModal.hide()
     },
-    changeUrl() {
+    changeUrl () {
       // 回傳輸入的圖片網址與對應的index
-      this.$emit('change-url', this.imageUrl, this.index);
-      this.changeUrlModal.hide();
+      this.$emit('change-url', this.imageUrl, this.index)
+      this.changeUrlModal.hide()
     }
-    },
-  mounted() {
+  },
+  mounted () {
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.changeUrlModal = new bootstrap.Modal(this.$refs.changeUrlModal, {
-      keyboard: true, // 按下ESC是否可以關閉
-    });
-  },
-};
+      keyboard: true // 按下ESC是否可以關閉
+    })
+  }
+}
 </script>
 
 <template>

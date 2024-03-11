@@ -1,29 +1,29 @@
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
+import modal from '../../components/ModalShowImgComponent..vue'
+import pagination from '../../components/PaginationComponent.vue'
+import adminNav from '../../components/BackendOffcanvasNav.vue'
+import adminLogo from '../../components/BackendLogoComponent.vue'
+import Swal from 'sweetalert2'
 
-import modal from '../../components/ModalShowImgComponent..vue';
-import pagination from '../../components/PaginationComponent.vue';
-import adminNav from '../../components/BackendOffcanvasNav.vue';
-import adminLogo from '../../components/BackendLogoComponent.vue';
-import Swal from 'sweetalert2';
+const host = import.meta.env.VITE_HEXAPI
+const path = import.meta.env.VITE_USER_PATH
 
 const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
+  position: 'top-end',
   showConfirmButton: false,
   timer: 1500,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
+    toast.onmouseenter = Swal.stopTimer
+    toast.onmouseleave = Swal.resumeTimer
   }
-});
+})
 
 export default {
-  data() {
+  data () {
     return {
-      text: "純測試",
+      text: '純測試',
       allProducts: [],
       products: [],
       pagination: {},
@@ -32,159 +32,159 @@ export default {
       product: {},
       showCategory: false,
       category: ''
-    };
+    }
   },
   components: {
     pagination,
     modal,
     adminNav,
-    adminLogo,
+    adminLogo
   },
   methods: {
-    searchProduct() {
+    searchProduct () {
       const result = this.allProducts.filter((product) => {
         // 比對標題內容與產品描述對應搜尋關鍵字
         return [product.title, product.content, product.description]
           .toString()
-          .match(this.search);
-      });
-      this.products = result;
+          .match(this.search)
+      })
+      this.products = result
       // 搜尋結果暫時先不處理分頁
-      this.pagination.total_pages = 1;
+      this.pagination.total_pages = 1
       // 清空搜尋欄字串
-      this.search = "";
+      this.search = ''
     },
     // 先取得所有商品, 以及所有分類
-    getAllProducts() {
+    getAllProducts () {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products/all`)
         .then((response) => {
           // 存入所有產品
-          this.allProducts = Object.values(response.data.products);
+          this.allProducts = Object.values(response.data.products)
           this.allProducts.forEach((item) => {
-            item.check_enabled = item.is_enabled;
+            item.check_enabled = item.is_enabled
           })
           // 取得分類
-          this.getCategories();
+          this.getCategories()
           // 取完所有資料再取要渲染的資料
-          this.getProducts();
+          this.getProducts()
         })
         .catch(() => {
-          Swal.fire("資料取得失敗");
-        });
+          Swal.fire('資料取得失敗')
+        })
     },
     // 預設取得第一頁資料
-    getProducts(page = 1) {
+    getProducts (page = 1) {
       this.axios
         .get(`${host}/v2/api/${path}/admin/products?page=${page}`)
         .then((response) => {
-          this.products = response.data.products;
-          this.pagination = response.data.pagination;
+          this.products = response.data.products
+          this.pagination = response.data.pagination
           // 新增自訂屬性判斷是否啟用(避免送出停用時API尚未回傳就直接反應)
           this.products.forEach((item) => {
-            item.check_enabled = item.is_enabled;
+            item.check_enabled = item.is_enabled
           })
         })
         .catch(() => {
-          Swal.fire("資料取得失敗");
-        });
+          Swal.fire('資料取得失敗')
+        })
     },
-    setCategory(category) {
-      this.category = category;
+    setCategory (category) {
+      this.category = category
       this.getProductsByCategory()
     },
     // 變更分類時取得分類資料
-    getProductsByCategory(page = 1) {
-      if (this.category === "檢視全部") {
-        this.getProducts(1);
+    getProductsByCategory (page = 1) {
+      if (this.category === '檢視全部') {
+        this.getProducts(1)
       } else {
         this.axios
           .get(
             `${host}/v2/api/${path}/admin/products?page=${page}&category=${this.category}`
           )
           .then((response) => {
-            this.products = response.data.products;
-            this.pagination = response.data.pagination;
+            this.products = response.data.products
+            this.pagination = response.data.pagination
             this.products.forEach((item) => {
-              item.check_enabled = item.is_enabled;
+              item.check_enabled = item.is_enabled
             })
           })
           .catch(() => {
-            Swal.fire("取得產品分類失敗");
-          });
+            Swal.fire('取得產品分類失敗')
+          })
       }
     },
     // 取得所有商品後取得所有分類
-    getCategories() {
+    getCategories () {
       this.categories = Array.from(
         new Set(this.allProducts.map((item) => item.category))
-      );
+      )
     },
     // 上一頁
-    previousPage() {
-      this.pagination.current_page--;
-      this.getProducts(this.pagination.current_page);
+    previousPage () {
+      this.pagination.current_page--
+      this.getProducts(this.pagination.current_page)
     },
     // 下一頁
-    nextPage() {
-      this.pagination.current_page++;
-      this.getProducts(this.pagination.current_page);
+    nextPage () {
+      this.pagination.current_page++
+      this.getProducts(this.pagination.current_page)
     },
-    goThisPage(page) {
-      this.getProducts(page);
+    goThisPage (page) {
+      this.getProducts(page)
     },
-    deleteProduct(id) {
+    deleteProduct (id) {
       this.axios
         .delete(`${host}/v2/api/${path}/admin/product/${id}`)
         .then((res) => {
-          Swal.fire("刪除成功");
-          this.getProducts();
+          Swal.fire('刪除成功')
+          this.getProducts()
         })
-        .catch((error) => {
-          Swal.fire("資料刪除失敗");
-        });
+        .catch(() => {
+          Swal.fire('資料刪除失敗')
+        })
     },
-    confirmDelete(id) {
+    confirmDelete (id) {
       Swal.fire({
-        title: "您確定要刪除嗎?",
+        title: '您確定要刪除嗎?',
         showCancelButton: true,
-        cancelButtonText: "返回商品列表",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "確定刪除",
+        cancelButtonText: '返回商品列表',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定刪除'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.deleteProduct(id);
+          this.deleteProduct(id)
         }
-      });
+      })
     },
-    modalShow(product) {
+    modalShow (product) {
       this.$refs.modal.modalShow(product)
     },
-    modalHide() {
-      this.productModal.hide();
+    modalHide () {
+      this.productModal.hide()
     },
-    getThisProduct(product) {
-      this.product = product;
+    getThisProduct (product) {
+      this.product = product
     },
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
-    addNewProduct() {
-      this.$router.push("/admin/addProduct");
+    addNewProduct () {
+      this.$router.push('/admin/addProduct')
     },
-    changeEnabledProduct(product) {
+    changeEnabledProduct (product) {
       if (product.is_enabled === 1) {
-        product.is_enabled = 0;
+        product.is_enabled = 0
       } else {
-        product.is_enabled = 1;
+        product.is_enabled = 1
       }
-      const data = { ...product };
+      const data = { ...product }
       this.axios
         .put(`${host}/v2/api/${path}/admin/product/${product.id}`, { data })
         .then((res) => {
-          this.enableMessage(product.is_enabled);
+          this.enableMessage(product.is_enabled)
           // 成功回傳修改狀態後再改變css樣式
-          product.check_enabled = product.is_enabled;
+          product.check_enabled = product.is_enabled
         }).catch(() => {
           // 如果錯誤產品啟用狀態恢復原值
           if (product.is_enabled === 1) {
@@ -192,30 +192,30 @@ export default {
           } else {
             product.is_enabled = 1
           }
-          Swal.fire("產品編輯失敗");
-        });
+          Swal.fire('產品編輯失敗')
+        })
     },
-    enableMessage(is_enabled) {
-      if (is_enabled === 1) {
+    enableMessage (isEnabled) {
+      if (isEnabled === 1) {
         Toast.fire({
-          icon: "success",
-          title: "系統訊息 - 產品已啟用"
-        });
+          icon: 'success',
+          title: '系統訊息 - 產品已啟用'
+        })
       } else {
         Toast.fire({
-          icon: "warning",
-          title: "系統訊息 - 產品已停用"
-        });
+          icon: 'warning',
+          title: '系統訊息 - 產品已停用'
+        })
       }
     }
   },
-  mounted() {
+  mounted () {
     // 要渲染的資料
-    this.getProducts();
+    this.getProducts()
     // 所有資料, 以及所有分類
-    this.getAllProducts();
-  },
-};
+    this.getAllProducts()
+  }
+}
 </script>
 
 <template>

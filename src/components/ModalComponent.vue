@@ -1,65 +1,62 @@
 <script>
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
-import axios from "axios";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
 
-import ToastComponent from '../components/ToastComponent.vue';
-//pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../stores/CartStore.js";
-//不好意思芙蘭先拿來用嘿
+import ToastComponent from '../components/ToastComponent.vue'
+// pinia
+import { mapState, mapActions } from 'pinia'
+import cartStore from '../stores/CartStore.js'
+// 不好意思芙蘭先拿來用嘿
 export default {
-  components:{
-    ToastComponent,
+  components: {
+    ToastComponent
   },
-  data() {
+  data () {
     return {
       productModal: null,
       product: {},
-      img:[],
-      qty:1,
-      isLoading:false,
-    };
-  },
-  methods: {
-    ...mapActions(cartStore, ["addCarts"]),
-    modalShow(product) {
-      this.product = product;
-      this.img = product.imagesUrl;
-      this.productModal.show();
-      //console.log(this.img)
-    },
-    modalHide() {
-      this.productModal.hide();
-    },
-    addQty() {
-      this.qty++;
-    },
-    reduceQty() {
-      if (this.qty > 1) {
-        this.qty--;
-      }
-    },
-    add(id,qty){
-      this.addCarts(id, qty);
-      this.modalHide();
-      this.qty=1;
-      this.$refs.toastRef.toastShow()
-     // window.location.reload();
+      img: [],
+      qty: 1,
+      isLoading: false
     }
   },
-  computed:{
-    ...mapState(cartStore, ["isCartsLoading",'addedToCart'])
-  }
-  ,
-  mounted() {
+  methods: {
+    ...mapActions(cartStore, ['addCarts']),
+    modalShow (product) {
+      this.product = product
+      this.img = product.imagesUrl
+      this.productModal.show()
+      // console.log(this.img)
+    },
+    modalHide () {
+      this.productModal.hide()
+    },
+    addQty () {
+      this.qty++
+    },
+    reduceQty () {
+      if (this.qty > 1) {
+        this.qty--
+      }
+    },
+    add (id, qty) {
+      this.addCarts(id, qty)
+      this.modalHide()
+      this.qty = 1
+      this.$refs.toastRef.toastShow()
+      // window.location.reload();
+    }
+  },
+  computed: {
+    ...mapState(cartStore, ['isCartsLoading', 'addedToCart'])
+  },
+  mounted () {
     // 在內層元件建立 updateModal BS5 實體 及寫 emit 傳遞到外層
     this.productModal = new bootstrap.Modal(this.$refs.productModal, {
-      keyboard: true, // 按下ESC是否可以關閉
-    });
-  },
-};
+      keyboard: true // 按下ESC是否可以關閉
+    })
+  }
+}
 </script>
-
 
 <template>
 
@@ -189,5 +186,3 @@ export default {
   </div>
 
 </template>
-
-

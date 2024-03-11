@@ -1,31 +1,28 @@
 <script>
-import OrderCheckProgressComponent from "../components/OrderCheckProgressComponent.vue";
-import CartItemComponent from "../components/CartItemComponent.vue";
+import CartItemComponent from '../components/CartItemComponent.vue'
 
 // pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../stores/CartStore.js";
-import orderStore from "../stores/OrderStore.js";
+import { mapState, mapActions } from 'pinia'
+import orderStore from '../stores/OrderStore.js'
 
 export default {
   components: {
-    OrderCheckProgressComponent,
-    CartItemComponent,
+    CartItemComponent
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {
-    ...mapState(orderStore, ["orderInfo", "isOrderLoading"]),
+    ...mapState(orderStore, ['orderInfo', 'isOrderLoading'])
   },
   methods: {
-    ...mapActions(orderStore, ["getOrder"]),
+    ...mapActions(orderStore, ['getOrder'])
   },
-  mounted() {
-    //取得上一步驟在 localStorage 存放的使用者資料
-    this.getOrder(JSON.parse(localStorage.getItem("orderId")));
-  },
-};
+  mounted () {
+    // 取得上一步驟在 localStorage 存放的使用者資料
+    this.getOrder(JSON.parse(localStorage.getItem('orderId')))
+  }
+}
 </script>
 
 <template>

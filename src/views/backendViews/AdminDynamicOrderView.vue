@@ -1,27 +1,27 @@
 <script>
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
+import adminNav from '../../components/BackendOffcanvasNav.vue'
+import adminLogo from '../../components/BackendLogoComponent.vue'
+import moment from 'moment-timezone'
+import Swal from 'sweetalert2'
 
-import adminNav from '../../components/BackendOffcanvasNav.vue';
-import adminLogo from '../../components/BackendLogoComponent.vue';
-import moment from 'moment-timezone';
-import Swal from "sweetalert2";
+const host = import.meta.env.VITE_HEXAPI
+const path = import.meta.env.VITE_USER_PATH
 
 // 設定時區
-moment.locale('zh-tw');
+moment.locale('zh-tw')
 // 自定義繁體中文語言檔
 moment.updateLocale('zh-tw', {
   meridiem: function (hour) {
     if (hour < 12) {
-      return '上午';
+      return '上午'
     } else {
-      return '下午';
+      return '下午'
     }
   }
-});
+})
 
 export default {
-  data() {
+  data () {
     return {
       order: {},
       user: {},
@@ -36,119 +36,119 @@ export default {
   },
   components: {
     adminNav,
-    adminLogo,
+    adminLogo
   },
   methods: {
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
-    getOrder() {
+    getOrder () {
       // 取得路由的訂單ID
-      const id = this.$route.params.id;
+      const id = this.$route.params.id
       if (id) {
         this.axios.get(`${host}/v2/api/${path}/order/${id}`)
           .then((res) => {
-            this.order = res.data.order;
+            this.order = res.data.order
             // user另外存, v-model直接抓兩層會出錯
-            this.user = res.data.order.user;
-            this.products = res.data.order.products;
-            this.total = res.data.order.total;
-            this.productsCount = Object.keys(this.products).length;
-            this.create_at = moment.unix(this.order.create_at).format('YYYY年 MM月 DD日 A h時 : mm分 : ss秒');
+            this.user = res.data.order.user
+            this.products = res.data.order.products
+            this.total = res.data.order.total
+            this.productsCount = Object.keys(this.products).length
+            this.create_at = moment.unix(this.order.create_at).format('YYYY年 MM月 DD日 A h時 : mm分 : ss秒')
           })
           .catch(() => {
-            Swal.fire("取得訂單資料失敗");
-          });
+            Swal.fire('取得訂單資料失敗')
+          })
       }
     },
-    backToList() {
-      this.$router.push('/admin/adminOrders');
+    backToList () {
+      this.$router.push('/admin/adminOrders')
     },
-    orderIsPaid() {
+    orderIsPaid () {
       Swal.fire({
         icon: 'warning',
         title: '此訂單確定結帳嗎?',
         showCancelButton: true,
-        confirmButtonText: "確定",
-        confirmButtonColor: "#1B8754",
+        confirmButtonText: '確定',
+        confirmButtonColor: '#1B8754'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("訂單已結帳", "", "success");
-          this.order.is_paid = true;
-          this.updateOrderApi();
+          Swal.fire('訂單已結帳', '', 'success')
+          this.order.is_paid = true
+          this.updateOrderApi()
         }
-      });
+      })
     },
-    updateOrder() {
+    updateOrder () {
       Swal.fire({
         icon: 'warning',
-        title: "確定要修改訂單資料嗎?",
+        title: '確定要修改訂單資料嗎?',
         showCancelButton: true,
-        confirmButtonText: "確定",
-        confirmButtonColor: "#1B8754",
+        confirmButtonText: '確定',
+        confirmButtonColor: '#1B8754'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.updateOrderApi();
-          Swal.fire("訂單已修改, 將返回列表", "", "success");
+          this.updateOrderApi()
+          Swal.fire('訂單已修改, 將返回列表', '', 'success')
         }
-      });
+      })
     },
-    updateOrderApi() {
-      this.order.total = this.total;
+    updateOrderApi () {
+      this.order.total = this.total
       const data = {
-        'data': this.order
+        data: this.order
       }
       this.axios.put(`${host}/v2/api/${path}/admin/order/${this.$route.params.id}`, data)
         .then((res) => {
-          this.$router.push('/admin/adminOrders');
+          this.$router.push('/admin/adminOrders')
         })
         .catch(() => {
-          Swal.fire("更新訂單資料失敗");
-        });
+          Swal.fire('更新訂單資料失敗')
+        })
     },
-    removeProduct(id) {
-      delete this.products[id];
-      this.productsCount = Object.keys(this.products).length;
+    removeProduct (id) {
+      delete this.products[id]
+      this.productsCount = Object.keys(this.products).length
     },
-    showCoupon(code) {
-      if (code === "specialPrice60") {
-        return '六折優惠';
-      } else if (code === "specialPrice80") {
-        return '八折優惠';
+    showCoupon (code) {
+      if (code === 'specialPrice60') {
+        return '六折優惠'
+      } else if (code === 'specialPrice80') {
+        return '八折優惠'
       } else {
-        return '無使用優惠';
+        return '無使用優惠'
       }
     },
-    getTotal(product) {
+    getTotal (product) {
       product.total = Math.round(product.product.price * product.qty)
-      return product.total;
+      return product.total
     },
-    getFinalTotal(product) {
-      let percent = 1;
+    getFinalTotal (product) {
+      let percent = 1
       if (product?.coupon?.percent) {
-        percent = product.coupon.percent / 100;
+        percent = product.coupon.percent / 100
       }
-      product.final_total = Math.round(product.product.price * product.qty * percent);
-      return product.final_total;
+      product.final_total = Math.round(product.product.price * product.qty * percent)
+      return product.final_total
     },
-    getOrderTotal() {
-      this.total = 0;
+    getOrderTotal () {
+      this.total = 0
       Object.values(this.order.products).forEach((item) => {
         this.total += item.final_total
       })
-    },
+    }
   },
   watch: {
     'order.products': {
       deep: true,
-      handler() {
-        this.getOrderTotal();
+      handler () {
+        this.getOrderTotal()
       }
     }
   },
-  mounted() {
-    this.getOrder();
-  },
+  mounted () {
+    this.getOrder()
+  }
 }
 </script>
 
@@ -169,7 +169,7 @@ export default {
           <button type="button" class="btn btn-outline-primary me-3" @click="backToList">返回列表</button>
           <button type="button" class="btn btn-outline-primary me-3" :class="{ 'disabled': order.is_paid }"
             @click="getOrder">回復初始值</button>
-          <button type="button" class="btn btn-outline-success me-1" 
+          <button type="button" class="btn btn-outline-success me-1"
           :class="{ 'disabled': order.is_paid }" @click="updateOrder">確認修改</button>
         </div>
       </div>

@@ -1,10 +1,10 @@
 <script>
-import NavBarComponent from "../../components/NavBarComponent.vue";
-import FooterComponent from "../../components/FooterComponent.vue";
+import NavBarComponent from '../../components/NavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
 
 export default {
-  components: { NavBarComponent, FooterComponent },
-};
+  components: { NavBarComponent, FooterComponent }
+}
 </script>
 
 <template>

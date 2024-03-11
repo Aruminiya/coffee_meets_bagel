@@ -7,37 +7,39 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Swal from 'sweetalert2';
-const host = import.meta.env.VITE_HEXAPI;
+import axios from 'axios'
+import Swal from 'sweetalert2'
+
+const host = import.meta.env.VITE_HEXAPI
+
 export default {
   // props 當作 emit
   props: ['openOffCanvasNav'],
   methods: {
-    checkLogin() {
-      const token = document.cookie.split("; ").find((row) => row.startsWith("florafirstapi="))?.split("=")[1];
-      axios.defaults.headers.common['Authorization']=token 
+    checkLogin () {
+      const token = document.cookie.split('; ').find((row) => row.startsWith('florafirstapi='))?.split('=')[1]
+      axios.defaults.headers.common.Authorization = token
 
       axios.post(`${host}/v2/api/user/check`).then((res) => {
-        this.isLogin = true,
+        // eslint-disable-next-line no-unused-expressions
+        this.isLogin = true
         console.log('目前狀態已登入')
-        return
       }).catch((err) => {
-        console.log(this.$router);
+        console.log(this.$router)
         Swal.fire({
           title: `${err.response.data.message}`,
-          confirmButtonText: "確定",
+          confirmButtonText: '確定'
         })
-        .then((result) => {
+          .then((result) => {
           // 驗證失敗轉回登入頁面
-          this.$router.push('/admin/adminLogin');
-        });
+            this.$router.push('/admin/adminLogin')
+          })
       })
-    },  
+    }
   },
-  mounted() {
-    this.checkLogin();
-  },
+  mounted () {
+    this.checkLogin()
+  }
 }
 </script>
 

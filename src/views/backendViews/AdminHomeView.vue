@@ -152,180 +152,180 @@
 </template>
 
 <script>
-import adminLogo from "../../components/BackendLogoComponent.vue";
-import adminNav from "../../components/BackendOffcanvasNav.vue";
+import adminLogo from '../../components/BackendLogoComponent.vue'
+import adminNav from '../../components/BackendOffcanvasNav.vue'
+import moment from 'moment-timezone'
 
 // 通用環境變數
-const host = import.meta.env.VITE_HEXAPI;
-const path = import.meta.env.VITE_USER_PATH;
-import moment from 'moment-timezone';
+const host = import.meta.env.VITE_HEXAPI
+const path = import.meta.env.VITE_USER_PATH
 
 export default {
-  data() {
+  data () {
     return {
       // 儲存所有訂單資料
       orders: [],
       // 儲存所有折價券資料
-      coupons: [],
-    };
+      coupons: []
+    }
   },
   components: {
     adminLogo,
-    adminNav,
+    adminNav
   },
   methods: {
     // 打開側邊欄位
-    openOffCanvasNav() {
-      this.$refs.backendNav.openNav();
+    openOffCanvasNav () {
+      this.$refs.backendNav.openNav()
     },
     // 後台取得所有訂單
-    getOrders() {
+    getOrders () {
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
-        this.orders = res.data.orders;
-      });
+        this.orders = res.data.orders
+      })
     },
     // 後台取得所有折價券
-    getCoupons() {
+    getCoupons () {
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then((res) => {
-        this.coupons = res.data.coupons;
-      });
-    },
+        this.coupons = res.data.coupons
+      })
+    }
   },
   computed: {
-    renderCoupons() {
-      let data = [];
+    renderCoupons () {
+      const data = []
       this.coupons.forEach((item, index) => {
         if (index <= 1) {
-          data.push(item);
+          data.push(item)
         }
-      });
-      return data;
+      })
+      return data
     },
-    renderOrders() {
-      let data = [];
+    renderOrders () {
+      const data = []
       this.orders.forEach((item, index) => {
         if (index <= 4) {
-          data.push(item);
+          data.push(item)
         }
-      });
-      return data;
+      })
+      return data
     },
-    orderTodayTotal() {
+    orderTodayTotal () {
       // 取得目前時間
-      const currentDate = new Date();
+      const currentDate = new Date()
 
       // 設置台灣時間選項
-      const options = { timeZone: "Asia/Taipei" };
+      const options = { timeZone: 'Asia/Taipei' }
 
       // 將日期轉為台灣時間字串，只包含年、月、日
-      const taiwanTime = currentDate.toLocaleDateString("en-US", options);
+      const taiwanTime = currentDate.toLocaleDateString('en-US', options)
 
       // 計算今天訂單總額
-      let todayTotal = 0;
+      let todayTotal = 0
       this.orders.forEach((item) => {
         // 每筆訂單的 create_at 屬性，由於都是 unix timestamp 美國時間所以都要先轉成台灣時間
-        let orderDate = new Date(item.create_at * 1000);
-        const orderOptions = { timeZone: "Asia/Taipei" };
-        let orderTaiwanDate = orderDate.toLocaleDateString(
-          "en-US",
+        const orderDate = new Date(item.create_at * 1000)
+        const orderOptions = { timeZone: 'Asia/Taipei' }
+        const orderTaiwanDate = orderDate.toLocaleDateString(
+          'en-US',
           orderOptions
-        );
+        )
         // 如果訂單日期等於當前日期，就把金額加入到 todayTotal
         if (orderTaiwanDate === taiwanTime) {
-          todayTotal += item.total;
+          todayTotal += item.total
         }
-      });
+      })
 
       // 每三位數加一個逗號，這裡會轉成字串
-      let todayTotalComma = todayTotal
+      const todayTotalComma = todayTotal
         .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-      return todayTotalComma;
+      return todayTotalComma
     },
     // 今日銷量榜
-    productRank() {
+    productRank () {
       // 1. 先過濾非當日的訂單
       // 取得目前時間
-      const currentDate = new Date();
+      const currentDate = new Date()
       // 設置台灣時間選項
-      const options = { timeZone: "Asia/Taipei" };
+      const options = { timeZone: 'Asia/Taipei' }
       // 將日期轉為台灣時間字串，只包含年、月、日
-      const taiwanTime = currentDate.toLocaleDateString("en-US", options);
+      currentDate.toLocaleDateString('en-US', options)
 
       // 把當日訂單裝進此陣列
-      let todayOrder = [];
+      const todayOrder = []
 
       // 把 orders 陣列的項目一個個抓出來
       this.orders.forEach((item) => {
-        let orderDate = new Date(item.create_at * 1000);
-        const orderOptions = { timeZone: "Asia/Taipei" };
-        let orderTaiwanDate = orderDate.toLocaleDateString(
-          "en-US",
+        const orderDate = new Date(item.create_at * 1000)
+        const orderOptions = { timeZone: 'Asia/Taipei' }
+        const orderTaiwanDate = orderDate.toLocaleDateString(
+          'en-US',
           orderOptions
-        );
+        )
         // 如果訂單日期等於當前日期，就把該筆訂單推進 todayOrder 陣列
         // 改比對每日當日日期
         if (orderTaiwanDate === moment().format('M/D/YYYY')) { // 先暫時抓 2/14 資料，因為目前沒有當日訂單，需要時替換回 taiwanTime
           todayOrder.push(item)
         }
-      });
+      })
 
       // 2. 宣告一個空物件，用來裝商品 title 及當日銷售額
 
       // 把 product.title 當 key，product.final_total 當 value 的商品物件
-      let todayProductData = {};
+      const todayProductData = {}
       // 用來裝當日訂單中，每一筆訂單的 key 值所組成的陣列
-      let orderProduct = [];
+      let orderProduct = []
 
       todayOrder.forEach((order) => {
         // order.products 因為是物件，所以要先用 Object.keys 取得每個項目的 id 陣列
-        orderProduct = Object.keys(order.products);
+        orderProduct = Object.keys(order.products)
         // orderProduct 陣列跑 forEach 把每個商品的 id 抓出來
         orderProduct.forEach((product) => {
           // 再使用物件取值方式取得每一筆訂單中，單一商品的詳細資料
-          let productTitle = order.products[product].product.title; // 單一商品名稱
-          let productTotal = order.products[product].final_total; // 單一商品銷售額
+          const productTitle = order.products[product].product.title // 單一商品名稱
+          const productTotal = order.products[product].final_total // 單一商品銷售額
 
           if (todayProductData[productTitle] === undefined) {
-            todayProductData[productTitle] = productTotal;
+            todayProductData[productTitle] = productTotal
           } else {
-            todayProductData[productTitle] += productTotal;
+            todayProductData[productTitle] += productTotal
           }
-        });
-      });
+        })
+      })
 
       // 為了符合此格式 [{title:xxx, total:xxx}, {title:xxx, total:xxx},] 而建立的陣列
-      let todayProductArray = [];
+      const todayProductArray = []
 
       // 暫存 todayProductData 裡所有的 key 值
-      let tempProductArray = [];
-      tempProductArray = Object.keys(todayProductData);
+      let tempProductArray = []
+      tempProductArray = Object.keys(todayProductData)
 
       tempProductArray.forEach((item, index) => {
         // 把畫面限制為 5 筆資料
         if (index <= 4) {
-          let obj = {};
-          obj.title = item;
-          obj.total = todayProductData[item];
+          const obj = {}
+          obj.title = item
+          obj.total = todayProductData[item]
 
-          todayProductArray.push(obj);
+          todayProductArray.push(obj)
         }
-      });
+      })
 
       // 由大到小排序
-      let productSort = todayProductArray.sort((a, b) => {
-        return b.total - a.total;
-      });
+      const productSort = todayProductArray.sort((a, b) => {
+        return b.total - a.total
+      })
 
-      return productSort;
-    },
+      return productSort
+    }
   },
-  mounted() {
-    this.getOrders();
-    this.getCoupons();
-  },
-};
+  mounted () {
+    this.getOrders()
+    this.getCoupons()
+  }
+}
 </script>
 
 <style lang="scss">
@@ -457,7 +457,6 @@ export default {
     }
   }
 }
-
 
 .revenueTable {
   tbody {

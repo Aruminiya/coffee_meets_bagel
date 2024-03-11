@@ -1,70 +1,69 @@
 <script>
 // 把需要的語系 驗證 驗證規則引入
-
-import * as VeeValidate from "vee-validate";
-import * as VeeValidateI18n from "@vee-validate/i18n";
-import * as VeeValidateRules from "@vee-validate/rules";
+import * as VeeValidate from 'vee-validate'
+import * as VeeValidateI18n from '@vee-validate/i18n'
+import * as VeeValidateRules from '@vee-validate/rules'
 
 // 中文語系 JSON
-import zh_TW from "../assets/zh_TW.json";
+import zhTW from '../assets/zh_TW.json'
 // 表單驗證規則全部引入使用
 Object.keys(VeeValidateRules).forEach((rule) => {
-  VeeValidate.defineRule(rule, VeeValidateRules[rule]);
-});
+  VeeValidate.defineRule(rule, VeeValidateRules[rule])
+})
 
 // 讀取外部的資源
 VeeValidateI18n.localize({
-  zh_TW,
-});
+  zhTW
+})
 // Activate the locale
 VeeValidate.configure({
-  generateMessage: VeeValidateI18n.localize("zh_TW"),
-  validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
-});
+  generateMessage: VeeValidateI18n.localize('zhTW'),
+  validateOnInput: true // 調整為：輸入文字時，就立即進行驗證
+})
 
 export default {
   components: {
     VForm: VeeValidate.Form,
     VField: VeeValidate.Field,
-    ErrorMessage: VeeValidate.ErrorMessage,
+    ErrorMessage: VeeValidate.ErrorMessage
   },
-  data() {
+  data () {
     return {
       user: {
-        email: "",
-        name: "",
-        tel: "",
-        address: "",
-        message: "",
-      },
-    };
+        email: '',
+        name: '',
+        tel: '',
+        address: '',
+        message: ''
+      }
+    }
   },
   methods: {
-    onSubmit(event) {
-      const { Email, 姓名, 電話, 地址, message } = event;
+    onSubmit (event) {
+      const { Email, 姓名, 電話, 地址, message } = event
       const personInfo = {
         data: {
           user: {
             name: 姓名,
             email: Email,
             tel: 電話,
-            address: 地址,
+            address: 地址
           },
-          message,
-        },
-      };
-      console.log(personInfo);
-      localStorage.setItem("personInfo", JSON.stringify(personInfo));
-      this.$router.push("/orderCheckView/step2");
+          message
+        }
+      }
+      console.log(personInfo)
+      localStorage.setItem('personInfo', JSON.stringify(personInfo))
+      this.$router.push('/orderCheckView/step2')
     },
 
     // 電話驗證規則
-    isPhone(value) {
-      const phoneNumber = /^(09)[0-9]{8}$/;
-      return phoneNumber.test(value) ? true : "需要正確的電話號碼";
-    },
-  },
-};
+    isPhone (value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+    }
+  }
+}
 </script>
 
 <template>

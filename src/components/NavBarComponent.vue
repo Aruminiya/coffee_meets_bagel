@@ -1,35 +1,35 @@
 <script>
-import CartItemComponent from "../components/CartItemComponent.vue";
+import CartItemComponent from '../components/CartItemComponent.vue'
 
 // pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../stores/CartStore.js";
+import { mapState, mapActions } from 'pinia'
+import cartStore from '../stores/CartStore.js'
 
 export default {
   components: {
-    CartItemComponent,
+    CartItemComponent
   },
   props: { isEditMode: { type: Boolean, default: true } },
-  data() {
+  data () {
     return {
       // 控制自製 Modal 的開關
-      isShow: false,
-    };
+      isShow: false
+    }
   },
   computed: {
-    ...mapState(cartStore, ["data", "isCartsLoading"]),
+    ...mapState(cartStore, ['data', 'isCartsLoading'])
   },
   methods: {
-    ...mapActions(cartStore, ["getCarts", "editCarts", "deleteCarts"]),
+    ...mapActions(cartStore, ['getCarts', 'editCarts', 'deleteCarts'])
   },
-  mounted() {
+  mounted () {
     // 先取得購物車資訊
-    this.getCarts();
-    // if (this.$route.fullPath === "/orderCheckView/step2") {
+    this.getCarts()
+    // if (this.$route.fullPath === '/orderCheckView/step2') {
     //   this.isEditMode = false;
     // }
-  },
-};
+  }
+}
 </script>
 
 <template>
@@ -52,7 +52,7 @@ export default {
             <p
               class="cartQty badge rounded-pill text-bg-danger position-absolute end-0"
             >
-              {{ data.carts?.length }}
+              {{ data?.carts?.length }}
             </p>
             <img
               class="cartIcon"
@@ -104,10 +104,10 @@ export default {
       <div class="navbar cartIconNav mx-5 d-none d-lg-block">
         <div class="cartIconContainer position-relative" @click="isShow = true">
           <p
-            v-if="data.carts?.length"
+            v-if="data?.carts?.length"
             class="cartQty badge rounded-pill text-bg-danger position-absolute end-0"
           >
-            {{ data.carts?.length }}
+            {{ data?.carts?.length }}
           </p>
           <img
             class="cartIcon"
@@ -135,7 +135,7 @@ export default {
           <hr />
         </div>
 
-        <div v-if="data.carts?.length" class="block_02 cartProductInfoAll px-2">
+        <div v-if="data?.carts?.length" class="block_02 cartProductInfoAll px-2">
           <div
             v-if="isCartsLoading"
             class="loading d-flex justify-content-center align-items-center h-100"
@@ -172,7 +172,7 @@ export default {
           <h4 v-if="data.carts?.length === 0" class="cartTextEmpty text-center">
             購物車內尚無商品
           </h4>
-          <router-link v-if="data.carts?.length" to="/orderCheckView/step1"
+          <router-link v-if="data?.carts?.length" to="/orderCheckView/step1"
             ><button
               v-if="isCartsLoading === false"
               class="goToCheck btn btn-primary w-100"

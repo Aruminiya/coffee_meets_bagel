@@ -1,144 +1,141 @@
 <script>
-import axios from "axios";
-import VueAxios from "vue-axios";
-import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
-import NavBarComponent from "../../components/NavBarComponent.vue";
-import FooterComponent from "../../components/FooterComponent.vue";
-import ModalComponent from "../../components/ModalComponent.vue";
-import ToastComponent from "../../components/ToastComponent.vue";
-//pinia
-import { mapState, mapActions } from "pinia";
-import cartStore from "../../stores/CartStore.js";
+import axios from 'axios'
+import NavBarComponent from '../../components/NavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
+import ModalComponent from '../../components/ModalComponent.vue'
 
-const VITE_HEXAPI = import.meta.env.VITE_HEXAPI;
-const VITE_USER_PATH = import.meta.env.VITE_USER_PATH;
+// pinia
+import { mapState } from 'pinia'
+import cartStore from '../../stores/CartStore.js'
+
+const VITE_HEXAPI = import.meta.env.VITE_HEXAPI
+const VITE_USER_PATH = import.meta.env.VITE_USER_PATH
 
 export default {
   components: {
     NavBarComponent,
     FooterComponent,
-    ModalComponent,
-    ToastComponent,
+    ModalComponent
   },
-  data() {
+  data () {
     return {
       currentCategory: undefined,
-      categories: ["飲品", "蛋糕", "餅乾", "輕食"],
+      categories: ['飲品', '蛋糕', '餅乾', '輕食'],
       productsList: [],
       modal: null,
       isLoading: true,
       showPagination: false,
       pages: {},
-      category: "",
-      search: "",
-      allProducts: [],
-    };
+      category: '',
+      search: '',
+      allProducts: []
+    }
   },
   watch: {
-    "$route.query": {
-      handler() {
-        this.getProduct();
+    '$route.query': {
+      handler () {
+        this.getProduct()
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   methods: {
-    openModal(product) {
+    openModal (product) {
       // console.log(product)
       // console.log( this.$refs)
-      this.$refs.productDetailModal.modalShow(product);
+      this.$refs.productDetailModal.modalShow(product)
     },
 
-    getProduct(page = 1) {
-      // this.category = e.target.innerHTML;
-      this.isLoading = true;
-      this.showPagination = true;
-      //console.log(this.$route);
-      const { category = "" } = this.$route.query;
+    getProduct (page = 1) {
+      // this.category = e.target.innerHTML
+      this.isLoading = true
+      this.showPagination = true
+      // console.log(this.$route)
+      const { category = '' } = this.$route.query
       axios
         .get(
           `${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products?category=${category}&page=${page}`
         )
         .then((res) => {
-          this.pages = res.data.pagination;
-          this.productsList = res.data.products;
-          console.log(this.productsList);
+          this.pages = res.data.pagination
+          this.productsList = res.data.products
+          console.log(this.productsList)
           this.productsList.sort(function (a, b) {
-            return a.title.localeCompare(b.title, "zh-Hans-CN");
-          });
-          this.isLoading = false;
-        });
+            return a.title.localeCompare(b.title, 'zh-Hans-CN')
+          })
+          this.isLoading = false
+        })
     },
-    getAllProduct() {
-      this.isLoading = true;
-      this.showPagination = true;
-      this.category = "全部";
-      //const category = "";
+    getAllProduct () {
+      this.isLoading = true
+      this.showPagination = true
+      this.category = '全部'
+      // const category = ""
       axios
         .get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
         .then((res) => {
-          this.allProducts = res.data.products;
-        });
-        this.getProduct();
+          this.allProducts = res.data.products
+        })
+      this.getProduct()
     },
 
-    sortRecommend(e) {
-      this.findCategory(e);
-      this.isLoading = true;
-      this.showPagination = false;
+    sortRecommend (e) {
+      this.findCategory(e)
+      this.isLoading = true
+      this.showPagination = false
       axios
         .get(`${VITE_HEXAPI}/v2/api/${VITE_USER_PATH}/products/all`)
         .then((res) => {
-          const recommendArr = [];
+          const recommendArr = []
           res.data.products.forEach((item) => {
             if (item.is_recommend === 1) {
-              recommendArr.push(item);
+              recommendArr.push(item)
             }
-            //console.log(recommendArr);
-            this.productsList = recommendArr;
-            //console.log(this.producstList);
+            // console.log(recommendArr)
+            this.productsList = recommendArr
+            // console.log(this.producstList);
             this.productsList.sort(function (a, b) {
-              return a.title.localeCompare(b.title, "zh-Hans-CN");
-            });
-            this.isLoading = false;
-          });
-        });
+              return a.title.localeCompare(b.title, 'zh-Hans-CN')
+            })
+            this.isLoading = false
+          })
+        })
     },
 
-    scrollBehavior() {
+    scrollBehavior () {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "smooth",
-      });
+        behavior: 'smooth'
+      })
     },
-    findCategory(e) {
-      this.category = e.target.innerHTML;
-    },
-  },
-  computed: {
-    ...mapState(cartStore, ["addedToCart"]),
-    filterProducts() {
-      return this.allProducts.filter((item) => {
-        // console.log(item);
-        return item.title.toLowerCase().match(this.search);
-      });
-    },
-  },
-  mounted() {
-    this.getProduct();
-    this.getAllProduct();
-    //console.log(this. allProducts)
-    
-    //console.log(this.$router.currentRoute._value.query.category);
-    if (this.$router.currentRoute._value.query.category == undefined) {
-      this.category == "全部";
-    } else {
-      this.category = this.$router.currentRoute._value.query.category;
-      //console.log(this.category);
+    findCategory (e) {
+      this.category = e.target.innerHTML
     }
   },
-};
+  computed: {
+    ...mapState(cartStore, ['addedToCart']),
+    filterProducts () {
+      return this.allProducts.filter((item) => {
+        // console.log(item);
+        return item.title.toLowerCase().match(this.search)
+      })
+    }
+  },
+  mounted () {
+    this.getProduct()
+    this.getAllProduct()
+    // console.log(this. allProducts)
+    // console.log(this.$router.currentRoute._value.query.category)
+    if (this.$router.currentRoute._value.query.category === undefined) {
+      // eslint-disable-next-line no-unused-expressions
+      this.category === '全部'
+    } else {
+      this.category = this.$router.currentRoute._value.query.category
+      // console.log(this.category);
+    }
+  }
+}
 </script>
 
 <template>
