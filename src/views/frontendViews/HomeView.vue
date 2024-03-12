@@ -88,16 +88,16 @@ export default {
             <hr class="wordDash" />
           </div>
           <div class="px-0 pt-5 p-sm-3">
-            <!-- <img
+            <img
               class="img-fluid"
               src="../../../public/TodayRecommendation.gif"
               alt="TodayRecommendation"
-            /> -->
-            <img
+            />
+            <!-- <img
               class="img-fluid"
               src="https://i.imgur.com/7jl1CcH.gif"
               alt="TodayRecommendation"
-            />
+            /> -->
           </div>
         </div>
         <div class="col-12 col-md-7 p-0">
@@ -230,86 +230,86 @@ export default {
         <div class="block_04 col-12 py-3">
           <div class="Img_01">
             <div class="imgContainer h-100 position-relative">
-              <!-- <img
+              <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_01.png"
                 alt="ChunkIllustration_01"
-              /> -->
-              <img
+              />
+              <!-- <img
                 class="position-absolute"
                 src="https://i.imgur.com/XEYweQ2.png"
                 alt="ChunkIllustration_01"
-              />
+              /> -->
             </div>
           </div>
           <div class="Img_02">
             <div class="imgContainer h-100 position-relative">
-              <!-- <img
+              <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_02.png"
                 alt="ChunkIllustration_02"
-              /> -->
-              <img
+              />
+              <!-- <img
                 class="position-absolute"
                 src="https://i.imgur.com/iJOEVl9.png"
                 alt="ChunkIllustration_02"
-              />
+              /> -->
             </div>
           </div>
           <div class="Img_03">
             <div class="imgContainer h-100 position-relative">
-              <!-- <img
+              <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_03.png"
                 alt="ChunkIllustration_03"
-              /> -->
-              <img
+              />
+              <!-- <img
                 class="position-absolute"
                 src="https://i.imgur.com/o3PlSC3.png"
                 alt="ChunkIllustration_03"
-              />
+              /> -->
             </div>
           </div>
           <div class="Img_04">
             <div class="imgContainer h-100 position-relative">
-              <!-- <img
+              <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_04.png"
                 alt="ChunkIllustration_04"
-              /> -->
-              <img
+              />
+              <!-- <img
                 class="position-absolute"
                 src="https://i.imgur.com/ulSCWZz.png"
                 alt="ChunkIllustration_04"
-              />
+              /> -->
             </div>
           </div>
           <div class="Img_05">
             <div class="imgContainer h-100 position-relative">
-              <!-- <img
+              <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_05.png"
                 alt="ChunkIllustration_05"
-              /> -->
-              <img
+              />
+              <!-- <img
                 class="position-absolute"
                 src="https://i.imgur.com/gsJdCTC.png"
                 alt="ChunkIllustration_05"
-              />
+              /> -->
             </div>
           </div>
           <div class="Img_06">
             <div class="imgContainer h-100 position-relative">
-              <!-- <img
+              <img
                 class="position-absolute"
                 src="../../../public/ChunkIllustration_06.png"
                 alt="ChunkIllustration_06"
-              /> -->
-              <img
+              />
+              <!-- <img
                 class="position-absolute"
                 src="https://i.imgur.com/l7skU1v.png"
                 alt="ChunkIllustration_06"
-              />
+              /> -->
             </div>
           </div>
         </div>
@@ -345,16 +345,16 @@ export default {
             <swiper-slide>
               <router-link to="/productList?category=蛋糕"
                 ><div class="mealsImg d-flex flex-column rounded p-3">
-                  <!-- <img
+                  <img
                   class="rounded"
                   src="../../../public/Meals_01.png"
                   alt="Meals_01"
-                /> -->
-                  <img
+                />
+                  <!-- <img
                     class="rounded"
                     src="https://i.imgur.com/ba6FLIF.png"
                     alt="Meals_01"
-                  />
+                  /> -->
                   <h4 class="m-2">蛋糕</h4>
                 </div></router-link
               >
@@ -362,16 +362,16 @@ export default {
             <swiper-slide>
               <router-link to="/productList?category=輕食"
                 ><div class="mealsImg d-flex flex-column rounded p-3">
-                  <!-- <img
+                  <img
                   class="rounded"
                   src="../../../public/Meals_02.png"
                   alt="Meals_02"
-                /> -->
-                  <img
+                />
+                  <!-- <img
                     class="rounded"
                     src="https://i.imgur.com/PIOORf4.png"
                     alt="Meals_02"
-                  />
+                  /> -->
                   <h4 class="m-2">輕食</h4>
                 </div></router-link
               >
@@ -379,16 +379,16 @@ export default {
             <swiper-slide>
               <router-link to="/productList?category=飲品"
                 ><div class="mealsImg d-flex flex-column rounded p-3">
-                  <!-- <img
+                  <img
                   class="rounded"
                   src="../../../public/Meals_03.png"
                   alt="Meals_03"
-                /> -->
-                  <img
+                />
+                  <!-- <img
                     class="rounded"
                     src="https://i.imgur.com/lo0fMay.png"
                     alt="Meals_03"
-                  />
+                  /> -->
                   <h4 class="m-2">飲品</h4>
                 </div></router-link
               >
@@ -396,16 +396,16 @@ export default {
             <swiper-slide>
               <router-link to="/productList?category=餅乾"
                 ><div class="mealsImg d-flex flex-column rounded p-3">
-                  <!-- <img
+                  <img
                   class="rounded"
                   src="../../../public/Meals_04.png"
                   alt="Meals_04"
-                /> -->
-                  <img
+                />
+                  <!-- <img
                     class="rounded"
                     src="https://i.imgur.com/taoGjCY.png"
                     alt="Meals_04"
-                  />
+                  /> -->
                   <h4 class="m-2">餅乾</h4>
                 </div></router-link
               >
@@ -413,16 +413,16 @@ export default {
             <swiper-slide>
               <router-link to="/productList?category=鬆餅"
                 ><div class="mealsImg d-flex flex-column rounded p-3">
-                  <!-- <img
+                  <img
                   class="rounded"
                   src="../../../public/Meals_05.png"
                   alt="Meals_05"
-                /> -->
-                  <img
+                />
+                  <!-- <img
                     class="rounded"
                     src="https://i.imgur.com/VPTtiiR.png"
                     alt="Meals_05"
-                  />
+                  /> -->
                   <h4 class="m-2">鬆餅</h4>
                 </div></router-link
               >
@@ -439,8 +439,8 @@ export default {
 .banner {
   width: 100%; /* 假設容器寬度為 300 像素 */
   aspect-ratio: 1920 / 896; /* 假設你的圖片高度與寬度的比例為 4:3 */
-  background-image: url("https://i.imgur.com/zyX1TRR.png");
-  // background-image: url("../../../public/Banner.png");
+  // background-image: url("https://i.imgur.com/zyX1TRR.png");
+  background-image: url("../../../public/Banner.png");
   background-size: cover; /* 調整背景圖片大小以填充容器 */
   background-position: right; /* 調整背景圖片位置至中 */
   background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -552,23 +552,23 @@ export default {
 .RecommendationImg {
   height: 100%;
   &.Img_01 {
-    // background-image: url("../../../public/RecommendationImg_01.png");
-    background-image: url("https://i.imgur.com/D8Qdiao.png");
+    background-image: url("../../../public/RecommendationImg_01.png");
+    // background-image: url("https://i.imgur.com/D8Qdiao.png");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
     transition: background-size 0.2s ease-in-out; /* 添加動畫效果 */
   }
   &.Img_02 {
-    // background-image: url("../../../public/RecommendationImg_02.png");
-    background-image: url("https://i.imgur.com/8G5A8WC.png");
+    background-image: url("../../../public/RecommendationImg_02.png");
+    // background-image: url("https://i.imgur.com/8G5A8WC.png");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
   }
   &.Img_03 {
-    // background-image: url("../../../public/RecommendationImg_03.png");
-    background-image: url("https://i.imgur.com/XgVbAhP.png");
+    background-image: url("../../../public/RecommendationImg_03.png");
+    // background-image: url("https://i.imgur.com/XgVbAhP.png");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -595,8 +595,8 @@ export default {
   .Img_01 {
     grid-area: Img01;
     .imgContainer {
-      // background-image: url("../../../public/ChunkImg_01.png");
-      background-image: url("https://i.imgur.com/tNSLfzc.png");
+      background-image: url("../../../public/ChunkImg_01.png");
+      // background-image: url("https://i.imgur.com/tNSLfzc.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -613,16 +613,16 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        // background-image: url("../../../public/ChunkImg_Phone_01.png");
-        background-image: url("https://i.imgur.com/NsfSbBp.png");
+        background-image: url("../../../public/ChunkImg_Phone_01.png");
+        // background-image: url("https://i.imgur.com/NsfSbBp.png");
       }
     }
   }
   .Img_02 {
     grid-area: Img02;
     .imgContainer {
-      // background-image: url("../../../public/ChunkImg_02.png");
-      background-image: url("https://i.imgur.com/sJ0cIWj.png");
+      background-image: url("../../../public/ChunkImg_02.png");
+      // background-image: url("https://i.imgur.com/sJ0cIWj.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -639,8 +639,8 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        // background-image: url("../../../public/ChunkImg_Phone_02.png");
-        background-image: url("https://i.imgur.com/T4srQ5N.png");
+        background-image: url("../../../public/ChunkImg_Phone_02.png");
+        // background-image: url("https://i.imgur.com/T4srQ5N.png");
         img {
           object-position: 76% 50%;
         }
@@ -650,8 +650,8 @@ export default {
   .Img_03 {
     grid-area: Img03;
     .imgContainer {
-      // background-image: url("../../../public/ChunkImg_03.png");
-      background-image: url("https://i.imgur.com/RmDqyYJ.png");
+      background-image: url("../../../public/ChunkImg_03.png");
+      // background-image: url("https://i.imgur.com/RmDqyYJ.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: 35% 50%; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -668,16 +668,16 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        // background-image: url("../../../public/ChunkImg_Phone_03.png");
-        background-image: url("https://i.imgur.com/b0pJldL.png");
+        background-image: url("../../../public/ChunkImg_Phone_03.png");
+        // background-image: url("https://i.imgur.com/b0pJldL.png");
       }
     }
   }
   .Img_04 {
     grid-area: Img04;
     .imgContainer {
-      // background-image: url("../../../public/ChunkImg_04.png");
-      background-image: url("https://i.imgur.com/sTz6Z7S.png");
+      background-image: url("../../../public/ChunkImg_04.png");
+      // background-image: url("https://i.imgur.com/sTz6Z7S.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -694,16 +694,16 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        // background-image: url("../../../public/ChunkImg_Phone_04.png");
-        background-image: url("https://i.imgur.com/vS1KEzB.png");
+        background-image: url("../../../public/ChunkImg_Phone_04.png");
+        // background-image: url("https://i.imgur.com/vS1KEzB.png");
       }
     }
   }
   .Img_05 {
     grid-area: Img05;
     .imgContainer {
-      // background-image: url("../../../public/ChunkImg_05.png");
-      background-image: url("https://i.imgur.com/6fBuCRy.png");
+      background-image: url("../../../public/ChunkImg_05.png");
+      // background-image: url("https://i.imgur.com/6fBuCRy.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: 80% 50%; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -720,8 +720,8 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        // background-image: url("../../../public/ChunkImg_Phone_05.png");
-        background-image: url("https://i.imgur.com/LEVBKda.png");
+        background-image: url("../../../public/ChunkImg_Phone_05.png");
+        // background-image: url("https://i.imgur.com/LEVBKda.png");
       }
     }
   }
@@ -729,8 +729,8 @@ export default {
     grid-area: Img06;
 
     .imgContainer {
-      // background-image: url("../../../public/ChunkImg_06.png");
-      background-image: url("https://i.imgur.com/UOPuyQo.png");
+      background-image: url("../../../public/ChunkImg_06.png");
+      // background-image: url("https://i.imgur.com/UOPuyQo.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
       background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -747,8 +747,8 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        // background-image: url("../../../public/ChunkImg_Phone_06.png");
-        background-image: url("https://i.imgur.com/2buE3i2.png");
+        background-image: url("../../../public/ChunkImg_Phone_06.png");
+        // background-image: url("https://i.imgur.com/2buE3i2.png");
       }
     }
   }
@@ -767,8 +767,8 @@ export default {
 }
 
 .block_05_BG {
-  // background-image: url("../../../public/BG_02.png");
-  background-image: url("https://i.imgur.com/Lkjz2C8.png");
+  background-image: url("../../../public/BG_02.png");
+  // background-image: url("https://i.imgur.com/Lkjz2C8.png");
   background-size: cover;
   background-position: center;
 }
@@ -867,20 +867,20 @@ export default {
 }
 
 .swiperImg_01 {
-  // background-image: url("../../../public/swiperImg_01.png");
-  background-image: url("https://i.imgur.com/v75C8CW.png");
+  background-image: url("../../../public/swiperImg_01.png");
+  // background-image: url("https://i.imgur.com/v75C8CW.png");
   background-position: center;
   background-size: cover;
 }
 .swiperImg_02 {
-  // background-image: url("../../../public/swiperImg_02.png");
-  background-image: url("https://i.imgur.com/4Mn1j19.png");
+  background-image: url("../../../public/swiperImg_02.png");
+  // background-image: url("https://i.imgur.com/4Mn1j19.png");
   background-position: center;
   background-size: cover;
 }
 .swiperImg_03 {
-  // background-image: url("../../../public/swiperImg_03.png");
-  background-image: url("https://i.imgur.com/SbNWoSD.png");
+  background-image: url("../../../public/swiperImg_03.png");
+  // background-image: url("https://i.imgur.com/SbNWoSD.png");
   background-position: center;
   background-size: cover;
 }
