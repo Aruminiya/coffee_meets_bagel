@@ -164,7 +164,7 @@ export default {
           data-bs-toggle="dropdown"
           aria-expanded="false"
           style="border: none; height: 40px; background-color: transparent"
-          placeholder="搜尋商品"
+          placeholder="快速搜尋商品"
           v-model="search"
         />
         <ul
@@ -330,11 +330,12 @@ export default {
                 <p style="font-size: 14px">{{ item.description }}</p>
               </div>
               <button
-                ref="modalBtn"
-                @click="openModal(item)"
                 class="text-center w-100"
               >
-                <p class="mb-0">加入購物車</p>
+              <router-link :to='`./productList/${item.id}`'
+              style='text-decoration:none' >
+                <p class="mb-0 text-light">加入購物車</p>
+              </router-link>
               </button>
             </div>
           </div>
@@ -395,7 +396,7 @@ export default {
       </nav>
     </div>
   </div>
-  <FooterComponent />
+  <FooterComponent/>
 </template>
 
 <style lang="scss">
