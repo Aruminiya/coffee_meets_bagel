@@ -108,8 +108,8 @@ export default {
             }
           })
         })
-        .catch(() => {
-          Swal.fire('產品新增失敗')
+        .catch((err) => {
+          Swal.fire(err.response.data.message)
         })
     },
     enabledProduct () {
@@ -143,8 +143,8 @@ export default {
             icon: 'success'
           })
           this.$router.push('/admin/adminProducts')
-        }).catch(() => {
-          Swal.fire('系統更新失敗')
+        }).catch((err) => {
+          Swal.fire(err.response.data.message)
         })
     },
     deleteImage (index) {
@@ -284,11 +284,11 @@ export default {
           </div>
           <div class="col-6">
             <h4 class="text-primary">原價</h4>
-            <input type="number" class="form-control rounded-top" v-model="product.origin_price">
+            <input type="number" class="form-control rounded-top" min="0" v-model.number ="product.origin_price">
           </div>
           <div class="col-6">
             <h4 class="text-primary">售價</h4>
-            <input type="number" class="form-control rounded-top" v-model="product.price">
+            <input type="number" class="form-control rounded-top" min="0" v-model.number ="product.price">
           </div>
         </div>
         <div class="mb-2">
