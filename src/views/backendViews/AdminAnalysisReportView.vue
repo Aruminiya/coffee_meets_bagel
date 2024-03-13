@@ -93,7 +93,7 @@ export default {
       c3.generate({
         bindto: '#saleAmountRanking',
         data: {
-          columns: this.getSaleRankingData(orders, 'total'),
+          columns: this.getSaleRankingData(orders, 'final_total'),
           type: 'donut'
         },
         donut: {
@@ -101,7 +101,7 @@ export default {
         }
       })
       this.productsQty = this.getSaleRankingData(orders, 'qty')
-      this.productsAmount = this.getSaleRankingData(orders, 'total')
+      this.productsAmount = this.getSaleRankingData(orders, 'final_total')
     },
     initOrdersData () {
       this.daySelected.orders = this.orders
