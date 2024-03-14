@@ -1,6 +1,6 @@
 <script>
 import modal from '../../components/ModalShowImgComponent..vue'
-import pagination from '../../components/PaginationComponent.vue'
+import PaginationComponent from '../../components/PaginationComponent.vue'
 import adminNav from '../../components/BackendOffcanvasNav.vue'
 import adminLogo from '../../components/BackendLogoComponent.vue'
 import Swal from 'sweetalert2'
@@ -35,7 +35,7 @@ export default {
     }
   },
   components: {
-    pagination,
+    PaginationComponent,
     modal,
     adminNav,
     adminLogo
@@ -374,8 +374,8 @@ export default {
         </template>
       </modal>
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <pagination v-if="showCategory" :pagination="pagination" @emit-pages="getProducts"></pagination>
-      <pagination v-else :pagination="pagination" @emit-pages="getProductsByCategory"></pagination>
+      <PaginationComponent v-if="showCategory" :pagination="pagination" @emit-pages="getProducts"></PaginationComponent>
+      <PaginationComponent v-else :pagination="pagination" @emit-pages="getProductsByCategory"></PaginationComponent>
     </div>
   </div>
 </template>
