@@ -483,4 +483,11 @@ export default {
     }
   }
 }
+
+.card{
+   @media (max-width: 992px){
+     background-color: rgba(222, 219, 218, 0.8);
+     padding-bottom:16px;
+   }
+}
 </style>
