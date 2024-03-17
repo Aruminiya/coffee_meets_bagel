@@ -145,7 +145,7 @@ export default {
               title='查看照片'
               class="border-0 bg-transparent">
               <img :src='item'
-              class="d-lg-none py-2 " style="border-radius:24px; width:100px">
+              class="d-lg-none py-2 " style="border-radius:24px; width:100px; height:100px;">
               </button>
             </div>
             </div>
