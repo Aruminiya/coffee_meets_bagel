@@ -5,7 +5,6 @@ import ToastComponent from '../components/ToastComponent.vue'
 // pinia
 import { mapState, mapActions } from 'pinia'
 import cartStore from '../stores/CartStore.js'
-// 不好意思芙蘭先拿來用嘿
 export default {
   components: {
     ToastComponent
