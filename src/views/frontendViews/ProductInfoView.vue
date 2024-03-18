@@ -116,26 +116,27 @@ export default {
   </ol>
 </nav>
       <div class="row ">
-        <div class="col-lg-6">
+        <div class="col-lg-6" style="height:400px;">
           <swiper
-    :slidesPerView="1"
-    :zoom="true"
-    :spaceBetween="50"
-    :loop="true"
-    :pagination="{
-      clickable: true,
-    }"
-    :modules="modules"
-    class="mySwiper  d-none d-lg-block"
-  >
-    <swiper-slide v-for='item in productPhoto' :key='item' class='d-flex mx-2 p-4 ps-0'>
-    <img :src='item' class="w-100" style="height:400px; object-fit:cover; border-radius:24px">
-    <div class='d-flex flex-column justify-content-between mb-3'></div>
-    </swiper-slide>
-  </swiper>
+            :slidesPerView="1"
+            :zoom="true"
+            :spaceBetween="50"
+            :loop="true"
+            :pagination="{
+              clickable: true,
+            }"
+            :modules="modules"
+            class="mySwiper  d-none d-lg-block"
+            style="height:100%;"
+          >
+            <swiper-slide v-for='item in productPhoto' :key='item' class='d-flex mx-2 p-4 ps-0' style="height:100%;">
+              <img :src='item' class="w-100" style="height:100%; object-fit:cover; border-radius:24px">
+              <div class='d-flex flex-column justify-content-between mb-3'></div>
+            </swiper-slide>
+          </swiper>
 
         </div>
-        <div class="col-lg-6 p-4 d-flex flex-column justify-content-between" >
+        <div class="col-lg-6 p-4 d-flex flex-column justify-content-between" style="height:400px;">
           <div >
             <h1><i class="fa-solid fa-crown me-1 text-warning" v-show="product.is_recommend==1"></i>{{product.title}}</h1>
             <div  class="d-flex flex-column w-100">
@@ -187,22 +188,34 @@ export default {
             </div>
         </div>
       </div>
-
-      <p>相關產品</p>
-      <swiper :slidesPerView="3"
-    :spaceBetween="30"
-    :navigation="true"
-    :modules="modules"
-    class="mySwiper">
-   <swiper-slide v-for="item in relativeProduct" :key="item.id">
-   <router-link :to="'/productList/'+item.id" title="查看商品" @click='reload'
-   style='text-decoration:none'>
-   <img :src='item.imageUrl' class="w-100 relativeImg" style="object-fit:cover;border-radius:24px">
-     <p class="d-flex justify-content-center">{{item.title}}</p>
-     <p class="d-flex justify-content-center">NT$ {{item.price}}</p>
-</router-link>
-   </swiper-slide>
-      </swiper>
+      <div class="row ">
+        <div class="col-12" >
+          <p>相關產品</p>
+        </div>
+        <div class="col-12" >
+          <swiper :slidesPerView="3"
+          :spaceBetween="30"
+          :navigation="true"
+          :modules="modules"
+          class="mySwiper"
+          style="height:400px;overflow:hidden;"
+          >
+              <template v-for="item in relativeProduct" :key="item.id">
+                <swiper-slide >
+                  <div>
+                    <router-link :to="'/productList/'+item.id" title="查看商品" @click='reload' style='text-decoration:none'>
+                      <div style="width:410px;height:300px;border-radius:24px;overflow:hidden;">
+                        <img :src='item.imageUrl' class="w-100 relativeImg" style="width:100%;height:100%;object-fit:cover;">
+                      </div>
+                      <p class="d-flex justify-content-center">{{item.title}}</p>
+                      <p class="d-flex justify-content-center">NT$ {{item.price}}</p>
+                    </router-link>
+                </div>
+                </swiper-slide>
+              </template>
+          </swiper>
+        </div>
+      </div>
     </div>
   <FooterComponent></FooterComponent>
 </template>
