@@ -61,15 +61,17 @@ export default {
             if (this.product.id !== item.id) {
               this.relativeProduct.push(item)
             }
+            console.log(this.relativeProduct)
           })
         })
     },
-    reload () {
+    reload (id) {
       this.isLoading = true
+      this.$router.push(`/productList/${id}`)
       setTimeout(() => {
         location.reload()
         this.isLoading = false
-      }, 500)
+      }, 100)
     },
     showPhoto (url) {
       this.showingPhoto = url
@@ -108,15 +110,15 @@ export default {
       <nav aria-label="breadcrumb" class="pt-3">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-      <router-link to="/">首頁</router-link>
+      <router-link to="/" style="text-decoration:none">首頁</router-link>
           </li>
-    <li class="breadcrumb-item"><router-link :to="`/productList?category=${category}`">
+    <li class="breadcrumb-item"><router-link style="text-decoration:none" :to="`/productList?category=${category}`">
       {{category}}</router-link></li>
     <li class="breadcrumb-item active">{{productName}}</li>
   </ol>
 </nav>
       <div class="row ">
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-12 swiperContainer">
           <swiper
     :slidesPerView="1"
     :zoom="true"
@@ -126,26 +128,26 @@ export default {
       clickable: true,
     }"
     :modules="modules"
-    class="mySwiper  d-none d-lg-block"
+    class="mySwiper  d-none d-lg-block h-100"
   >
     <swiper-slide v-for='item in productPhoto' :key='item' class='d-flex mx-2 p-4 ps-0'>
-    <img :src='item' class="w-100" style="height:400px; object-fit:cover; border-radius:24px">
+    <img :src='item' class="w-100" style=" object-fit:cover; border-radius:24px">
     <div class='d-flex flex-column justify-content-between mb-3'></div>
     </swiper-slide>
   </swiper>
-
         </div>
-        <div class="col-lg-6 p-4 d-flex flex-column justify-content-between" >
+
+        <div class="col-lg-6 col-12 p-4 d-flex flex-column justify-content-between" >
           <div >
             <h1><i class="fa-solid fa-crown me-1 text-warning" v-show="product.is_recommend==1"></i>{{product.title}}</h1>
-            <div  class="d-flex flex-column w-100">
-            <img :src='showingPhoto' class="d-lg-none " style="border-radius:24px; height:400px; object-fit:cover">
+            <div  class="d-flex flex-column w-100 d-lg-none ">
+            <img :src='showingPhoto' style="border-radius:24px; height:400px; object-fit:cover">
             <div class="d-flex justify-content-start">
               <button @click='showPhoto(item)' v-for='item in productPhoto' :key='item'
               title='查看照片'
-              class="border-0 bg-transparent">
+              class="border-0 bg-transparent p-0 mt-2 me-2">
               <img :src='item'
-              class="d-lg-none py-2 " style="border-radius:24px; width:100px; height:100px;">
+              class="p-0" style="border-radius:24px; width:100px; height:100px;">
               </button>
             </div>
             </div>
@@ -187,22 +189,31 @@ export default {
             </div>
         </div>
       </div>
-
-      <p>相關產品</p>
-      <swiper :slidesPerView="3"
-    :spaceBetween="30"
-    :navigation="true"
+      <p class='ms-2 mb-0'>相關產品</p>
+            <div class="row ">
+        <div class="col-12 relativePhotoContainer">
+          <swiper
+    :slidesPerView="3"
+    :zoom="true"
+    :spaceBetween="50"
+    :loop="true"
+    :navigation='true'
     :modules="modules"
-    class="mySwiper">
-   <swiper-slide v-for="item in relativeProduct" :key="item.id">
-   <router-link :to="'/productList/'+item.id" title="查看商品" @click='reload'
-   style='text-decoration:none'>
-   <img :src='item.imageUrl' class="w-100 relativeImg" style="object-fit:cover;border-radius:24px">
-     <p class="d-flex justify-content-center">{{item.title}}</p>
-     <p class="d-flex justify-content-center">NT$ {{item.price}}</p>
-</router-link>
-   </swiper-slide>
-      </swiper>
+    class="mySwiper  h-100"
+  >
+    <swiper-slide v-for='item in relativeProduct' :key='item.id' class='d-flex flex-column mx-2 p-4 ps-0'>
+
+    <img :src='item.imageUrl' class="w-100 h-75" style=" object-fit:cover; border-radius:24px"
+    @click='reload(item.id)'>
+    <div class='d-flex flex-column align-items-center mb-3'>
+      {{item.title}}
+      NT$ {{item.price}}
+    </div>
+
+    </swiper-slide>
+  </swiper>
+        </div>
+      </div>
     </div>
   <FooterComponent></FooterComponent>
 </template>
@@ -249,10 +260,24 @@ export default {
   }
   }
 
+  .relativePhotoContainer{
+    height:350px;
+        @media (max-width: 991px) {
+    height: 300px;
+  }
+  }
   .relativeImg{
-    height:300px;
+    height:250px;
      @media (max-width: 991px) {
     height: 120px;
   }
   }
+
+  .swiperContainer{
+    height:400px;
+    @media (max-width: 991px) {
+    height: 0px;
+  }
+  }
+
 </style>
