@@ -61,7 +61,6 @@ export default {
             if (this.product.id !== item.id) {
               this.relativeProduct.push(item)
             }
-            console.log(this.relativeProduct)
           })
         })
     },
