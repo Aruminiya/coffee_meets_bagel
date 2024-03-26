@@ -31,7 +31,8 @@ export default {
       productsCount: 0,
       total: 0,
       productFinalTotal: 0,
-      productTotal: 0
+      productTotal: 0,
+      isLoading: true
     }
   },
   components: {
@@ -45,6 +46,7 @@ export default {
     getOrder () {
       // 取得路由的訂單ID
       const id = this.$route.params.id
+      this.isLoading = true
       if (id) {
         this.axios.get(`${host}/v2/api/${path}/order/${id}`)
           .then((res) => {
@@ -55,8 +57,10 @@ export default {
             this.total = res.data.order.total
             this.productsCount = Object.keys(this.products).length
             this.create_at = moment.unix(this.order.create_at).format('YYYY年 MM月 DD日 A h時 : mm分 : ss秒')
+            this.isLoading = false
           })
           .catch(() => {
+            this.isLoading = false
             Swal.fire('取得訂單資料失敗')
           })
       }
@@ -95,14 +99,17 @@ export default {
     },
     updateOrderApi () {
       this.order.total = this.total
+      this.isLoading = true
       const data = {
         data: this.order
       }
       this.axios.put(`${host}/v2/api/${path}/admin/order/${this.$route.params.id}`, data)
         .then((res) => {
           this.$router.push('/admin/adminOrders')
+          this.isLoading = false
         })
         .catch(() => {
+          this.isLoading = false
           Swal.fire('更新訂單資料失敗')
         })
     },
@@ -156,6 +163,7 @@ export default {
   <div>
     <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
     <BackendOffcanvasNav ref="backendNav" />
+    <LaodingOverlay :active="isLoading" />
   </div>
   <div class="container">
     <h2 class="text-primary mb-0 py-3">編輯訂單</h2>

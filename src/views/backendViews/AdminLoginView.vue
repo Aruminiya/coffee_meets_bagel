@@ -9,18 +9,20 @@ export default {
       user: {
         username: '',
         password: ''
-      }
+      },
+      isLoading: false
     }
   },
   methods: {
     login () {
+      this.isLoading = true
       this.axios.post(`${host}/v2/admin/signin`, this.user)
         .then((res) => {
           // 把回傳的 token 及 expired timestamp 用解構賦值方式存成同名變數
+          this.isLoading = false
           const { token, expired } = res.data
           // 把 token 及 expired 存到 cookie
           document.cookie = `florafirstapi=${token}; expires=${new Date(expired)}`
-          // document.cookie = `floraFirstApiToken=${token}; expires=${new Date(expired)}`;
           Swal.fire('登入成功, 將前往後台首頁')
           this.$router.push('/admin')
         }).catch(() => {
@@ -51,6 +53,8 @@ export default {
       </div>
     </div>
   </div>
+
+<LaodingOverlay :active="isLoading" />
 </template>
 
 <style scoped lang="scss">

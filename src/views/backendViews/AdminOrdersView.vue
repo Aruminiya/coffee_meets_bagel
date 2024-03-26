@@ -1,8 +1,8 @@
 <script>
-import OrdersProductsTable from '../../components/OrdersProductsTable.vue'
-import PaginationComponent from '../../components/PaginationComponent.vue'
-import BackendOffcanvasNav from '../../components/BackendOffcanvasNav.vue'
-import BackendLogoComponent from '../../components/BackendLogoComponent.vue'
+import OrdersProductsTable from '@/components/OrdersProductsTable.vue'
+import PaginationComponent from '@/components/PaginationComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import Swal from 'sweetalert2'
 import moment from 'moment-timezone'
 import axios from 'axios'
@@ -177,7 +177,7 @@ export default {
           <select class="form-select form-select" aria-label=".form-select-sm example"
             @change="isOrderPaid($event.target.value)">
             <!-- 只查詢未付款與全部 -->
-            <option selected>請選擇訂單狀態</option>
+            <option disabled>請選擇訂單狀態</option>
             <option value="檢視全部">檢視全部</option>
             <option value="未付款">未付款</option>
           </select>

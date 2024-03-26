@@ -9,6 +9,7 @@
   <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
   <!-- 側邊選單 -->
   <BackendOffcanvasNav ref="backendNav" />
+  <LaodingOverlay :active="isLoading" />
   <main>
     <div class="container mt-10 py-5">
       <!-- coupon-searchbar -->
@@ -155,7 +156,8 @@ export default {
       // 搜尋字詞
       search: '',
       // 判斷新增或是編輯折扣券
-      isNew: false
+      isNew: false,
+      isLoading: true
     }
   },
   components: {
@@ -189,6 +191,7 @@ export default {
     },
     // 取得所有 coupons 資料
     getAllCoupons () {
+      this.isLoading = true
       this.axios
         .get(`${host}/v2/api/${path}/admin/coupons`)
         .then((res) => {
@@ -205,20 +208,25 @@ export default {
                 })
               })
           }
+          this.isLoading = false
         })
         .catch((err) => {
+          this.isLoading = false
           alert(err.response)
         })
     },
     // 渲染 coupons 資料，預設為第一頁(page = 1)，一頁有 10 筆資料
     getRenderCoupons (page = 1) {
+      this.isLoading = true
       this.axios
         .get(`${host}/v2/api/${path}/admin/coupons?page=${page}`)
         .then((res) => {
           this.renderCoupons = res.data.coupons
           this.pagination = res.data.pagination
+          this.isLoading = false
         })
         .catch((err) => {
+          this.isLoading = false
           alert(err.response)
         })
     },
@@ -262,7 +270,7 @@ export default {
         httpMethods = 'put'
         data = this.tempCoupon
       }
-
+      this.isLoading = true
       this.axios[httpMethods](url, { data })
         .then((res) => {
           // 每次新增、編輯或刪除都先清空所有折扣券資料，再跑 getAllCoupons 重新取得一次，不然會重複取到資料
@@ -271,8 +279,11 @@ export default {
           this.getAllCoupons()
           this.getRenderCoupons()
           this.$refs.couponModal.closeModal()
+          this.isLoading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.isLoading = false
+        })
     },
     // 刪除折扣券
     deleteCoupon (coupon) {
@@ -287,6 +298,7 @@ export default {
         confirmButtonText: '確認刪除'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.isLoading = true
           this.axios
             .delete(`${host}/v2/api/${path}/admin/coupon/${coupon.id}`)
             .then((res) => {
@@ -297,8 +309,11 @@ export default {
               this.allCoupons = []
               this.getAllCoupons()
               this.getRenderCoupons()
+              this.isLoading = false
             })
-            .catch(() => {})
+            .catch(() => {
+              this.isLoading = false
+            })
         }
       })
     }

@@ -6,6 +6,8 @@
   <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
   <!-- 側邊選單 -->
   <BackendOffcanvasNav ref="backendNav" />
+  <!-- 讀取效果 -->
+  <LaodingOverlay :active="isLoading" />
   <!-- 主要區塊 -->
   <main>
     <div class="container mt-20 mb-5">
@@ -166,7 +168,8 @@ export default {
       // 儲存所有訂單資料
       orders: [],
       // 儲存所有折價券資料
-      coupons: []
+      coupons: [],
+      isLoading: true
     }
   },
   components: {
@@ -180,14 +183,18 @@ export default {
     },
     // 後台取得所有訂單
     getOrders () {
+      this.isLoading = true
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         this.orders = res.data.orders
+        this.isLoading = false
       })
     },
     // 後台取得所有折價券
     getCoupons () {
+      this.isLoading = true
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then((res) => {
         this.coupons = res.data.coupons
+        this.isLoading = false
       })
     }
   },
