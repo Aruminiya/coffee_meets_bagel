@@ -1,8 +1,8 @@
 <script>
-import modal from '../../components/ModalShowImgComponent..vue'
-import PaginationComponent from '../../components/PaginationComponent.vue'
-import adminNav from '../../components/BackendOffcanvasNav.vue'
-import adminLogo from '../../components/BackendLogoComponent.vue'
+import ModalShowImgComponent from '@/components/ModalShowImgComponent..vue'
+import PaginationComponent from '@/components/PaginationComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import Swal from 'sweetalert2'
 
 const host = import.meta.env.VITE_HEXAPI
@@ -36,9 +36,9 @@ export default {
   },
   components: {
     PaginationComponent,
-    modal,
-    adminNav,
-    adminLogo
+    ModalShowImgComponent,
+    BackendOffcanvasNav,
+    BackendLogoComponent
   },
   methods: {
     searchProduct () {
@@ -48,6 +48,9 @@ export default {
           .toString()
           .match(this.search)
       })
+
+      // console.log(result)
+
       this.products = result
       // 搜尋結果暫時先不處理分頁
       this.pagination.total_pages = 1
@@ -209,6 +212,16 @@ export default {
       }
     }
   },
+  computed: {
+    getSearch () {
+      return this.allProducts.filter((product) => {
+        // 比對標題內容與產品描述對應搜尋關鍵字
+        return [product.title, product.content, product.description]
+          .toString()
+          .match(this.search)
+      })
+    }
+  },
   mounted () {
     // 要渲染的資料
     this.getProducts()
@@ -226,10 +239,8 @@ export default {
 
   <div>
     <div>
-      <!-- LOGO元件 -->
-      <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
-      <!-- 側邊欄位元件 -->
-      <adminNav ref="backendNav"></adminNav>
+      <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
+      <BackendOffcanvasNav ref="backendNav" />
     </div>
 
     <div class="container">
@@ -368,14 +379,14 @@ export default {
         </div>
       </div>
       <!-- modal< 點選圖片放大顯示 -->
-      <modal ref="modal">
+      <ModalShowImgComponent ref="modal">
         <template v-slot:modal-body>
           <img class="modal__img" :src="product.imageUrl" alt="#" />
         </template>
-      </modal>
+      </ModalShowImgComponent>
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <PaginationComponent v-if="showCategory" :pagination="pagination" @emit-pages="getProducts"></PaginationComponent>
-      <PaginationComponent v-else :pagination="pagination" @emit-pages="getProductsByCategory"></PaginationComponent>
+      <PaginationComponent v-if="showCategory" :pagination="pagination" @emit-pages="getProducts" />
+      <PaginationComponent v-else :pagination="pagination" @emit-pages="getProductsByCategory" />
     </div>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <script>
-import showProductsModal from '../../components/OrdersProductsTable.vue'
+import OrdersProductsTable from '../../components/OrdersProductsTable.vue'
 import PaginationComponent from '../../components/PaginationComponent.vue'
-import adminNav from '../../components/BackendOffcanvasNav.vue'
-import adminLogo from '../../components/BackendLogoComponent.vue'
+import BackendOffcanvasNav from '../../components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '../../components/BackendLogoComponent.vue'
 import Swal from 'sweetalert2'
 import moment from 'moment-timezone'
 import axios from 'axios'
@@ -35,9 +35,9 @@ export default {
   },
   components: {
     PaginationComponent,
-    adminNav,
-    adminLogo,
-    showProductsModal
+    BackendOffcanvasNav,
+    BackendLogoComponent,
+    OrdersProductsTable
   },
   methods: {
     getAllOrders () {
@@ -70,9 +70,7 @@ export default {
         // 確保迴圈的請求都跑完
         Promise.all(promises)
           .then(() => {})
-          .catch((err) => {
-            console.error(err)
-          })
+          .catch(() => {})
       })
     },
     getOrders (page = 1) {
@@ -157,10 +155,8 @@ export default {
 
   <div>
     <div>
-      <!-- LOGO元件 -->
-      <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
-      <!-- 側邊欄位元件 -->
-      <adminNav ref="backendNav"></adminNav>
+      <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
+      <BackendOffcanvasNav ref="backendNav" />
     </div>
 
     <div class="container">
@@ -262,10 +258,10 @@ export default {
       </div>
 
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
-      <PaginationComponent v-if="checkAll" :pagination="pagination" @emit-pages="getOrders"></PaginationComponent>
+      <PaginationComponent v-if="checkAll" :pagination="pagination" @emit-pages="getOrders" />
 
-      <!-- modal -->
-      <showProductsModal ref="showProductModal"></showProductsModal>
+      <!-- 點圖放大modal元件 -->
+      <OrdersProductsTable ref="showProductModal" />
     </div>
   </div>
 </template>

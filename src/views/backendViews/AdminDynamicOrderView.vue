@@ -1,6 +1,6 @@
 <script>
-import adminNav from '../../components/BackendOffcanvasNav.vue'
-import adminLogo from '../../components/BackendLogoComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
 
@@ -35,8 +35,8 @@ export default {
     }
   },
   components: {
-    adminNav,
-    adminLogo
+    BackendOffcanvasNav,
+    BackendLogoComponent
   },
   methods: {
     openOffCanvasNav () {
@@ -154,10 +154,8 @@ export default {
 
 <template>
   <div>
-    <!-- LOGO元件 -->
-    <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
-    <!-- 側邊欄位元件 -->
-    <adminNav ref="backendNav"></adminNav>
+    <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
+    <BackendOffcanvasNav ref="backendNav" />
   </div>
   <div class="container">
     <h2 class="text-primary mb-0 py-3">編輯訂單</h2>

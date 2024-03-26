@@ -6,9 +6,9 @@
   />
 
   <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav component 裡面 -->
-  <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
+  <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
   <!-- 側邊選單 -->
-  <adminNav ref="backendNav" />
+  <BackendOffcanvasNav ref="backendNav" />
   <main>
     <div class="container mt-10 py-5">
       <!-- coupon-searchbar -->
@@ -124,8 +124,8 @@
 </template>
 
 <script>
-import adminLogo from '../../components/BackendLogoComponent.vue'
-import adminNav from '../../components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import CouponModalComponent from '@/components/CouponModalComponent.vue'
 import PaginationComponent from '@/components/PaginationComponent.vue'
 import Swal from 'sweetalert2'
@@ -159,8 +159,8 @@ export default {
     }
   },
   components: {
-    adminLogo,
-    adminNav,
+    BackendLogoComponent,
+    BackendOffcanvasNav,
     CouponModalComponent,
     PaginationComponent
   },
@@ -272,7 +272,7 @@ export default {
           this.getRenderCoupons()
           this.$refs.couponModal.closeModal()
         })
-        .catch((err) => console.log(err.response))
+        .catch(() => {})
     },
     // 刪除折扣券
     deleteCoupon (coupon) {
@@ -298,7 +298,7 @@ export default {
               this.getAllCoupons()
               this.getRenderCoupons()
             })
-            .catch((err) => console.log(err.response))
+            .catch(() => {})
         }
       })
     }

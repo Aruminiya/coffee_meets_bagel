@@ -1,7 +1,7 @@
 <script>
-import modal from './ModalShowImgComponent..vue'
-import uploadImageModal from './ModalUploadImageFile.vue'
-import changeUrlModal from './ModalChangeUrl.vue'
+import ModalShowImgComponent from './ModalShowImgComponent..vue'
+import ModalUploadImageFile from './ModalUploadImageFile.vue'
+import ModalChangeUrl from './ModalChangeUrl.vue'
 import Swal from 'sweetalert2'
 
 const host = import.meta.env.VITE_HEXAPI
@@ -46,9 +46,9 @@ export default {
     }
   },
   components: {
-    modal,
-    uploadImageModal,
-    changeUrlModal
+    ModalShowImgComponent,
+    ModalUploadImageFile,
+    ModalChangeUrl
   },
   methods: {
     openOffCanvasNav () {
@@ -325,17 +325,17 @@ export default {
   </div>
 
   <!-- modal 點選圖片放大顯示 -->
-  <modal ref="modal">
+  <ModalShowImgComponent ref="modal">
     <template v-slot:modal-body>
       <img :src="product.imageUrl" alt="#" class="modal__img">
     </template>
-  </modal>
+  </ModalShowImgComponent>
 
   <!-- modal 上傳圖片 -->
-  <uploadImageModal ref="inputModal" @upload-success="uploadSuccess" @upload-error="uploadError"></uploadImageModal>
+  <ModalUploadImageFile ref="inputModal" @upload-success="uploadSuccess" @upload-error="uploadError" />
 
   <!-- modal 更換圖片網址 -->
-  <changeUrlModal ref="changeUrlModal" @change-url="uploadSuccess"></changeUrlModal>
+  <ModalChangeUrl ref="changeUrlModal" @change-url="uploadSuccess" />
 
 </template>
 <style scoped lang="scss">
