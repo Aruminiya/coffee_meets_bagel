@@ -3,9 +3,11 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
   <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav component 裡面 -->
-  <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
+  <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
   <!-- 側邊選單 -->
-  <adminNav ref="backendNav" />
+  <BackendOffcanvasNav ref="backendNav" />
+  <!-- 讀取效果 -->
+  <LaodingOverlay :active="isLoading" />
   <!-- 主要區塊 -->
   <main>
     <div class="container mt-20 mb-5">
@@ -152,8 +154,8 @@
 </template>
 
 <script>
-import adminLogo from '../../components/BackendLogoComponent.vue'
-import adminNav from '../../components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import moment from 'moment-timezone'
 
 // 通用環境變數
@@ -166,12 +168,13 @@ export default {
       // 儲存所有訂單資料
       orders: [],
       // 儲存所有折價券資料
-      coupons: []
+      coupons: [],
+      isLoading: true
     }
   },
   components: {
-    adminLogo,
-    adminNav
+    BackendLogoComponent,
+    BackendOffcanvasNav
   },
   methods: {
     // 打開側邊欄位
@@ -180,14 +183,18 @@ export default {
     },
     // 後台取得所有訂單
     getOrders () {
+      this.isLoading = true
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         this.orders = res.data.orders
+        this.isLoading = false
       })
     },
     // 後台取得所有折價券
     getCoupons () {
+      this.isLoading = true
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then((res) => {
         this.coupons = res.data.coupons
+        this.isLoading = false
       })
     }
   },
@@ -329,7 +336,6 @@ export default {
 </script>
 
 <style lang="scss">
-// logo
 .logo {
   display: block;
   width: 256px;

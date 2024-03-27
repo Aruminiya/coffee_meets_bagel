@@ -1,7 +1,7 @@
 <script>
-import modal from './ModalShowImgComponent..vue'
-import uploadImageModal from './ModalUploadImageFile.vue'
-import changeUrlModal from './ModalChangeUrl.vue'
+import ModalShowImgComponent from './ModalShowImgComponent..vue'
+import ModalUploadImageFile from './ModalUploadImageFile.vue'
+import ModalChangeUrl from './ModalChangeUrl.vue'
 import Swal from 'sweetalert2'
 
 const host = import.meta.env.VITE_HEXAPI
@@ -42,13 +42,14 @@ export default {
         title: '',
         unit: ''
       },
-      showUrl: false
+      showUrl: false,
+      isLoading: false
     }
   },
   components: {
-    modal,
-    uploadImageModal,
-    changeUrlModal
+    ModalShowImgComponent,
+    ModalUploadImageFile,
+    ModalChangeUrl
   },
   methods: {
     openOffCanvasNav () {
@@ -77,6 +78,7 @@ export default {
       // 取得路由的產品ID
       const id = this.$route.params.id
       if (id) {
+        this.isLoading = true
         this.axios.get(`${host}/v2/api/${path}/product/${id}`)
           .then((res) => {
             this.product = res.data.product
@@ -86,8 +88,10 @@ export default {
                 return item !== ''
               })
             }
+            this.isLoading = false
           })
           .catch(() => {
+            this.isLoading = false
             Swal.fire('取得產品資料失敗')
           })
       } else {
@@ -135,6 +139,7 @@ export default {
       // 將新的副圖片陣列指向原本產品物件的副圖片陣列
       this.product.imagesUrl = this.newImagesUrl
       const data = this.product
+      this.isLoading = true
       this.axios.put(`${host}/v2/api/${path}/admin/product/${id}`, { data })
         .then(() => {
           Swal.fire({
@@ -143,7 +148,9 @@ export default {
             icon: 'success'
           })
           this.$router.push('/admin/adminProducts')
+          this.isLoading = false
         }).catch((err) => {
+          this.isLoading = false
           Swal.fire(err.response.data.message)
         })
     },
@@ -324,18 +331,20 @@ export default {
     </div>
   </div>
 
+  <LaodingOverlay :active="isLoading" />
+
   <!-- modal 點選圖片放大顯示 -->
-  <modal ref="modal">
+  <ModalShowImgComponent ref="modal">
     <template v-slot:modal-body>
       <img :src="product.imageUrl" alt="#" class="modal__img">
     </template>
-  </modal>
+  </ModalShowImgComponent>
 
   <!-- modal 上傳圖片 -->
-  <uploadImageModal ref="inputModal" @upload-success="uploadSuccess" @upload-error="uploadError"></uploadImageModal>
+  <ModalUploadImageFile ref="inputModal" @upload-success="uploadSuccess" @upload-error="uploadError" />
 
   <!-- modal 更換圖片網址 -->
-  <changeUrlModal ref="changeUrlModal" @change-url="uploadSuccess"></changeUrlModal>
+  <ModalChangeUrl ref="changeUrlModal" @change-url="uploadSuccess" />
 
 </template>
 <style scoped lang="scss">

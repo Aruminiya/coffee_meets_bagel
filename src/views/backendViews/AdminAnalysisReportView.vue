@@ -1,6 +1,6 @@
 <script>
-import adminNav from '../../components/BackendOffcanvasNav.vue'
-import adminLogo from '../../components/BackendLogoComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import * as c3 from 'c3'
 import 'c3/c3.min.css'
 import Swal from 'sweetalert2'
@@ -39,12 +39,13 @@ export default {
       },
       showRankChart: true,
       productsQty: [],
-      productsAmount: []
+      productsAmount: [],
+      isLoading: true
     }
   },
   components: {
-    adminNav,
-    adminLogo
+    BackendOffcanvasNav,
+    BackendLogoComponent
   },
   methods: {
     openOffCanvasNav () {
@@ -124,6 +125,7 @@ export default {
     getOrders () {
       // 建立promise陣列
       const promises = []
+      this.isLoading = true
       this.axios.get(`${host}/v2/api/${path}/admin/orders`)
         .then((res) => {
           // 先抓第一頁訂單資料
@@ -146,9 +148,11 @@ export default {
             .then(() => {
               // 初始化資料
               this.initOrdersData()
+              this.isLoading = false
             })
             .catch(() => {
-              Swal.fire('取得資料失敗')
+              this.isLoading = false
+              Swal.fire('取得資料失敗, 請重新整理')
             })
         })
     },
@@ -288,10 +292,9 @@ export default {
 <template>
   <div>
     <div>
-      <!-- LOG件 -->
-      <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
-      <!-- 側邊欄件 -->
-      <adminNav ref="backendNav"></adminNav>
+      <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
+      <BackendOffcanvasNav ref="backendNav" />
+      <LaodingOverlay :active="isLoading" />
     </div>
 
     <div class="container">

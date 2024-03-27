@@ -6,14 +6,21 @@
   />
 
   <!-- logo 觸發 offcanvas 效果，不能放 BackendOffcanvasNav component 裡面 -->
-  <adminLogo :open-off-canvas-nav="openOffCanvasNav"></adminLogo>
+  <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
   <!-- 側邊選單 -->
-  <adminNav ref="backendNav" />
+  <BackendOffcanvasNav ref="backendNav" />
+  <LaodingOverlay :active="isLoading" />
   <main>
     <div class="container mt-10 py-5">
-      <!-- coupon-searchbar -->
+      <!-- 所有折扣、新增折價券 -->
       <div class="row">
         <div class="col-md-6 col-lg-4">
+          <h2 class="fw-bold text-primary lh-1 my-4 me-9">
+            所有折扣
+          </h2>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <!-- coupon-searchbar -->
           <div class="input-group my-4">
             <input
               type="text"
@@ -22,6 +29,7 @@
               placeholder="請輸入搜尋資料"
               aria-label="Username"
               aria-describedby="coupon-searchbar"
+              @change="searchCoupon"
             />
             <button
               class="btn btn-colorChart-Primary-200 d-flex align-items-center"
@@ -35,84 +43,86 @@
             </button>
           </div>
         </div>
+        <div class="col-md-6 col-lg-4 text-end">
+          <button
+            class="btn btn-colorChart-Primary-200 fs-4 my-4"
+            @click="openCouponModal(true)"
+          >
+            新增折價券
+          </button>
+        </div>
       </div>
-      <!-- 所有折扣、新增折價券 -->
-      <div class="d-flex align-items-center mb-4">
-        <h2 class="fw-bold text-colorChart-Accessory-200 lh-1 mb-0 me-9">
-          所有折扣
-        </h2>
-        <button
-          class="btn btn-colorChart-Primary-200 fs-4"
-          @click="openCouponModal(true)"
-        >
-          新增折價券
-        </button>
-      </div>
-
       <div
         class="border rounded shadow table-responsive couponTableHeight mb-4 p-4"
       >
-        <table
-          class="couponTable table table-light table-striped table-hover table-borderless fs-4 align-middle mb-0"
-        >
-          <thead>
-            <tr>
-              <th
-                width="100"
-                class="top-left-border-radius ps-5 py-8 text-truncate"
-              >
-                折價券名稱
-              </th>
-              <th width="100" class="py-8 text-truncate">優惠碼</th>
-              <th width="100" class="py-8 text-truncate">折扣額度</th>
-              <th width="100" class="py-8 text-truncate">到期日</th>
-              <th width="100" class="py-8 text-truncate">是否啟用</th>
-              <th width="50" class="top-right-border-radius py-8"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="coupon in renderCoupons"
-              :key="coupon.id + 999"
-              class="cursor-pointer"
-            >
-              <td class="ps-5 py-8 text-truncate">{{ coupon.title }}</td>
-              <td class="py-8 text-truncate">{{ coupon.code }}</td>
-              <td class="py-8 text-truncate">{{ coupon.percent }}% OFF</td>
-              <td class="py-8 text-truncate">
-                {{ filterDueDate(coupon.due_date) }}
-              </td>
-              <td class="py-8 text-truncate">
-                <span v-if="coupon.is_enabled > 0" class="text-success"
-                  >已啟用</span
+        <div v-if="renderCoupons.length !== 0">
+          <table
+            class="couponTable table table-light table-striped table-hover table-borderless fs-4 align-middle mb-0"
+          >
+            <thead>
+              <tr>
+                <th
+                  width="100"
+                  class="top-left-border-radius ps-5 py-8 text-truncate"
                 >
-                <span v-else class="text-primary">未啟用</span>
-              </td>
-              <td class="py-8 pe-7">
-                <div class="d-flex justify-content-center">
-                  <!-- coupon 是每一筆折扣券物件，當要編輯折扣券時，把該物件當作參數傳到內層 CouponModal -->
-                  <span
-                    class="material-symbols-outlined fs-3 me-6"
-                    @click="openCouponModal(false, coupon)"
+                  折價券名稱
+                </th>
+                <th width="100" class="py-8 text-truncate">優惠碼</th>
+                <th width="100" class="py-8 text-truncate">折扣額度</th>
+                <th width="100" class="py-8 text-truncate">到期日</th>
+                <th width="100" class="py-8 text-truncate">是否啟用</th>
+                <th width="50" class="top-right-border-radius py-8"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="coupon in renderCoupons"
+                :key="coupon.id + 999"
+                class="cursor-pointer"
+              >
+                <td class="ps-5 py-8 text-truncate">{{ coupon.title }}</td>
+                <td class="py-8 text-truncate">{{ coupon.code }}</td>
+                <td class="py-8 text-truncate">{{ coupon.percent }}% OFF</td>
+                <td class="py-8 text-truncate">
+                  {{ filterDueDate(coupon.due_date) }}
+                </td>
+                <td class="py-8 text-truncate">
+                  <span v-if="coupon.is_enabled > 0" class="text-success"
+                    >已啟用</span
                   >
-                    edit_square
-                  </span>
-                  <span
-                    class="material-symbols-outlined fs-3"
-                    @click="deleteCoupon(coupon)"
-                  >
-                    delete
-                  </span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  <span v-else class="text-primary">未啟用</span>
+                </td>
+                <td class="py-8 pe-7">
+                  <div class="d-flex justify-content-center">
+                    <!-- coupon 是每一筆折扣券物件，當要編輯折扣券時，把該物件當作參數傳到內層 CouponModal -->
+                    <span
+                      class="material-symbols-outlined fs-3 me-6"
+                      @click="openCouponModal(false, coupon)"
+                    >
+                      edit_square
+                    </span>
+                    <span
+                      class="material-symbols-outlined fs-3"
+                      @click="deleteCoupon(coupon)"
+                    >
+                      delete
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-else>
+          <BackendNotFoundComponent />
+        </div>
       </div>
-      <PaginationComponent
-        :pagination="pagination"
-        @emit-pages="getRenderCoupons"
-      />
+      <div v-if="renderCoupons.length !== 0">
+        <PaginationComponent
+          :pagination="pagination"
+          @emit-pages="getRenderCoupons"
+        />
+      </div>
     </div>
   </main>
   <CouponModalComponent
@@ -124,10 +134,11 @@
 </template>
 
 <script>
-import adminLogo from '../../components/BackendLogoComponent.vue'
-import adminNav from '../../components/BackendOffcanvasNav.vue'
+import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
+import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import CouponModalComponent from '@/components/CouponModalComponent.vue'
 import PaginationComponent from '@/components/PaginationComponent.vue'
+import BackendNotFoundComponent from '../../components/BackendNotFoundComponent.vue'
 import Swal from 'sweetalert2'
 
 // 通用環境變數
@@ -155,14 +166,16 @@ export default {
       // 搜尋字詞
       search: '',
       // 判斷新增或是編輯折扣券
-      isNew: false
+      isNew: false,
+      isLoading: true
     }
   },
   components: {
-    adminLogo,
-    adminNav,
+    BackendLogoComponent,
+    BackendOffcanvasNav,
     CouponModalComponent,
-    PaginationComponent
+    PaginationComponent,
+    BackendNotFoundComponent
   },
   methods: {
     // 打開側邊欄位
@@ -189,6 +202,7 @@ export default {
     },
     // 取得所有 coupons 資料
     getAllCoupons () {
+      this.isLoading = true
       this.axios
         .get(`${host}/v2/api/${path}/admin/coupons`)
         .then((res) => {
@@ -205,20 +219,25 @@ export default {
                 })
               })
           }
+          this.isLoading = false
         })
         .catch((err) => {
+          this.isLoading = false
           alert(err.response)
         })
     },
     // 渲染 coupons 資料，預設為第一頁(page = 1)，一頁有 10 筆資料
     getRenderCoupons (page = 1) {
+      this.isLoading = true
       this.axios
         .get(`${host}/v2/api/${path}/admin/coupons?page=${page}`)
         .then((res) => {
           this.renderCoupons = res.data.coupons
           this.pagination = res.data.pagination
+          this.isLoading = false
         })
         .catch((err) => {
+          this.isLoading = false
           alert(err.response)
         })
     },
@@ -262,7 +281,7 @@ export default {
         httpMethods = 'put'
         data = this.tempCoupon
       }
-
+      this.isLoading = true
       this.axios[httpMethods](url, { data })
         .then((res) => {
           // 每次新增、編輯或刪除都先清空所有折扣券資料，再跑 getAllCoupons 重新取得一次，不然會重複取到資料
@@ -271,8 +290,11 @@ export default {
           this.getAllCoupons()
           this.getRenderCoupons()
           this.$refs.couponModal.closeModal()
+          this.isLoading = false
         })
-        .catch((err) => console.log(err.response))
+        .catch(() => {
+          this.isLoading = false
+        })
     },
     // 刪除折扣券
     deleteCoupon (coupon) {
@@ -287,6 +309,7 @@ export default {
         confirmButtonText: '確認刪除'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.isLoading = true
           this.axios
             .delete(`${host}/v2/api/${path}/admin/coupon/${coupon.id}`)
             .then((res) => {
@@ -297,10 +320,22 @@ export default {
               this.allCoupons = []
               this.getAllCoupons()
               this.getRenderCoupons()
+              this.isLoading = false
             })
-            .catch((err) => console.log(err.response))
+            .catch(() => {
+              this.isLoading = false
+            })
         }
       })
+    }
+  },
+  watch: {
+    search () {
+      if (this.search.trim() !== '') {
+        this.pagination = false
+      } else {
+        this.getRenderCoupons()
+      }
     }
   },
   mounted () {

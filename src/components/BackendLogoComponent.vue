@@ -21,11 +21,8 @@ export default {
       axios.defaults.headers.common.Authorization = token
 
       axios.post(`${host}/v2/api/user/check`).then((res) => {
-        // eslint-disable-next-line no-unused-expressions
         this.isLogin = true
-        console.log('目前狀態已登入')
       }).catch((err) => {
-        console.log(this.$router)
         Swal.fire({
           title: `${err.response.data.message}`,
           confirmButtonText: '確定'
@@ -44,7 +41,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// logo
 .logo {
   display: block;
   width: 256px;
