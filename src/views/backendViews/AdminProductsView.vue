@@ -3,6 +3,7 @@ import PaginationComponent from '@/components/PaginationComponent.vue'
 import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import BackendProductsListComponent from '@/components/BackendProductsListComponent.vue'
+import BackendNotFoundComponent from '../../components/BackendNotFoundComponent.vue'
 import Swal from 'sweetalert2'
 
 const host = import.meta.env.VITE_HEXAPI
@@ -26,7 +27,8 @@ export default {
     PaginationComponent,
     BackendOffcanvasNav,
     BackendLogoComponent,
-    BackendProductsListComponent
+    BackendProductsListComponent,
+    BackendNotFoundComponent
   },
   methods: {
     searchProduct () {
@@ -189,7 +191,6 @@ export default {
         </div>
         <div class="col-3 py-3">
           <div class="input-group">
-            <!-- <input type="text" class="form-control" @change="getSearch()" placeholder="請輸入搜尋資料" v-model="search" /> -->
             <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
             <button type="button" @click="searchProduct()" class="btn btn-outline-primary d-flex align-items-center">
               <span class="material-symbols-outlined"> search </span>
@@ -225,10 +226,7 @@ export default {
         <div v-else>
           <BackendProductsListComponent v-if="products.length === 0" :products="getSearch" />
           <div v-else>
-            <h3 class="text-primary p-3">很抱歉, 沒有您所查詢的商品</h3>
-            <div class="text-center p-3 mb-3">
-              <img class="not-fount" src="https://github.com/Aruminiya/coffee_meets_bagel/blob/main/public/NoData.gif?raw=true" alt="">
-            </div>
+            <BackendNotFoundComponent />
           </div>
         </div>
       </div>
@@ -249,9 +247,5 @@ export default {
 
 .container {
   margin-top: 90px;
-}
-
-.not-fount {
-  width: 500px;
 }
 </style>

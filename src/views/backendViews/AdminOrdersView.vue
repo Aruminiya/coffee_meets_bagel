@@ -3,6 +3,7 @@ import OrdersProductsTable from '@/components/OrdersProductsTable.vue'
 import PaginationComponent from '@/components/PaginationComponent.vue'
 import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
+import BackendNotFoundComponent from '../../components/BackendNotFoundComponent.vue'
 import Swal from 'sweetalert2'
 import moment from 'moment-timezone'
 import axios from 'axios'
@@ -30,14 +31,16 @@ export default {
       allOrders: [],
       pagination: {},
       searchStr: '',
-      checkAll: true
+      checkAll: true,
+      isLoading: true
     }
   },
   components: {
     PaginationComponent,
     BackendOffcanvasNav,
     BackendLogoComponent,
-    OrdersProductsTable
+    OrdersProductsTable,
+    BackendNotFoundComponent
   },
   methods: {
     getAllOrders () {
@@ -48,6 +51,7 @@ export default {
         Authorization: token,
         'Content-Type': 'application/json'
       }
+      this.isLoading = true
       axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         // 先抓第一頁訂單資料
         this.allOrders = res.data.orders
@@ -69,18 +73,25 @@ export default {
         }
         // 確保迴圈的請求都跑完
         Promise.all(promises)
-          .then(() => {})
-          .catch(() => {})
+          .then(() => {
+            this.isLoading = false
+          })
+          .catch(() => {
+            this.isLoading = false
+          })
       })
     },
     getOrders (page = 1) {
+      this.isLoading = true
       axios
         .get(`${host}/v2/api/${path}/admin/orders?page=${page}`)
         .then((res) => {
           this.orders = res.data.orders
           this.pagination = res.data.pagination
+          this.isLoading = false
         })
         .catch(() => {
+          this.isLoading = false
           Swal.fire('資料取得失敗')
         })
     },
@@ -99,6 +110,7 @@ export default {
         confirmButtonColor: '#1B8754'
       }).then((result) => {
         if (result.isConfirmed) {
+          this.isLoading = true
           axios
             .delete(`${host}/v2/api/${path}/admin/order/${id}`)
             .then((res) => {
@@ -111,9 +123,11 @@ export default {
               })
               this.getOrders()
               this.getAllOrders()
+              this.isLoading = false
             })
             .catch(() => {
               Swal.fire('刪除訂單失敗')
+              this.isLoading = false
             })
         }
       })
@@ -142,6 +156,15 @@ export default {
       this.$router.push(`/admin/adminOrders/${id}`)
     }
   },
+  watch: {
+    searchStr () {
+      if (this.searchStr.trim() !== '') {
+        this.pagination = false
+      } else {
+        this.getOrders()
+      }
+    }
+  },
   mounted () {
     this.getOrders()
     this.getAllOrders()
@@ -157,6 +180,7 @@ export default {
     <div>
       <BackendLogoComponent :open-off-canvas-nav="openOffCanvasNav" />
       <BackendOffcanvasNav ref="backendNav" />
+      <LaodingOverlay :active="isLoading" />
     </div>
 
     <div class="container">
@@ -166,7 +190,8 @@ export default {
         </div>
         <div class="col-3 py-3">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="searchStr" />
+            <input type="text" class="form-control" placeholder="請輸入搜尋資料"
+            @change="searchOrder(searchStr)" v-model="searchStr" />
             <button type="button" class="btn btn-outline-primary d-flex align-items-center"
               @click="searchOrder(searchStr)">
               <span class="material-symbols-outlined"> search </span>
@@ -183,76 +208,81 @@ export default {
           </select>
         </div>
         <div class="border rounded p-3 pb-0 mb-8">
-          <div v-for="order in orders" :key="order.id" class="card mb-3">
-            <div class="row g-0 position-relative">
-              <div class="col-5 p-3">
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>訂單編號 :</span>
-                  <span class="text-dark">{{ order.id }}</span>
-                </h6>
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>下單日期 :</span>
-                  <span class="text-dark">{{ getDate(order.create_at) }}</span>
-                </h6>
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>姓名 :</span>
-                  <span class="text-dark">{{ order.user.name }}</span>
-                </h6>
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>連絡電話 :</span>
-                  <span class="text-dark">{{ order.user.tel }}</span>
-                </h6>
-              </div>
-              <div class="col-5 p-3">
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>Email :</span>
-                  <span class="text-dark">{{ order.user.email }}</span>
-                </h6>
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>收件地址 :</span>
-                  <span class="text-dark">{{ order.user.address }}</span>
-                </h6>
-                <h6 class="d-flex justify-content-between text-primary">
-                  <span>備註 :</span>
-                  <span class="text-dark">{{
-        order.message === undefined ? "無特別備註" : order.message
-      }}</span>
-                </h6>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="d-flex justify-content-between text-primary">
-                      <span>訂單金額 :</span>
-                      <span class="text-dark">{{ order.total }}</span>
-                    </h6>
-                  </div>
-                  <div class="col-6">
-                    <h6 class="d-flex justify-content-between text-primary">
-                      <span>訂單狀態 :</span>
-                      <span class="text-success" v-if="order.is_paid">已付款</span>
-                      <span class="text-danger" v-else>未付款</span>
-                    </h6>
+          <div v-if="orders.length !== 0">
+            <div v-for="order in orders" :key="order.id" class="card mb-3">
+              <div class="row g-0 position-relative">
+                <div class="col-5 p-3">
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>訂單編號 :</span>
+                    <span class="text-dark">{{ order.id }}</span>
+                  </h6>
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>下單日期 :</span>
+                    <span class="text-dark">{{ getDate(order.create_at) }}</span>
+                  </h6>
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>姓名 :</span>
+                    <span class="text-dark">{{ order.user.name }}</span>
+                  </h6>
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>連絡電話 :</span>
+                    <span class="text-dark">{{ order.user.tel }}</span>
+                  </h6>
+                </div>
+                <div class="col-5 p-3">
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>Email :</span>
+                    <span class="text-dark">{{ order.user.email }}</span>
+                  </h6>
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>收件地址 :</span>
+                    <span class="text-dark">{{ order.user.address }}</span>
+                  </h6>
+                  <h6 class="d-flex justify-content-between text-primary">
+                    <span>備註 :</span>
+                    <span class="text-dark">{{
+          order.message === undefined ? "無特別備註" : order.message
+        }}</span>
+                  </h6>
+                  <div class="row">
+                    <div class="col-6">
+                      <h6 class="d-flex justify-content-between text-primary">
+                        <span>訂單金額 :</span>
+                        <span class="text-dark">{{ order.total }}</span>
+                      </h6>
+                    </div>
+                    <div class="col-6">
+                      <h6 class="d-flex justify-content-between text-primary">
+                        <span>訂單狀態 :</span>
+                        <span class="text-success" v-if="order.is_paid">已付款</span>
+                        <span class="text-danger" v-else>未付款</span>
+                      </h6>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-2 p-3">
-                <div class="border-top-0 bg-white d-flex flex-column align-items-end">
-                  <button class="btn btn-outline-primary mb-2" type="button" @click="openProductsTable(order.products)">
-                    <span class="material-symbols-outlined align-middle">
-                      view_list </span>查看明細
-                  </button>
-                  <button class="btn btn-outline-primary mb-2" type="button" :class="{ disabled: order.is_paid }"
-                    @click="goOrderPage(order.id)">
-                    <span class="material-symbols-outlined align-middle">
-                      edit </span>編輯訂單
-                  </button>
-                  <button class="btn btn-outline-danger" type="button" :class="{ disabled: order.is_paid }"
-                    @click="deleteOrder(order.id)">
-                    <span class="material-symbols-outlined align-middle">
-                      delete </span>刪除訂單
-                  </button>
+                <div class="col-2 p-3">
+                  <div class="border-top-0 bg-white d-flex flex-column align-items-end">
+                    <button class="btn btn-outline-primary mb-2" type="button" @click="openProductsTable(order.products)">
+                      <span class="material-symbols-outlined align-middle">
+                        view_list </span>查看明細
+                    </button>
+                    <button class="btn btn-outline-primary mb-2" type="button" :class="{ disabled: order.is_paid }"
+                      @click="goOrderPage(order.id)">
+                      <span class="material-symbols-outlined align-middle">
+                        edit </span>編輯訂單
+                    </button>
+                    <button class="btn btn-outline-danger" type="button" :class="{ disabled: order.is_paid }"
+                      @click="deleteOrder(order.id)">
+                      <span class="material-symbols-outlined align-middle">
+                        delete </span>刪除訂單
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div v-else>
+            <BackendNotFoundComponent />
           </div>
         </div>
       </div>
