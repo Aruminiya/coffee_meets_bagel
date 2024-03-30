@@ -52,7 +52,6 @@ export default {
           message
         }
       }
-      console.log(personInfo)
       localStorage.setItem('personInfo', JSON.stringify(personInfo))
       this.$router.push('/orderCheckView/step2')
     },

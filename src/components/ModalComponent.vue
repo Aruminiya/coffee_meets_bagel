@@ -24,7 +24,6 @@ export default {
       this.product = product
       this.img = product.imagesUrl
       this.productModal.show()
-      // console.log(this.img)
     },
     modalHide () {
       this.productModal.hide()

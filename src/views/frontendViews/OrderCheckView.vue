@@ -36,12 +36,8 @@ export default {
   methods: { ...mapActions(cartStore, ['getCarts']) },
   beforeRouteUpdate (to) {
     // 路由守位 當路由變化時啟動
-    // console.log(to);
-    // console.log(this.isNavBarEditMode);
-
-    // eslint-disable-next-line no-constant-condition
-    if (to.fullPath === '/orderCheckView/step2' || '/orderCheckView/step3') {
-      console.log(to)
+    const orderPath = '/orderCheckView/step2' || '/orderCheckView/step3'
+    if (to.fullPath === orderPath) {
       this.isNavBarEditMode = false
     } else {
       this.isNavBarEditMode = true

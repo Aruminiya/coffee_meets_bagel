@@ -40,7 +40,6 @@ export default {
       })
       // 搜尋結果暫時先不處理分頁, 強制隱藏分頁
       this.pagination = false
-      // console.log(result)
 
       this.products = result
       // 清空搜尋欄字串

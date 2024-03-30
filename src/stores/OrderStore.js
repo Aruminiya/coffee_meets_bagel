@@ -30,8 +30,6 @@ export default defineStore('OrderStore', {
     },
     // 訂單結帳
     orderCheckout (personInfo, fn) {
-      console.log('送出訂單', personInfo)
-
       const host = import.meta.env.VITE_HEXAPI
       const path = import.meta.env.VITE_USER_PATH
 

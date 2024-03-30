@@ -23,7 +23,6 @@ export default {
   },
   data () {
     return {
-      test: '歡迎來到首頁',
       modules: [Autoplay, Pagination, Navigation],
       // 這邊是給 SwiperSlide 的 slidesPerView 判斷用的
       windowInnerWidth: window.innerWidth
@@ -44,9 +43,6 @@ export default {
           ? 1
           : 0
     }
-  },
-  mounted () {
-    console.log(this.test)
   }
 }
 </script>

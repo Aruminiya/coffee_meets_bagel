@@ -33,7 +33,6 @@ export default {
           // 這邊是 debounce 的運用
           clearTimeout(this.timer)
           this.timer = setTimeout(() => {
-            // console.log(this.tempItem);
             this.$emit('editItemClickedEmit', this.tempItem)
           }, 500)
         } else if (calculate === '-' && this.tempItem.qty > 1) {
@@ -41,7 +40,6 @@ export default {
           // 這邊是 debounce 的運用
           clearTimeout(this.timer)
           this.timer = setTimeout(() => {
-            // console.log(this.tempItem);
             this.$emit('editItemClickedEmit', this.tempItem)
           }, 500)
         } else if (calculate === 'blur') {
@@ -61,11 +59,9 @@ export default {
   },
   watch: {
     editMode (newVal) {
-      console.log(newVal)
       this.isEditMode = newVal
     },
     item (n, o) {
-      // console.log(n,o);
       this.tempItem = { ...n }
     }
   }
