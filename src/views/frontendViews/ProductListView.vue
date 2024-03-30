@@ -41,8 +41,6 @@ export default {
   },
   methods: {
     openModal (product) {
-      // console.log(product)
-      // console.log( this.$refs)
       this.$refs.productDetailModal.modalShow(product)
     },
 
@@ -50,7 +48,6 @@ export default {
       // this.category = e.target.innerHTML
       this.isLoading = true
       this.showPagination = true
-      // console.log(this.$route)
       const { category = '' } = this.$route.query
       axios
         .get(
@@ -59,7 +56,6 @@ export default {
         .then((res) => {
           this.pages = res.data.pagination
           this.productsList = res.data.products
-          console.log(this.productsList)
           this.productsList.sort(function (a, b) {
             return a.title.localeCompare(b.title, 'zh-Hans-CN')
           })
@@ -91,9 +87,7 @@ export default {
             if (item.is_recommend === 1) {
               recommendArr.push(item)
             }
-            // console.log(recommendArr)
             this.productsList = recommendArr
-            // console.log(this.producstList);
             this.productsList.sort(function (a, b) {
               return a.title.localeCompare(b.title, 'zh-Hans-CN')
             })
@@ -117,7 +111,6 @@ export default {
     ...mapState(cartStore, ['addedToCart']),
     filterProducts () {
       return this.allProducts.filter((item) => {
-        // console.log(item);
         return item.title.toLowerCase().match(this.search)
       })
     }
@@ -125,14 +118,11 @@ export default {
   mounted () {
     this.getProduct()
     this.getAllProduct()
-    // console.log(this. allProducts)
-    // console.log(this.$router.currentRoute._value.query.category)
     if (this.$router.currentRoute._value.query.category === undefined) {
       // eslint-disable-next-line no-unused-expressions
       this.category === '全部'
     } else {
       this.category = this.$router.currentRoute._value.query.category
-      // console.log(this.category);
     }
   }
 }
