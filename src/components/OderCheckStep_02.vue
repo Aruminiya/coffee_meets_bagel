@@ -97,6 +97,7 @@ export default {
             </h5>
             <p v-if="data.total !== data.final_total">您已使用優惠折扣</p>
             <button
+              type="button"
               class="btn btn-primary w-100"
               @click="this.$router.push('/orderCheckView/step1')"
             >
@@ -136,6 +137,7 @@ export default {
         </div>
         <br />
         <button
+          type="button"
           class="btn btn-primary w-100"
           @click="orderCheckout(personInfo, toNextStep)"
         >

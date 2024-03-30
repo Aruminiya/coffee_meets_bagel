@@ -142,7 +142,7 @@ export default {
             <div  class="d-flex flex-column w-100 d-lg-none ">
             <img :src='showingPhoto' style="border-radius:24px; height:400px; object-fit:cover">
             <div class="d-flex justify-content-start">
-              <button @click='showPhoto(item)' v-for='item in productPhoto' :key='item'
+              <button type="button" @click='showPhoto(item)' v-for='item in productPhoto' :key='item'
               title='查看照片'
               class="border-0 bg-transparent p-0 mt-2 me-2">
               <img :src='item'
@@ -182,7 +182,7 @@ export default {
               >
                 +
               </button>
-              </div><button @click='add(product.id, qty)' class='text-center w-100 btn' style='background-color:#ce3f25'><p class='mb-0 text-light'>
+              </div><button type="button" @click='add(product.id, qty)' class='text-center w-100 btn' style='background-color:#ce3f25'><p class='mb-0 text-light'>
             <i class="fa-solid fa-cart-shopping me-1"></i>
             加入購物車</p></button>
             </div>

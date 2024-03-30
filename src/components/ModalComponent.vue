@@ -175,7 +175,7 @@ export default {
 
         <div class="modal-footer border-0">
           <!-- <slot name="modal-footer"></slot> -->
-          <button @click='add(product.id, qty)' class='text-center w-100 btn' style='background-color:#ce3f25'><p class='mb-0 text-light'>
+          <button type="button" @click='add(product.id, qty)' class='text-center w-100 btn' style='background-color:#ce3f25'><p class='mb-0 text-light'>
             <i class="fa-solid fa-cart-shopping me-1"></i>
             加入購物車</p></button>
         </div>

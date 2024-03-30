@@ -128,7 +128,7 @@ export default {
               {{ couponData.response?.data?.message }}
             </p>
             <router-link to="/productList"
-              ><button class="btn btn-primary btn02 w-100">
+              ><button type="button" class="btn btn-primary btn02 w-100">
                 我想再加點
               </button></router-link
             >

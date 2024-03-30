@@ -126,6 +126,7 @@ export default {
       <div class="d-flex flex-column h-100">
         <div class="block_01 position-relative">
           <button
+            type="button"
             class="position-absolute end-0 btn btn-primary"
             @click="isShow = false"
           >
@@ -174,6 +175,7 @@ export default {
           </h4>
           <router-link v-if="data?.carts?.length" to="/orderCheckView/step1"
             ><button
+              type="button"
               v-if="isCartsLoading === false"
               class="goToCheck btn btn-primary w-100"
             >

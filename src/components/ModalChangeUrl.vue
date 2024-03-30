@@ -40,7 +40,7 @@ export default {
         <div class="modal-body text-center">
           <h3 class="text-primary">請輸入要更換的圖片路徑</h3>
           <input type="url" class="form-control rounded-bottom-0" v-model="imageUrl">
-          <button type="bottom" class="form-control btn btn-outline-primary rounded-top-0"
+          <button type="button" class="form-control btn btn-outline-primary rounded-top-0"
           @click="changeUrl">送出修改</button>
         </div>
       </div>

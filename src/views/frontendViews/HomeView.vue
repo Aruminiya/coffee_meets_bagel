@@ -61,7 +61,7 @@ export default {
               <h2 class="subtitle">品味烘焙藝術的奇妙交融</h2>
               <h2 class="subtitle">共譜美好早晨的詩篇</h2>
               <router-link to="/productList">
-                <button class="bannerBtn btn btn-primary">
+                <button type="button" class="bannerBtn btn btn-primary">
                   免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
                 </button>
               </router-link>

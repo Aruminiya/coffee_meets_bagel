@@ -106,12 +106,12 @@ export default {
         <p>{{ tempItem.product.content }}</p>
 
         <p v-if="editMode" class="tempItemQty">
-          選擇數量：<button @click="editItemClickedEmit('-')">-</button>
+          選擇數量：<button type="button" @click="editItemClickedEmit('-')">-</button>
           <input
             type="number"
             v-model.lazy="tempItem.qty"
             @blur="editItemClickedEmit('blur')"
-          /><button @click="editItemClickedEmit('+')">+</button>
+          /><button type="button" @click="editItemClickedEmit('+')">+</button>
         </p>
         <p v-else>選擇數量：{{ tempItem.qty }}</p>
       </div>

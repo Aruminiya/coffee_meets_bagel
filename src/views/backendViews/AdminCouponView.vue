@@ -45,6 +45,7 @@
         </div>
         <div class="col-md-6 col-lg-4 text-end">
           <button
+            type="button"
             class="btn btn-colorChart-Primary-200 fs-4 my-4"
             @click="openCouponModal(true)"
           >

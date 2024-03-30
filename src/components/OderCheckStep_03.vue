@@ -101,13 +101,13 @@ export default {
         </div>
         <br />
         <router-link to="/productList"
-          ><button class="btn btn-primary w-100 m-1">
+          ><button type="button" class="btn btn-primary w-100 m-1">
             繼續點餐
           </button></router-link
         >
         <br />
         <router-link to="/"
-          ><button class="btn btn-primary btn02 w-100 m-1">
+          ><button type="button" class="btn btn-primary btn02 w-100 m-1">
             回到首頁
           </button></router-link
         >

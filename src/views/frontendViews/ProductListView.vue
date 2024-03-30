@@ -163,7 +163,7 @@ export default {
           v-show="search"
         >
           <li v-if="filterProducts.length == 0">
-            <button class="dropdown-item" disabled>查無商品</button>
+            <button type="button" class="dropdown-item" disabled>查無商品</button>
           </li>
           <li v-for="item in filterProducts" :key="item.id">
             <button
@@ -319,7 +319,7 @@ export default {
               <div class="addToCartText" style="height: 80px">
                 <p style="font-size: 14px">{{ item.description }}</p>
               </div>
-              <button
+              <button type="button"
                 class="text-center w-100"
               >
               <router-link :to='`./productList/${item.id}`'
