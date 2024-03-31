@@ -51,6 +51,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
+
 .navbar{
   background: $colorChart-bg-color;
 }
