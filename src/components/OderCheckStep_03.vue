@@ -71,9 +71,7 @@ export default {
           <p>電話 <br />{{ orderInfo.order?.user?.tel }}</p>
           <p>住址<br />{{ orderInfo.order?.user?.address }}</p>
           <p>
-            備註<br /><span class="text-br">{{
-              orderInfo.order?.message
-            }}</span>
+            備註<br /><span class="text-br">{{ orderInfo.order?.message }}</span>
           </p>
           <img
             class="logoIcon position-absolute end-0 bottom-0 mx-4 my-3"

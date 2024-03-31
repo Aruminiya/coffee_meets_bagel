@@ -17,9 +17,7 @@
           :class="{ active: pagination.current_page === page }"
           class="page-item"
         >
-          <a class="page-link" @click.prevent="emitPages(key + 1)" href="#">{{
-            key + 1
-          }}</a>
+          <a class="page-link" @click.prevent="emitPages(key + 1)" href="#">{{ key + 1 }}</a>
         </li>
         <li class="page-item" :class="{ disabled: !pagination.has_next }">
           <a

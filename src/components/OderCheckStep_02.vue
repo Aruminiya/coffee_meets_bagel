@@ -123,9 +123,7 @@ export default {
           <p>電話 <br />{{ personInfo.data?.user?.tel }}</p>
           <p>住址<br />{{ personInfo.data?.user?.address }}</p>
           <p>
-            備註<br /><span class="text-br">{{
-              personInfo.data?.message
-            }}</span>
+            備註<br /><span class="text-br">{{ personInfo.data?.message }}</span>
           </p>
           <img
             class="logoIcon position-absolute end-0 bottom-0 mx-4 my-3"

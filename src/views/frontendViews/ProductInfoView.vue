@@ -112,8 +112,8 @@ export default {
       <router-link to="/" style="text-decoration:none">首頁</router-link>
           </li>
     <li class="breadcrumb-item"><router-link style="text-decoration:none" :to="`/productList?category=${category}`">
-      {{category}}</router-link></li>
-    <li class="breadcrumb-item active">{{productName}}</li>
+      {{ category }}</router-link></li>
+    <li class="breadcrumb-item active">{{ productName }}</li>
   </ol>
 </nav>
       <div class="row ">
@@ -138,7 +138,7 @@ export default {
 
         <div class="col-lg-6 col-12 p-4 d-flex flex-column justify-content-between" >
           <div >
-            <h1><i class="fa-solid fa-crown me-1 text-warning" v-show="product.is_recommend==1"></i>{{product.title}}</h1>
+            <h1><i class="fa-solid fa-crown me-1 text-warning" v-show="product.is_recommend==1"></i>{{ product.title }}</h1>
             <div  class="d-flex flex-column w-100 d-lg-none ">
             <img :src='showingPhoto' style="border-radius:24px; height:400px; object-fit:cover">
             <div class="d-flex justify-content-start">
@@ -150,10 +150,10 @@ export default {
               </button>
             </div>
             </div>
-            <p class="h5 mt-sm-3"> 售價 $ {{product.price}} / {{product.unit}}</p>
+            <p class="h5 mt-sm-3"> 售價 $ {{ product.price }} / {{ product.unit }}</p>
             <ul class=' py-3 mt-2 ps-0 mb-0' style="list-style:none;">
-              <li><i class="fa-solid fa-mug-hot me-1"></i>{{product.description}}</li>
-              <li><i class="fa-solid fa-mug-hot me-1"></i>{{product.content}}</li>
+              <li><i class="fa-solid fa-mug-hot me-1"></i>{{ product.description }}</li>
+              <li><i class="fa-solid fa-mug-hot me-1"></i>{{ product.content }}</li>
             </ul>
           </div>
 
@@ -205,8 +205,8 @@ export default {
     <img :src='item.imageUrl' class="w-100 h-75" style=" object-fit:cover; border-radius:24px"
     @click='reload(item.id)'>
     <div class='d-flex flex-column align-items-center mb-3'>
-      {{item.title}}
-      NT$ {{item.price}}
+      {{ item.title }}
+      NT$ {{ item.price }}
     </div>
 
     </swiper-slide>

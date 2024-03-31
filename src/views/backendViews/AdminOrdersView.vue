@@ -240,9 +240,7 @@ export default {
                   </h6>
                   <h6 class="d-flex justify-content-between text-primary">
                     <span>備註 :</span>
-                    <span class="text-dark">{{
-          order.message === undefined ? "無特別備註" : order.message
-        }}</span>
+                    <span class="text-dark">{{ order.message === undefined ? "無特別備註" : order.message }}</span>
                   </h6>
                   <div class="row">
                     <div class="col-6">
