@@ -1,13 +1,13 @@
 <script>
 import axios from 'axios'
-import NavBarComponent from '../../components/NavBarComponent.vue'
-import FooterComponent from '../../components/FooterComponent.vue'
+import NavBarComponent from '@/components/NavBarComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Zoom, Pagination, Navigation } from 'swiper/modules'
-import ToastComponent from '../../components/ToastComponent.vue'
+import ToastComponent from '@/components/ToastComponent.vue'
 // pinia
 import { mapActions } from 'pinia'
-import cartStore from '../../stores/CartStore.js'
+import cartStore from '@/stores/CartStore.js'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -190,7 +190,7 @@ export default {
       </div>
       <p class='ms-2 mb-0'>相關產品</p>
             <div class="row ">
-        <div class="col-12 relativePhotoContainer">
+        <div class="col-12 relativePhotoContainer d-lg-block d-none">
           <swiper
     :slidesPerView="3"
     :zoom="true"
@@ -205,7 +205,30 @@ export default {
     <img :src='item.imageUrl' class="w-100 h-75" style=" object-fit:cover; border-radius:24px"
     @click='reload(item.id)' :alt='item.title'>
     <div class='d-flex flex-column align-items-center mb-3'>
-      {{ item.title }}
+      {{ item.title }}<br>
+      NT$ {{ item.price }}
+    </div>
+
+    </swiper-slide>
+  </swiper>
+        </div>
+
+                <div class="col-12 relativePhotoContainer d-lg-none">
+          <swiper
+    :slidesPerView="2"
+    :zoom="true"
+    :spaceBetween="50"
+    :loop="true"
+    :navigation='true'
+    :modules="modules"
+    class="mySwiper  h-100"
+  >
+    <swiper-slide v-for='item in relativeProduct' :key='item.id' class='d-flex flex-column mx-2 p-4 ps-0'>
+
+    <img :src='item.imageUrl' class="w-100 h-75" style=" object-fit:cover; border-radius:24px"
+    @click='reload(item.id)' :alt='item.title'>
+    <div class='d-flex flex-column align-items-center mb-3'>
+      {{ item.title }}<br>
       NT$ {{ item.price }}
     </div>
 
@@ -214,7 +237,7 @@ export default {
         </div>
       </div>
     </div>
-  <FooterComponent></FooterComponent>
+  <FooterComponent />
 </template>
 
 <style lang='scss'>

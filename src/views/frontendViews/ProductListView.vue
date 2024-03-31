@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios'
-import NavBarComponent from '../../components/NavBarComponent.vue'
-import FooterComponent from '../../components/FooterComponent.vue'
-import ModalComponent from '../../components/ModalComponent.vue'
+import NavBarComponent from '@/components/NavBarComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
+import ModalComponent from '@/components/ModalComponent.vue'
 
 // pinia
 import { mapState } from 'pinia'
-import cartStore from '../../stores/CartStore.js'
+import cartStore from '@/stores/CartStore.js'
 
 const VITE_HEXAPI = import.meta.env.VITE_HEXAPI
 const VITE_USER_PATH = import.meta.env.VITE_USER_PATH
@@ -43,7 +43,12 @@ export default {
     openModal (product) {
       this.$refs.productDetailModal.modalShow(product)
     },
-
+    gotoDetail (product, e) {
+      const id = product.id
+      if (e.target.innerHTML !== '加入購物車') {
+        this.$router.push(`/productList/${id}`)
+      }
+    },
     getProduct (page = 1) {
       // this.category = e.target.innerHTML
       this.isLoading = true
@@ -126,8 +131,8 @@ export default {
     }
   }
 }
-</script>
 
+</script>
 <template>
   <link
     rel="stylesheet"
@@ -138,7 +143,7 @@ export default {
   <ModalComponent ref="productDetailModal"></ModalComponent>
 
   <div class="container">
-    <nav class="row pt-5 justify-content-md-center">
+    <nav class="row pt-5 justify-content-md-center mx-1">
       <div
         class="dropdown col-lg-4 order-lg-1 order-0 border border-primary rounded-pill d-flex align-items-center"
       >
@@ -169,18 +174,17 @@ export default {
             <button
               class="dropdown-item"
               type="button"
-              @click="openModal(item)"
-            >
+              @click="openModal(item)">
               {{ item.title }}
             </button>
           </li>
         </ul>
       </div>
-      <div class="tagContainer col-lg-8 order-lg-0 order-1">
+      <div class="tagContainer col-lg-8 order-lg-0 order-1 px-0">
         <ul class="tags d-flex flex-wrap ps-0 mb-0 mt-2">
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -192,7 +196,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <a
               class="btn rounded-pill"
@@ -203,7 +207,7 @@ export default {
           </li>
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag m-lg-1 m-0 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -216,7 +220,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag m-lg-1 m-0 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -228,7 +232,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag m-lg-1 m-0 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -240,7 +244,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag m-lg-1 m-0 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -252,7 +256,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-1 d-flex align-items-center"
+            class="tag m-lg-1 m-0 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -275,7 +279,7 @@ export default {
     </div>
     <div>
       <ul class="row d-flex ps-0 pb-5">
-        <li
+        <li @click='gotoDetail(item, $event)'
           v-for="item in productsList"
           :key="item.id"
           class="col-lg-3 col-sm-6 col-12 d-flex justify-content-center productCard mb-5"
@@ -322,10 +326,11 @@ export default {
               <button type="button"
                 class="text-center w-100"
               >
-              <router-link :to='`./productList/${item.id}`'
+              <!-- <router-link :to='`./productList/${item.id}`'
               style='text-decoration:none' >
-                <p class="mb-0 text-light">加入購物車</p>
-              </router-link>
+                <p class="mb-0 text-light"></p>
+              </router-link> -->
+              <p @click="openModal(item)" class="mb-0 text-light">加入購物車</p>
               </button>
             </div>
           </div>
@@ -386,7 +391,7 @@ export default {
       </nav>
     </div>
   </div>
-  <FooterComponent/>
+  <FooterComponent />
 </template>
 
 <style lang="scss">
