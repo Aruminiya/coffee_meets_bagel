@@ -32,18 +32,21 @@ export default {
   },
   methods: {
     searchProduct () {
-      const result = this.allProducts.filter((product) => {
-        // 比對標題內容與產品描述對應搜尋關鍵字
-        return [product.title, product.content, product.description]
-          .toString()
-          .match(this.search)
-      })
-      // 搜尋結果暫時先不處理分頁, 強制隱藏分頁
-      this.pagination = false
-
-      this.products = result
-      // 清空搜尋欄字串
-      this.search = ''
+      if (this.search.trim() !== '') {
+        const result = this.allProducts.filter((product) => {
+          // 比對標題內容與產品描述對應搜尋關鍵字
+          return [product.title, product.content, product.description]
+            .toString()
+            .match(this.search)
+        })
+        // 搜尋結果暫時先不處理分頁, 強制隱藏分頁
+        this.pagination = false
+        this.products = result
+        // 清空搜尋欄字串
+        this.search = ''
+      } else {
+        Swal.fire('搜尋內容請勿空白')
+      }
     },
     // 先取得所有商品, 以及所有分類
     getAllProducts () {
@@ -142,22 +145,10 @@ export default {
       this.$router.push('/admin/addProduct')
     }
   },
-  computed: {
-    getSearch () {
-      return this.allProducts.filter((product) => {
-        // 比對標題內容與產品描述對應搜尋關鍵字
-        return [product.title, product.content, product.description]
-          .toString()
-          .match(this.search)
-      })
-    }
-  },
   watch: {
     search () {
       if (this.search.trim() !== '') {
         this.pagination = false
-      } else {
-        this.getProducts()
       }
     }
   },
@@ -190,7 +181,7 @@ export default {
         </div>
         <div class="col-3 py-3">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="請輸入搜尋資料" v-model="search" />
+            <input type="text" class="form-control" @keydown.enter="searchProduct()" placeholder="請輸入搜尋資料" v-model="search" />
             <button type="button" @click="searchProduct()" class="btn btn-outline-primary d-flex align-items-center">
               <span class="material-symbols-outlined"> search </span>
             </button>
@@ -219,17 +210,13 @@ export default {
         </div>
       </div>
       <div class="border rounded p-3 pb-0 mb-8">
-        <div v-if="search === ''">
+        <div v-if="products.length !== 0">
           <BackendProductsListComponent :products="products" />
         </div>
         <div v-else>
-          <BackendProductsListComponent v-if="products.length === 0" :products="getSearch" />
-          <div v-else>
-            <BackendNotFoundComponent />
-          </div>
+          <BackendNotFoundComponent />
         </div>
       </div>
-
       <!-- 分頁元件, 若是分類結果只有一頁不顯示分頁資訊 -->
       <div v-if="pagination">
         <PaginationComponent v-if="showCategory" :pagination="pagination" @emit-pages="getProducts" />
