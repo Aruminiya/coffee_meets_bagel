@@ -207,7 +207,7 @@ export default {
           </li>
           <li
             style="list-style: none"
-            class="tag m-lg-1 m-0 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -220,7 +220,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-lg-1 m-0 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -232,7 +232,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-lg-1 m-0 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -244,7 +244,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-lg-1 m-0 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
@@ -256,7 +256,7 @@ export default {
 
           <li
             style="list-style: none"
-            class="tag m-lg-1 m-0 d-flex align-items-center"
+            class="tag ms-0 me-1 mb-1 d-flex align-items-center"
           >
             <RouterLink
               class="btn btn-primary rounded-pill"
