@@ -328,7 +328,7 @@ export default {
           <swiper
             ref="{swiperRef}"
             :slidesPerView="slidesPerViewData"
-            :centeredSlides="true"
+            :centeredSlides="false"
             :spaceBetween="30"
             :pagination="{
               type: 'fraction',
@@ -810,6 +810,10 @@ export default {
       }
     }
   }
+}
+
+.swiper-pagination{
+  display: none;
 }
 
 .swiper {
