@@ -128,7 +128,7 @@ export default {
               {{ couponData.response?.data?.message }}
             </p>
             <router-link to="/productList"
-              ><button type="button" class="btn btn-primary btn02 w-100">
+              ><button type="button" class="btnToOrder btn btn-outline-primary w-100">
                 我想再加點
               </button></router-link
             >
@@ -175,8 +175,8 @@ input {
   }
 }
 .btn {
-  background-color: $colorChart-Logo-Red;
-  border-color: $colorChart-Logo-Red;
+  // background-color: $colorChart-Logo-Red;
+  // border-color: $colorChart-Logo-Red;
   &:hover {
     background-color: darken($colorChart-Logo-Red, 10%);
     border-color: darken($colorChart-Logo-Red, 10%);
@@ -186,9 +186,12 @@ input {
     border-color: darken($colorChart-Logo-Red, 10%);
   }
 }
-.btn02 {
-  background-color: $colorChart-Primary-100;
-  border-color: $colorChart-Primary-100;
+.btnToOrder {
+  border-color: $colorChart-Accessory-200;
+  color: $colorChart-Accessory-200;
+  &:hover {
+    color: white;
+  }
 }
 .is-invalid {
   border-color: $colorChart-Primary-200; /* 替換為你想要的邊框顏色 */
