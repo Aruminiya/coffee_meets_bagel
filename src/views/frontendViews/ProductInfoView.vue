@@ -130,7 +130,7 @@ export default {
     class="mySwiper  d-none d-lg-block h-100"
   >
     <swiper-slide v-for='item in productPhoto' :key='item' class='d-flex mx-2 p-4 ps-0'>
-    <img :src='item' class="w-100" style=" object-fit:cover; border-radius:24px">
+    <img :src='item' class="w-100" style=" object-fit:cover; border-radius:24px" :alt="productName">
     <div class='d-flex flex-column justify-content-between mb-3'></div>
     </swiper-slide>
   </swiper>
@@ -140,7 +140,7 @@ export default {
           <div >
             <h1><i class="fa-solid fa-crown me-1 text-warning" v-show="product.is_recommend==1"></i>{{ product.title }}</h1>
             <div  class="d-flex flex-column w-100 d-lg-none ">
-            <img :src='showingPhoto' style="border-radius:24px; height:400px; object-fit:cover">
+            <img :src='showingPhoto' style="border-radius:24px; height:400px; object-fit:cover" :alt="productName">
             <div class="d-flex justify-content-start">
               <button type="button" @click='showPhoto(item)' v-for='item in productPhoto' :key='item'
               title='查看照片'
@@ -203,7 +203,7 @@ export default {
     <swiper-slide v-for='item in relativeProduct' :key='item.id' class='d-flex flex-column mx-2 p-4 ps-0'>
 
     <img :src='item.imageUrl' class="w-100 h-75" style=" object-fit:cover; border-radius:24px"
-    @click='reload(item.id)'>
+    @click='reload(item.id)' :alt='item.title'>
     <div class='d-flex flex-column align-items-center mb-3'>
       {{ item.title }}
       NT$ {{ item.price }}

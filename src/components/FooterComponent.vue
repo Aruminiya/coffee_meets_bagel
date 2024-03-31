@@ -20,7 +20,8 @@
             106 台北市大安區信義路三段 75 號 1 號 2 樓
           </p>
           <div>
-            <p class="m-0 font-weight-400">02-2707-8877</p>
+            <p><a href="tel:+886-2-3278918" class="m-0 font-weight-400" style="text-decoration:none; color:white">02-2707-8877</a></p>
+
             <a href="#"
               ><img src="../../public/FacebookIcon.svg" alt="FacebookIcon"
             /></a>
