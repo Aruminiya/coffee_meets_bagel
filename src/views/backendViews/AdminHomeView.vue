@@ -187,6 +187,8 @@ export default {
       this.axios.get(`${host}/v2/api/${path}/admin/orders`).then((res) => {
         this.orders = res.data.orders
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
       })
     },
     // 後台取得所有折價券
@@ -194,6 +196,8 @@ export default {
       this.isLoading = true
       this.axios.get(`${host}/v2/api/${path}/admin/coupons`).then((res) => {
         this.coupons = res.data.coupons
+        this.isLoading = false
+      }).catch(() => {
         this.isLoading = false
       })
     }

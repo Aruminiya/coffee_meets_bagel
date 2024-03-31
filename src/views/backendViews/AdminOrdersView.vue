@@ -136,10 +136,14 @@ export default {
       return moment.unix(date).format('YYYY年 MM月 DD日')
     },
     searchOrder (str) {
-      this.checkAll = false
-      this.orders = this.allOrders.filter((item) => {
-        return JSON.stringify(item).match(str)
-      })
+      if (str.trim() !== '') {
+        this.checkAll = false
+        this.orders = this.allOrders.filter((item) => {
+          return JSON.stringify(item).match(str)
+        })
+      } else {
+        Swal.fire('搜尋內容請勿空白')
+      }
     },
     isOrderPaid (value) {
       if (value === '檢視全部') {

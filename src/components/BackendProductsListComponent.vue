@@ -1,6 +1,5 @@
 <script>
 import ModalShowImgComponent from '@/components/ModalShowImgComponent..vue'
-// import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
 import Swal from 'sweetalert2'
 
 const host = import.meta.env.VITE_HEXAPI
@@ -101,9 +100,6 @@ export default {
       }
     }
   }
-  // mounted () {
-
-  // }
 }
 </script>
 
