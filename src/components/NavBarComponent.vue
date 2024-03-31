@@ -142,7 +142,7 @@ export default {
             class="loading d-flex justify-content-center align-items-center h-100"
           >
             <img
-              src="@/public/LoadingIcon.gif"
+              src="../../public/LoadingIcon.gif"
               alt="LoadingIcon"
               width="100"
               height="100"
