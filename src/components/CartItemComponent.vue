@@ -94,9 +94,10 @@ export default {
       </div>
       <br />
       <div class="contentContainer position-relative">
-        <span v-if="tempItem.product.is_recommend"
-          ><i class="fa-solid fa-crown me-1 text-warning"></i
-        ></span>
+        <span v-if="tempItem.product.is_recommend">
+          <i class="fa-solid fa-crown me-1 text-warning"></i>
+          <br />
+        </span>
         <span
           ><h6 class="d-inline-block">{{ tempItem.product.title }} &nbsp;</h6>
           <p class="badge rounded-pill">
@@ -206,8 +207,5 @@ input[type="number"] {
   background-color: $colorChart-Gray-100;
   border-radius: 8px;
   transition: 0.2s;
-  &:hover {
-    scale: 1.03;
-  }
 }
 </style>
