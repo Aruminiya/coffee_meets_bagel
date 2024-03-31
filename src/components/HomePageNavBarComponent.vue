@@ -5,7 +5,7 @@
         <router-link to="/"
           ><img
             class="mx-1"
-            src="../../public/coffee_meets_bagel_Logo.svg"
+            src="/public/coffee_meets_bagel_Logo.svg"
             alt="coffee_meets_bagel_Logo"
         /></router-link>
       </div>
@@ -13,15 +13,15 @@
         <router-link to="/productList"
           ><img
             class="my-1"
-            src="../../public/OrderIcon.svg"
+            src="/public/OrderIcon.svg"
             alt="OrderIcon" /></router-link
         ><router-link to="/fqa"
           ><img
             class="my-1"
-            src="../../public/Q&AIcon.svg"
+            src="/public/Q&AIcon.svg"
             alt="Q&AIcon" /></router-link
         ><router-link to="/about"
-          ><img class="my-1" src="../../public/AbousIcon.svg" alt="AbousIcon"
+          ><img class="my-1" src="/public/AbousIcon.svg" alt="AbousIcon"
         /></router-link>
       </div>
     </div>

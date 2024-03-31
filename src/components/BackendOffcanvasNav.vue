@@ -7,7 +7,7 @@
   <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasNavbar"
     aria-labelledby="offcanvasNavbarLabel" ref="offcanvasNav">
     <div class="offcanvas-header">
-      <a role="button"><img src="../../public/coffee_meets_bagel_Logo.svg" alt="coffee_meets_bagel_Logo" width="256"
+      <a role="button"><img src="@/public/coffee_meets_bagel_Logo.svg" alt="coffee_meets_bagel_Logo" width="256"
           height="64" /></a>
     </div>
     <div class="offcanvas-body">

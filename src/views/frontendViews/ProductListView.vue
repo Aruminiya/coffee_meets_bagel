@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios'
-import NavBarComponent from '../../components/NavBarComponent.vue'
-import FooterComponent from '../../components/FooterComponent.vue'
-import ModalComponent from '../../components/ModalComponent.vue'
+import NavBarComponent from '@/components/NavBarComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
+import ModalComponent from '@/components/ModalComponent.vue'
 
 // pinia
 import { mapState } from 'pinia'
-import cartStore from '../../stores/CartStore.js'
+import cartStore from '@/stores/CartStore.js'
 
 const VITE_HEXAPI = import.meta.env.VITE_HEXAPI
 const VITE_USER_PATH = import.meta.env.VITE_USER_PATH

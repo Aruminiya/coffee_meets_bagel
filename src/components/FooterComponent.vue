@@ -9,7 +9,7 @@
         ><div class="logoContainer my-3">
           <img
             class="img-fluid"
-            src="../../public/coffee_meets_bagel_Logo_Footer.svg"
+            src="/public/coffee_meets_bagel_Logo_Footer.svg"
             alt="coffee_meets_bagel_Logo_Footer"
           /></div
       ></router-link>
@@ -22,11 +22,11 @@
           <div>
             <p class="m-0 font-weight-400">02-2707-8877</p>
             <a href="#"
-              ><img src="../../public/FacebookIcon.svg" alt="FacebookIcon"
+              ><img src="/public/FacebookIcon.svg" alt="FacebookIcon"
             /></a>
             &nbsp;
             <a href="#"
-              ><img src="../../public/InstagramIcon.svg" alt="InstagramIcon"
+              ><img src="/public/InstagramIcon.svg" alt="InstagramIcon"
             /></a>
           </div>
         </div>
