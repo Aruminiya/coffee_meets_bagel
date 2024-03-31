@@ -37,7 +37,7 @@ export default {
 
           <img
             class="img-fluid"
-            src="/public/404Icon.gif"
+            src="../../../public/404Icon.gif"
             alt="404Icon"
             width="500"
             height="500"
