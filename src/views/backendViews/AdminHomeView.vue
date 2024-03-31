@@ -340,7 +340,7 @@ export default {
   display: block;
   width: 256px;
   height: 64px;
-  background-image: url("/public/coffee_meets_bagel_Logo.svg");
+  background-image: url("../../../public/coffee_meets_bagel_Logo.svg");
   background-repeat: no-repeat;
   text-indent: 101%;
   overflow: hidden;

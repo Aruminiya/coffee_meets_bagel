@@ -1,6 +1,6 @@
 <script>
-import HomePageNavBarComponent from '@/components/HomePageNavBarComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
+import HomePageNavBarComponent from '../../components/HomePageNavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
 
 export default {
   components: { HomePageNavBarComponent, FooterComponent }
@@ -72,7 +72,7 @@ export default {
           >
             <img
               class="img-fluid"
-              src="/public/CoffeeMaker.gif"
+              src="../../../public/CoffeeMaker.gif"
               alt="CoffeeMaker"
             />
             <!-- <img
@@ -148,14 +148,14 @@ section {
   }
 }
 .section1 {
-  background-image: url("/public/FAQ_01.png");
+  background-image: url("../../../public/FAQ_01.png");
   // background-image: url("https://i.imgur.com/864oX3J.png");
   background-repeat: no-repeat;
   background-attachment: fixed; //最關鍵的參數
   background-position: center center;
   background-size: cover;
   @media screen and (max-width: 576px) {
-    background-image: url("/public/FAQ_Phone_01.png");
+    background-image: url("../../../public/FAQ_Phone_01.png");
     // background-image: url("https://i.imgur.com/IzU3sjn.png");
   }
   .text {
@@ -169,7 +169,7 @@ section {
 }
 
 .FQA {
-  background-image: url("/public/BG_01.png");
+  background-image: url("../../../public/BG_01.png");
   // background-image: url("https://i.imgur.com/RWJATLm.png");
   background-size: cover;
   background-position: center;

@@ -1,6 +1,6 @@
 <script>
-import NavBarComponent from '@/components/NavBarComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
+import NavBarComponent from '../../components/NavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
 
 export default {
   components: { NavBarComponent, FooterComponent }
@@ -37,7 +37,7 @@ export default {
 
           <img
             class="img-fluid"
-            src="/public/404Icon.gif"
+            src="../../../public/404Icon.gif"
             alt="404Icon"
             width="500"
             height="500"

@@ -1,13 +1,13 @@
 <script>
 import axios from 'axios'
-import NavBarComponent from '@/components/NavBarComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
+import NavBarComponent from '../../components/NavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Zoom, Pagination, Navigation } from 'swiper/modules'
-import ToastComponent from '@/components/ToastComponent.vue'
+import ToastComponent from '../../components/ToastComponent.vue'
 // pinia
 import { mapActions } from 'pinia'
-import cartStore from '@/stores/CartStore.js'
+import cartStore from '../../stores/CartStore.js'
 
 // Import Swiper styles
 import 'swiper/css'

@@ -1,11 +1,11 @@
 <script>
-import NavBarComponent from '@/components/NavBarComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
-import OrderCheckProgressComponent from '@/components/OrderCheckProgressComponent.vue'
+import NavBarComponent from '../../components/NavBarComponent.vue'
+import FooterComponent from '../../components/FooterComponent.vue'
+import OrderCheckProgressComponent from '../../components/OrderCheckProgressComponent.vue'
 
 import { mapActions } from 'pinia'
 
-import cartStore from '@/stores/CartStore.js'
+import cartStore from '../../stores/CartStore.js'
 
 export default {
   components: {
@@ -60,10 +60,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
 main {
   min-height: 100vh;
-  background-image: url("/public/BG_03.png");
+  background-image: url("../../../public/BG_03.png");
   // background-image: url("https://i.imgur.com/pbKVylr.png");
 }
 </style>

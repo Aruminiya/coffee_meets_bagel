@@ -69,7 +69,7 @@ export default {
             <div class="modal-title d-flex align-items-center">
               <!-- <slot name="modal-title"></slot> -->
               <img
-                src="@/public/coffee_meets_bagel_LogoIcon.svg"
+                src="../../public/coffee_meets_bagel_LogoIcon.svg"
                 style="width: 32px"
               />
               <p class='h5 mb-0 ms-2'>產品細節</p>

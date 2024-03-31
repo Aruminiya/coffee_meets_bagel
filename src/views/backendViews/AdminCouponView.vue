@@ -139,7 +139,7 @@ import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import CouponModalComponent from '@/components/CouponModalComponent.vue'
 import PaginationComponent from '@/components/PaginationComponent.vue'
-import BackendNotFoundComponent from '@/components/BackendNotFoundComponent.vue'
+import BackendNotFoundComponent from '../../components/BackendNotFoundComponent.vue'
 import Swal from 'sweetalert2'
 
 // 通用環境變數
