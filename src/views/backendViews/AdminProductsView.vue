@@ -3,7 +3,7 @@ import PaginationComponent from '@/components/PaginationComponent.vue'
 import BackendOffcanvasNav from '@/components/BackendOffcanvasNav.vue'
 import BackendLogoComponent from '@/components/BackendLogoComponent.vue'
 import BackendProductsListComponent from '@/components/BackendProductsListComponent.vue'
-import BackendNotFoundComponent from '../../components/BackendNotFoundComponent.vue'
+import BackendNotFoundComponent from '@/components/BackendNotFoundComponent.vue'
 import Swal from 'sweetalert2'
 
 const host = import.meta.env.VITE_HEXAPI

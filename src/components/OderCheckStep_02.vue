@@ -59,7 +59,7 @@ export default {
             class="loading d-flex justify-content-center align-items-center h-100"
           >
             <img
-              src="../../public/LoadingIcon.gif"
+              src="@/public/LoadingIcon.gif"
               alt="LoadingIcon"
               width="100"
               height="100"
@@ -127,7 +127,7 @@ export default {
           </p>
           <img
             class="logoIcon position-absolute end-0 bottom-0 mx-4 my-3"
-            src="../../public/coffee_meets_bagel_LogoIcon.svg"
+            src="@/public/coffee_meets_bagel_LogoIcon.svg"
             alt="coffee_meets_bagel_LogoIcon"
             width="75"
             height="59"

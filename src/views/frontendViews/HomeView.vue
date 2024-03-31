@@ -11,8 +11,8 @@ import 'swiper/css/navigation'
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
-import HomePageNavBarComponent from '../../components/HomePageNavBarComponent.vue'
-import FooterComponent from '../../components/FooterComponent.vue'
+import HomePageNavBarComponent from '@/components/HomePageNavBarComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
 
 export default {
   components: {
@@ -86,7 +86,7 @@ export default {
           <div class="px-0 pt-5 p-sm-3">
             <img
               class="img-fluid"
-              src="../../../public/TodayRecommendation.gif"
+              src="/public/TodayRecommendation.gif"
               alt="TodayRecommendation"
             />
             <!-- <img
@@ -153,7 +153,7 @@ export default {
                 <div class="swiperText py-4 px-3 position-relative">
                   <img
                     class="symbol position-absolute"
-                    src="../../../public/symbol.svg"
+                    src="/public/symbol.svg"
                     alt="symbol"
                   />
                   <div class="d-none d-sm-block">
@@ -174,7 +174,7 @@ export default {
                 <div class="swiperText py-4 px-3 position-relative">
                   <img
                     class="symbol position-absolute"
-                    src="../../../public/symbol.svg"
+                    src="/public/symbol.svg"
                     alt="symbol"
                   />
                   <div class="d-none d-sm-block">
@@ -195,7 +195,7 @@ export default {
                 <div class="swiperText py-4 px-3 position-relative">
                   <img
                     class="symbol position-absolute"
-                    src="../../../public/symbol.svg"
+                    src="/public/symbol.svg"
                     alt="symbol"
                   />
                   <div class="d-none d-sm-block">
@@ -218,7 +218,7 @@ export default {
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
-                src="../../../public/ChunkIllustration_01.png"
+                src="/public/ChunkIllustration_01.png"
                 alt="ChunkIllustration_01"
               />
               <!-- <img
@@ -232,7 +232,7 @@ export default {
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
-                src="../../../public/ChunkIllustration_02.png"
+                src="/public/ChunkIllustration_02.png"
                 alt="ChunkIllustration_02"
               />
               <!-- <img
@@ -246,7 +246,7 @@ export default {
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
-                src="../../../public/ChunkIllustration_03.png"
+                src="/public/ChunkIllustration_03.png"
                 alt="ChunkIllustration_03"
               />
               <!-- <img
@@ -260,7 +260,7 @@ export default {
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
-                src="../../../public/ChunkIllustration_04.png"
+                src="/public/ChunkIllustration_04.png"
                 alt="ChunkIllustration_04"
               />
               <!-- <img
@@ -274,7 +274,7 @@ export default {
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
-                src="../../../public/ChunkIllustration_05.png"
+                src="/public/ChunkIllustration_05.png"
                 alt="ChunkIllustration_05"
               />
               <!-- <img
@@ -288,7 +288,7 @@ export default {
             <div class="imgContainer h-100 position-relative">
               <img
                 class="position-absolute"
-                src="../../../public/ChunkIllustration_06.png"
+                src="/public/ChunkIllustration_06.png"
                 alt="ChunkIllustration_06"
               />
               <!-- <img
@@ -333,7 +333,7 @@ export default {
                 ><div class="mealsImg d-flex flex-column rounded p-3">
                   <img
                   class="rounded"
-                  src="../../../public/Meals_01.png"
+                  src="/public/Meals_01.png"
                   alt="Meals_01"
                 />
                   <!-- <img
@@ -350,7 +350,7 @@ export default {
                 ><div class="mealsImg d-flex flex-column rounded p-3">
                   <img
                   class="rounded"
-                  src="../../../public/Meals_02.png"
+                  src="/public/Meals_02.png"
                   alt="Meals_02"
                 />
                   <!-- <img
@@ -367,7 +367,7 @@ export default {
                 ><div class="mealsImg d-flex flex-column rounded p-3">
                   <img
                   class="rounded"
-                  src="../../../public/Meals_03.png"
+                  src="/public/Meals_03.png"
                   alt="Meals_03"
                 />
                   <!-- <img
@@ -384,7 +384,7 @@ export default {
                 ><div class="mealsImg d-flex flex-column rounded p-3">
                   <img
                   class="rounded"
-                  src="../../../public/Meals_04.png"
+                  src="/public/Meals_04.png"
                   alt="Meals_04"
                 />
                   <!-- <img
@@ -401,7 +401,7 @@ export default {
                 ><div class="mealsImg d-flex flex-column rounded p-3">
                   <img
                   class="rounded"
-                  src="../../../public/Meals_05.png"
+                  src="/public/Meals_05.png"
                   alt="Meals_05"
                 />
                   <!-- <img
@@ -426,7 +426,7 @@ export default {
   width: 100%; /* 假設容器寬度為 300 像素 */
   aspect-ratio: 1920 / 896; /* 假設你的圖片高度與寬度的比例為 4:3 */
   // background-image: url("https://i.imgur.com/zyX1TRR.png");
-  background-image: url("../../../public/Banner.png");
+  background-image: url("/public/Banner.png");
   background-size: cover; /* 調整背景圖片大小以填充容器 */
   background-position: right; /* 調整背景圖片位置至中 */
   background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -487,7 +487,7 @@ export default {
     }
   }
   @media screen and (max-width: 768px) {
-    background-image: url("../../../public/BannerPhone.png");
+    background-image: url("/public/BannerPhone.png");
     aspect-ratio: 768 / 1000;
 
     .bannerWord {
@@ -539,7 +539,7 @@ export default {
   text-decoration:none;
   height: 100%;
   &.Img_01 {
-    background-image: url("../../../public/RecommendationImg_01.png");
+    background-image: url("/public/RecommendationImg_01.png");
     // background-image: url("https://i.imgur.com/D8Qdiao.png");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
@@ -547,14 +547,14 @@ export default {
     transition: background-size 0.2s ease-in-out; /* 添加動畫效果 */
   }
   &.Img_02 {
-    background-image: url("../../../public/RecommendationImg_02.png");
+    background-image: url("/public/RecommendationImg_02.png");
     // background-image: url("https://i.imgur.com/8G5A8WC.png");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
     background-repeat: no-repeat; /* 避免背景圖片重複 */
   }
   &.Img_03 {
-    background-image: url("../../../public/RecommendationImg_03.png");
+    background-image: url("/public/RecommendationImg_03.png");
     // background-image: url("https://i.imgur.com/XgVbAhP.png");
     background-size: cover; /* 調整背景圖片大小以填充容器 */
     background-position: center; /* 調整背景圖片位置至中 */
@@ -582,7 +582,7 @@ export default {
   .Img_01 {
     grid-area: Img01;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_01.png");
+      background-image: url("/public/ChunkImg_01.png");
       // background-image: url("https://i.imgur.com/tNSLfzc.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
@@ -600,7 +600,7 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_01.png");
+        background-image: url("/public/ChunkImg_Phone_01.png");
         // background-image: url("https://i.imgur.com/NsfSbBp.png");
       }
     }
@@ -608,7 +608,7 @@ export default {
   .Img_02 {
     grid-area: Img02;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_02.png");
+      background-image: url("/public/ChunkImg_02.png");
       // background-image: url("https://i.imgur.com/sJ0cIWj.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
@@ -626,7 +626,7 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_02.png");
+        background-image: url("/public/ChunkImg_Phone_02.png");
         // background-image: url("https://i.imgur.com/T4srQ5N.png");
         img {
           object-position: 76% 50%;
@@ -637,7 +637,7 @@ export default {
   .Img_03 {
     grid-area: Img03;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_03.png");
+      background-image: url("/public/ChunkImg_03.png");
       // background-image: url("https://i.imgur.com/RmDqyYJ.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: 35% 50%; /* 調整背景圖片位置至中 */
@@ -655,7 +655,7 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_03.png");
+        background-image: url("/public/ChunkImg_Phone_03.png");
         // background-image: url("https://i.imgur.com/b0pJldL.png");
       }
     }
@@ -663,7 +663,7 @@ export default {
   .Img_04 {
     grid-area: Img04;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_04.png");
+      background-image: url("/public/ChunkImg_04.png");
       // background-image: url("https://i.imgur.com/sTz6Z7S.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
@@ -681,7 +681,7 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_04.png");
+        background-image: url("/public/ChunkImg_Phone_04.png");
         // background-image: url("https://i.imgur.com/vS1KEzB.png");
       }
     }
@@ -689,7 +689,7 @@ export default {
   .Img_05 {
     grid-area: Img05;
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_05.png");
+      background-image: url("/public/ChunkImg_05.png");
       // background-image: url("https://i.imgur.com/6fBuCRy.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: 80% 50%; /* 調整背景圖片位置至中 */
@@ -707,7 +707,7 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_05.png");
+        background-image: url("/public/ChunkImg_Phone_05.png");
         // background-image: url("https://i.imgur.com/LEVBKda.png");
       }
     }
@@ -716,7 +716,7 @@ export default {
     grid-area: Img06;
 
     .imgContainer {
-      background-image: url("../../../public/ChunkImg_06.png");
+      background-image: url("/public/ChunkImg_06.png");
       // background-image: url("https://i.imgur.com/UOPuyQo.png");
       background-size: cover; /* 調整背景圖片大小以填充容器 */
       background-position: center; /* 調整背景圖片位置至中 */
@@ -734,7 +734,7 @@ export default {
         }
       }
       @media screen and (max-width: 768px) {
-        background-image: url("../../../public/ChunkImg_Phone_06.png");
+        background-image: url("/public/ChunkImg_Phone_06.png");
         // background-image: url("https://i.imgur.com/2buE3i2.png");
       }
     }
@@ -754,7 +754,7 @@ export default {
 }
 
 .block_05_BG {
-  background-image: url("../../../public/BG_02.png");
+  background-image: url("/public/BG_02.png");
   // background-image: url("https://i.imgur.com/Lkjz2C8.png");
   background-size: cover;
   background-position: center;
@@ -833,7 +833,7 @@ export default {
 .swiper-button-prev {
   width: 40px;
   height: 40px;
-  background-image: url("../../../public/lastPageBtn.svg");
+  background-image: url("/public/lastPageBtn.svg");
   background-size: contain; /* 調整背景圖片大小以填充容器 */
   background-position: center; /* 調整背景圖片位置至中 */
   background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -844,7 +844,7 @@ export default {
 .swiper-button-next {
   width: 40px;
   height: 40px;
-  background-image: url("../../../public/nextPageBtn.svg");
+  background-image: url("/public/nextPageBtn.svg");
   background-size: contain; /* 調整背景圖片大小以填充容器 */
   background-position: center; /* 調整背景圖片位置至中 */
   background-repeat: no-repeat; /* 避免背景圖片重複 */
@@ -858,19 +858,19 @@ export default {
 }
 
 .swiperImg_01 {
-  background-image: url("../../../public/swiperImg_01.png");
+  background-image: url("/public/swiperImg_01.png");
   // background-image: url("https://i.imgur.com/v75C8CW.png");
   background-position: center;
   background-size: cover;
 }
 .swiperImg_02 {
-  background-image: url("../../../public/swiperImg_02.png");
+  background-image: url("/public/swiperImg_02.png");
   // background-image: url("https://i.imgur.com/4Mn1j19.png");
   background-position: center;
   background-size: cover;
 }
 .swiperImg_03 {
-  background-image: url("../../../public/swiperImg_03.png");
+  background-image: url("/public/swiperImg_03.png");
   // background-image: url("https://i.imgur.com/SbNWoSD.png");
   background-position: center;
   background-size: cover;

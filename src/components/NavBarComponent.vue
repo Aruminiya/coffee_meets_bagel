@@ -38,7 +38,7 @@ export default {
       <router-link to="/" class="navbar-brand" href="#"
         ><img
           class="logo"
-          src="../../public/coffee_meets_bagel_Logo.svg"
+          src="@/public/coffee_meets_bagel_Logo.svg"
           alt="coffee_meets_bagel_Logo"
           width="200"
       /></router-link>
@@ -56,7 +56,7 @@ export default {
             </p>
             <img
               class="cartIcon"
-              src="../../public/cartIcon.svg"
+              src="@/public/cartIcon.svg"
               alt="cartIcon"
             />
           </div>
@@ -111,7 +111,7 @@ export default {
           </p>
           <img
             class="cartIcon"
-            src="../../public/cartIcon.svg"
+            src="@/public/cartIcon.svg"
             alt="cartIcon"
           />
         </div>
@@ -142,7 +142,7 @@ export default {
             class="loading d-flex justify-content-center align-items-center h-100"
           >
             <img
-              src="../../public/LoadingIcon.gif"
+              src="@/public/LoadingIcon.gif"
               alt="LoadingIcon"
               width="100"
               height="100"
