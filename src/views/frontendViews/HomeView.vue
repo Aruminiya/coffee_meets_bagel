@@ -57,9 +57,9 @@ export default {
             class="d-flex flex-column justify-content-end justify-content-md-center banner"
           >
             <div class="bannerWord position-relative d-flex flex-column">
-              <h1 class="title">Coffee meets Bagel</h1>
-              <h2 class="subtitle">品味烘焙藝術的奇妙交融</h2>
-              <h2 class="subtitle">共譜美好早晨的詩篇</h2>
+              <h1 class="title my-3">Coffee meets Bagel</h1>
+              <h2 class="subtitle my-2" style="letter-spacing: 5px;">品味烘焙藝術的奇妙交融</h2>
+              <h2 class="subtitle my-2" style="letter-spacing: 5px;">共譜美好早晨的詩篇</h2>
               <router-link to="/productList">
                 <button type="button" class="bannerBtn btn btn-primary">
                   免排隊，立即預定點餐 <i class="bi bi-arrow-right"></i>
@@ -98,11 +98,9 @@ export default {
         </div>
         <div class="col-12 col-md-7 p-0">
           <div class="h-100 d-flex flex-column justify-content-between">
-            <div
-              class="RecommendationImg Img_01 d-flex justify-content-center align-items-center"
-            >
+            <router-link to="/productList" class="RecommendationImg Img_01 d-flex justify-content-center align-items-center">
               <div
-                class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
+              class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
               >
                 <h2 class="m-2">今日的特選咖啡</h2>
                 <p class="m-0 font-weight-400">
@@ -112,31 +110,23 @@ export default {
                   讓這杯獨特的風味，陪伴你的美好一天。
                 </p>
               </div>
-            </div>
-            <div
-              class="RecommendationImg Img_02 d-flex justify-content-center align-items-center"
-            >
-              <div
-                class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
-              >
+            </router-link>
+            <router-link to="/productList" class="RecommendationImg Img_02 d-flex justify-content-center align-items-center">
+              <div class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center">
                 <h2 class="m-2">挑戰你的味蕾</h2>
                 <p class="m-0 font-weight-400">
                   今日的推薦咖啡散發出濃郁的巧克力風味，
                 </p>
                 <p class="m-0 font-weight-400">讓你感受咖啡的甜蜜誘惑。</p>
               </div>
-            </div>
-            <div
-              class="RecommendationImg Img_03 d-flex justify-content-center align-items-center"
-            >
-              <div
-                class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center"
-              >
+            </router-link>
+            <router-link to="/productList" class="RecommendationImg Img_03 d-flex justify-content-center align-items-center">
+              <div class="my-5 text h-100 d-flex flex-column justify-content-center align-items-center">
                 <h2 class="m-2">新鮮水果拿鐵</h2>
                 <p class="m-0 font-weight-400">清爽的果香與濃郁咖啡的結合，</p>
                 <p class="m-0 font-weight-400">讓你感受到夏日的微涼和愉悅。</p>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -546,6 +536,7 @@ export default {
   }
 }
 .RecommendationImg {
+  text-decoration:none;
   height: 100%;
   &.Img_01 {
     background-image: url("../../../public/RecommendationImg_01.png");
