@@ -310,7 +310,6 @@ export default {
               <h1 class="titleWord m-0 d-none d-lg-block">系列餐品</h1>
               <h3 class="titleWord m-0 d-md-block d-lg-none">系列餐品</h3>
             </div>
-
             <hr class="wordDash" />
           </div>
         </div>
@@ -415,6 +414,7 @@ export default {
             </swiper-slide>
           </swiper>
         </div>
+        <div class="break"></div>
       </div>
     </div>
   </main>
@@ -776,7 +776,7 @@ export default {
   }
   .swiper {
     width: 100%;
-    height: 70vh;
+    height: 120%;
   }
   .swiper-slide {
     text-align: center;
@@ -801,6 +801,10 @@ export default {
       }
     }
   }
+}
+
+.break{
+  height: 30vh;
 }
 
 .swiper-pagination{
