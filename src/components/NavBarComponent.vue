@@ -170,9 +170,12 @@ export default {
           </div>
         </div>
         <div class="block_03 my-2">
-          <h4 v-if="data.carts?.length === 0" class="cartTextEmpty text-center">
+          <div v-if="data.carts?.length === 0">
+            <h4  class="cartTextEmpty text-center">
             購物車內尚無商品
-          </h4>
+            </h4>
+            <router-link to="/productList" class="d-flex justify-content-center"><button class="btn btn-primary" style="color: white;">現在點餐去 !</button></router-link>
+          </div>
           <router-link v-if="data?.carts?.length" to="/orderCheckView/step1"
             ><button
               type="button"
