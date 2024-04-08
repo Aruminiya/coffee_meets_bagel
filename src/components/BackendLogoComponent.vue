@@ -29,6 +29,7 @@ export default {
         })
           .then((result) => {
           // 驗證失敗轉回登入頁面
+            this.isLogin = false
             this.$router.push('/admin/adminLogin')
           })
       })

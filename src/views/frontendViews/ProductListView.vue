@@ -3,7 +3,7 @@ import axios from 'axios'
 import NavBarComponent from '@/components/NavBarComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
-
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
 // pinia
 import { mapState } from 'pinia'
 import cartStore from '@/stores/CartStore.js'
@@ -23,6 +23,7 @@ export default {
       categories: ['飲品', '蛋糕', '餅乾', '輕食'],
       productsList: [],
       modal: null,
+      dropDown: null,
       isLoading: true,
       showPagination: false,
       pages: {},
@@ -65,6 +66,7 @@ export default {
             return a.title.localeCompare(b.title, 'zh-Hans-CN')
           })
           this.isLoading = false
+          this.scrollBehavior()
         })
     },
     getAllProduct () {
@@ -110,6 +112,9 @@ export default {
     },
     findCategory (e) {
       this.category = e.target.innerHTML
+    },
+    showDropdown () {
+      this.dropDown.toggle()
     }
   },
   computed: {
@@ -123,9 +128,9 @@ export default {
   mounted () {
     this.getProduct()
     this.getAllProduct()
+    this.dropDown = new bootstrap.Dropdown(this.$refs.dropdownMenu)
     if (this.$router.currentRoute._value.query.category === undefined) {
-      // eslint-disable-next-line no-unused-expressions
-      this.category === '全部'
+      this.category = '全部'
     } else {
       this.category = this.$router.currentRoute._value.query.category
     }
@@ -147,6 +152,7 @@ export default {
       <div
         class="dropdown col-lg-4 order-lg-1 order-0 border border-primary rounded-pill d-flex align-items-center"
       >
+      <div class="d-flex">
         <span
           class="material-symbols-outlined ms-3 d-block text-primary"
           style="font-size: 40px"
@@ -155,22 +161,22 @@ export default {
 
         <input
           class="w-75"
-          id="dropdownMenu2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
           style="border: none; height: 40px; background-color: transparent"
           placeholder="快速搜尋商品"
           v-model="search"
+          @keydown.once="showDropdown()"
         />
+      </div>
         <ul
           class="dropdown-menu w-75"
-          aria-labelledby="dropdownMenu2"
           v-show="search"
+          ref='dropdownMenu'
         >
           <li v-if="filterProducts.length == 0">
             <button type="button" class="dropdown-item" disabled>查無商品</button>
           </li>
-          <li v-for="item in filterProducts" :key="item.id">
+          <li
+          v-for="item in filterProducts" :key="item.id">
             <button
               class="dropdown-item"
               type="button"
@@ -346,13 +352,12 @@ export default {
           <li
             class="page-item"
             :class="{ disabled: pages.has_pre == false }"
-            @click.prevent="getProduct(pages.current_page - 1)"
+            @click.prevent="pages.has_pre ? getProduct(pages.current_page - 1):null"
           >
             <a
               class="page-link"
-              href="#"
+              :href="pages.has_pre?'#':null"
               aria-label="Previous"
-              @click="scrollBehavior"
             >
               <span aria-hidden="true">&laquo;</span>
             </a>
@@ -362,13 +367,12 @@ export default {
             class="page-item"
             v-for="page in pages.total_pages"
             :key="page + '123'"
-            @click.prevent="getProduct(page)"
+            @click.prevent="pages.current_page !== page? getProduct(page):null"
           >
             <a
               class="page-link"
               :class="{ 'bg-warning': pages.current_page == page }"
-              href="#"
-              @click="scrollBehavior"
+             :href="pages.current_page !== page?'#':null"
               >{{ page }}</a
             >
           </li>
@@ -376,13 +380,12 @@ export default {
           <li
             class="page-item"
             :class="{ disabled: pages.has_next == false }"
-            @click.prevent="getProduct(pages.current_page + 1)"
+            @click.prevent="pages.has_next ? getProduct(pages.current_page + 1):null"
           >
             <a
               class="page-link"
-              href="#"
+             :href="pages.has_next?'#':null"
               aria-label="Next"
-              @click="scrollBehavior"
             >
               <span aria-hidden="true">&raquo;</span>
             </a>
@@ -484,5 +487,8 @@ export default {
      background-color: rgba(222, 219, 218, 0.8);
      padding-bottom:16px;
    }
+}
+.dropdown-menu{
+  margin-top: 50px !important;
 }
 </style>
