@@ -69,7 +69,7 @@ export default {
   <section class="shadow-sm p-4">
     <v-form v-slot="{ errors }" @submit="onSubmit($event)" class="p-2">
       <!-- {{ errors }} -->
-      <label for="Email" class="mt-2">*Email</label>
+      <label for="email" class="mt-2">*Email</label>
       <v-field
         id="email"
         name="Email"
