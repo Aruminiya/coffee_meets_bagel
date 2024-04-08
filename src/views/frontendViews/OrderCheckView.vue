@@ -54,7 +54,11 @@ export default {
   <main class="OrderCheckView">
     <!-- 進度條元件 step 是 props 傳入當前第幾步驟 -->
     <OrderCheckProgressComponent :step="showOrderCheckProgressComponent" />
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <KeepAlive>
+        <component :is="Component" />
+      </KeepAlive>
+    </router-view>
   </main>
   <FooterComponent />
 </template>
