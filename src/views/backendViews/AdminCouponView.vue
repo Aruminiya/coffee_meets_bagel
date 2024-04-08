@@ -244,23 +244,27 @@ export default {
     },
     // 搜尋折扣券功能
     searchCoupon () {
-      const result = this.allCoupons.filter((coupon) => {
-        // coupon.due_date 回傳時是 unix Timestamp，所以先處裡成 YYYY-MM-DD 格式
-        const dueDate = new Date(coupon.due_date * 1000).toLocaleDateString()
-        // 搜尋比對的是折扣券標題、折扣碼、折扣額度及日期
-        return [coupon.title, coupon.code, coupon.percent, dueDate]
-          .toString()
-          .match(this.search)
-      })
+      if (this.search.trim() !== '') {
+        const result = this.allCoupons.filter((coupon) => {
+          // coupon.due_date 回傳時是 unix Timestamp，所以先處裡成 YYYY-MM-DD 格式
+          const dueDate = new Date(coupon.due_date * 1000).toLocaleDateString()
+          // 搜尋比對的是折扣券標題、折扣碼、折扣額度及日期
+          return [coupon.title, coupon.code, coupon.percent, dueDate]
+            .toString()
+            .match(this.search)
+        })
 
-      this.renderCoupons = result
+        this.renderCoupons = result
 
-      // 搜尋後，把頁面預設為第一頁
-      this.pagination = {
-        total_pages: this.pages,
-        current_page: 1,
-        has_pre: false,
-        has_next: true
+        // 搜尋後，把頁面預設為第一頁
+        this.pagination = {
+          total_pages: this.pages,
+          current_page: 1,
+          has_pre: false,
+          has_next: true
+        }
+      } else {
+        Swal.fire('搜尋內容請勿空白')
       }
     },
     // 把 methods 作為 filter 來轉換渲染的日期格式為 YYYY/MM/DD

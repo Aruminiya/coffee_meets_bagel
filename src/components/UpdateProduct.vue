@@ -147,8 +147,8 @@ export default {
             text: '產品內容已更新, 將返回產品列表',
             icon: 'success'
           })
-          this.$router.push('/admin/adminProducts')
           this.isLoading = false
+          this.$router.push('/admin/adminProducts')
         }).catch((err) => {
           this.isLoading = false
           Swal.fire(err.response.data.message)
