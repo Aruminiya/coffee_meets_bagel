@@ -42,8 +42,6 @@ export default {
         // 搜尋結果暫時先不處理分頁, 強制隱藏分頁
         this.pagination = false
         this.products = result
-        // 清空搜尋欄字串
-        this.search = ''
       } else {
         Swal.fire('搜尋內容請勿空白')
       }
@@ -149,6 +147,8 @@ export default {
     search () {
       if (this.search.trim() !== '') {
         this.pagination = false
+      } else {
+        this.getProducts()
       }
     }
   },
