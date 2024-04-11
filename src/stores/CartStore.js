@@ -53,12 +53,13 @@ export default defineStore('CartStore', {
     },
     // 編輯購物車商品
     editCarts (item) {
+      console.log(item)
       const cartId = item.id
 
       this.isCartsLoading = true
       const editData = {
         data: {
-          product_id: item.id,
+          product_id: item.product.id,
           qty: item.qty
         }
       }
